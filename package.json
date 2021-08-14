@@ -32,7 +32,7 @@
     "@ctrl/ngx-codemirror": "^5.0.0",
     "@pixi/canvas-renderer": "^6.1.1",
     "codemirror": "^5.62.2",
-    "lang-karol": "^0.1.1",
+    "@robotcoral/lang-karol": "^0.1.1",
     "pixi.js": "^6.1.1",
     "rxjs": "~6.6.0",
     "traviso.js": "^0.1.5",
