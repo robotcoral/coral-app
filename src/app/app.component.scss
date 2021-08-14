@@ -1,0 +1,35 @@
+.app-root {
+  height: 100%;
+}
+
+.split-container {
+  display: flex;
+
+  /* Misc */
+  height: 100%;
+  width: 100%;
+}
+
+.split-container-left {
+  /* Initially, the left takes 1/2 width */
+  width: 50%;
+}
+
+.split-border {
+  background-color: darkslategray;
+  cursor: ew-resize;
+  height: 100%;
+  width: 2px;
+}
+
+.split-container-right {
+  /* Take the remaining width */
+  flex: 1;
+  height: 100%;
+}
+
+app-editor,
+app-gameboard {
+  height: 100%;
+  display: block;
+}

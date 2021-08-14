@@ -1,0 +1,197 @@
+{
+  "tiles": {
+    "1": { "movable": true, "path": "t_1.png" },
+    "2": { "movable": true, "path": "t_2.png" }
+  },
+  "objects": {
+    "3": {
+      "movable": true,
+      "interactive": false,
+      "rowSpan": 1,
+      "columnSpan": 1,
+      "noTransparency": true,
+      "floor": false,
+      "visuals": {
+        "idle": {
+          "frames": [
+            { "path": "hero_stand_se_0001.png" },
+            { "path": "hero_stand_se_0002.png" },
+            { "path": "hero_stand_se_0003.png" },
+            { "path": "hero_stand_se_0004.png" },
+            { "path": "hero_stand_se_0005.png" },
+            { "path": "hero_stand_se_0006.png" }
+          ]
+        },
+        "idle_s": {
+          "frames": [
+            { "path": "hero_stand_se_0001.png" },
+            { "path": "hero_stand_se_0002.png" },
+            { "path": "hero_stand_se_0003.png" },
+            { "path": "hero_stand_se_0004.png" },
+            { "path": "hero_stand_se_0005.png" },
+            { "path": "hero_stand_se_0006.png" }
+          ]
+        },
+        "idle_sw": {
+          "path": "hero_stand_sw_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "idle_w": {
+          "path": "hero_stand_sw_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "idle_nw": {
+          "path": "hero_stand_nw_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "idle_n": {
+          "path": "hero_stand_ne_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "idle_ne": {
+          "path": "hero_stand_ne_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "idle_e": {
+          "path": "hero_stand_ne_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "idle_se": {
+          "path": "hero_stand_se_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "move_ne": {
+          "path": "hero_move_ne_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "move_nw": {
+          "path": "hero_move_nw_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "move_se": {
+          "path": "hero_move_se_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "move_sw": {
+          "path": "hero_move_sw_000",
+          "startIndex": 1,
+          "numberOfFrames": 6,
+          "extension": "png"
+        },
+        "flip": {
+          "frames": [
+            { "path": "hero_stand_se_0001.png" },
+            { "path": "hero_stand_se_0001.png" },
+            { "path": "hero_stand_sw_0001.png" },
+            { "path": "hero_stand_sw_0001.png" },
+            { "path": "hero_stand_nw_0001.png" },
+            { "path": "hero_stand_nw_0001.png" },
+            { "path": "hero_stand_ne_0001.png" },
+            { "path": "hero_stand_ne_0001.png" },
+            { "path": "hero_stand_se_0001.png" },
+            { "path": "hero_stand_se_0001.png" }
+          ]
+        }
+      }
+    },
+    "10": {
+      "movable": true,
+      "interactive": true,
+      "rowSpan": 1,
+      "columnSpan": 1,
+      "noTransparency": false,
+      "floor": false,
+      "visuals": { "idle": { "frames": [{ "path": "o_flag_0.png" }] } }
+    }
+  },
+  "initialControllableLocation": {
+    "columnIndex": 0,
+    "rowIndex": 0,
+    "controllableId": "3"
+  },
+  "tileHighlightImage": { "path": "tileHighlight.png" },
+  "groundMap": [
+    {
+      "row": "1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2"
+    },
+    {
+      "row": "2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1"
+    },
+    {
+      "row": "1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2"
+    },
+    {
+      "row": "2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1"
+    },
+    {
+      "row": "1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2"
+    },
+    {
+      "row": "2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1"
+    },
+    {
+      "row": "1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2"
+    },
+    {
+      "row": "2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1"
+    },
+    {
+      "row": "1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2"
+    },
+    {
+      "row": "2 ,1 ,2 ,1 ,2 ,1 ,2 ,1 ,2 ,1"
+    }
+  ],
+  "objectsMap": [
+    {
+      "row": "3 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,10,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    },
+    {
+      "row": "0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0"
+    }
+  ]
+}

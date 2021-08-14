@@ -1,0 +1,21 @@
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/material";
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.CodeMirror {
+  height: 100%;
+}
