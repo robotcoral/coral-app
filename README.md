@@ -1,5 +1,5 @@
 <p align="center">
-<img src="resources/coral.svg" height="100px" alt="Logo" />
+<img src="https://cdn.robotcoral.de/coral.svg" height="100px" alt="Logo" />
 </p>
 
 <p align="center">
