@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { basicSetup } from '@codemirror/basic-setup';
+import { EditorStateConfig } from '@robotcoral/ngx-codemirror6';
 
 @Component({
   selector: 'app-editor',
@@ -7,9 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorComponent {
   sourceCode = '';
-  readonly codemirrorOptions = {
-    lineNumbers: true,
-    theme: 'material',
-    mode: { name: 'javascript', typescript: true },
+  config: EditorStateConfig = {
+    extensions: [basicSetup],
   };
 }

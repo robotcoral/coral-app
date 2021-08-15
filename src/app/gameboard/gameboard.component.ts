@@ -1,20 +1,12 @@
-import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { Sprite, Application } from 'pixi.js';
-import {
-  EngineView,
-  getEngineInstance,
-  TEngineConfiguration,
-} from 'traviso.js';
-
-type ControlSprites = { zoomIn: Sprite; zoomOut: Sprite; centralize: Sprite };
+  BoxGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from 'three';
 
 @Component({
   selector: 'app-gameboard',
@@ -22,103 +14,53 @@ type ControlSprites = { zoomIn: Sprite; zoomOut: Sprite; centralize: Sprite };
   styleUrls: ['./gameboard.component.scss'],
 })
 export class GameboardComponent implements AfterViewInit {
-  canvas: HTMLElement;
   @ViewChild('gameboard')
   gameboardRef: ElementRef;
   gameboard: HTMLElement;
-  pixiRoot: Application;
-  engine: EngineView;
-  instanceConfig: TEngineConfiguration = {
-    mapDataPath: '../../assets/traviso/mapData.json', // the path to the json file that defines map data, required
-    assetsToLoad: [
-      '../../assets/traviso/assets_map.json',
-      '../../assets/traviso/assets_characters.json',
-    ],
-    engineInstanceReadyCallback: this.onEngineInstanceReady.bind(this),
-  };
-  sprites: ControlSprites = { zoomIn: null, zoomOut: null, centralize: null };
-
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  canvas: HTMLElement;
+  scene: Scene;
+  camera: PerspectiveCamera;
+  renderer: WebGLRenderer;
+  geometry: BoxGeometry;
+  material: MeshBasicMaterial;
+  cube: Mesh;
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
-    this.pixiRoot = new Application({
-      resizeTo: this.gameboard,
-      backgroundColor: 0x6bacde,
-    });
 
-    this.gameboard.appendChild(this.pixiRoot.view);
-    this.engine = getEngineInstance(this.instanceConfig);
-    this.canvas = this.document.getElementsByTagName('canvas')[0];
-  }
+    this.scene = new Scene();
+    this.camera = new PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
 
-  positionControls() {
-    // set positions
-    this.sprites.zoomIn.position.x =
-      this.pixiRoot.renderer.width - 8 - this.sprites.zoomIn.width;
-    this.sprites.zoomIn.position.y =
-      this.pixiRoot.renderer.height / 2 -
-      8 -
-      this.sprites.zoomIn.height -
-      this.sprites.zoomOut.height / 2;
+    this.renderer = new WebGLRenderer();
+    this.renderer.setSize(
+      this.gameboard.clientWidth,
+      this.gameboard.clientHeight
+    );
+    this.gameboard.appendChild(this.renderer.domElement);
 
-    this.sprites.zoomOut.position.x =
-      this.pixiRoot.renderer.width - 8 - this.sprites.zoomOut.width;
-    this.sprites.zoomOut.position.y =
-      this.pixiRoot.renderer.height / 2 - this.sprites.zoomIn.height / 2;
+    this.geometry = new BoxGeometry(1, 1, 1);
+    this.material = new MeshBasicMaterial({ color: 0x00ff00 });
+    this.cube = new Mesh(this.geometry, this.material);
+    this.scene.add(this.cube);
 
-    this.sprites.centralize.position.x =
-      this.pixiRoot.renderer.width - 8 - this.sprites.centralize.width;
-    this.sprites.centralize.position.y =
-      this.pixiRoot.renderer.height / 2 + 8 + this.sprites.zoomOut.height / 2;
-  }
+    this.camera.position.z = 5;
 
-  onEngineInstanceReady() {
-    this.pixiRoot.stage.addChild(this.engine);
+    this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
 
-    this.pixiRoot.loader
-      .add('zoomIn', '../../assets/traviso/btn_zoomIn.png')
-      .add('zoomOut', '../../assets/traviso/btn_zoomOut.png')
-      .add('centralize', '../../assets/traviso/btn_centralize.png');
+    const animate = () => {
+      requestAnimationFrame(animate);
 
-    this.pixiRoot.loader.load((loader, resources) => {
-      this.sprites = {
-        zoomIn: new Sprite(resources.zoomIn.texture),
-        zoomOut: new Sprite(resources.zoomOut.texture),
-        centralize: new Sprite(resources.centralize.texture),
-      };
-    });
+      this.cube.rotation.x += 0.01;
+      this.cube.rotation.y += 0.01;
 
-    this.pixiRoot.loader.onComplete.add(() => {
-      this.pixiRoot.stage.addChild(this.sprites.zoomIn);
-      this.pixiRoot.stage.addChild(this.sprites.zoomOut);
-      this.pixiRoot.stage.addChild(this.sprites.centralize);
+      this.renderer.render(this.scene, this.camera);
+    };
 
-      this.positionControls();
-
-      this.sprites.zoomIn['interactive'] = this.sprites.zoomIn['buttonMode'] =
-        true;
-      this.sprites.zoomOut['interactive'] = this.sprites.zoomOut['buttonMode'] =
-        true;
-      this.sprites.centralize['interactive'] = this.sprites.centralize[
-        'buttonMode'
-      ] = true;
-
-      // add click callbacks
-      this.sprites.zoomIn['click'] = this.sprites.zoomIn['tap'] = () => {
-        this.engine.zoomIn(false);
-      };
-
-      this.sprites.zoomOut['click'] = this.sprites.zoomOut['tap'] = () => {
-        this.engine.zoomOut(false);
-      };
-
-      this.sprites.centralize['click'] = this.sprites.centralize['tap'] =
-        () => {
-          this.engine.centralizeToCurrentExternalCenter(false);
-        };
-    });
-
-    this.pixiRoot.renderer['on']('resize', this.positionControls.bind(this));
+    animate();
   }
 }

@@ -58,11 +58,8 @@ export class AppComponent implements AfterViewInit {
     this.rightSide.style.pointerEvents = 'none';
 
     // resize canvas
-    //@ts-ignore
-    this.gameboard.canvas.width = this.gameboard.gameboard.width;
-    //@ts-ignore
-    this.gameboard.canvas.height = this.gameboard.gameboard.width;
-    this.gameboard.pixiRoot.resize();
+    this.gameboard.canvas.style.width =
+      this.gameboard.gameboard.clientWidth + 'px';
   };
 
   mouseUpHandler = () => {
