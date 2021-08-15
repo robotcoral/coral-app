@@ -1,2 +1,5 @@
 <app-gameboard-view class="gameboard-view"></app-gameboard-view>
-<app-gameboard-controls></app-gameboard-controls>
+<app-gameboard-controls
+  (move)="move()"
+  (rotate)="rotate($event)"
+></app-gameboard-controls>

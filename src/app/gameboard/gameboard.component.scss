@@ -9,5 +9,7 @@ app-gameboard-controls {
   height: 4rem;
   box-shadow: -1px -2px 4px grey;
   border-top-left-radius: 2rem;
+  display: flex;
   align-items: center;
+  justify-content: center;
 }

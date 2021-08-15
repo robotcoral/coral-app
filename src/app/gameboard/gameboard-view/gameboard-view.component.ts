@@ -2,12 +2,13 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import {
   BoxGeometry,
   Color,
+  CubeTextureLoader,
   GridHelper,
   Mesh,
   MeshBasicMaterial,
-  MeshLambertMaterial,
   PerspectiveCamera,
   Scene,
+  Vector3,
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from './utils/OrbitControls.js';
@@ -26,11 +27,15 @@ export class GameboardViewComponent implements AfterViewInit {
   scene: Scene;
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
-  rollOverMaterial: MeshBasicMaterial;
-  rollOverMesh: Mesh;
-  cubeGeo: BoxGeometry;
-  cubeMaterial: MeshLambertMaterial;
-  controls;
+  controls; // OrbitControls
+
+  robotGeo: BoxGeometry;
+  robotMaterial: MeshBasicMaterial;
+  robot: Mesh;
+  robotPos = new Vector3(1, 1, 1);
+  robotDir = new Vector3(1, 0, 0);
+
+  scale = new Vector3(50, 50, 50);
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
@@ -53,12 +58,31 @@ export class GameboardViewComponent implements AfterViewInit {
     this.camera.lookAt(0, 0, 0);
 
     // cubes
-    this.cubeGeo = new BoxGeometry(50, 50, 50);
-    this.cubeMaterial = new MeshLambertMaterial({ color: 0xfeb74c });
+    this.robotGeo = new BoxGeometry(50, 50, 50);
+    const loader = new CubeTextureLoader();
+    loader.setPath('assets/materials/');
+    this.robotMaterial = new MeshBasicMaterial({
+      color: 0xffffff,
+      envMap: loader.load([
+        'side.png',
+        'face.png',
+        'side.png',
+        'side.png',
+        'side.png',
+        'side.png',
+      ]),
+    });
 
     // grid
     const gridHelper = new GridHelper(1000, 20);
     this.scene.add(gridHelper);
+
+    // robot
+    this.robot = new Mesh(this.robotGeo, this.robotMaterial);
+    this.robot.position
+      .set(0, 0, 0)
+      .add(this.robotPos.multiply(new Vector3(25, 25, 25)));
+    this.scene.add(this.robot);
 
     this.renderer = new WebGLRenderer({ antialias: true });
     this.renderer.setSize(
@@ -87,5 +111,16 @@ export class GameboardViewComponent implements AfterViewInit {
       this.gameboard.clientWidth,
       this.gameboard.clientHeight
     );
+  }
+
+  move() {
+    this.robot.position.add(this.robotDir.clone().multiply(this.scale));
+  }
+
+  rotate(dir = 1) {
+    const axis = new Vector3(0, 1, 0);
+    const angle = (Math.PI / 2) * dir;
+    this.robotDir.applyAxisAngle(axis, angle);
+    this.robot.rotateZ(angle);
   }
 }
