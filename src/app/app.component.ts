@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { GameboardViewComponent } from './gameboard/gameboard-view/gameboard-view.component';
 import { GameboardComponent } from './gameboard/gameboard.component';
 
 @Component({
@@ -9,6 +10,7 @@ import { GameboardComponent } from './gameboard/gameboard.component';
 export class AppComponent implements AfterViewInit {
   @ViewChild(GameboardComponent)
   gameboard: GameboardComponent;
+  gameboardView: GameboardViewComponent;
   @ViewChild('splitBorder', { static: true })
   resizerRef: ElementRef;
   resizer: HTMLElement;
@@ -19,6 +21,7 @@ export class AppComponent implements AfterViewInit {
   leftWidth = 0;
 
   ngAfterViewInit(): void {
+    this.gameboardView = this.gameboard.gameboardView;
     this.resizer = this.resizerRef.nativeElement;
     this.leftSide = this.resizer.previousElementSibling as HTMLElement;
     this.rightSide = this.resizer.nextElementSibling as HTMLElement;
@@ -58,8 +61,8 @@ export class AppComponent implements AfterViewInit {
     this.rightSide.style.pointerEvents = 'none';
 
     // resize canvas
-    this.gameboard.canvas.style.width =
-      this.gameboard.gameboard.clientWidth + 'px';
+    this.gameboardView.canvas.style.width =
+      this.gameboardView.gameboard.clientWidth + 'px';
   };
 
   mouseUpHandler = () => {
