@@ -9,6 +9,8 @@ export class GameboardControlsComponent {
   @Output() move = new EventEmitter();
   @Output() rotate = new EventEmitter<number>();
 
+  cube = true;
+
   onMove() {
     this.move.emit(null);
   }
