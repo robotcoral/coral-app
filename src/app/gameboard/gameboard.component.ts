@@ -34,9 +34,12 @@ export class GameboardComponent {
     }
   }
 
-  pickUp() {
+  pickUp(block: boolean) {
     try {
-      this.gameboardView.pickUpSlab();
-    } catch (error) {}
+      if (block) this.gameboardView.pickUpBlock();
+      else this.gameboardView.pickUpSlab();
+    } catch (error) {
+      this.toastr.error(error);
+    }
   }
 }

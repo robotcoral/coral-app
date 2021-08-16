@@ -9,7 +9,7 @@ export class GameboardControlsComponent {
   @Output() move = new EventEmitter();
   @Output() rotate = new EventEmitter<number>();
   @Output() place = new EventEmitter<string>();
-  @Output() pickUp = new EventEmitter();
+  @Output() pickUp = new EventEmitter<boolean>();
 
   cube = true;
   colors = {
@@ -46,6 +46,6 @@ export class GameboardControlsComponent {
   }
 
   onPickUp() {
-    this.pickUp.emit();
+    this.pickUp.emit(this.cube);
   }
 }

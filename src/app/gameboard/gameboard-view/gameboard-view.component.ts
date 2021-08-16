@@ -206,8 +206,8 @@ export class GameboardViewComponent implements AfterViewInit {
     destVector.y = 0;
     var dest = this.world[destVector.x][destVector.z];
 
-    if (dest instanceof Array) {
-      throw new Error('There are already slabs on this field');
+    if (dest !== undefined) {
+      throw new Error('There is already something on this field');
     } else {
       dest = new Block(this.gridScale);
       dest.position
@@ -224,13 +224,27 @@ export class GameboardViewComponent implements AfterViewInit {
     const destVector = this.robotPos.clone().add(this.robotDir);
     var dest = this.world[destVector.x][destVector.z];
     if (dest instanceof Block) {
-      throw new Error("You can't pick up blocks");
+      throw new Error('There are no slabs to pick up');
     } else {
       if (!dest) throw new Error('Nothing to pick up');
 
       this.scene.remove(dest.pop());
       this.world[destVector.x][destVector.z] = dest.length ? dest : undefined;
     }
+  }
+
+  pickUpBlock() {
+    if (this.outOfBounds()) throw new Error("You can't pick up walls");
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    var dest = this.world[destVector.x][destVector.z];
+
+    if (dest === undefined) throw new Error('Nothing to pick up');
+    if (!(dest instanceof Block)) {
+      throw new Error('There is no block to pick up');
+    }
+
+    this.scene.remove(dest);
+    this.world[destVector.x][destVector.z] = undefined;
   }
 
   rotate(dir = 1) {
