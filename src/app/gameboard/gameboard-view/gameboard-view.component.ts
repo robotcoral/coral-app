@@ -3,14 +3,15 @@ import {
   BoxGeometry,
   Color,
   CubeTextureLoader,
-  GridHelper,
   Mesh,
   MeshBasicMaterial,
+  Object3D,
   PerspectiveCamera,
   Scene,
   Vector3,
   WebGLRenderer,
 } from 'three';
+import { Grid } from './utils/grid';
 import { OrbitControls } from './utils/OrbitControls.js';
 
 @Component({
@@ -28,11 +29,12 @@ export class GameboardViewComponent implements AfterViewInit {
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
   controls; // OrbitControls
+  grid: Object3D;
+  gridSize = { x: 9, y: 10 };
+  gridScale = 50;
 
-  robotGeo: BoxGeometry;
-  robotMaterial: MeshBasicMaterial;
   robot: Mesh;
-  robotPos = new Vector3(1, 1, 1);
+  robotPos = new Vector3(0, 0, 0);
   robotDir = new Vector3(1, 0, 0);
 
   scale = new Vector3(50, 50, 50);
@@ -57,11 +59,40 @@ export class GameboardViewComponent implements AfterViewInit {
     this.camera.position.set(500, 800, 1300);
     this.camera.lookAt(0, 0, 0);
 
-    // cubes
-    this.robotGeo = new BoxGeometry(50, 50, 50);
+    // grid
+    this.initGrid();
+
+    // robot
+    this.initRobot();
+
+    this.renderer = new WebGLRenderer({ antialias: true });
+    this.renderer.setSize(
+      this.gameboard.clientWidth,
+      this.gameboard.clientHeight
+    );
+    this.gameboard.appendChild(this.renderer.domElement);
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.update();
+  }
+
+  initGrid() {
+    this.grid = new Grid({
+      height: this.gridSize.x,
+      width: this.gridSize.y,
+      cellHeight: this.gridScale,
+      cellWidth: this.gridScale,
+      color: 0x444444,
+      zOffset: -25,
+    });
+    this.scene.add(this.grid);
+  }
+
+  initRobot() {
+    const robotGeo = new BoxGeometry(50, 50, 50);
+
     const loader = new CubeTextureLoader();
     loader.setPath('assets/materials/');
-    this.robotMaterial = new MeshBasicMaterial({
+    const robotMaterial = new MeshBasicMaterial({
       color: 0xffffff,
       envMap: loader.load([
         'side.png',
@@ -72,26 +103,16 @@ export class GameboardViewComponent implements AfterViewInit {
         'side.png',
       ]),
     });
+    this.robot = new Mesh(robotGeo, robotMaterial);
 
-    // grid
-    const gridHelper = new GridHelper(1000, 20);
-    this.scene.add(gridHelper);
-
-    // robot
-    this.robot = new Mesh(this.robotGeo, this.robotMaterial);
-    this.robot.position
-      .set(0, 0, 0)
-      .add(this.robotPos.multiply(new Vector3(25, 25, 25)));
-    this.scene.add(this.robot);
-
-    this.renderer = new WebGLRenderer({ antialias: true });
-    this.renderer.setSize(
-      this.gameboard.clientWidth,
-      this.gameboard.clientHeight
+    const offsetVector = new Vector3(
+      (this.gridSize.x / 2 - 0.5) * -this.gridScale,
+      0,
+      (this.gridSize.y / 2 - 0.5) * -this.gridScale
     );
-    this.gameboard.appendChild(this.renderer.domElement);
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.update();
+    this.robot.position.set(0, 0, 0).add(offsetVector);
+
+    this.scene.add(this.robot);
   }
 
   render() {
@@ -114,13 +135,23 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   move() {
+    if (this.moveOutOfBounds()) return console.error('Out of bounds');
+    this.robotPos.add(this.robotDir);
     this.robot.position.add(this.robotDir.clone().multiply(this.scale));
   }
 
+  moveOutOfBounds() {
+    const moveTo = this.robotPos.clone().add(this.robotDir);
+    return (
+      moveTo.x >= this.gridSize.x ||
+      moveTo.x < 0 ||
+      moveTo.z >= this.gridSize.y ||
+      moveTo.z < 0
+    );
+  }
+
   rotate(dir = 1) {
-    const axis = new Vector3(0, 1, 0);
-    const angle = (Math.PI / 2) * dir;
-    this.robotDir.applyAxisAngle(axis, angle);
-    this.robot.rotateZ(angle);
+    this.robotDir.multiply(new Vector3(0 - dir, 0, 0 + dir));
+    [this.robotDir.x, this.robotDir.z] = [this.robotDir.z, this.robotDir.x];
   }
 }
