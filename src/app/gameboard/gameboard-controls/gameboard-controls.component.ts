@@ -8,6 +8,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class GameboardControlsComponent {
   @Output() move = new EventEmitter();
   @Output() rotate = new EventEmitter<number>();
+  @Output() place = new EventEmitter<string>();
+  @Output() pickUp = new EventEmitter();
 
   cube = true;
   colors = {
@@ -37,5 +39,13 @@ export class GameboardControlsComponent {
   onColorSelect(color: string) {
     this.color = color;
     this.onColorMenu();
+  }
+
+  onPlace() {
+    this.place.emit(/*this.cube ? '' :*/ this.colors[this.color]);
+  }
+
+  onPickUp() {
+    this.pickUp.emit();
   }
 }

@@ -17,4 +17,12 @@ export class GameboardComponent {
   rotate(dir = 1) {
     this.gameboardView.rotate(dir);
   }
+
+  place(color: string) {
+    if (color) this.gameboardView.placeSlab(color);
+  }
+
+  pickUp() {
+    this.gameboardView.pickUpSlab();
+  }
 }

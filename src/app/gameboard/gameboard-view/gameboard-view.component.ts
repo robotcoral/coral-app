@@ -12,6 +12,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { Grid } from './utils/grid';
+import { Block, Slab } from './utils/objects';
 import { OrbitControls } from './utils/OrbitControls.js';
 
 @Component({
@@ -30,18 +31,20 @@ export class GameboardViewComponent implements AfterViewInit {
   renderer: WebGLRenderer;
   controls; // OrbitControls
   grid: Object3D;
-  gridSize = { x: 9, y: 10 };
+  gridSize = { x: 9, y: 10, z: 5 };
   gridScale = 50;
+  world: (Slab[] | Block)[][];
 
   robot: Mesh;
   robotPos = new Vector3(0, 0, 0);
   robotDir = new Vector3(1, 0, 0);
 
-  scale = new Vector3(50, 50, 50);
+  offsetVector: Vector3;
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
     this.init();
+    this.initWorld();
     this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
     this.render();
   }
@@ -75,6 +78,12 @@ export class GameboardViewComponent implements AfterViewInit {
     this.controls.update();
   }
 
+  initWorld() {
+    this.world = [];
+    for (var i = 0; i < this.gridSize.x; i++)
+      this.world.push(new Array(this.gridSize.y));
+  }
+
   initGrid() {
     this.grid = new Grid({
       height: this.gridSize.x,
@@ -85,6 +94,12 @@ export class GameboardViewComponent implements AfterViewInit {
       zOffset: -25,
     });
     this.scene.add(this.grid);
+
+    this.offsetVector = new Vector3(
+      (this.gridSize.x / 2 - 0.5) * -this.gridScale,
+      0,
+      (this.gridSize.y / 2 - 0.5) * -this.gridScale
+    );
   }
 
   initRobot() {
@@ -105,12 +120,7 @@ export class GameboardViewComponent implements AfterViewInit {
     });
     this.robot = new Mesh(robotGeo, robotMaterial);
 
-    const offsetVector = new Vector3(
-      (this.gridSize.x / 2 - 0.5) * -this.gridScale,
-      0,
-      (this.gridSize.y / 2 - 0.5) * -this.gridScale
-    );
-    this.robot.position.set(0, 0, 0).add(offsetVector);
+    this.robot.position.set(0, 0, 0).add(this.offsetVector);
 
     this.scene.add(this.robot);
   }
@@ -135,12 +145,13 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   move() {
-    if (this.moveOutOfBounds()) return console.error('Out of bounds');
+    console.log(this.world);
+    if (this.outOfBounds()) return console.error('Out of bounds');
     this.robotPos.add(this.robotDir);
-    this.robot.position.add(this.robotDir.clone().multiply(this.scale));
+    this.robot.position.addScaledVector(this.robotDir, this.gridScale);
   }
 
-  moveOutOfBounds() {
+  outOfBounds() {
     const moveTo = this.robotPos.clone().add(this.robotDir);
     return (
       moveTo.x >= this.gridSize.x ||
@@ -148,6 +159,42 @@ export class GameboardViewComponent implements AfterViewInit {
       moveTo.z >= this.gridSize.y ||
       moveTo.z < 0
     );
+  }
+
+  placeSlab(color: string) {
+    if (this.outOfBounds()) return console.error('Out of bounds');
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    var dest = this.world[destVector.x][destVector.z];
+    if (dest instanceof Block) {
+      return console.error('Blocked');
+    } else {
+      if (dest?.length >= this.gridSize.z) return console.error('Max Height');
+      if (!dest) dest = [];
+
+      const slab = new Slab(this.gridScale, color);
+      const height = dest.push(slab);
+      destVector.y = -0.75 + 0.5 * height;
+      slab.position
+        .add(this.offsetVector)
+        .addScaledVector(destVector, this.gridScale);
+      this.scene.add(slab);
+
+      this.world[destVector.x][destVector.z] = dest;
+    }
+  }
+
+  pickUpSlab() {
+    if (this.outOfBounds()) return console.error('Out of bounds');
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    var dest = this.world[destVector.x][destVector.z];
+    if (dest instanceof Block) {
+      return console.error('Blocked');
+    } else {
+      if (!dest) return console.error('Nothing to pick up');
+
+      this.scene.remove(dest.pop());
+      this.world[destVector.x][destVector.z] = dest.length ? dest : undefined;
+    }
   }
 
   rotate(dir = 1) {
