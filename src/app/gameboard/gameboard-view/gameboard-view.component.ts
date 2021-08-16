@@ -145,8 +145,7 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   move() {
-    console.log(this.world);
-    if (this.outOfBounds()) return console.error('Out of bounds');
+    if (this.outOfBounds()) throw new Error('There is a wall in front of you');
     this.robotPos.add(this.robotDir);
     this.robot.position.addScaledVector(this.robotDir, this.gridScale);
   }
@@ -162,13 +161,15 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   placeSlab(color: string) {
-    if (this.outOfBounds()) return console.error('Out of bounds');
+    if (this.outOfBounds())
+      throw new Error("You can't place slabs outside the map");
     const destVector = this.robotPos.clone().add(this.robotDir);
     var dest = this.world[destVector.x][destVector.z];
     if (dest instanceof Block) {
-      return console.error('Blocked');
+      throw new Error('There is a block on this field');
     } else {
-      if (dest?.length >= this.gridSize.z) return console.error('Max Height');
+      if (dest?.length >= this.gridSize.z)
+        throw new Error("You can't put more blocks on this tile");
       if (!dest) dest = [];
 
       const slab = new Slab(this.gridScale, color);
@@ -184,11 +185,12 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   placeBlock() {
-    if (this.outOfBounds()) return console.error('Out of bounds');
+    if (this.outOfBounds())
+      throw new Error("You can't place blocks outside the map");
     const destVector = this.robotPos.clone().add(this.robotDir);
     var dest = this.world[destVector.x][destVector.z];
     if (dest instanceof Array) {
-      return console.error('Blocked');
+      throw new Error('There are already slabs on this field');
     } else {
       dest = new Block(this.gridScale);
       dest.position
@@ -201,13 +203,13 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   pickUpSlab() {
-    if (this.outOfBounds()) return console.error('Out of bounds');
+    if (this.outOfBounds()) throw new Error("You can't pick up walls");
     const destVector = this.robotPos.clone().add(this.robotDir);
     var dest = this.world[destVector.x][destVector.z];
     if (dest instanceof Block) {
-      return console.error('Blocked');
+      throw new Error("You can't pick up blocks");
     } else {
-      if (!dest) return console.error('Nothing to pick up');
+      if (!dest) throw new Error('Nothing to pick up');
 
       this.scene.remove(dest.pop());
       this.world[destVector.x][destVector.z] = dest.length ? dest : undefined;
