@@ -32,10 +32,8 @@
     "@pixi/canvas-renderer": "^6.1.1",
     "@robotcoral/lang-karol": "^0.1.1",
     "@robotcoral/ngx-codemirror6": "^0.0.3",
-    "pixi.js": "^6.1.1",
     "rxjs": "~6.6.0",
     "three": "^0.131.3",
-    "traviso.js": "^0.1.5",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },
