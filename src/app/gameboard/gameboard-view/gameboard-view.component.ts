@@ -201,8 +201,11 @@ export class GameboardViewComponent implements AfterViewInit {
   placeBlock() {
     if (this.outOfBounds())
       throw new Error("You can't place blocks outside the map");
+
     const destVector = this.robotPos.clone().add(this.robotDir);
+    destVector.y = 0;
     var dest = this.world[destVector.x][destVector.z];
+
     if (dest instanceof Array) {
       throw new Error('There are already slabs on this field');
     } else {
