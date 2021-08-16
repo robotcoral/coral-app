@@ -1,28 +1,54 @@
-<button (click)="onRotate()">
-  <img
-    src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
-    alt="RL"
-  />
-</button>
-<button (click)="onMove()">
-  <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" /></button
-><button (click)="onRotate(-1)">
-  <img src="assets/icons/ic_fluent_arrow_clockwise_24_regular.svg" alt="RR" />
-</button>
+<div class="left-controls controls">
+  <button (click)="onRotate()">
+    <img
+      src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
+      alt="RL"
+    />
+  </button>
+  <button (click)="onMove()">
+    <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" />
+  </button>
+  <button (click)="onRotate(-1)">
+    <img src="assets/icons/ic_fluent_arrow_clockwise_24_regular.svg" alt="RR" />
+  </button>
+</div>
+
 <div class="separator"></div>
-<button (click)="cube = !cube">
-  <img
-    *ngIf="cube"
-    src="assets/icons/ic_fluent_cube_24_regular.svg"
-    alt="B"
-  /><img
-    *ngIf="!cube"
-    src="assets/icons/ic_fluent_slab_24_regular.svg"
-    alt="B"
-  /></button
-><button>
-  <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A" />
-</button>
-<button>
-  <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="S" />
-</button>
+<div class="right-controls controls">
+  <button (click)="cube = !cube">
+    <img
+      [src]="
+        cube
+          ? 'assets/icons/ic_fluent_cube_24_regular.svg'
+          : 'assets/icons/ic_fluent_slab_24_regular.svg'
+      "
+      alt="B"
+    />
+  </button>
+  <div class="color-wrapper" *ngIf="!cube">
+    <div [style]="style" class="color-menu">
+      <button [style.background-color]="colors[color]">
+        <img
+          src="assets/icons/ic_fluent_color_24_regular.svg"
+          alt="A"
+          (click)="onColorMenu()"
+        />
+      </button>
+      <ng-container *ngIf="colorExpanded">
+        <button
+          *ngFor="let c of colors | keyvalue"
+          class="colorbtn"
+          [style.background-color]="c.value"
+          [style.display]="c.key == color ? 'none' : ''"
+          (click)="onColorSelect(c.key)"
+        ></button>
+      </ng-container>
+    </div>
+  </div>
+  <button>
+    <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A" />
+  </button>
+  <button>
+    <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="S" />
+  </button>
+</div>

@@ -1,11 +1,54 @@
 .separator {
-  background-color: darkslategray;
+  background-color: slategray;
   width: 2px;
-  height: 2rem;
-  margin: 0.5rem 0.5rem;
+  height: 2.5rem;
+  border-radius: 2px;
 }
 
 img {
   height: 2rem;
-  margin: 0.5rem 0.5rem;
+  margin: 0.25rem;
+}
+
+button,
+.separator {
+  margin: 0.5rem;
+}
+
+button {
+  border: 0px;
+  min-height: 3rem;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: lightgray;
+}
+
+.controls {
+  flex: 1;
+  display: flex;
+}
+
+.left-controls {
+  justify-content: right;
+}
+
+.color-wrapper {
+  min-width: 4rem;
+}
+
+.color-menu {
+  display: flex;
+  flex-direction: column-reverse;
+  border-radius: 6px;
+  margin: 0.25rem;
+}
+
+.color-menu button {
+  margin: 0.25rem;
+}
+
+.colorbtn {
+  border-radius: 2rem !important;
 }
