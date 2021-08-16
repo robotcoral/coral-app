@@ -11,6 +11,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
+import { CARDINALS } from '../gameboard.component';
 import { Grid } from './utils/grid';
 import { Block, Slab } from './utils/objects';
 import { OrbitControls } from './utils/OrbitControls.js';
@@ -247,8 +248,38 @@ export class GameboardViewComponent implements AfterViewInit {
     this.world[destVector.x][destVector.z] = undefined;
   }
 
+  isSlab(amount = 0): boolean {
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    if (
+      this.world[destVector.x][destVector.z] === undefined ||
+      this.world[destVector.x][destVector.z] instanceof Block
+    )
+      return false;
+    return (this.world[destVector.x][destVector.z] as Slab[]).length >= amount;
+  }
+
+  isSlabColor(color: string): boolean {
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    if (!this.isSlab) return false;
+    return (
+      (this.world[destVector.x][destVector.z] as Slab[])[-1].color === color
+    );
+  }
+
   rotate(dir = 1) {
     this.robotDir.multiply(new Vector3(0 - dir, 0, 0 + dir));
     [this.robotDir.x, this.robotDir.z] = [this.robotDir.z, this.robotDir.x];
+  }
+
+  isCardinal(cardinal: CARDINALS): boolean {
+    return this.getCardinal() === cardinal;
+  }
+
+  private getCardinal(): CARDINALS {
+    if (this.robotDir.x === 1) return CARDINALS.NORTH;
+    if (this.robotDir.x === -1) return CARDINALS.SOUTH;
+    if (this.robotDir.y === 1) return CARDINALS.EAST;
+    if (this.robotDir.y === 1) return CARDINALS.WEST;
+    return null;
   }
 }
