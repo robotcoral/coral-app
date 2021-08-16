@@ -42,7 +42,7 @@ export class GameboardControlsComponent {
   }
 
   onPlace() {
-    this.place.emit(/*this.cube ? '' :*/ this.colors[this.color]);
+    this.place.emit(this.cube ? '' : this.colors[this.color]);
   }
 
   onPickUp() {

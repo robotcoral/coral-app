@@ -10,8 +10,8 @@ export class Slab extends Mesh {
 
 export class Block extends Mesh {
   constructor(scale: number) {
-    const geometry = new BoxGeometry(scale);
-    const material = new MeshBasicMaterial({ color: 0xf0f0f0 });
+    const geometry = new BoxGeometry(scale, scale, scale);
+    const material = new MeshBasicMaterial({ color: 0x0 });
     super(geometry, material);
   }
 }

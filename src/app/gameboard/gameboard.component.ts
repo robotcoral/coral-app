@@ -20,6 +20,7 @@ export class GameboardComponent {
 
   place(color: string) {
     if (color) this.gameboardView.placeSlab(color);
+    else this.gameboardView.placeBlock();
   }
 
   pickUp() {

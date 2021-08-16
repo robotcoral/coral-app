@@ -183,6 +183,23 @@ export class GameboardViewComponent implements AfterViewInit {
     }
   }
 
+  placeBlock() {
+    if (this.outOfBounds()) return console.error('Out of bounds');
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    var dest = this.world[destVector.x][destVector.z];
+    if (dest instanceof Array) {
+      return console.error('Blocked');
+    } else {
+      dest = new Block(this.gridScale);
+      dest.position
+        .add(this.offsetVector)
+        .addScaledVector(destVector, this.gridScale);
+      this.scene.add(dest);
+
+      this.world[destVector.x][destVector.z] = dest;
+    }
+  }
+
   pickUpSlab() {
     if (this.outOfBounds()) return console.error('Out of bounds');
     const destVector = this.robotPos.clone().add(this.robotDir);
