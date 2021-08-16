@@ -146,8 +146,22 @@ export class GameboardViewComponent implements AfterViewInit {
 
   move() {
     if (this.outOfBounds()) throw new Error('There is a wall in front of you');
+    this.checkCollision();
     this.robotPos.add(this.robotDir);
     this.robot.position.addScaledVector(this.robotDir, this.gridScale);
+  }
+
+  checkCollision() {
+    const destVector = this.robotPos.clone().add(this.robotDir);
+    if (this.world[destVector.x][destVector.z] instanceof Block)
+      throw new Error('There is a block in front of you');
+
+    let height = (this.world[destVector.x][destVector.z] as Slab[])?.length;
+    height = height || 0;
+
+    if (height > this.robotPos.y * 2 + 1)
+      throw new Error("You can't jump this high");
+    this.robotDir.y = (height - this.robotPos.y * 2) * 0.5;
   }
 
   outOfBounds() {
