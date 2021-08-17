@@ -7,6 +7,6 @@ RUN ng build --outputPath=./dist/out --prod
 
 FROM nginx:1.20.1-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder dist/out /usr/share/nginx/html
+COPY --from=builder app/dist/out /usr/share/nginx/html
 EXPOSE 80
 ENTRYPOINT ["nginx","-g","daemon off;"]
