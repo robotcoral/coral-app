@@ -1,18 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  BoxGeometry,
-  Color,
-  CubeTextureLoader,
-  Mesh,
-  MeshBasicMaterial,
-  PerspectiveCamera,
-  Scene,
-  Vector3,
-  WebGLRenderer,
-} from 'three';
-import { CARDINALS } from '../gameboard.component';
+import { Color, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 import { OrbitControls } from './utils/OrbitControls.js';
-import { Coordinates3, World } from './utils/world';
+import { Robot } from './utils/robot';
+import { World } from './utils/world';
 
 @Component({
   selector: 'app-gameboard-view',
@@ -33,9 +23,7 @@ export class GameboardViewComponent implements AfterViewInit {
 
   world: World;
 
-  robot: Mesh;
-  robotPos = new Vector3(0, 0, 0);
-  robotDir = new Vector3(1, 0, 0);
+  robot: Robot;
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
@@ -76,26 +64,8 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   initRobot() {
-    const robotGeo = new BoxGeometry(50, 50, 50);
-
-    const loader = new CubeTextureLoader();
-    loader.setPath('assets/materials/');
-    const robotMaterial = new MeshBasicMaterial({
-      color: 0xffffff,
-      envMap: loader.load([
-        'side.png',
-        'face.png',
-        'side.png',
-        'side.png',
-        'side.png',
-        'side.png',
-      ]),
-    });
-    this.robot = new Mesh(robotGeo, robotMaterial);
-
-    this.robot.position.set(0, 0, 0).add(this.world.offsetVector);
-
-    this.scene.add(this.robot);
+    this.robot = new Robot(this.world);
+    this.scene.add(this.robot.mesh);
   }
 
   render() {
@@ -115,35 +85,5 @@ export class GameboardViewComponent implements AfterViewInit {
       this.gameboard.clientWidth,
       this.gameboard.clientHeight
     );
-  }
-
-  move() {
-    const coo = this.getMoveCoordinates();
-    this.world.collision(coo);
-    this.robotDir.y = (this.world.height(coo) - this.robotPos.y * 2) * 0.5;
-    this.robotPos.add(this.robotDir);
-    this.robot.position.addScaledVector(this.robotDir, this.gridScale);
-  }
-
-  getMoveCoordinates(): Coordinates3 {
-    const moveVector = this.robotPos.clone().add(this.robotDir);
-    return { x: moveVector.x, y: moveVector.z, z: this.robotPos.y * 2 };
-  }
-
-  rotate(dir = 1) {
-    this.robotDir.multiply(new Vector3(0 - dir, 0, 0 + dir));
-    [this.robotDir.x, this.robotDir.z] = [this.robotDir.z, this.robotDir.x];
-  }
-
-  isCardinal(cardinal: CARDINALS): boolean {
-    return this.getCardinal() === cardinal;
-  }
-
-  private getCardinal(): CARDINALS {
-    if (this.robotDir.x === 1) return CARDINALS.NORTH;
-    if (this.robotDir.x === -1) return CARDINALS.SOUTH;
-    if (this.robotDir.y === 1) return CARDINALS.EAST;
-    if (this.robotDir.y === 1) return CARDINALS.WEST;
-    return null;
   }
 }
