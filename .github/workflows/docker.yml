@@ -19,4 +19,4 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: robotcoral/coral-site:${{github.sha}}
+          tags: robotcoral/coral-site:latest
