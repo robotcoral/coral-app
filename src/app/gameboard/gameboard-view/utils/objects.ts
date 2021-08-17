@@ -38,10 +38,13 @@ export class Block extends Mesh {
 }
 
 export class Flag extends Mesh {
+  color: string;
+
   constructor(scale: number, color: string) {
     const geometry = new BoxGeometry(scale, 0, scale);
     const material = new MeshBasicMaterial({ color });
     super(geometry, material);
     this.renderOrder = 2;
+    this.color = color;
   }
 }

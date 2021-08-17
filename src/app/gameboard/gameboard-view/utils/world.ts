@@ -160,6 +160,12 @@ export class World extends Group {
     return this.objects[coo.x][coo.y] instanceof Block;
   }
 
+  isFlag(coo: Coordinates2, color?: string) {
+    return this.flags[coo.x][coo.y] && color
+      ? this.flags[coo.x][coo.y].color == color
+      : true;
+  }
+
   outOfBounds(coo: Coordinates2) {
     return coo.x >= this.sizeX || coo.x < 0 || coo.y >= this.sizeY || coo.y < 0;
   }
