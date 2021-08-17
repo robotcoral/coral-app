@@ -34,8 +34,9 @@ export class GameboardComponent {
 
   place(color: string) {
     try {
-      if (color) this.gameboardView.placeSlab(color);
-      else this.gameboardView.placeBlock();
+      const coo = this.gameboardView.getMoveCoordinates();
+      if (color) this.gameboardView.world.placeSlab(coo, color);
+      else this.gameboardView.world.placeBlock(coo);
     } catch (error) {
       this.toastr.error(error);
     }
@@ -43,24 +44,30 @@ export class GameboardComponent {
 
   pickUp(block: boolean) {
     try {
-      if (block) this.gameboardView.pickUpBlock();
-      else this.gameboardView.pickUpSlab();
+      const coo = this.gameboardView.getMoveCoordinates();
+      if (block) this.gameboardView.world.pickUpBlock(coo);
+      else this.gameboardView.world.pickUpSlab(coo);
     } catch (error) {
       this.toastr.error(error);
     }
   }
 
   isWall() {
-    return this.gameboardView.outOfBounds();
+    return this.gameboardView.world.outOfBounds(
+      this.gameboardView.getMoveCoordinates()
+    );
   }
 
   isSlab(amount = 1) {
-    return this.gameboardView.isSlab(amount);
+    return this.gameboardView.world.isStackMinHeight(
+      this.gameboardView.getMoveCoordinates(),
+      amount
+    );
   }
 
-  isSlabColor(color: string) {
+  /*isSlabColor(color: string) {
     return this.gameboardView.isSlabColor(color);
-  }
+  }*/
 
   isCardinal(cardinal: CARDINALS): boolean {
     return this.gameboardView.isCardinal(cardinal);

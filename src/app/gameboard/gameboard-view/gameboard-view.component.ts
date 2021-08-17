@@ -5,16 +5,14 @@ import {
   CubeTextureLoader,
   Mesh,
   MeshBasicMaterial,
-  Object3D,
   PerspectiveCamera,
   Scene,
   Vector3,
   WebGLRenderer,
 } from 'three';
 import { CARDINALS } from '../gameboard.component';
-import { Grid } from './utils/grid';
-import { Block, Slab } from './utils/objects';
 import { OrbitControls } from './utils/OrbitControls.js';
+import { Coordinates3, World } from './utils/world';
 
 @Component({
   selector: 'app-gameboard-view',
@@ -31,21 +29,17 @@ export class GameboardViewComponent implements AfterViewInit {
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
   controls; // OrbitControls
-  grid: Object3D;
-  gridSize = { x: 9, y: 10, z: 5 };
   gridScale = 50;
-  world: (Slab[] | Block)[][];
+
+  world: World;
 
   robot: Mesh;
   robotPos = new Vector3(0, 0, 0);
   robotDir = new Vector3(1, 0, 0);
 
-  offsetVector: Vector3;
-
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
     this.init();
-    this.initWorld();
     this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
     this.render();
   }
@@ -63,10 +57,7 @@ export class GameboardViewComponent implements AfterViewInit {
     this.camera.position.set(500, 800, 1300);
     this.camera.lookAt(0, 0, 0);
 
-    // grid
-    this.initGrid();
-
-    // robot
+    this.initWorld();
     this.initRobot();
 
     this.renderer = new WebGLRenderer({ antialias: true });
@@ -80,27 +71,8 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   initWorld() {
-    this.world = [];
-    for (var i = 0; i < this.gridSize.x; i++)
-      this.world.push(new Array(this.gridSize.y));
-  }
-
-  initGrid() {
-    this.grid = new Grid({
-      height: this.gridSize.x,
-      width: this.gridSize.y,
-      cellHeight: this.gridScale,
-      cellWidth: this.gridScale,
-      color: 0x444444,
-      zOffset: -25,
-    });
-    this.scene.add(this.grid);
-
-    this.offsetVector = new Vector3(
-      (this.gridSize.x / 2 - 0.5) * -this.gridScale,
-      0,
-      (this.gridSize.y / 2 - 0.5) * -this.gridScale
-    );
+    this.world = new World();
+    this.scene.add(this.world);
   }
 
   initRobot() {
@@ -121,7 +93,7 @@ export class GameboardViewComponent implements AfterViewInit {
     });
     this.robot = new Mesh(robotGeo, robotMaterial);
 
-    this.robot.position.set(0, 0, 0).add(this.offsetVector);
+    this.robot.position.set(0, 0, 0).add(this.world.offsetVector);
 
     this.scene.add(this.robot);
   }
@@ -146,125 +118,25 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   move() {
-    if (this.outOfBounds()) throw new Error('There is a wall in front of you');
-    this.checkCollision();
+    const coo = this.getMoveCoordinates();
+    this.world.collision(coo);
+    this.robotDir.y = (this.world.height(coo) - this.robotPos.y * 2) * 0.5;
     this.robotPos.add(this.robotDir);
     this.robot.position.addScaledVector(this.robotDir, this.gridScale);
   }
 
-  checkCollision() {
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    if (this.world[destVector.x][destVector.z] instanceof Block)
-      throw new Error('There is a block in front of you');
-
-    let height = (this.world[destVector.x][destVector.z] as Slab[])?.length;
-    height = height || 0;
-
-    if (height > this.robotPos.y * 2 + 1)
-      throw new Error("You can't jump this high");
-    this.robotDir.y = (height - this.robotPos.y * 2) * 0.5;
+  getMoveCoordinates(): Coordinates3 {
+    const moveVector = this.robotPos.clone().add(this.robotDir);
+    return { x: moveVector.x, y: moveVector.z, z: this.robotPos.y * 2 };
   }
 
-  outOfBounds() {
-    const moveTo = this.robotPos.clone().add(this.robotDir);
-    return (
-      moveTo.x >= this.gridSize.x ||
-      moveTo.x < 0 ||
-      moveTo.z >= this.gridSize.y ||
-      moveTo.z < 0
-    );
-  }
-
-  placeSlab(color: string) {
-    if (this.outOfBounds())
-      throw new Error("You can't place slabs outside the map");
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    var dest = this.world[destVector.x][destVector.z];
-    if (dest instanceof Block) {
-      throw new Error('There is a block on this field');
-    } else {
-      if (dest?.length >= this.gridSize.z)
-        throw new Error("You can't put more blocks on this tile");
-      if (!dest) dest = [];
-
-      const slab = new Slab(this.gridScale, color);
-      const height = dest.push(slab);
-      destVector.y = -0.75 + 0.5 * height;
-      slab.position
-        .add(this.offsetVector)
-        .addScaledVector(destVector, this.gridScale);
-      this.scene.add(slab);
-
-      this.world[destVector.x][destVector.z] = dest;
-    }
-  }
-
-  placeBlock() {
-    if (this.outOfBounds())
-      throw new Error("You can't place blocks outside the map");
-
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    destVector.y = 0;
-    var dest = this.world[destVector.x][destVector.z];
-
-    if (dest !== undefined) {
-      throw new Error('There is already something on this field');
-    } else {
-      dest = new Block(this.gridScale);
-      dest.position
-        .add(this.offsetVector)
-        .addScaledVector(destVector, this.gridScale);
-      this.scene.add(dest);
-
-      this.world[destVector.x][destVector.z] = dest;
-    }
-  }
-
-  pickUpSlab() {
-    if (this.outOfBounds()) throw new Error("You can't pick up walls");
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    var dest = this.world[destVector.x][destVector.z];
-    if (dest instanceof Block) {
-      throw new Error('There are no slabs to pick up');
-    } else {
-      if (!dest) throw new Error('Nothing to pick up');
-
-      this.scene.remove(dest.pop());
-      this.world[destVector.x][destVector.z] = dest.length ? dest : undefined;
-    }
-  }
-
-  pickUpBlock() {
-    if (this.outOfBounds()) throw new Error("You can't pick up walls");
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    var dest = this.world[destVector.x][destVector.z];
-
-    if (dest === undefined) throw new Error('Nothing to pick up');
-    if (!(dest instanceof Block)) {
-      throw new Error('There is no block to pick up');
-    }
-
-    this.scene.remove(dest);
-    this.world[destVector.x][destVector.z] = undefined;
-  }
-
-  isSlab(amount = 0): boolean {
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    if (
-      this.world[destVector.x][destVector.z] === undefined ||
-      this.world[destVector.x][destVector.z] instanceof Block
-    )
-      return false;
-    return (this.world[destVector.x][destVector.z] as Slab[]).length >= amount;
-  }
-
-  isSlabColor(color: string): boolean {
+  /*isSlabColor(color: string): boolean {
     const destVector = this.robotPos.clone().add(this.robotDir);
     if (!this.isSlab) return false;
     return (
       (this.world[destVector.x][destVector.z] as Slab[])[-1].color === color
     );
-  }
+  }*/
 
   rotate(dir = 1) {
     this.robotDir.multiply(new Vector3(0 - dir, 0, 0 + dir));
