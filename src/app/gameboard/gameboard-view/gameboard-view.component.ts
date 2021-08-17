@@ -130,14 +130,6 @@ export class GameboardViewComponent implements AfterViewInit {
     return { x: moveVector.x, y: moveVector.z, z: this.robotPos.y * 2 };
   }
 
-  /*isSlabColor(color: string): boolean {
-    const destVector = this.robotPos.clone().add(this.robotDir);
-    if (!this.isSlab) return false;
-    return (
-      (this.world[destVector.x][destVector.z] as Slab[])[-1].color === color
-    );
-  }*/
-
   rotate(dir = 1) {
     this.robotDir.multiply(new Vector3(0 - dir, 0, 0 + dir));
     [this.robotDir.x, this.robotDir.z] = [this.robotDir.z, this.robotDir.x];

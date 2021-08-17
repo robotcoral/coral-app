@@ -65,9 +65,12 @@ export class GameboardComponent {
     );
   }
 
-  /*isSlabColor(color: string) {
-    return this.gameboardView.isSlabColor(color);
-  }*/
+  isSlabColor(color: string) {
+    return this.gameboardView.world.isColor(
+      this.gameboardView.getMoveCoordinates(),
+      color
+    );
+  }
 
   isCardinal(cardinal: CARDINALS): boolean {
     return this.gameboardView.isCardinal(cardinal);

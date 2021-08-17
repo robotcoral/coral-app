@@ -123,6 +123,14 @@ export class World extends Group {
     return this.height(coo) <= height;
   }
 
+  isColor(coo: Coordinates2, color: string) {
+    return (
+      this.isStackMinHeight(coo, 1) &&
+      (this.objects[coo.x][coo.y] as Slab[])[this.height(coo) - 1].color ===
+        color
+    );
+  }
+
   height(coo: Coordinates2) {
     if (this.objects[coo.x][coo.y] == undefined) return 0;
     return (this.objects[coo.x][coo.y] as Slab[]).length;
