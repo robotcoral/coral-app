@@ -100,7 +100,7 @@ export class World extends Group {
     this.flags[coo.x][coo.y] = new Flag(this.gridScale, color);
     this.flags[coo.x][coo.y].position
       .add(this.offsetVector)
-      .addScaledVector(new Vector3(coo.x, 0, coo.y), this.gridScale);
+      .addScaledVector(new Vector3(coo.x, -0.5, coo.y), this.gridScale);
     this.add(this.flags[coo.x][coo.y]);
   }
 

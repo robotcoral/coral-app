@@ -43,7 +43,14 @@ export class GameboardComponent {
         this.gameboardView.world.placeSlab(coo, event.color);
       else if (event.mode == MODES.CUBE)
         this.gameboardView.world.placeBlock(coo);
-      else this.gameboardView.world.placeSlab(coo, event.color);
+      else
+        this.gameboardView.world.placeFlag(
+          {
+            x: this.gameboardView.robotPos.x,
+            y: this.gameboardView.robotPos.z,
+          },
+          event.color
+        );
     } catch (error) {
       this.toastr.error(error);
     }
@@ -54,7 +61,11 @@ export class GameboardComponent {
       const coo = this.gameboardView.getMoveCoordinates();
       if (mode == MODES.SLAB) this.gameboardView.world.pickUpSlab(coo);
       else if (mode == MODES.CUBE) this.gameboardView.world.pickUpBlock(coo);
-      else this.gameboardView.world.pickUpSlab(coo);
+      else
+        this.gameboardView.world.pickUpFlag({
+          x: this.gameboardView.robotPos.x,
+          y: this.gameboardView.robotPos.z,
+        });
     } catch (error) {
       this.toastr.error(error);
     }
