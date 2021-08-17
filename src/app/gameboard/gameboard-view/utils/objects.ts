@@ -5,6 +5,7 @@ import {
   LineSegments,
   Mesh,
   MeshBasicMaterial,
+  PlaneGeometry,
 } from 'three';
 
 export class Slab extends Mesh {
@@ -34,5 +35,14 @@ export class Block extends Mesh {
     const geometry = new BoxGeometry(scale, scale, scale);
     const material = new MeshBasicMaterial({ color: 0x0 });
     super(geometry, material);
+  }
+}
+
+export class Flag extends Mesh {
+  constructor(scale: number, color: string) {
+    const geometry = new PlaneGeometry(scale, scale);
+    const material = new MeshBasicMaterial({ color });
+    super(geometry, material);
+    this.renderOrder = 2;
   }
 }
