@@ -1,5 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import {
+  MODES,
+  PlaceEvent,
+} from './gameboard-controls/gameboard-controls.component';
 import { GameboardViewComponent } from './gameboard-view/gameboard-view.component';
 
 export enum CARDINALS {
@@ -32,20 +36,24 @@ export class GameboardComponent {
     this.gameboardView.rotate(dir);
   }
 
-  place(color: string) {
+  place(event: PlaceEvent) {
     try {
       const coo = this.gameboardView.getMoveCoordinates();
-      if (color) this.gameboardView.world.placeSlab(coo, color);
-      else this.gameboardView.world.placeBlock(coo);
+      if (event.mode == MODES.SLAB)
+        this.gameboardView.world.placeSlab(coo, event.color);
+      else if (event.mode == MODES.CUBE)
+        this.gameboardView.world.placeBlock(coo);
+      else this.gameboardView.world.placeSlab(coo, event.color);
     } catch (error) {
       this.toastr.error(error);
     }
   }
 
-  pickUp(block: boolean) {
+  pickUp(mode: MODES) {
     try {
       const coo = this.gameboardView.getMoveCoordinates();
-      if (block) this.gameboardView.world.pickUpBlock(coo);
+      if (mode == MODES.SLAB) this.gameboardView.world.pickUpSlab(coo);
+      else if (mode == MODES.CUBE) this.gameboardView.world.pickUpBlock(coo);
       else this.gameboardView.world.pickUpSlab(coo);
     } catch (error) {
       this.toastr.error(error);

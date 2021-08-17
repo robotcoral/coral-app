@@ -1,4 +1,16 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
+
+export enum MODES {
+  FLAG = 'FLAG',
+  CUBE = 'CUBE',
+  SLAB = 'SLAB',
+}
+
+export interface PlaceEvent {
+  color: string;
+  mode: MODES;
+}
 
 @Component({
   selector: 'app-gameboard-controls',
@@ -8,18 +20,38 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class GameboardControlsComponent {
   @Output() move = new EventEmitter();
   @Output() rotate = new EventEmitter<number>();
-  @Output() place = new EventEmitter<string>();
-  @Output() pickUp = new EventEmitter<boolean>();
+  @Output() place = new EventEmitter<PlaceEvent>();
+  @Output() pickUp = new EventEmitter<MODES>();
 
-  cube = true;
   colors = {
     red: '#ff0000',
     green: '#00ff00',
     blue: '#0000ff',
   };
   color = 'red';
+  colorStyle = '';
   colorExpanded = false;
-  style = '';
+  colorCallback = ((e) => {
+    if (!this.document.getElementById('colorMenu').contains(e.target)) {
+      this.onColorMenu();
+    }
+  }).bind(this);
+
+  modes: { [key in MODES]: string } = {
+    SLAB: 'assets/icons/ic_fluent_slab_24_regular.svg',
+    CUBE: 'assets/icons/ic_fluent_cube_24_regular.svg',
+    FLAG: 'assets/icons/ic_fluent_flag_24_regular.svg',
+  };
+  mode: MODES = MODES.CUBE;
+  modeStyle = '';
+  modeExpanded = false;
+  modeCallback = ((e) => {
+    if (!this.document.getElementById('modeMenu').contains(e.target)) {
+      this.onModeMenu();
+    }
+  }).bind(this);
+
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   onMove() {
     this.move.emit(null);
@@ -30,10 +62,13 @@ export class GameboardControlsComponent {
   }
 
   onColorMenu() {
-    this.style = this.colorExpanded
+    this.colorStyle = this.colorExpanded
       ? ''
       : 'position:absolute; margin-top:-6.75rem; background-color: white; box-shadow: 0 0 2px 2px lightgray';
     this.colorExpanded = !this.colorExpanded;
+    if (this.colorExpanded)
+      this.document.addEventListener('click', this.colorCallback);
+    else this.document.removeEventListener('click', this.colorCallback);
   }
 
   onColorSelect(color: string) {
@@ -41,11 +76,26 @@ export class GameboardControlsComponent {
     this.onColorMenu();
   }
 
+  onModeMenu() {
+    this.modeStyle = this.modeExpanded
+      ? ''
+      : 'position:absolute; margin-top:-6.75rem; background-color: white; box-shadow: 0 0 2px 2px lightgray';
+    this.modeExpanded = !this.modeExpanded;
+    if (this.modeExpanded)
+      this.document.addEventListener('click', this.modeCallback);
+    else this.document.removeEventListener('click', this.modeCallback);
+  }
+
+  onModeSelect(mode: string) {
+    this.mode = mode as MODES;
+    this.onModeMenu();
+  }
+
   onPlace() {
-    this.place.emit(this.cube ? '' : this.colors[this.color]);
+    this.place.emit({ mode: this.mode, color: this.colors[this.color] });
   }
 
   onPickUp() {
-    this.pickUp.emit(this.cube);
+    this.pickUp.emit(this.mode);
   }
 }

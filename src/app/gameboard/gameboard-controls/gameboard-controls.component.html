@@ -18,24 +18,27 @@
 
 <div class="separator"></div>
 <div class="right-controls controls">
-  <button (click)="cube = !cube">
-    <img
-      [src]="
-        cube
-          ? 'assets/icons/ic_fluent_cube_24_regular.svg'
-          : 'assets/icons/ic_fluent_slab_24_regular.svg'
-      "
-      alt="B"
-    />
-  </button>
-  <div class="color-wrapper" *ngIf="!cube">
-    <div [style]="style" class="color-menu">
-      <button [style.background-color]="colors[color]">
-        <img
-          src="assets/icons/ic_fluent_color_24_regular.svg"
-          alt="A"
-          (click)="onColorMenu()"
-        />
+  <div class="wrapper">
+    <div id="modeMenu" [style]="modeStyle" class="menu">
+      <button (click)="onModeMenu()">
+        <img [src]="modes[mode]" alt="B" />
+      </button>
+      <ng-container *ngIf="modeExpanded">
+        <button
+          *ngFor="let m of modes | keyvalue"
+          [style.display]="m.key == mode ? 'none' : ''"
+          (click)="onModeSelect(m.key)"
+        >
+          <img [src]="m.value" />
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="wrapper" *ngIf="mode != 'CUBE'">
+    <div id="colorMenu" [style]="colorStyle" class="menu">
+      <button [style.background-color]="colors[color]" (click)="onColorMenu()">
+        <img src="assets/icons/ic_fluent_color_24_regular.svg" alt="A" />
       </button>
       <ng-container *ngIf="colorExpanded">
         <button
