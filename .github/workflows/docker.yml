@@ -16,5 +16,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: ./
+          file: ./Dockerfile
           push: true
-          tags: user/app:latest
+          tags: robotcoral/coral-site:${{github.sha}}
