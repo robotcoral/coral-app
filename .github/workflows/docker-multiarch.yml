@@ -1,5 +1,7 @@
 name: Publish on Dockerhub multi-arch
 on:
+  release:
+    types: [created]
   workflow_dispatch:
 jobs:
   build:
