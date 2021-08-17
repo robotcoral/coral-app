@@ -19,12 +19,12 @@ button {
   border: 0px;
   min-height: 3rem;
   border-radius: 4px;
-  box-shadow: 0 0 2px 2px lightgray;
+
   background-color: white;
 }
 
 button:hover {
-  background-color: lightgray;
+  box-shadow: 0 0 2px 2px lightgray;
 }
 
 .controls {
@@ -53,4 +53,8 @@ button:hover {
 
 .colorbtn {
   border-radius: 2rem !important;
+}
+
+.settingsbtn {
+  margin-right: 0.75rem;
 }
