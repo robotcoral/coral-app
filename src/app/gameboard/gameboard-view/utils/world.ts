@@ -12,6 +12,7 @@ export interface WorldOptions {
 }
 
 export class World extends Group {
+  meshGroup: Group = new Group();
   objects: (Slab[] | Block)[][];
   flags: Flag[][];
   sizeX: number;
@@ -32,16 +33,18 @@ export class World extends Group {
       (this.sizeY / 2 - 0.5) * -this.gridScale
     );
     this.add(this.createGrid(options.gridColor));
-    this.init();
+    this.add(this.meshGroup);
+    this.reset();
   }
 
-  private init() {
+  reset() {
     this.objects = [];
     this.flags = [];
     for (var i = 0; i < this.sizeX; i++) {
       this.objects.push(new Array(this.sizeY));
       this.flags.push(new Array(this.sizeY));
     }
+    this.meshGroup.children = [];
   }
 
   private createGrid(color = 0x444444) {
@@ -70,7 +73,7 @@ export class World extends Group {
     (this.objects[coo.x][coo.y][height - 1] as Slab).position
       .add(this.offsetVector)
       .addScaledVector(vector, this.gridScale);
-    this.add(this.objects[coo.x][coo.y][height - 1]);
+    this.meshGroup.add(this.objects[coo.x][coo.y][height - 1]);
   }
 
   placeBlock(coo: Coordinates2) {
@@ -85,7 +88,7 @@ export class World extends Group {
     (this.objects[coo.x][coo.y] as Block).position
       .add(this.offsetVector)
       .addScaledVector(new Vector3(coo.x, 0, coo.y), this.gridScale);
-    this.add(this.objects[coo.x][coo.y] as Block);
+    this.meshGroup.add(this.objects[coo.x][coo.y] as Block);
   }
 
   placeFlag(coo: Coordinates2, color = '#ff0000') {
@@ -95,14 +98,14 @@ export class World extends Group {
     this.flags[coo.x][coo.y].position
       .add(this.offsetVector)
       .addScaledVector(new Vector3(coo.x, -0.5, coo.y), this.gridScale);
-    this.add(this.flags[coo.x][coo.y]);
+    this.meshGroup.add(this.flags[coo.x][coo.y]);
   }
 
   pickUpSlab(coo: Coordinates2) {
     if (this.isBlock(coo)) throw new Error("You can't pick this up");
     if (this.outOfBounds(coo) || !this.isStackMinHeight(coo, 1))
       throw new Error('Nothing to pick up');
-    this.remove((this.objects[coo.x][coo.y] as Slab[]).pop());
+    this.meshGroup.remove((this.objects[coo.x][coo.y] as Slab[]).pop());
   }
 
   pickUpBlock(coo: Coordinates2) {
@@ -110,14 +113,14 @@ export class World extends Group {
       throw new Error("You can't pick this up");
     if (this.outOfBounds(coo) || !this.isBlock(coo))
       throw new Error('Nothing to pick up');
-    this.remove(this.objects[coo.x][coo.y] as Block);
+    this.meshGroup.remove(this.objects[coo.x][coo.y] as Block);
     this.objects[coo.x][coo.y] = undefined;
   }
 
   pickUpFlag(coo: Coordinates2) {
     if (this.flags[coo.x][coo.y] == undefined)
       throw new Error('Nothing to pick up');
-    this.remove(this.flags[coo.x][coo.y]);
+    this.meshGroup.remove(this.flags[coo.x][coo.y]);
     this.flags[coo.x][coo.y] = undefined;
   }
 
