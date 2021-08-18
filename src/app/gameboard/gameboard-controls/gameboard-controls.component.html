@@ -1,69 +1,81 @@
-<div class="left-controls controls">
-  <button (click)="onRotate()">
-    <img
-      src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
-      alt="RL"
-    />
-  </button>
-  <button (click)="onMove()">
-    <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" />
-  </button>
-  <button (click)="onRotate(-1)">
-    <img
-      src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
-      alt="RR"
-    />
-  </button>
-</div>
+<div class="control-panel">
+  <div class="left-controls controls">
+    <button (click)="onRotate()">
+      <img
+        src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
+        alt="RL"
+      />
+    </button>
+    <button (click)="onMove()">
+      <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" />
+    </button>
+    <button (click)="onRotate(-1)">
+      <img
+        src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
+        alt="RR"
+      />
+    </button>
+  </div>
 
-<div class="separator"></div>
-<div class="right-controls controls">
-  <div class="wrapper">
-    <div id="modeMenu" [style]="modeStyle" class="menu">
-      <button (click)="onModeMenu()">
-        <img [src]="modes[mode]" alt="B" />
-      </button>
-      <ng-container *ngIf="modeExpanded">
-        <button
-          *ngFor="let m of modes | keyvalue"
-          [style.display]="m.key == mode ? 'none' : ''"
-          (click)="onModeSelect(m.key)"
-        >
-          <img [src]="m.value" />
+  <div class="separator"></div>
+
+  <div class="right-controls controls">
+    <div class="wrapper">
+      <div id="modeMenu" [style]="modeStyle" class="menu">
+        <button (click)="onModeMenu()">
+          <img [src]="modes[mode]" alt="B" />
         </button>
-      </ng-container>
+        <ng-container *ngIf="modeExpanded">
+          <button
+            *ngFor="let m of modes | keyvalue"
+            [style.display]="m.key == mode ? 'none' : ''"
+            (click)="onModeSelect(m.key)"
+          >
+            <img [src]="m.value" />
+          </button>
+        </ng-container>
+      </div>
     </div>
+
+    <div class="wrapper" *ngIf="mode != 'CUBE'">
+      <div id="colorMenu" [style]="colorStyle" class="menu">
+        <button
+          [style.background-color]="colors[color]"
+          (click)="onColorMenu()"
+        >
+          <img src="assets/icons/ic_fluent_color_24_regular.svg" alt="A" />
+        </button>
+        <ng-container *ngIf="colorExpanded">
+          <button
+            *ngFor="let c of colors | keyvalue"
+            class="colorbtn"
+            [style.background-color]="c.value"
+            [style.display]="c.key == color ? 'none' : ''"
+            (click)="onColorSelect(c.key)"
+          ></button>
+        </ng-container>
+      </div>
+    </div>
+    <button (click)="onPlace()">
+      <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A" />
+    </button>
+    <button (click)="onPickUp()">
+      <img
+        src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
+        alt="S"
+      />
+    </button>
   </div>
 
-  <div class="wrapper" *ngIf="mode != 'CUBE'">
-    <div id="colorMenu" [style]="colorStyle" class="menu">
-      <button [style.background-color]="colors[color]" (click)="onColorMenu()">
-        <img src="assets/icons/ic_fluent_color_24_regular.svg" alt="A" />
-      </button>
-      <ng-container *ngIf="colorExpanded">
-        <button
-          *ngFor="let c of colors | keyvalue"
-          class="colorbtn"
-          [style.background-color]="c.value"
-          [style.display]="c.key == color ? 'none' : ''"
-          (click)="onColorSelect(c.key)"
-        ></button>
-      </ng-container>
-    </div>
-  </div>
-  <button (click)="onPlace()">
-    <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A" />
-  </button>
-  <button (click)="onPickUp()">
-    <img src="assets/icons/ic_fluent_subtract_square_24_regular.svg" alt="S" />
+  <button class="settingsbtn" (click)="settingsOpen = !settingsOpen">
+    <img src="assets/icons/ic_fluent_settings_24_regular.svg" alt="Settings" />
   </button>
 </div>
-<button (click)="onReset()">
-  <img
-    src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
-    alt="Settings"
-  />
-</button>
-<button class="settingsbtn">
-  <img src="assets/icons/ic_fluent_settings_24_regular.svg" alt="Settings" />
-</button>
+<div class="control-panel settings-panel" *ngIf="settingsOpen">
+  <button (click)="onReset()">
+    <img
+      src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
+      alt="Settings"
+    />
+  </button>
+</div>
