@@ -39,10 +39,7 @@ export class GameboardComponent {
         this.gameboardView.world.placeBlock(coo);
       else
         this.gameboardView.world.placeFlag(
-          {
-            x: this.gameboardView.robotPos.x,
-            y: this.gameboardView.robotPos.z,
-          },
+          this.gameboardView.robot.getCurrentCoordinates(),
           event.color
         );
     } catch (error) {
@@ -56,10 +53,9 @@ export class GameboardComponent {
       if (mode == MODES.SLAB) this.gameboardView.world.pickUpSlab(coo);
       else if (mode == MODES.CUBE) this.gameboardView.world.pickUpBlock(coo);
       else
-        this.gameboardView.world.pickUpFlag({
-          x: this.gameboardView.robotPos.x,
-          y: this.gameboardView.robotPos.z,
-        });
+        this.gameboardView.world.pickUpFlag(
+          this.gameboardView.robot.getCurrentCoordinates()
+        );
     } catch (error) {
       this.toastr.error(error);
     }
