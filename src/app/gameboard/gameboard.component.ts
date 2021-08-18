@@ -84,4 +84,8 @@ export class GameboardComponent {
   isCardinal(cardinal: CARDINALS): boolean {
     return this.gameboardView.robot.isCardinal(cardinal);
   }
+
+  reset() {
+    this.gameboardView.world.reset();
+  }
 }
