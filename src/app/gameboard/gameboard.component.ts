@@ -86,6 +86,6 @@ export class GameboardComponent {
   }
 
   reset() {
-    this.gameboardView.world.reset();
+    this.gameboardView.reset();
   }
 }

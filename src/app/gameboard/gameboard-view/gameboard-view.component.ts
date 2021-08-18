@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Color, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
+import { Coordinates3 } from './utils/coordinates.js';
 import { OrbitControls } from './utils/OrbitControls.js';
 import { Robot } from './utils/robot';
 import { World } from './utils/world';
@@ -66,6 +67,16 @@ export class GameboardViewComponent implements AfterViewInit {
   initRobot() {
     this.robot = new Robot(this.world);
     this.scene.add(this.robot.mesh);
+  }
+
+  resizeWorld(coo: Coordinates3) {
+    this.world.resize(coo);
+    this.robot.reset();
+  }
+
+  reset() {
+    this.world.reset();
+    this.robot.reset();
   }
 
   render() {

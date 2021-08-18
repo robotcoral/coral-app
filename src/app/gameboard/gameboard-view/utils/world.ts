@@ -20,6 +20,7 @@ export class World extends Group {
   sizeZ: number;
   gridScale: number;
   offsetVector: Vector3;
+  grid: Grid;
 
   constructor(options: WorldOptions = {}) {
     super();
@@ -27,12 +28,8 @@ export class World extends Group {
     this.sizeY = options.sizeY || 10;
     this.sizeZ = options.sizeZ || 6;
     this.gridScale = options.scale || 50;
-    this.offsetVector = new Vector3(
-      (this.sizeX / 2 - 0.5) * -this.gridScale,
-      0,
-      (this.sizeY / 2 - 0.5) * -this.gridScale
-    );
-    this.add(this.createGrid(options.gridColor));
+    this.calcOffset();
+    this.createGrid(options.gridColor);
     this.add(this.meshGroup);
     this.reset();
   }
@@ -47,8 +44,24 @@ export class World extends Group {
     this.meshGroup.children = [];
   }
 
+  private calcOffset() {
+    this.offsetVector = new Vector3(
+      (this.sizeX / 2 - 0.5) * -this.gridScale,
+      0,
+      (this.sizeY / 2 - 0.5) * -this.gridScale
+    );
+  }
+
+  resize(coo: Coordinates3) {
+    [this.sizeX, this.sizeY, this.sizeZ] = [coo.x, coo.y, coo.z];
+    this.reset();
+    this.calcOffset();
+    this.remove(this.grid);
+    this.createGrid();
+  }
+
   private createGrid(color = 0x444444) {
-    return new Grid({
+    this.grid = new Grid({
       height: this.sizeX,
       width: this.sizeY,
       cellHeight: this.gridScale,
@@ -56,6 +69,7 @@ export class World extends Group {
       color,
       zOffset: -this.gridScale / 2,
     });
+    this.add(this.grid);
   }
 
   placeSlab(coo: Coordinates2, color = '#ff0000') {
