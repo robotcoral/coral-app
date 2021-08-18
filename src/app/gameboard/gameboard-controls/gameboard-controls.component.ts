@@ -22,6 +22,7 @@ export class GameboardControlsComponent {
   @Output() rotate = new EventEmitter<number>();
   @Output() place = new EventEmitter<PlaceEvent>();
   @Output() pickUp = new EventEmitter<MODES>();
+  @Output() reset = new EventEmitter();
 
   colors = {
     red: '#ff0000',
@@ -97,5 +98,9 @@ export class GameboardControlsComponent {
 
   onPickUp() {
     this.pickUp.emit(this.mode);
+  }
+
+  onReset() {
+    this.reset.emit();
   }
 }
