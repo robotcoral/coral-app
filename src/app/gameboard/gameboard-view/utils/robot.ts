@@ -52,6 +52,10 @@ export class Robot {
     return { x: moveVector.x, y: moveVector.z, z: this.direction.y * 2 };
   }
 
+  getCurrentCoordinates(): Coordinates3 {
+    return { x: this.position.x, y: this.position.z, z: this.position.y };
+  }
+
   move() {
     const coo = this.getMoveCoordinates();
     this.world.collision(coo);
