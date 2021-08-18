@@ -52,6 +52,8 @@ export class GameboardControlsComponent {
     }
   }).bind(this);
 
+  settingsOpen = false;
+
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   onMove() {
