@@ -1,7 +1,7 @@
 import { Group, Vector3 } from 'three';
 import { Coordinates2, Coordinates3 } from './coordinates';
 import { Grid } from './grid';
-import { Block, Slab } from './objects';
+import { Block, Flag, Slab } from './objects';
 
 export interface WorldOptions {
   sizeX?: number;
@@ -13,7 +13,7 @@ export interface WorldOptions {
 
 export class World extends Group {
   objects: (Slab[] | Block)[][];
-  flags;
+  flags: Flag[][];
   sizeX: number;
   sizeY: number;
   sizeZ: number;
@@ -37,8 +37,11 @@ export class World extends Group {
 
   private init() {
     this.objects = [];
-    for (var i = 0; i < this.sizeX; i++)
+    this.flags = [];
+    for (var i = 0; i < this.sizeX; i++) {
       this.objects.push(new Array(this.sizeY));
+      this.flags.push(new Array(this.sizeY));
+    }
   }
 
   private createGrid(color = 0x444444) {
@@ -70,7 +73,7 @@ export class World extends Group {
     this.add(this.objects[coo.x][coo.y][height - 1]);
   }
 
-  placeBlock(coo: Coordinates2, color = '#ff0000') {
+  placeBlock(coo: Coordinates2) {
     if (this.outOfBounds(coo))
       throw new Error("You can't place blocks outside the map");
     if (this.isBlock(coo)) throw new Error('There is a block on this field');
@@ -83,6 +86,16 @@ export class World extends Group {
       .add(this.offsetVector)
       .addScaledVector(new Vector3(coo.x, 0, coo.y), this.gridScale);
     this.add(this.objects[coo.x][coo.y] as Block);
+  }
+
+  placeFlag(coo: Coordinates2, color = '#ff0000') {
+    if (this.flags[coo.x][coo.y] != undefined)
+      throw new Error('There is already a flag here');
+    this.flags[coo.x][coo.y] = new Flag(this.gridScale, color);
+    this.flags[coo.x][coo.y].position
+      .add(this.offsetVector)
+      .addScaledVector(new Vector3(coo.x, -0.5, coo.y), this.gridScale);
+    this.add(this.flags[coo.x][coo.y]);
   }
 
   pickUpSlab(coo: Coordinates2) {
@@ -99,6 +112,13 @@ export class World extends Group {
       throw new Error('Nothing to pick up');
     this.remove(this.objects[coo.x][coo.y] as Block);
     this.objects[coo.x][coo.y] = undefined;
+  }
+
+  pickUpFlag(coo: Coordinates2) {
+    if (this.flags[coo.x][coo.y] == undefined)
+      throw new Error('Nothing to pick up');
+    this.remove(this.flags[coo.x][coo.y]);
+    this.flags[coo.x][coo.y] = undefined;
   }
 
   isFullStack(coo: Coordinates2) {
@@ -132,6 +152,12 @@ export class World extends Group {
 
   isBlock(coo: Coordinates2) {
     return this.objects[coo.x][coo.y] instanceof Block;
+  }
+
+  isFlag(coo: Coordinates2, color?: string) {
+    return this.flags[coo.x][coo.y] && color
+      ? this.flags[coo.x][coo.y].color == color
+      : true;
   }
 
   outOfBounds(coo: Coordinates2) {

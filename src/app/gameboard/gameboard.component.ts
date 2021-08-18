@@ -1,5 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import {
+  MODES,
+  PlaceEvent,
+} from './gameboard-controls/gameboard-controls.component';
 import { GameboardViewComponent } from './gameboard-view/gameboard-view.component';
 import { CARDINALS } from './gameboard-view/utils/coordinates';
 
@@ -26,21 +30,36 @@ export class GameboardComponent {
     this.gameboardView.robot.rotate(dir);
   }
 
-  place(color: string) {
+  place(event: PlaceEvent) {
     try {
       const coo = this.gameboardView.robot.getMoveCoordinates();
-      if (color) this.gameboardView.world.placeSlab(coo, color);
-      else this.gameboardView.world.placeBlock(coo);
+      if (event.mode == MODES.SLAB)
+        this.gameboardView.world.placeSlab(coo, event.color);
+      else if (event.mode == MODES.CUBE)
+        this.gameboardView.world.placeBlock(coo);
+      else
+        this.gameboardView.world.placeFlag(
+          {
+            x: this.gameboardView.robotPos.x,
+            y: this.gameboardView.robotPos.z,
+          },
+          event.color
+        );
     } catch (error) {
       this.toastr.error(error);
     }
   }
 
-  pickUp(block: boolean) {
+  pickUp(mode: MODES) {
     try {
       const coo = this.gameboardView.robot.getMoveCoordinates();
-      if (block) this.gameboardView.world.pickUpBlock(coo);
-      else this.gameboardView.world.pickUpSlab(coo);
+      if (mode == MODES.SLAB) this.gameboardView.world.pickUpSlab(coo);
+      else if (mode == MODES.CUBE) this.gameboardView.world.pickUpBlock(coo);
+      else
+        this.gameboardView.world.pickUpFlag({
+          x: this.gameboardView.robotPos.x,
+          y: this.gameboardView.robotPos.z,
+        });
     } catch (error) {
       this.toastr.error(error);
     }

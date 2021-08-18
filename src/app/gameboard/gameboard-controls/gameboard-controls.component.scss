@@ -36,18 +36,18 @@ button:hover {
   justify-content: right;
 }
 
-.color-wrapper {
+.wrapper {
   min-width: 4rem;
 }
 
-.color-menu {
+.menu {
   display: flex;
   flex-direction: column-reverse;
   border-radius: 6px;
   margin: 0.25rem;
 }
 
-.color-menu button {
+.menu button {
   margin: 0.25rem;
 }
 
