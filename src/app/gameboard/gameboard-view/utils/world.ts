@@ -1,4 +1,5 @@
 import { Group, Vector3 } from 'three';
+import { Coordinates2, Coordinates3 } from './coordinates';
 import { Grid } from './grid';
 import { Block, Flag, Slab } from './objects';
 
@@ -8,13 +9,6 @@ export interface WorldOptions {
   sizeZ?: number;
   scale?: number;
   gridColor?: number;
-}
-export interface Coordinates2 {
-  x: number;
-  y: number;
-}
-export interface Coordinates3 extends Coordinates2 {
-  z: number;
 }
 
 export class World extends Group {
