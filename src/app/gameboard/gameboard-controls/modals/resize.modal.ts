@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Coordinates3 } from '../../gameboard-view/utils/coordinates';
+import { Coordinates3 } from '../../utils/coordinates';
 
 @Component({
   selector: 'resize-modal',

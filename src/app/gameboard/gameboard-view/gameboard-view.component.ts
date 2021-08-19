@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Color, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
-import { Coordinates3, Robot, World } from './utils';
-import { OrbitControls } from './utils/OrbitControls';
+import { GameboardController } from '../utils';
+import { OrbitControls } from '../utils/OrbitControls';
 
 @Component({
   selector: 'app-gameboard-view',
@@ -20,7 +20,7 @@ export class GameboardViewComponent implements AfterViewInit {
   controls; // OrbitControls
   gridScale = 50;
 
-  constructor(public world: World, public robot: Robot) {}
+  constructor(private controller: GameboardController) {}
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
@@ -42,8 +42,8 @@ export class GameboardViewComponent implements AfterViewInit {
     this.camera.position.set(500, 800, 1300);
     this.camera.lookAt(0, 0, 0);
 
-    this.initWorld();
-    this.initRobot();
+    this.scene.add(this.controller.getRobot().mesh);
+    this.scene.add(this.controller.getWorld());
 
     this.renderer = new WebGLRenderer({ antialias: true });
     this.renderer.setSize(
@@ -53,26 +53,6 @@ export class GameboardViewComponent implements AfterViewInit {
     this.gameboard.appendChild(this.renderer.domElement);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.update();
-  }
-
-  initWorld() {
-    this.world.init();
-    this.scene.add(this.world);
-  }
-
-  initRobot() {
-    this.robot.init();
-    this.scene.add(this.robot.mesh);
-  }
-
-  resizeWorld(coo: Coordinates3) {
-    this.world.resize(coo);
-    this.robot.reset();
-  }
-
-  reset() {
-    this.world.reset();
-    this.robot.reset();
   }
 
   render() {

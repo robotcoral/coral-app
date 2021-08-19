@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GameboardControlsComponent } from './gameboard-controls/gameboard-controls.component';
 import { ResizeModal } from './gameboard-controls/modals';
 import { GameboardViewComponent } from './gameboard-view/gameboard-view.component';
-import { Robot, World } from './gameboard-view/utils';
 import { GameboardComponent } from './gameboard.component';
+import { GameboardController } from './utils';
 
 @NgModule({
   declarations: [
@@ -14,8 +14,9 @@ import { GameboardComponent } from './gameboard.component';
     GameboardViewComponent,
     ResizeModal,
   ],
-  providers: [World, Robot],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  providers: [GameboardController],
+
   exports: [GameboardComponent],
 })
 export class GameboardModule {}

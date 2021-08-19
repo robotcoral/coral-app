@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   BoxGeometry,
   CubeTextureLoader,
@@ -9,15 +8,18 @@ import {
 import { CARDINALS, Coordinates3 } from './coordinates';
 import { World } from './world';
 
-@Injectable()
 export class Robot {
   mesh: Mesh;
   position: Vector3;
   direction: Vector3;
+  world: World;
 
-  constructor(private world: World) {}
+  constructor(world: World) {
+    this.world = world;
+    this.init();
+  }
 
-  init() {
+  private init() {
     const robotGeo = new BoxGeometry(
       this.world.gridScale,
       this.world.gridScale,
@@ -27,7 +29,7 @@ export class Robot {
     const loader = new CubeTextureLoader();
     loader.setPath('assets/materials/');
     const robotMaterial = new MeshBasicMaterial({
-      color: 0x8a8a8a
+      color: 0x8a8a8a,
     });
     this.mesh = new Mesh(robotGeo, robotMaterial);
     this.reset();

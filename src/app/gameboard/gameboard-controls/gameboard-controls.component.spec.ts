@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Robot, World } from '../gameboard-view/utils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GameboardController } from '../utils';
 import { GameboardControlsComponent } from './gameboard-controls.component';
 
 describe('GameboardControlsComponent', () => {
@@ -10,8 +11,8 @@ describe('GameboardControlsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [GameboardControlsComponent],
       providers: [
-        { provide: World, useValue: {} },
-        { provide: Robot, useValue: {} },
+        { provide: NgbModal, useValue: {} },
+        { provide: GameboardController, useValue: { getRobot: () => {} } },
       ],
     }).compileComponents();
   });

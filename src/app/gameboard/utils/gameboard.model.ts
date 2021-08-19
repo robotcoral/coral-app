@@ -1,0 +1,23 @@
+import { Coordinates3 } from './coordinates';
+import { Robot } from './robot';
+import { World } from './world';
+
+export class GameboardModel {
+  world: World;
+  robot: Robot;
+
+  constructor() {
+    this.world = new World();
+    this.robot = new Robot(this.world);
+  }
+
+  reset() {
+    this.world.reset();
+    this.robot.reset();
+  }
+
+  resize(coo: Coordinates3) {
+    this.world.resize(coo);
+    this.robot.reset();
+  }
+}

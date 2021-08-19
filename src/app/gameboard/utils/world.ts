@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Group, Vector3 } from 'three';
 import { Coordinates2, Coordinates3 } from './coordinates';
 import { Grid } from './grid';
@@ -12,7 +11,6 @@ export interface WorldOptions {
   gridColor?: number;
 }
 
-@Injectable()
 export class World extends Group {
   meshGroup: Group = new Group();
   objects: (Slab[] | Block)[][];
@@ -24,7 +22,8 @@ export class World extends Group {
   offsetVector: Vector3;
   grid: Grid;
 
-  init(options: WorldOptions = {}) {
+  constructor(options: WorldOptions = {}) {
+    super();
     this.sizeX = options?.sizeX || 10;
     this.sizeY = options.sizeY || 10;
     this.sizeZ = options.sizeZ || 6;
