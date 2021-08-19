@@ -3,16 +3,16 @@
     <button (click)="onRotate()">
       <img
         src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
-        alt="RL"
+        alt="RL" draggable="false"
       />
     </button>
     <button (click)="onMove()">
-      <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" />
+      <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" draggable="false" />
     </button>
     <button (click)="onRotate(-1)">
       <img
         src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
-        alt="RR"
+        alt="RR" draggable="false"
       />
     </button>
   </div>
@@ -23,7 +23,7 @@
     <div class="wrapper">
       <div id="modeMenu" [style]="modeStyle" class="menu">
         <button (click)="onModeMenu()">
-          <img [src]="modes[mode]" alt="B" />
+          <img [src]="modes[mode]" alt="B" draggable="false"/>
         </button>
         <ng-container *ngIf="modeExpanded">
           <button
@@ -31,7 +31,7 @@
             [style.display]="m.key == mode ? 'none' : ''"
             (click)="onModeSelect(m.key)"
           >
-            <img [src]="m.value" />
+            <img [src]="m.value" draggable="false"/>
           </button>
         </ng-container>
       </div>
@@ -43,7 +43,7 @@
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"
         >
-          <img src="assets/icons/ic_fluent_color_24_regular.svg" alt="A" />
+          <img src="assets/icons/ic_fluent_color_24_regular.svg" alt="A"  draggable="false"/>
         </button>
         <ng-container *ngIf="colorExpanded">
           <button
@@ -57,28 +57,28 @@
       </div>
     </div>
     <button (click)="onPlace()">
-      <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A" />
+      <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A"  draggable="false"/>
     </button>
     <button (click)="onPickUp()">
       <img
         src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
-        alt="S"
+        alt="S" draggable="false"
       />
     </button>
   </div>
 
   <button class="settingsbtn" (click)="settingsOpen = !settingsOpen">
-    <img src="assets/icons/ic_fluent_settings_24_regular.svg" alt="Settings" />
+    <img src="assets/icons/ic_fluent_settings_24_regular.svg" alt="Settings"  draggable="false"/>
   </button>
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
   <button (click)="onReset()">
     <img
       src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
-      alt="Reset"
+      alt="Reset" draggable="false"
     />
   </button>
   <button (click)="onResize()">
-    <img src="assets/icons/ic_fluent_slide_size_24_regular.svg" alt="Resize" />
+    <img src="assets/icons/ic_fluent_slide_size_24_regular.svg" alt="Resize" draggable="false" />
   </button>
 </div>

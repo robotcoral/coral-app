@@ -27,15 +27,7 @@ export class Robot {
     const loader = new CubeTextureLoader();
     loader.setPath('assets/materials/');
     const robotMaterial = new MeshBasicMaterial({
-      color: 0xffffff,
-      envMap: loader.load([
-        'side.png',
-        'face.png',
-        'side.png',
-        'side.png',
-        'side.png',
-        'side.png',
-      ]),
+      color: 0x8a8a8a
     });
     this.mesh = new Mesh(robotGeo, robotMaterial);
     this.reset();
