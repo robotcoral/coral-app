@@ -36,9 +36,11 @@ app-gameboard {
 }
 
 app-titlebar {
-  display: block;
+  display: flex;
   height: 32px;
-  box-shadow: 0px 2px 4px grey;
+  background-color: hsl(0,0%,100%);
+  box-shadow: 0px 2px 6px hsla(0,0%,0%, 0.35);
   position: relative;
   z-index: 10;
+  align-items:center;
 }
