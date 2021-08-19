@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import {
   BoxGeometry,
   CubeTextureLoader,
@@ -8,14 +9,13 @@ import {
 import { CARDINALS, Coordinates3 } from './coordinates';
 import { World } from './world';
 
+@Injectable()
 export class Robot {
   mesh: Mesh;
   position: Vector3;
   direction: Vector3;
 
-  constructor(private world: World) {
-    this.init();
-  }
+  constructor(private world: World) {}
 
   init() {
     const robotGeo = new BoxGeometry(

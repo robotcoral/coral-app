@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Group, Vector3 } from 'three';
 import { Coordinates2, Coordinates3 } from './coordinates';
 import { Grid } from './grid';
@@ -11,6 +12,7 @@ export interface WorldOptions {
   gridColor?: number;
 }
 
+@Injectable()
 export class World extends Group {
   meshGroup: Group = new Group();
   objects: (Slab[] | Block)[][];
@@ -22,8 +24,7 @@ export class World extends Group {
   offsetVector: Vector3;
   grid: Grid;
 
-  constructor(options: WorldOptions = {}) {
-    super();
+  init(options: WorldOptions = {}) {
     this.sizeX = options?.sizeX || 10;
     this.sizeY = options.sizeY || 10;
     this.sizeZ = options.sizeZ || 6;
@@ -187,5 +188,9 @@ export class World extends Group {
     if (this.isBlock(coo)) throw new Error('There is a block in your way');
     if (!this.isStackMaxHeight(coo, coo.z + 1))
       throw new Error("You can't jump this high");
+  }
+
+  getWorldSize(): Coordinates3 {
+    return { x: this.sizeX, y: this.sizeY, z: this.sizeZ };
   }
 }

@@ -20,3 +20,6 @@ app-root {
   display: flex;
   flex-direction: column;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
