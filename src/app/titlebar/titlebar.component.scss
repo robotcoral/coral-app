@@ -1,6 +1,12 @@
-.app-titlebar-logo {
-    padding: 6px 16px 6px 16px;
+.app-titlebar-logo-area {
+    width: 52px;
+    height: inherit;
+    text-align: center;
     border-radius: 0 5px 5px 0;
     background-image: linear-gradient(to top right, #A20098, #F56B6B);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.app-titlebar-logo {
+    width: 20px;
 }
