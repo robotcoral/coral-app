@@ -6,44 +6,46 @@ import { Coordinates3 } from '../../utils/coordinates';
 @Component({
   selector: 'resize-modal',
   template: `
-    <div class="modal-header">
-      <h4 class="modal-title">Resize World</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="activeModal.dismiss('Cross click')"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="formGroup">
-        <div class="inputWrapper">
-          <div class="nameField">Length:</div>
-          <input type="number" name="length" formControlName="length" />
-        </div>
-        <div class="inputWrapper">
-          <div class="nameField">Width:</div>
-          <input type="number" name="width" formControlName="width" />
-        </div>
-        <div class="inputWrapper">
-          <div class="nameField">Height:</div>
-          <input type="number" name="height" formControlName="height" />
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="onApply()">
-        Apply
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-dark"
-        (click)="activeModal.dismiss('Close click')"
-      >
-        Close
-      </button>
+    <div id="modal">
+      <div class="modal-header">
+        <h4 class="modal-title">Resize World</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formGroup">
+          <div class="inputWrapper">
+            <div class="nameField">Length:</div>
+            <input type="number" name="length" formControlName="length" />
+          </div>
+          <div class="inputWrapper">
+            <div class="nameField">Width:</div>
+            <input type="number" name="width" formControlName="width" />
+          </div>
+          <div class="inputWrapper">
+            <div class="nameField">Height:</div>
+            <input type="number" name="height" formControlName="height" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="onApply()">
+          Apply
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="activeModal.dismiss('Close click')"
+        >
+          Close
+        </button>
+      </div>
     </div>
   `,
   styleUrls: ['./modal.styles.scss'],

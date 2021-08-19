@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 import { ResizeModal } from './modals';
+import { ResetModal } from './modals/reset.modal';
 
 export enum MODES {
   FLAG = 'FLAG',
@@ -105,15 +106,15 @@ export class GameboardControlsComponent {
   }
 
   onReset() {
-    this.controller.reset();
+    this.openModal(ResetModal)
+      .result.then(() => {
+        this.controller.reset();
+      })
+      .catch(() => {});
   }
 
   onResize() {
-    const modalRef = this.modalService.open(ResizeModal, {
-      backdrop: false,
-      centered: true,
-      windowClass: 'custom-modal',
-    });
+    const modalRef = this.openModal(ResizeModal);
 
     modalRef.componentInstance.init(this.controller.getWorldSize());
     modalRef.result
@@ -121,5 +122,28 @@ export class GameboardControlsComponent {
         this.controller.resize(coo);
       })
       .catch(() => {});
+  }
+
+  openModal(content: any) {
+    const modalRef = this.modalService.open(content, {
+      backdrop: false,
+      centered: true,
+      windowClass: 'custom-modal',
+    });
+    const callback = (e: any) => {
+      if (!this.document.getElementById('modal').contains(e.target)) {
+        modalRef.dismiss();
+      }
+    };
+
+    // makes sure the modal isn't immediately closed
+    setTimeout(() => {
+      this.document.addEventListener('click', callback);
+    }, 0);
+
+    modalRef.result.finally(() => {
+      this.document.removeEventListener('click', callback);
+    });
+    return modalRef;
   }
 }
