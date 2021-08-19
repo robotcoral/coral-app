@@ -12,7 +12,10 @@ describe('GameboardControlsComponent', () => {
       declarations: [GameboardControlsComponent],
       providers: [
         { provide: NgbModal, useValue: {} },
-        { provide: GameboardController, useValue: { getRobot: () => {} } },
+        {
+          provide: GameboardController,
+          useValue: {},
+        },
       ],
     }).compileComponents();
   });

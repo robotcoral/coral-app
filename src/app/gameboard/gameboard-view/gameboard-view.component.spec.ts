@@ -10,7 +10,17 @@ describe('GameboardViewComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [GameboardViewComponent],
       providers: [
-        { provide: GameboardController, useValue: { init: () => {} } },
+        {
+          provide: GameboardController,
+          useValue: {
+            getRobot: () => {
+              return {
+                mesh: {},
+              };
+            },
+            getWorld: () => {},
+          },
+        },
       ],
     }).compileComponents();
   });
