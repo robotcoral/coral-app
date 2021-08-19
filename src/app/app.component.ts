@@ -21,7 +21,6 @@ export class AppComponent implements AfterViewInit {
   leftWidth = 0;
 
   ngAfterViewInit(): void {
-    this.gameboardView = this.gameboard.gameboardView;
     this.resizer = this.resizerRef.nativeElement;
     this.leftSide = this.resizer.previousElementSibling as HTMLElement;
     this.rightSide = this.resizer.nextElementSibling as HTMLElement;
@@ -59,10 +58,6 @@ export class AppComponent implements AfterViewInit {
 
     this.rightSide.style.userSelect = 'none';
     this.rightSide.style.pointerEvents = 'none';
-
-    // resize canvas
-    this.gameboardView.canvas.style.width =
-      this.gameboardView.gameboard.clientWidth + 'px';
   };
 
   mouseUpHandler = () => {

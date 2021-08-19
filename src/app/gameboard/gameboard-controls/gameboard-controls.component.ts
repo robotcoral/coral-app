@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Coordinates3, Robot, World } from '../gameboard-view/utils';
+import { Coordinates3 } from '../utils';
+import { GameboardController } from '../utils/gameboard.controller';
 import { ResizeModal } from './modals';
 
 export enum MODES {
@@ -21,12 +22,6 @@ export interface PlaceEvent {
   styleUrls: ['./gameboard-controls.component.scss'],
 })
 export class GameboardControlsComponent {
-  @Output() move = new EventEmitter();
-  @Output() rotate = new EventEmitter<number>();
-  @Output() place = new EventEmitter<PlaceEvent>();
-  @Output() pickUp = new EventEmitter<MODES>();
-  @Output() reset = new EventEmitter();
-
   colors = {
     red: '#ff0000',
     green: '#00ff00',
@@ -60,16 +55,15 @@ export class GameboardControlsComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private modalService: NgbModal,
-    private world: World,
-    private robot: Robot
+    private controller: GameboardController
   ) {}
 
   onMove() {
-    this.move.emit(null);
+    this.controller.move();
   }
 
   onRotate(dir = 1) {
-    this.rotate.emit(dir);
+    this.controller.rotate(dir);
   }
 
   onColorMenu() {
@@ -103,15 +97,15 @@ export class GameboardControlsComponent {
   }
 
   onPlace() {
-    this.place.emit({ mode: this.mode, color: this.colors[this.color] });
+    this.controller.place({ mode: this.mode, color: this.colors[this.color] });
   }
 
   onPickUp() {
-    this.pickUp.emit(this.mode);
+    this.controller.pickUp(this.mode);
   }
 
   onReset() {
-    this.reset.emit();
+    this.controller.reset();
   }
 
   onResize() {
@@ -121,11 +115,10 @@ export class GameboardControlsComponent {
       windowClass: 'custom-modal',
     });
 
-    modalRef.componentInstance.init(this.world.getWorldSize());
+    modalRef.componentInstance.init(this.controller.getWorldSize());
     modalRef.result
       .then((coo: Coordinates3) => {
-        this.world.resize(coo);
-        this.robot.reset();
+        this.controller.resize(coo);
       })
       .catch(() => {});
   }
