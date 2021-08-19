@@ -23,7 +23,7 @@ export class World extends Group {
 
   constructor(options: WorldOptions = {}) {
     super();
-    this.sizeX = options?.sizeX || 10;
+    this.sizeX = options.sizeX || 10;
     this.sizeY = options.sizeY || 10;
     this.sizeZ = options.sizeZ || 6;
     this.gridScale = options.scale || 50;
