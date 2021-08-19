@@ -1,5 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Coordinates3, Robot, World } from '../gameboard-view/utils';
+import { ResizeModal } from './modals';
 
 export enum MODES {
   FLAG = 'FLAG',
@@ -54,7 +57,12 @@ export class GameboardControlsComponent {
 
   settingsOpen = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private modalService: NgbModal,
+    private world: World,
+    private robot: Robot
+  ) {}
 
   onMove() {
     this.move.emit(null);
@@ -104,5 +112,21 @@ export class GameboardControlsComponent {
 
   onReset() {
     this.reset.emit();
+  }
+
+  onResize() {
+    const modalRef = this.modalService.open(ResizeModal, {
+      backdrop: false,
+      centered: true,
+      windowClass: 'custom-modal',
+    });
+
+    modalRef.componentInstance.init(this.world.getWorldSize());
+    modalRef.result
+      .then((coo: Coordinates3) => {
+        this.world.resize(coo);
+        this.robot.reset();
+      })
+      .catch(() => {});
   }
 }

@@ -1,0 +1,35 @@
+.nameField {
+  min-width: 30%;
+}
+
+.inputWrapper {
+  display: flex;
+  padding: 0.5rem;
+}
+
+input {
+  min-width: none;
+  width: 100%;
+  background-color: lightgray;
+  border: 0px;
+  border-radius: 0.5rem;
+  text-align: right;
+}
+
+::ng-deep .custom-modal .modal-dialog {
+  max-width: 300px;
+  width: auto;
+  min-width: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Color, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
-import { OrbitControls } from './utils/OrbitControls.js';
-import { Robot } from './utils/robot';
-import { World } from './utils/world';
+import { Coordinates3, Robot, World } from './utils';
+import { OrbitControls } from './utils/OrbitControls';
 
 @Component({
   selector: 'app-gameboard-view',
@@ -21,9 +20,7 @@ export class GameboardViewComponent implements AfterViewInit {
   controls; // OrbitControls
   gridScale = 50;
 
-  world: World;
-
-  robot: Robot;
+  constructor(public world: World, public robot: Robot) {}
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
@@ -59,13 +56,23 @@ export class GameboardViewComponent implements AfterViewInit {
   }
 
   initWorld() {
-    this.world = new World();
+    this.world.init();
     this.scene.add(this.world);
   }
 
   initRobot() {
-    this.robot = new Robot(this.world);
+    this.robot.init();
     this.scene.add(this.robot.mesh);
+  }
+
+  resizeWorld(coo: Coordinates3) {
+    this.world.resize(coo);
+    this.robot.reset();
+  }
+
+  reset() {
+    this.world.reset();
+    this.robot.reset();
   }
 
   render() {
