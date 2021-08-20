@@ -56,7 +56,7 @@ export class WorldExport {
       }
     }
 
-    return JSON.stringify(worldFile);
+    return JSON.stringify(worldFile, null, 2);
   }
 }
 
