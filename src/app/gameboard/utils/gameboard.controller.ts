@@ -126,7 +126,7 @@ export class GameboardController {
       'href',
       `data:${fileType};charset=utf-8,${encodeURIComponent(text)}`
     );
-    this.download.setAttribute('download', 'coral.world');
+    this.download.setAttribute('download', 'world.coralworld');
 
     var event = new MouseEvent('click');
     this.download.dispatchEvent(event);
