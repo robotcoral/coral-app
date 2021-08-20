@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {
   MODES,
@@ -10,8 +11,12 @@ import { GameboardModel } from './gameboard.model';
 @Injectable()
 export class GameboardController {
   private model: GameboardModel;
+  private download: HTMLElement;
 
-  constructor(private toastr: ToastrService) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private toastr: ToastrService
+  ) {
     this.model = new GameboardModel();
   }
 
@@ -95,5 +100,37 @@ export class GameboardController {
 
   getRobot() {
     return this.model.robot;
+  }
+
+  exportWorld() {
+    const text = this.model.export();
+    console.log(typeof text);
+    this.dyanmicDownloadByHtmlTag(text);
+  }
+
+  async importWorld(file: File) {
+    try {
+      if (!file) throw new Error('File upload failed.\nPlease try again');
+
+      this.model.import(await file.text());
+    } catch (error) {
+      console.error(error);
+      this.toastr.error(error);
+    }
+  }
+
+  private dyanmicDownloadByHtmlTag(text: string) {
+    if (!this.download) {
+      this.download = document.createElement('a');
+    }
+    const fileType = 'text/json';
+    this.download.setAttribute(
+      'href',
+      `data:${fileType};charset=utf-8,${encodeURIComponent(text)}`
+    );
+    this.download.setAttribute('download', 'coral.world');
+
+    var event = new MouseEvent('click');
+    this.download.dispatchEvent(event);
   }
 }

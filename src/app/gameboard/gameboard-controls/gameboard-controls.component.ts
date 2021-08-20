@@ -56,16 +56,8 @@ export class GameboardControlsComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private modalService: NgbModal,
-    private controller: GameboardController
+    public controller: GameboardController
   ) {}
-
-  onMove() {
-    this.controller.move();
-  }
-
-  onRotate(dir = 1) {
-    this.controller.rotate(dir);
-  }
 
   onColorMenu() {
     this.colorStyle = this.colorExpanded
@@ -145,5 +137,11 @@ export class GameboardControlsComponent {
       this.document.removeEventListener('click', callback);
     });
     return modalRef;
+  }
+
+  onFileSelected(event: Event) {
+    const file: File = (event.target as HTMLInputElement).files[0];
+
+    this.controller.importWorld(file);
   }
 }

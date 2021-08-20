@@ -67,11 +67,29 @@ export class Robot {
     return this.getCardinal() === cardinal;
   }
 
-  private getCardinal(): CARDINALS {
-    if (this.direction.x === 1) return CARDINALS.NORTH;
-    if (this.direction.x === -1) return CARDINALS.SOUTH;
-    if (this.direction.y === 1) return CARDINALS.EAST;
-    if (this.direction.y === 1) return CARDINALS.WEST;
+  getCardinal(): CARDINALS {
+    if (this.direction.z === -1) return CARDINALS.NORTH;
+    if (this.direction.z === 1) return CARDINALS.SOUTH;
+    if (this.direction.x === 1) return CARDINALS.EAST;
+    if (this.direction.x === -1) return CARDINALS.WEST;
     return null;
+  }
+
+  setPosition(coo: Coordinates3) {
+    this.position = new Vector3(coo.x, coo.z / 2, coo.y);
+    this.mesh.position
+      .set(0, 0, 0)
+      .add(this.world.offsetVector)
+      .addScaledVector(this.position, this.world.gridScale);
+    return this;
+  }
+
+  setDirection(direction: CARDINALS) {
+    const vector = new Vector3(0, 0, 0);
+    if (direction === CARDINALS.NORTH) vector.z = -1;
+    if (direction === CARDINALS.SOUTH) vector.z = 1;
+    if (direction === CARDINALS.EAST) vector.x = 1;
+    if (direction === CARDINALS.WEST) vector.x = -1;
+    return this;
   }
 }

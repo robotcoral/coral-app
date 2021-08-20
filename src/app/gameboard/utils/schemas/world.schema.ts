@@ -29,8 +29,35 @@ export const WorldSchema: Schema = {
         items: {
           type: ['array', 'boolean'],
           items: {
-            type: 'integer',
+            type: ['string', 'integer'],
           },
+        },
+      },
+    },
+    robot: {
+      type: 'object',
+      properties: {
+        position: {
+          type: 'object',
+          properties: {
+            x: {
+              type: 'integer',
+              minimum: 0,
+            },
+            y: {
+              type: 'integer',
+              minimum: 0,
+            },
+            z: {
+              type: 'integer',
+              minimum: 0,
+            },
+          },
+        },
+        direction: {
+          type: 'integer',
+          minimum: 0,
+          maximum: 3,
         },
       },
     },
