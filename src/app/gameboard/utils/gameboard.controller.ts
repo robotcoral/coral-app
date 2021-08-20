@@ -104,7 +104,6 @@ export class GameboardController {
 
   exportWorld() {
     const text = this.model.export();
-    console.log(typeof text);
     this.dyanmicDownloadByHtmlTag(text);
   }
 
@@ -114,7 +113,6 @@ export class GameboardController {
 
       this.model.import(await file.text());
     } catch (error) {
-      console.error(error);
       this.toastr.error(error);
     }
   }

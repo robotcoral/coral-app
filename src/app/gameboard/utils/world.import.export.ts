@@ -138,7 +138,6 @@ export class WorldImport {
 
     if (worldPosition && typeof worldPosition == 'boolean')
       throw new Error('Robot is standing on blocked field');
-    console.log('test' + worldPosition);
     if ((worldPosition as string[]).length != world.robot.position.z)
       throw new Error('Robot is stuck in slab or flying');
   }
