@@ -90,29 +90,29 @@ export class WorldImport {
   private static validateIntegrity(world: WorldFile) {
     const errors = validate(world, WorldSchema).errors;
     if (errors.length > 0) {
-      console.log(errors);
+      console.log('Encountered errors while parsing world:\n' + errors);
       throw new Error(
         'Could not read world file.\nCheck console for additional details'
       );
     }
-    if (world.objects.length != world.width)
+    if (world.objects.length != world.length)
       throw new Error(
         `World.objects is size ${world.objects.length}, but should be ${world.width}`
       );
-    if (world.flags.length != world.width)
+    if (world.flags.length != world.length)
       throw new Error(
         `World.flags is size ${world.objects.length}, but should be ${world.width}`
       );
-    for (let x = 0; x < world.width; x++) {
-      if (world.objects[x].length != world.length)
+    for (let x = 0; x < world.length; x++) {
+      if (world.objects[x].length != world.width)
         throw new Error(
           `World.objects[${x}] is size ${world.objects[x].length}, but should be ${world.length}`
         );
-      if (world.flags[x].length != world.length)
+      if (world.flags[x].length != world.width)
         throw new Error(
           `World.flags[${x}] is size ${world.objects[x].length}, but should be ${world.length}`
         );
-      for (let y = 0; y < world.length; y++) {
+      for (let y = 0; y < world.width; y++) {
         if (
           typeof world.objects[x][y] != 'boolean' &&
           (world.objects[x][y] as string[]).length > world.height
@@ -135,9 +135,10 @@ export class WorldImport {
       throw new Error(`Robot position out of bounds`);
     const worldPosition =
       world.objects[world.robot.position.x][world.robot.position.y];
-    if (!worldPosition) return;
-    if (typeof worldPosition == 'boolean')
+
+    if (worldPosition && typeof worldPosition == 'boolean')
       throw new Error('Robot is standing on blocked field');
+    console.log('test' + worldPosition);
     if ((worldPosition as string[]).length != world.robot.position.z)
       throw new Error('Robot is stuck in slab or flying');
   }
