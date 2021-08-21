@@ -42,7 +42,7 @@ export class GameboardControlsComponent {
     CUBE: 'assets/icons/ic_fluent_cube_24_regular.svg',
     FLAG: 'assets/icons/ic_fluent_flag_24_regular.svg',
   };
-  mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.CUBE;
+  mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB;
   modeStyle = '';
   modeExpanded = false;
   modeCallback = ((e) => {
