@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { commonEnvironment } from 'src/environments/environment.common';
 import { WorldFile } from '../../utils';
 
 @Component({
@@ -47,6 +48,16 @@ import { WorldFile } from '../../utils';
               [attr.disabled]="true"
             ></textarea>
           </div>
+          <div class="inputWrapper">
+            <div class="nameField">Version:</div>
+            <input
+              type="text"
+              name="version"
+              formControlName="version"
+              [attr.disabled]="true"
+            />
+          </div>
+          <span *ngIf="versionError">{{ versionError }}</span>
         </form>
       </div>
       <div class="modal-footer">
@@ -71,15 +82,20 @@ import { WorldFile } from '../../utils';
   styles: [
     `
       ::ng-deep .custom-modal .modal-dialog {
-        max-width: 500px;
+        max-width: 500px !important;
         width: auto;
         min-width: none;
+      }
+
+      span {
+        color: red;
       }
     `,
   ],
 })
 export class ImportModal {
   formGroup: FormGroup;
+  versionError = '';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -91,6 +107,14 @@ export class ImportModal {
       name: [worldFile.world_data.name],
       author: [worldFile.world_data.author],
       description: [worldFile.world_data.description],
+      version: [worldFile.version],
     });
+    if (worldFile.version != commonEnvironment.worldFileVersion)
+      this.versionError =
+        'This world was exported from a' +
+        (worldFile.version > commonEnvironment.worldFileVersion
+          ? ' newer'
+          : 'n older') +
+        ' version of Robot Coral.\nLoading may not be possible!';
   }
 }
