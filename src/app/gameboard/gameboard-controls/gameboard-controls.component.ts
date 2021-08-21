@@ -6,7 +6,7 @@ import { GameboardController } from '../utils/gameboard.controller';
 import { ResizeModal } from './modals';
 import { ResetModal } from './modals/reset.modal';
 
-export enum MODES {
+export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
   CUBE = 'CUBE',
   SLAB = 'SLAB',
@@ -14,7 +14,7 @@ export enum MODES {
 
 export interface PlaceEvent {
   color: string;
-  mode: MODES;
+  mode: WORLDOBJECTTYPES;
 }
 
 @Component({
@@ -37,12 +37,12 @@ export class GameboardControlsComponent {
     }
   }).bind(this);
 
-  modes: { [key in MODES]: string } = {
+  modes: { [key in WORLDOBJECTTYPES]: string } = {
     SLAB: 'assets/icons/ic_fluent_slab_24_regular.svg',
     CUBE: 'assets/icons/ic_fluent_cube_24_regular.svg',
     FLAG: 'assets/icons/ic_fluent_flag_24_regular.svg',
   };
-  mode: MODES = MODES.CUBE;
+  mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.CUBE;
   modeStyle = '';
   modeExpanded = false;
   modeCallback = ((e) => {
@@ -85,7 +85,7 @@ export class GameboardControlsComponent {
   }
 
   onModeSelect(mode: string) {
-    this.mode = mode as MODES;
+    this.mode = mode as WORLDOBJECTTYPES;
     this.onModeMenu();
   }
 

@@ -1,60 +1,60 @@
 import { validate } from 'jsonschema';
-import { Block, Robot, Slab, World } from '.';
-import { WorldSchema } from './schemas/world.schema';
-
-export interface WorldFile {
-  length: number;
-  width: number;
-  height: number;
-  objects: ((string | number)[] | boolean)[][];
-  flags: (string | number)[][];
-  robot: {
-    position: {
-      x: number;
-      y: number;
-      z: number;
-    };
-    direction: number;
-  };
-}
+import { commonEnvironment } from 'src/environments/environment.common';
+import {
+  Block,
+  Robot,
+  Slab,
+  World,
+  WorldData,
+  WorldFile,
+  WorldSchema,
+} from '.';
+import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
+import { Coordinates2, Coordinates3 } from './coordinates';
+import { WorldObject } from './world.schema';
 
 export class WorldExport {
   static export(world: World, robot: Robot) {
-    const worldFile: WorldFile = {
-      length: world.sizeX,
-      width: world.sizeY,
-      height: world.sizeZ,
+    const worldData: WorldData = {
+      dimensions: world.getWorldSize(),
+      starting_position: robot.getCurrentCoordinates(),
+      starting_rotation: robot.getCardinal(),
       objects: [],
-      flags: [],
-      robot: {
-        position: {
-          x: robot.position.x,
-          y: robot.position.z,
-          z: robot.position.y * 2,
-        },
-        direction: robot.getCardinal(),
-      },
     };
     for (let x = 0; x < world.sizeX; x++) {
-      worldFile.objects.push([]);
-      worldFile.flags.push([]);
       for (let y = 0; y < world.sizeY; y++) {
-        worldFile.flags[x].push(
-          world.flags[x][y] ? world.flags[x][y].color : undefined
-        );
-        let entry: boolean | string[] = false;
+        if (world.flags[x][y])
+          worldData.objects.push({
+            position: { x, y },
+            type: WORLDOBJECTTYPES.FLAG,
+            data: {
+              color: world.flags[x][y].color,
+            },
+          });
         if (world.objects[x][y] != undefined) {
-          if (world.objects[x][y] instanceof Block) entry = true;
-          else {
-            entry = [];
-            (world.objects[x][y] as Slab[]).forEach((slab: Slab) => {
-              (entry as string[]).push(slab.color);
+          if (world.objects[x][y] instanceof Block)
+            worldData.objects.push({
+              position: { x, y },
+              type: WORLDOBJECTTYPES.CUBE,
             });
-          }
+          else
+            for (let z = 0; z < (world.objects[x][y] as Slab[]).length; z++)
+              worldData.objects.push({
+                position: { x, y, z },
+                type: WORLDOBJECTTYPES.SLAB,
+                data: {
+                  color: (world.objects[x][y] as Slab[])[z].color,
+                },
+              });
         }
-        worldFile.objects[x].push(entry);
       }
     }
+
+    const worldFile: WorldFile = {
+      version: commonEnvironment.worldFileVersion,
+      coral_version: commonEnvironment.version,
+      world_data: worldData,
+    };
 
     return JSON.stringify(worldFile, null, 2);
   }
@@ -62,83 +62,67 @@ export class WorldExport {
 
 export class WorldImport {
   static import(worldString: string, world: World, robot: Robot) {
-    const json = JSON.parse(worldString) as WorldFile;
-    this.validateIntegrity(json);
-    this.validateLogic(json);
-    world.resize({ x: json.length, y: json.width, z: json.height });
+    const worldFile = JSON.parse(worldString) as WorldFile;
+    this.validateIntegrity(worldFile);
+
+    const worldData = worldFile.world_data;
+    // TODO: Version handling
+
+    world.resize(worldData.dimensions);
     robot
-      .setPosition({
-        x: json.robot.position.x,
-        y: json.robot.position.y,
-        z: json.robot.position.z,
-      })
-      .setDirection(json.robot.direction);
-    for (let x = 0; x < world.sizeX; x++) {
-      for (let y = 0; y < world.sizeY; y++) {
-        if (json.flags[x][y])
-          world.placeFlag({ x, y }, json.flags[x][y] as string);
-        if (!json.objects[x][y]) continue;
-        if (typeof json.objects[x][y] == 'boolean') world.placeBlock({ x, y });
-        else
-          (json.objects[x][y] as string[]).forEach((color) => {
-            world.placeSlab({ x, y }, color);
-          });
-      }
-    }
+      .setPosition(worldData.starting_position || { x: 0, y: 0, z: 0 })
+      .setDirection(worldData.starting_rotation || 0);
+
+    worldData.objects?.forEach((object: WorldObject, i: number) => {
+      if (this.validateOutOfBounds(object.position, worldData.dimensions))
+        throw new Error(`Object at index [${i}] is out of bounds`);
+      if (object.type == WORLDOBJECTTYPES.CUBE)
+        world.placeBlock(object.position);
+      else if (object.type == WORLDOBJECTTYPES.SLAB)
+        world.placeSlab(object.position, object.data?.color);
+      else world.placeFlag(object.position, object.data?.color);
+    });
+    this.validateRobot(worldData);
   }
 
   private static validateIntegrity(world: WorldFile) {
     const errors = validate(world, WorldSchema).errors;
-    if (errors.length > 0) {
-      console.log('Encountered errors while parsing world:\n' + errors);
-      throw new Error(
-        'Could not read world file.\nCheck console for additional details'
-      );
-    }
-    if (world.objects.length != world.length)
-      throw new Error(
-        `World.objects is size ${world.objects.length}, but should be ${world.width}`
-      );
-    if (world.flags.length != world.length)
-      throw new Error(
-        `World.flags is size ${world.objects.length}, but should be ${world.width}`
-      );
-    for (let x = 0; x < world.length; x++) {
-      if (world.objects[x].length != world.width)
-        throw new Error(
-          `World.objects[${x}] is size ${world.objects[x].length}, but should be ${world.length}`
-        );
-      if (world.flags[x].length != world.width)
-        throw new Error(
-          `World.flags[${x}] is size ${world.objects[x].length}, but should be ${world.length}`
-        );
-      for (let y = 0; y < world.width; y++) {
-        if (
-          typeof world.objects[x][y] != 'boolean' &&
-          (world.objects[x][y] as string[]).length > world.height
-        )
-          throw new Error(
-            `World.objects[${x}][${y}] is size ${
-              (world.objects[x][y] as string[]).length
-            }, but should be smaller then ${world.height}`
-          );
-      }
-    }
+    if (errors.length == 0) return;
+
+    console.log('Encountered errors while parsing world:\n' + errors);
+    throw new Error(
+      'Could not read world file.\nCheck console for additional details'
+    );
   }
 
-  private static validateLogic(world: WorldFile) {
+  private static validateRobot(world: WorldData) {
+    var startingPosition = world.starting_position;
     if (
-      world.robot.position.x >= world.length ||
-      world.robot.position.y >= world.width ||
-      world.robot.position.z >= world.height
+      startingPosition &&
+      this.validateOutOfBounds(world.starting_position, world.dimensions)
     )
       throw new Error(`Robot position out of bounds`);
-    const worldPosition =
-      world.objects[world.robot.position.x][world.robot.position.y];
+    else startingPosition = { x: 0, y: 0, z: 0 };
 
-    if (worldPosition && typeof worldPosition == 'boolean')
-      throw new Error('Robot is standing on blocked field');
-    if ((worldPosition as string[]).length != world.robot.position.z)
+    if (world.objects[startingPosition.x][startingPosition.y] === undefined)
+      return;
+    if (world.objects[startingPosition.x][startingPosition.y] instanceof Block)
+      throw new Error('Robot starting position is blocked by a block');
+    if (
+      (world.objects[startingPosition.x][startingPosition.y] as Slab[])
+        .length != startingPosition.z
+    )
       throw new Error('Robot is stuck in slab or flying');
+  }
+
+  private static validateOutOfBounds(
+    coo: Coordinates2 | Coordinates3,
+    worldSize: Coordinates3
+  ) {
+    return (
+      coo.x >= worldSize.x ||
+      coo.y >= worldSize.y ||
+      ('z' in coo && coo.z >= worldSize.z)
+    );
   }
 }

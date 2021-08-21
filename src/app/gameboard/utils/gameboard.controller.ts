@@ -2,8 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {
-  MODES,
   PlaceEvent,
+  WORLDOBJECTTYPES,
 } from '../gameboard-controls/gameboard-controls.component';
 import { CARDINALS, Coordinates3 } from './coordinates';
 import { GameboardModel } from './gameboard.model';
@@ -35,9 +35,10 @@ export class GameboardController {
   place(event: PlaceEvent) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (event.mode == MODES.SLAB)
+      if (event.mode == WORLDOBJECTTYPES.SLAB)
         this.model.world.placeSlab(coo, event.color);
-      else if (event.mode == MODES.CUBE) this.model.world.placeBlock(coo);
+      else if (event.mode == WORLDOBJECTTYPES.CUBE)
+        this.model.world.placeBlock(coo);
       else
         this.model.world.placeFlag(
           this.model.robot.getCurrentCoordinates(),
@@ -48,11 +49,11 @@ export class GameboardController {
     }
   }
 
-  pickUp(mode: MODES) {
+  pickUp(mode: WORLDOBJECTTYPES) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (mode == MODES.SLAB) this.model.world.pickUpSlab(coo);
-      else if (mode == MODES.CUBE) this.model.world.pickUpBlock(coo);
+      if (mode == WORLDOBJECTTYPES.SLAB) this.model.world.pickUpSlab(coo);
+      else if (mode == WORLDOBJECTTYPES.CUBE) this.model.world.pickUpBlock(coo);
       else
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
     } catch (error) {
@@ -128,7 +129,6 @@ export class GameboardController {
     );
     this.download.setAttribute('download', 'world.coralworld');
 
-    var event = new MouseEvent('click');
-    this.download.dispatchEvent(event);
+    this.download.click();
   }
 }

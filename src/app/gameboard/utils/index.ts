@@ -5,3 +5,5 @@ export * from './grid';
 export * from './objects';
 export * from './robot';
 export * from './world';
+export * from './world.import.export';
+export * from './world.schema';
