@@ -36,9 +36,13 @@ export class Robot {
   }
 
   reset() {
-    this.mesh.position.set(0, 0, 0).add(this.world.offsetVector);
-    this.direction = new Vector3(0, 0, 1);
-    this.position = new Vector3(0, 0, 0);
+    if (this.world.defaultWorld.starting_position) {
+      const coo = this.world.defaultWorld.starting_position;
+      this.setPosition(coo);
+    } else this.setPosition({ x: 0, y: 0, z: 0 });
+    if (this.world.defaultWorld.starting_rotation)
+      this.setDirection(this.world.defaultWorld.starting_rotation);
+    else this.setDirection(CARDINALS.SOUTH);
   }
 
   getMoveCoordinates(): Coordinates3 {
@@ -91,6 +95,7 @@ export class Robot {
     if (direction === CARDINALS.SOUTH) vector.z = 1;
     if (direction === CARDINALS.EAST) vector.x = 1;
     if (direction === CARDINALS.WEST) vector.x = -1;
+    this.direction = vector;
     return this;
   }
 }
