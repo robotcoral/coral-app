@@ -43,7 +43,7 @@ export class Robot {
 
   getMoveCoordinates(): Coordinates3 {
     const moveVector = this.position.clone().add(this.direction);
-    return { x: moveVector.x, y: moveVector.z, z: this.direction.y * 2 };
+    return { x: moveVector.x, y: moveVector.z, z: moveVector.y * 2 };
   }
 
   getCurrentCoordinates(): Coordinates3 {
