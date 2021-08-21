@@ -12,10 +12,13 @@ export interface WorldObject {
   data?: WorldObjectData;
 }
 
-export interface WorldData {
+export interface AdditionalWorldData {
   name?: string;
   author?: string;
   description?: string;
+}
+
+export interface WorldData extends AdditionalWorldData {
   dimensions: Coordinates3;
   starting_position?: Coordinates3;
   starting_rotation?: number;

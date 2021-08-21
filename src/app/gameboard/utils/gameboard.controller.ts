@@ -1,12 +1,19 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import {
+  AdditionalWorldData,
+  CARDINALS,
+  Coordinates3,
+  GameboardModel,
+} from '.';
 import {
   PlaceEvent,
   WORLDOBJECTTYPES,
 } from '../gameboard-controls/gameboard-controls.component';
-import { CARDINALS, Coordinates3 } from './coordinates';
-import { GameboardModel } from './gameboard.model';
+import { ImportModal } from '../gameboard-controls/modals/import.modal';
+import { WorldFile } from './world.schema';
 
 @Injectable()
 export class GameboardController {
@@ -15,6 +22,7 @@ export class GameboardController {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    private modalService: NgbModal,
     private toastr: ToastrService
   ) {
     this.model = new GameboardModel();
@@ -103,8 +111,8 @@ export class GameboardController {
     return this.model.robot;
   }
 
-  exportWorld() {
-    const text = this.model.export();
+  exportWorld(data: AdditionalWorldData) {
+    const text = this.model.export(data);
     this.dyanmicDownloadByHtmlTag(text);
   }
 
@@ -112,10 +120,41 @@ export class GameboardController {
     try {
       if (!file) throw new Error('File upload failed.\nPlease try again');
 
-      this.model.import(await file.text());
+      const worldFile: WorldFile = this.model.import(await file.text());
+      const modalRef = this.openModal(ImportModal);
+      modalRef.componentInstance.init(worldFile);
+      modalRef.result
+        .then(() => {
+          this.model.world.defaultWorld = worldFile.world_data;
+          this.model.reset();
+        })
+        .catch(() => {});
     } catch (error) {
       this.toastr.error(error);
     }
+  }
+
+  openModal(content: any) {
+    const modalRef = this.modalService.open(content, {
+      backdrop: false,
+      centered: true,
+      windowClass: 'custom-modal',
+    });
+    const callback = (e: any) => {
+      if (!this.document.getElementById('modal').contains(e.target)) {
+        modalRef.dismiss();
+      }
+    };
+
+    // makes sure the modal isn't immediately closed
+    setTimeout(() => {
+      this.document.addEventListener('click', callback);
+    }, 0);
+
+    modalRef.result.finally(() => {
+      this.document.removeEventListener('click', callback);
+    });
+    return modalRef;
   }
 
   private dyanmicDownloadByHtmlTag(text: string) {

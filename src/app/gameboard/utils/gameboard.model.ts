@@ -1,7 +1,11 @@
-import { Coordinates3 } from './coordinates';
-import { Robot } from './robot';
-import { World } from './world';
-import { WorldExport, WorldImport } from './world.import.export';
+import {
+  AdditionalWorldData,
+  Coordinates3,
+  Robot,
+  World,
+  WorldExport,
+  WorldImport,
+} from '.';
 
 export class GameboardModel {
   world: World;
@@ -22,11 +26,11 @@ export class GameboardModel {
     this.robot.reset();
   }
 
-  export() {
-    return WorldExport.export(this.world, this.robot);
+  export(data: AdditionalWorldData) {
+    return WorldExport.export(this.world, this.robot, data);
   }
 
   import(world: string) {
-    WorldImport.import(world, this.world, this.robot);
+    return WorldImport.import(world);
   }
 }

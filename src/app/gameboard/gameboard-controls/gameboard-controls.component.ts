@@ -1,9 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Coordinates3 } from '../utils';
+import { AdditionalWorldData, Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 import { ResizeModal } from './modals';
+import { ExportModal } from './modals/export.modal';
 import { ResetModal } from './modals/reset.modal';
 
 export enum WORLDOBJECTTYPES {
@@ -55,7 +55,6 @@ export class GameboardControlsComponent {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private modalService: NgbModal,
     public controller: GameboardController
   ) {}
 
@@ -98,7 +97,8 @@ export class GameboardControlsComponent {
   }
 
   onReset() {
-    this.openModal(ResetModal)
+    this.controller
+      .openModal(ResetModal)
       .result.then(() => {
         this.controller.reset();
       })
@@ -106,7 +106,7 @@ export class GameboardControlsComponent {
   }
 
   onResize() {
-    const modalRef = this.openModal(ResizeModal);
+    const modalRef = this.controller.openModal(ResizeModal);
 
     modalRef.componentInstance.init(this.controller.getWorldSize());
     modalRef.result
@@ -116,32 +116,18 @@ export class GameboardControlsComponent {
       .catch(() => {});
   }
 
-  openModal(content: any) {
-    const modalRef = this.modalService.open(content, {
-      backdrop: false,
-      centered: true,
-      windowClass: 'custom-modal',
-    });
-    const callback = (e: any) => {
-      if (!this.document.getElementById('modal').contains(e.target)) {
-        modalRef.dismiss();
-      }
-    };
-
-    // makes sure the modal isn't immediately closed
-    setTimeout(() => {
-      this.document.addEventListener('click', callback);
-    }, 0);
-
-    modalRef.result.finally(() => {
-      this.document.removeEventListener('click', callback);
-    });
-    return modalRef;
-  }
-
   onFileSelected(event: Event) {
     const file: File = (event.target as HTMLInputElement).files[0];
 
     this.controller.importWorld(file);
+  }
+
+  onExport() {
+    this.controller
+      .openModal(ExportModal)
+      .result.then((data: AdditionalWorldData) => {
+        this.controller.exportWorld(data);
+      })
+      .catch(() => {});
   }
 }

@@ -2,11 +2,11 @@ import { Group, Vector3 } from 'three';
 import { Coordinates2, Coordinates3 } from './coordinates';
 import { Grid } from './grid';
 import { Block, Flag, Slab } from './objects';
+import { WorldImport } from './world.import.export';
+import { WorldData } from './world.schema';
 
 export interface WorldOptions {
-  sizeX?: number;
-  sizeY?: number;
-  sizeZ?: number;
+  dimensions?: Coordinates3;
   scale?: number;
   gridColor?: number;
 }
@@ -15,46 +15,52 @@ export class World extends Group {
   meshGroup: Group = new Group();
   objects: (Slab[] | Block)[][];
   flags: Flag[][];
-  sizeX: number;
-  sizeY: number;
-  sizeZ: number;
+  dimensions: Coordinates3;
   gridScale: number;
   offsetVector: Vector3;
   grid: Grid;
+  defaultWorld: WorldData;
 
   constructor(options: WorldOptions = {}) {
     super();
-    this.sizeX = options?.sizeX || 10;
-    this.sizeY = options.sizeY || 10;
-    this.sizeZ = options.sizeZ || 6;
+    this.dimensions = options?.dimensions || { x: 10, y: 10, z: 6 };
     this.gridScale = options.scale || 50;
     this.calcOffset();
     this.createGrid(options.gridColor);
     this.add(this.meshGroup);
+    this.defaultWorld = { dimensions: this.dimensions };
     this.reset();
   }
 
   reset() {
+    WorldImport.loadWorld(this, this.defaultWorld);
+  }
+
+  hardReset() {
     this.objects = [];
     this.flags = [];
-    for (var i = 0; i < this.sizeX; i++) {
-      this.objects.push(new Array(this.sizeY));
-      this.flags.push(new Array(this.sizeY));
+    for (var i = 0; i < this.dimensions.x; i++) {
+      this.objects.push(new Array(this.dimensions.y));
+      this.flags.push(new Array(this.dimensions.y));
     }
     this.meshGroup.children = [];
   }
 
   private calcOffset() {
     this.offsetVector = new Vector3(
-      (this.sizeX / 2 - 0.5) * -this.gridScale,
+      (this.dimensions.x / 2 - 0.5) * -this.gridScale,
       0,
-      (this.sizeY / 2 - 0.5) * -this.gridScale
+      (this.dimensions.y / 2 - 0.5) * -this.gridScale
     );
   }
 
   resize(coo: Coordinates3) {
-    [this.sizeX, this.sizeY, this.sizeZ] = [coo.x, coo.y, coo.z];
-    this.reset();
+    [this.dimensions.x, this.dimensions.y, this.dimensions.z] = [
+      coo.x,
+      coo.y,
+      coo.z,
+    ];
+    this.hardReset();
     this.calcOffset();
     this.remove(this.grid);
     this.createGrid();
@@ -62,8 +68,8 @@ export class World extends Group {
 
   private createGrid(color = 0x444444) {
     this.grid = new Grid({
-      height: this.sizeX,
-      width: this.sizeY,
+      height: this.dimensions.x,
+      width: this.dimensions.y,
       cellHeight: this.gridScale,
       cellWidth: this.gridScale,
       color,
@@ -139,7 +145,7 @@ export class World extends Group {
   }
 
   isFullStack(coo: Coordinates2) {
-    return this.isStackHeight(coo, this.sizeZ);
+    return this.isStackHeight(coo, this.dimensions.z);
   }
 
   isStackHeight(coo: Coordinates2, height: number) {
@@ -178,7 +184,12 @@ export class World extends Group {
   }
 
   outOfBounds(coo: Coordinates2) {
-    return coo.x >= this.sizeX || coo.x < 0 || coo.y >= this.sizeY || coo.y < 0;
+    return (
+      coo.x >= this.dimensions.x ||
+      coo.x < 0 ||
+      coo.y >= this.dimensions.y ||
+      coo.y < 0
+    );
   }
 
   collision(coo: Coordinates3) {
@@ -190,6 +201,6 @@ export class World extends Group {
   }
 
   getWorldSize(): Coordinates3 {
-    return { x: this.sizeX, y: this.sizeY, z: this.sizeZ };
+    return { x: this.dimensions.x, y: this.dimensions.y, z: this.dimensions.z };
   }
 }

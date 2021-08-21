@@ -49,6 +49,14 @@ import { Coordinates3 } from '../../utils/coordinates';
     </div>
   `,
   styleUrls: ['./modal.styles.scss'],
+  styles: [
+    `
+      input,
+      textarea {
+        text-align: right;
+      }
+    `,
+  ],
 })
 export class ResizeModal {
   @Input() options: Coordinates3;

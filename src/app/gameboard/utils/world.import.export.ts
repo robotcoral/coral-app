@@ -11,18 +11,22 @@ import {
 } from '.';
 import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
 import { Coordinates2, Coordinates3 } from './coordinates';
-import { WorldObject } from './world.schema';
+import { AdditionalWorldData, WorldObject } from './world.schema';
 
 export class WorldExport {
-  static export(world: World, robot: Robot) {
+  static export(world: World, robot: Robot, data: AdditionalWorldData) {
     const worldData: WorldData = {
       dimensions: world.getWorldSize(),
       starting_position: robot.getCurrentCoordinates(),
       starting_rotation: robot.getCardinal(),
       objects: [],
     };
-    for (let x = 0; x < world.sizeX; x++) {
-      for (let y = 0; y < world.sizeY; y++) {
+    console.log(data);
+    Object.entries(data).forEach(([key, value]) => {
+      worldData[key] = value;
+    });
+    for (let x = 0; x < world.dimensions.x; x++) {
+      for (let y = 0; y < world.dimensions.y; y++) {
         if (world.flags[x][y])
           worldData.objects.push({
             position: { x, y },
@@ -61,18 +65,22 @@ export class WorldExport {
 }
 
 export class WorldImport {
-  static import(worldString: string, world: World, robot: Robot) {
+  static import(worldString: string): WorldFile {
     const worldFile = JSON.parse(worldString) as WorldFile;
     this.validateIntegrity(worldFile);
 
     const worldData = worldFile.world_data;
-    // TODO: Version handling
+
+    const world = new World({});
 
     world.resize(worldData.dimensions);
-    robot
-      .setPosition(worldData.starting_position || { x: 0, y: 0, z: 0 })
-      .setDirection(worldData.starting_rotation || 0);
+    this.loadWorld(world, worldData);
+    this.validateRobot(world, worldData);
+    return worldFile;
+  }
 
+  static loadWorld(world: World, worldData: WorldData) {
+    world.resize(worldData.dimensions);
     worldData.objects?.forEach((object: WorldObject, i: number) => {
       if (this.validateOutOfBounds(object.position, worldData.dimensions))
         throw new Error(`Object at index [${i}] is out of bounds`);
@@ -82,7 +90,6 @@ export class WorldImport {
         world.placeSlab(object.position, object.data?.color);
       else world.placeFlag(object.position, object.data?.color);
     });
-    this.validateRobot(worldData);
   }
 
   private static validateIntegrity(world: WorldFile) {
@@ -95,11 +102,11 @@ export class WorldImport {
     );
   }
 
-  private static validateRobot(world: WorldData) {
-    var startingPosition = world.starting_position;
+  private static validateRobot(world: World, worldData: WorldData) {
+    var startingPosition = worldData.starting_position;
     if (
       startingPosition &&
-      this.validateOutOfBounds(world.starting_position, world.dimensions)
+      this.validateOutOfBounds(worldData.starting_position, world.dimensions)
     )
       throw new Error(`Robot position out of bounds`);
     else startingPosition = { x: 0, y: 0, z: 0 };
