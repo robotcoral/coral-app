@@ -56,6 +56,7 @@ export class Robot {
     this.direction.y = (this.world.height(coo) - this.position.y * 2) * 0.5;
     this.position.add(this.direction);
     this.mesh.position.addScaledVector(this.direction, this.world.gridScale);
+    this.direction.y = 0;
   }
 
   rotate(dir = 1) {
