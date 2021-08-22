@@ -1,17 +1,30 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import {
-  MODES,
+  AdditionalWorldData,
+  CARDINALS,
+  Coordinates3,
+  GameboardModel,
+} from '.';
+import {
   PlaceEvent,
+  WORLDOBJECTTYPES,
 } from '../gameboard-controls/gameboard-controls.component';
-import { CARDINALS, Coordinates3 } from './coordinates';
-import { GameboardModel } from './gameboard.model';
+import { ImportModal } from '../gameboard-controls/modals/import.modal';
+import { WorldFile } from './world.schema';
 
 @Injectable()
 export class GameboardController {
   private model: GameboardModel;
+  private download: HTMLElement;
 
-  constructor(private toastr: ToastrService) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private modalService: NgbModal,
+    private toastr: ToastrService
+  ) {
     this.model = new GameboardModel();
   }
 
@@ -30,9 +43,10 @@ export class GameboardController {
   place(event: PlaceEvent) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (event.mode == MODES.SLAB)
+      if (event.mode == WORLDOBJECTTYPES.SLAB)
         this.model.world.placeSlab(coo, event.color);
-      else if (event.mode == MODES.CUBE) this.model.world.placeBlock(coo);
+      else if (event.mode == WORLDOBJECTTYPES.CUBE)
+        this.model.world.placeBlock(coo);
       else
         this.model.world.placeFlag(
           this.model.robot.getCurrentCoordinates(),
@@ -43,11 +57,11 @@ export class GameboardController {
     }
   }
 
-  pickUp(mode: MODES) {
+  pickUp(mode: WORLDOBJECTTYPES) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (mode == MODES.SLAB) this.model.world.pickUpSlab(coo);
-      else if (mode == MODES.CUBE) this.model.world.pickUpBlock(coo);
+      if (mode == WORLDOBJECTTYPES.SLAB) this.model.world.pickUpSlab(coo);
+      else if (mode == WORLDOBJECTTYPES.CUBE) this.model.world.pickUpBlock(coo);
       else
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
     } catch (error) {
@@ -95,5 +109,65 @@ export class GameboardController {
 
   getRobot() {
     return this.model.robot;
+  }
+
+  exportWorld(data: AdditionalWorldData) {
+    const text = this.model.export(data);
+    this.dyanmicDownloadByHtmlTag(text);
+  }
+
+  async importWorld(file: File) {
+    try {
+      if (!file) throw new Error('File upload failed.\nPlease try again');
+
+      const worldFile: WorldFile = this.model.import(await file.text());
+      const modalRef = this.openModal(ImportModal);
+      modalRef.componentInstance.init(worldFile);
+      modalRef.result
+        .then(() => {
+          this.model.world.defaultWorld = worldFile.world_data;
+          this.model.reset();
+        })
+        .catch(() => {});
+    } catch (error) {
+      this.toastr.error(error);
+    }
+  }
+
+  openModal(content: any) {
+    const modalRef = this.modalService.open(content, {
+      backdrop: false,
+      centered: true,
+      windowClass: 'custom-modal',
+    });
+    const callback = (e: any) => {
+      if (!this.document.getElementById('modal').contains(e.target)) {
+        modalRef.dismiss();
+      }
+    };
+
+    // makes sure the modal isn't immediately closed
+    setTimeout(() => {
+      this.document.addEventListener('click', callback);
+    }, 0);
+
+    modalRef.result.finally(() => {
+      this.document.removeEventListener('click', callback);
+    });
+    return modalRef;
+  }
+
+  private dyanmicDownloadByHtmlTag(text: string) {
+    if (!this.download) {
+      this.download = document.createElement('a');
+    }
+    const fileType = 'text/json';
+    this.download.setAttribute(
+      'href',
+      `data:${fileType};charset=utf-8,${encodeURIComponent(text)}`
+    );
+    this.download.setAttribute('download', 'world.coralworld');
+
+    this.download.click();
   }
 }

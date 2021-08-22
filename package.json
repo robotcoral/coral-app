@@ -33,6 +33,7 @@
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "@robotcoral/lang-karol": "^0.1.1",
     "@robotcoral/ngx-codemirror6": "^0.0.3",
+    "@types/jsonschema": "^1.1.1",
     "bootstrap": "^4.5.0",
     "ngx-toastr": "^14.1.0",
     "rxjs": "^7.3.0",

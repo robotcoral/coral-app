@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Coordinates3 } from '../utils';
+import { AdditionalWorldData, Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 import { ResizeModal } from './modals';
+import { ExportModal } from './modals/export.modal';
 import { ResetModal } from './modals/reset.modal';
 
-export enum MODES {
+export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
   CUBE = 'CUBE',
   SLAB = 'SLAB',
@@ -14,7 +14,7 @@ export enum MODES {
 
 export interface PlaceEvent {
   color: string;
-  mode: MODES;
+  mode: WORLDOBJECTTYPES;
 }
 
 @Component({
@@ -37,12 +37,12 @@ export class GameboardControlsComponent {
     }
   }).bind(this);
 
-  modes: { [key in MODES]: string } = {
+  modes: { [key in WORLDOBJECTTYPES]: string } = {
     SLAB: 'assets/icons/ic_fluent_slab_24_regular.svg',
     CUBE: 'assets/icons/ic_fluent_cube_24_regular.svg',
     FLAG: 'assets/icons/ic_fluent_flag_24_regular.svg',
   };
-  mode: MODES = MODES.CUBE;
+  mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB;
   modeStyle = '';
   modeExpanded = false;
   modeCallback = ((e) => {
@@ -55,17 +55,8 @@ export class GameboardControlsComponent {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private modalService: NgbModal,
-    private controller: GameboardController
+    public controller: GameboardController
   ) {}
-
-  onMove() {
-    this.controller.move();
-  }
-
-  onRotate(dir = 1) {
-    this.controller.rotate(dir);
-  }
 
   onColorMenu() {
     this.colorStyle = this.colorExpanded
@@ -93,7 +84,7 @@ export class GameboardControlsComponent {
   }
 
   onModeSelect(mode: string) {
-    this.mode = mode as MODES;
+    this.mode = mode as WORLDOBJECTTYPES;
     this.onModeMenu();
   }
 
@@ -106,7 +97,8 @@ export class GameboardControlsComponent {
   }
 
   onReset() {
-    this.openModal(ResetModal)
+    this.controller
+      .openModal(ResetModal)
       .result.then(() => {
         this.controller.reset();
       })
@@ -114,7 +106,7 @@ export class GameboardControlsComponent {
   }
 
   onResize() {
-    const modalRef = this.openModal(ResizeModal);
+    const modalRef = this.controller.openModal(ResizeModal);
 
     modalRef.componentInstance.init(this.controller.getWorldSize());
     modalRef.result
@@ -124,26 +116,18 @@ export class GameboardControlsComponent {
       .catch(() => {});
   }
 
-  openModal(content: any) {
-    const modalRef = this.modalService.open(content, {
-      backdrop: false,
-      centered: true,
-      windowClass: 'custom-modal',
-    });
-    const callback = (e: any) => {
-      if (!this.document.getElementById('modal').contains(e.target)) {
-        modalRef.dismiss();
-      }
-    };
+  onFileSelected(event: Event) {
+    const file: File = (event.target as HTMLInputElement).files[0];
 
-    // makes sure the modal isn't immediately closed
-    setTimeout(() => {
-      this.document.addEventListener('click', callback);
-    }, 0);
+    this.controller.importWorld(file);
+  }
 
-    modalRef.result.finally(() => {
-      this.document.removeEventListener('click', callback);
-    });
-    return modalRef;
+  onExport() {
+    this.controller
+      .openModal(ExportModal)
+      .result.then((data: AdditionalWorldData) => {
+        this.controller.exportWorld(data);
+      })
+      .catch(() => {});
   }
 }
