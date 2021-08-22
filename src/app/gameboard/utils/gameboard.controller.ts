@@ -112,7 +112,8 @@ export class GameboardController {
   }
 
   exportWorld(data: AdditionalWorldData) {
-    const text = this.model.export(data);
+    const worldFile = this.model.export(data);
+    const text = JSON.stringify(worldFile, null, 2);
     this.dyanmicDownloadByHtmlTag(text);
   }
 
@@ -169,5 +170,10 @@ export class GameboardController {
     this.download.setAttribute('download', 'world.coralworld');
 
     this.download.click();
+  }
+
+  saveWorld() {
+    const worldFile = this.model.export({});
+    this.model.save(worldFile.world_data);
   }
 }

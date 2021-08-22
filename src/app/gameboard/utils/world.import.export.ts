@@ -21,7 +21,6 @@ export class WorldExport {
       starting_rotation: robot.getCardinal(),
       objects: [],
     };
-    console.log(data);
     Object.entries(data).forEach(([key, value]) => {
       worldData[key] = value;
     });
@@ -59,8 +58,7 @@ export class WorldExport {
       coral_version: commonEnvironment.version,
       world_data: worldData,
     };
-
-    return JSON.stringify(worldFile, null, 2);
+    return worldFile;
   }
 }
 

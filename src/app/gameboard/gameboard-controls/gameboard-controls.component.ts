@@ -5,6 +5,7 @@ import { GameboardController } from '../utils/gameboard.controller';
 import { ResizeModal } from './modals';
 import { ExportModal } from './modals/export.modal';
 import { ResetModal } from './modals/reset.modal';
+import { SaveModal } from './modals/save.modal';
 
 export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
@@ -128,6 +129,13 @@ export class GameboardControlsComponent {
       .result.then((data: AdditionalWorldData) => {
         this.controller.exportWorld(data);
       })
+      .catch(() => {});
+  }
+
+  onSave() {
+    this.controller
+      .openModal(SaveModal)
+      .result.then(() => this.controller.saveWorld())
       .catch(() => {});
   }
 }

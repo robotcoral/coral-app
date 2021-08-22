@@ -119,6 +119,13 @@
     accept=".coralworld,.json"
     #fileUpload
   />
+  <button (click)="onSave()" title="Save world as default">
+    <img
+      src="assets/icons/ic_fluent_save_24_regular.svg"
+      alt="Save"
+      draggable="false"
+    />
+  </button>
   <button (click)="fileUpload.click()" title="Import world">
     <img
       src="assets/icons/ic_fluent_cloud_backup_24_regular.svg"

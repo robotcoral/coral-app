@@ -6,6 +6,7 @@ import {
   WorldExport,
   WorldImport,
 } from '.';
+import { WorldData } from './world.schema';
 
 export class GameboardModel {
   world: World;
@@ -32,5 +33,9 @@ export class GameboardModel {
 
   import(world: string) {
     return WorldImport.import(world);
+  }
+
+  save(data: WorldData) {
+    this.world.defaultWorld = data;
   }
 }
