@@ -1,23 +1,23 @@
 <div class="control-panel">
   <div class="left-controls controls">
-    <button (click)="controller.rotate()">
+    <button (click)="controller.rotate()" title="Rotate counterclockwise">
       <img
         src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
-        alt="RL"
+        alt="Rotate counterclockwise"
         draggable="false"
       />
     </button>
-    <button (click)="controller.move()">
+    <button (click)="controller.move()" title="Move">
       <img
         src="assets/icons/ic_fluent_arrow_up_24_regular.svg"
-        alt="M"
+        alt="Move"
         draggable="false"
       />
     </button>
-    <button (click)="controller.rotate(-1)">
+    <button (click)="controller.rotate(-1)" title="Rotate clockwise">
       <img
         src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
-        alt="RR"
+        alt="Rotate clockwise"
         draggable="false"
       />
     </button>
@@ -28,16 +28,17 @@
   <div class="right-controls controls">
     <div class="wrapper">
       <div id="modeMenu" [style]="modeStyle" class="menu">
-        <button (click)="onModeMenu()">
-          <img [src]="modes[mode]" alt="B" draggable="false" />
+        <button (click)="onModeMenu()" title="Change placement mode">
+          <img [src]="modes[mode]" [alt]="mode" draggable="false" />
         </button>
         <ng-container *ngIf="modeExpanded">
           <button
             *ngFor="let m of modes | keyvalue"
             [style.display]="m.key == mode ? 'none' : ''"
             (click)="onModeSelect(m.key)"
+            [title]="m.key"
           >
-            <img [src]="m.value" draggable="false" />
+            <img [src]="m.value" draggable="false" [alt]="m.key" />
           </button>
         </ng-container>
       </div>
@@ -48,10 +49,11 @@
         <button
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"
+          title="Change color"
         >
           <img
             src="assets/icons/ic_fluent_color_24_regular.svg"
-            alt="A"
+            alt="Colors"
             draggable="false"
           />
         </button>
@@ -62,27 +64,32 @@
             [style.background-color]="c.value"
             [style.display]="c.key == color ? 'none' : ''"
             (click)="onColorSelect(c.key)"
+            [title]="c.key"
           ></button>
         </ng-container>
       </div>
     </div>
-    <button (click)="onPlace()">
+    <button (click)="onPlace()" title="Put down">
       <img
         src="assets/icons/ic_fluent_add_square_24_regular.svg"
-        alt="A"
+        alt="Put down"
         draggable="false"
       />
     </button>
-    <button (click)="onPickUp()">
+    <button (click)="onPickUp()" title="Pick up">
       <img
         src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
-        alt="S"
+        alt="Pick up"
         draggable="false"
       />
     </button>
   </div>
 
-  <button class="settingsbtn" (click)="settingsOpen = !settingsOpen">
+  <button
+    class="settingsbtn"
+    (click)="settingsOpen = !settingsOpen"
+    title="Expand/Collapse settings"
+  >
     <img
       src="assets/icons/ic_fluent_settings_24_regular.svg"
       alt="Settings"
@@ -91,14 +98,14 @@
   </button>
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
-  <button (click)="onReset()">
+  <button (click)="onReset()" title="Reset world">
     <img
       src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
       alt="Reset"
       draggable="false"
     />
   </button>
-  <button (click)="onResize()">
+  <button (click)="onResize()" title="Resize world">
     <img
       src="assets/icons/ic_fluent_slide_size_24_regular.svg"
       alt="Resize"
@@ -112,16 +119,16 @@
     accept=".coralworld,.json"
     #fileUpload
   />
-  <button (click)="fileUpload.click()">
+  <button (click)="fileUpload.click()" title="Import world">
     <img
       src="assets/icons/ic_fluent_cloud_backup_24_regular.svg"
-      alt="Resize"
+      alt="Import"
       draggable="false"
     /></button
-  ><button (click)="onExport()">
+  ><button (click)="onExport()" title="Export world">
     <img
       src="assets/icons/ic_fluent_cloud_download_24_regular.svg"
-      alt="Resize"
+      alt="Export"
       draggable="false"
     />
   </button>
