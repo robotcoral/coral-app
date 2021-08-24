@@ -1,5 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { GameboardViewComponent } from './gameboard/gameboard-view/gameboard-view.component';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { GameboardComponent } from './gameboard/gameboard.component';
 
 @Component({
@@ -9,8 +14,7 @@ import { GameboardComponent } from './gameboard/gameboard.component';
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild(GameboardComponent)
-  gameboard: GameboardComponent;
-  gameboardView: GameboardViewComponent;
+  gameboardView: GameboardComponent;
   @ViewChild('splitBorder', { static: true })
   resizerRef: ElementRef;
   resizer: HTMLElement;
@@ -19,11 +23,16 @@ export class AppComponent implements AfterViewInit {
   x = 0;
   y = 0;
   leftWidth = 0;
+  canvasParent: HTMLElement;
+  canvas: HTMLCanvasElement;
 
   ngAfterViewInit(): void {
     this.resizer = this.resizerRef.nativeElement;
     this.leftSide = this.resizer.previousElementSibling as HTMLElement;
     this.rightSide = this.resizer.nextElementSibling as HTMLElement;
+
+    this.canvasParent = document.getElementById('canvas-parent');
+    this.canvas = this.canvasParent.getElementsByTagName('canvas')[0];
 
     this.resizer.addEventListener('mousedown', this.mouseDownHandler);
   }
@@ -39,6 +48,7 @@ export class AppComponent implements AfterViewInit {
     // Attach the listeners to `document`
     document.addEventListener('mousemove', this.mouseMoveHandler);
     document.addEventListener('mouseup', this.mouseUpHandler);
+    window.onresize = this.onWindowResize;
   };
 
   mouseMoveHandler = (event: MouseEvent) => {
@@ -58,6 +68,8 @@ export class AppComponent implements AfterViewInit {
 
     this.rightSide.style.userSelect = 'none';
     this.rightSide.style.pointerEvents = 'none';
+
+    this.onWindowResize();
   };
 
   mouseUpHandler = () => {
@@ -73,5 +85,12 @@ export class AppComponent implements AfterViewInit {
     // Remove the handlers of `mousemove` and `mouseup`
     document.removeEventListener('mousemove', this.mouseMoveHandler);
     document.removeEventListener('mouseup', this.mouseUpHandler);
+  };
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize = () => {
+    this.canvas.height = this.canvasParent.clientHeight;
+    this.canvas.width = this.canvasParent.clientWidth;
+    this.gameboardView.onResize();
   };
 }
