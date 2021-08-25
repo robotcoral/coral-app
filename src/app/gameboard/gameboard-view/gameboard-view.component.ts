@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Color, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GameboardController } from '../utils';
-import { OrbitControls } from '../utils/OrbitControls';
 
 @Component({
   selector: 'app-gameboard-view',
@@ -17,7 +17,7 @@ export class GameboardViewComponent implements AfterViewInit {
   scene: Scene;
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
-  controls; // OrbitControls
+  controls: OrbitControls;
   gridScale = 50;
 
   constructor(private controller: GameboardController) {}
@@ -72,5 +72,9 @@ export class GameboardViewComponent implements AfterViewInit {
       this.gameboard.clientWidth,
       this.gameboard.clientHeight
     );
+  }
+
+  resetCamera() {
+    this.controls.reset();
   }
 }

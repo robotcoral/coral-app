@@ -13,4 +13,8 @@ export class GameboardComponent {
   onResize() {
     this.gameboardView.onWindowResize();
   }
+
+  onCameraReset() {
+    this.gameboardView.resetCamera();
+  }
 }

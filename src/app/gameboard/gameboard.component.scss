@@ -1,7 +1,7 @@
 app-gameboard-view {
   flex: 1;
   width: 100%;
-  display: block;
+  display: blcok;
   min-height: 0;
   overflow: hidden;
 }
@@ -12,4 +12,31 @@ app-gameboard-controls {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   z-index: 10;
+}
+
+::ng-deep button {
+  border: 0px;
+  min-height: 3rem;
+  border-radius: 4px;
+  background-color: white;
+  margin: 0.5rem;
+}
+
+::ng-deep button:hover {
+  box-shadow: 0 0 2px 2px lightgray;
+}
+
+.camera-button-wrapper {
+  position: absolute;
+  right: 0;
+  top: calc(50% - 2rem);
+  box-shadow: 0 0 4px grey;
+  z-index: 10;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+img {
+  height: 2rem;
+  margin: 0.25rem;
 }
