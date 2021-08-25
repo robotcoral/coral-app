@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AdditionalWorldData } from '../../utils';
+import { AdditionalWorldData } from 'src/app/gameboard/utils';
 
 @Component({
   selector: 'export-modal',

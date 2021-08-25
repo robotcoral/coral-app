@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ImportModal } from 'src/app/common/modals/import.modal';
 import {
   AdditionalWorldData,
   CARDINALS,
@@ -12,7 +13,6 @@ import {
   PlaceEvent,
   WORLDOBJECTTYPES,
 } from '../gameboard-controls/gameboard-controls.component';
-import { ImportModal } from '../gameboard-controls/modals/import.modal';
 import { WorldFile } from './world.schema';
 
 @Injectable()

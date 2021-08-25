@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
+import { ResizeModal } from 'src/app/common/modals';
+import { ExportModal } from 'src/app/common/modals/export.modal';
+import { ResetModal } from 'src/app/common/modals/reset.modal';
+import { SaveModal } from 'src/app/common/modals/save.modal';
 import { AdditionalWorldData, Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
-import { ResizeModal } from './modals';
-import { ExportModal } from './modals/export.modal';
-import { ResetModal } from './modals/reset.modal';
-import { SaveModal } from './modals/save.modal';
 
 export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
