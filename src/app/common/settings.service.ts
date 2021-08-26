@@ -17,8 +17,9 @@ export class SettingsService {
 
   load() {
     const settingsString = window.localStorage.getItem(SETTINGS_KEY);
-    if (!settingsString) {
+    if (settingsString == null) {
       this.settings = new Settings({});
+      return;
     }
 
     const settingsObject = JSON.parse(settingsString) as Settings;
@@ -26,6 +27,7 @@ export class SettingsService {
     if (errors.length) {
       console.error(errors);
       this.settings = new Settings({});
+      return;
     }
 
     this.settings = new Settings(settingsObject);
