@@ -14,7 +14,7 @@ app-gameboard-controls {
   z-index: 10;
 }
 
-::ng-deep button {
+::ng-deep .icon-button {
   border: 0px;
   min-height: 3rem;
   border-radius: 4px;
@@ -22,7 +22,7 @@ app-gameboard-controls {
   margin: 0.5rem;
 }
 
-::ng-deep button:hover {
+::ng-deep .icon-button:hover {
   box-shadow: 0 0 2px 2px lightgray;
 }
 
