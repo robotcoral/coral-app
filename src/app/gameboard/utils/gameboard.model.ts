@@ -1,3 +1,4 @@
+import { SettingsService } from 'src/app/common/settings.service';
 import {
   AdditionalWorldData,
   Coordinates3,
@@ -11,20 +12,24 @@ import { WorldData } from './world.schema';
 export class GameboardModel {
   world: World;
   robot: Robot;
+  currentSlabs: number;
 
-  constructor() {
+  constructor(private settingsService: SettingsService) {
     this.world = new World();
     this.robot = new Robot(this.world);
+    this.currentSlabs = this.settingsService.settings.startSlabs;
   }
 
   reset() {
     this.world.reset();
     this.robot.reset();
+    this.currentSlabs = this.settingsService.settings.startSlabs;
   }
 
   resize(coo: Coordinates3) {
     this.world.resize(coo);
     this.robot.reset();
+    this.currentSlabs = this.settingsService.settings.startSlabs;
   }
 
   export(data: AdditionalWorldData) {
