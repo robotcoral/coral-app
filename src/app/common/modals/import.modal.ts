@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { WorldFile } from 'src/app/gameboard/utils';
 import { commonEnvironment } from 'src/environments/environment.common';
-import { WorldFile } from '../../utils';
 
 @Component({
   selector: 'import-modal',
