@@ -1,14 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { SettingsService } from '../common/settings.service';
 import { GameboardComponent } from './gameboard.component';
-
-class MockToastrService {
-  error(
-    message?: string,
-    title?: string,
-    override?: Partial<IndividualConfig>
-  ) {}
-}
+import { GameboardController } from './utils';
 
 describe('GameboardComponent', () => {
   let component: GameboardComponent;
@@ -19,8 +12,12 @@ describe('GameboardComponent', () => {
       declarations: [GameboardComponent],
       providers: [
         {
-          provide: ToastrService,
-          useClass: MockToastrService,
+          provide: SettingsService,
+          useValue: { settings: { inventoryActive: false } },
+        },
+        {
+          provide: GameboardController,
+          useValue: {},
         },
       ],
     }).compileComponents();
