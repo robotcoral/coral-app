@@ -1,9 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { ResizeModal } from 'src/app/common/modals';
-import { ExportModal } from 'src/app/common/modals/export.modal';
-import { ResetModal } from 'src/app/common/modals/reset.modal';
-import { SaveModal } from 'src/app/common/modals/save.modal';
+import { ExportModal, ResizeModal, WarningModal } from 'src/app/common/modals';
 import { AdditionalWorldData, Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 
@@ -98,9 +95,14 @@ export class GameboardControlsComponent {
   }
 
   onReset() {
-    this.controller
-      .openModal(ResetModal)
-      .result.then(() => {
+    const modalRef = this.controller.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'Reset World',
+      description: 'Are you sure you want to reset the world?',
+      successButton: 'Reset',
+    });
+    modalRef.result
+      .then(() => {
         this.controller.reset();
       })
       .catch(() => {});
@@ -133,9 +135,17 @@ export class GameboardControlsComponent {
   }
 
   onSave() {
-    this.controller
-      .openModal(SaveModal)
-      .result.then(() => this.controller.saveWorld())
+    const modalRef = this.controller.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'Save world as default',
+      description:
+        'Do you want to save this world as default? Resetting will then return the world to this state.',
+      successButton: 'Save',
+    });
+    modalRef.result
+      .then(() => {
+        this.controller.saveWorld();
+      })
       .catch(() => {});
   }
 }

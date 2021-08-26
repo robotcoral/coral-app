@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+export interface WarningModalConfig {
+  title: string;
+  description: string;
+  successButton?: string;
+  abortButton?: string;
+}
+
 @Component({
-  selector: 'reset-modal',
+  selector: 'save-modal',
   template: `
     <div id="modal">
       <div class="modal-header">
-        <h4 class="modal-title">Reset World</h4>
+        <h4 class="modal-title">{{ data.title }}</h4>
         <button
           type="button"
           class="close"
@@ -16,27 +23,39 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">Are you sure you want to reset?</div>
+      <div class="modal-body">
+        {{ data.description }}
+      </div>
       <div class="modal-footer">
         <button
           type="button"
           class="btn btn-outline-dark"
           (click)="activeModal.close('')"
         >
-          Ok
+          {{ data.successButton }}
         </button>
         <button
           type="button"
           class="btn btn-outline-dark"
           (click)="activeModal.dismiss('Close click')"
         >
-          Cancel
+          {{ data.abortButton }}
         </button>
       </div>
     </div>
   `,
   styleUrls: ['./modal.styles.scss'],
 })
-export class ResetModal {
+export class WarningModal {
+  data: WarningModalConfig;
   constructor(public activeModal: NgbActiveModal) {}
+
+  init(config: WarningModalConfig) {
+    this.data = {
+      title: config.title,
+      description: config.description,
+      successButton: config.successButton || 'Ok',
+      abortButton: config.abortButton || 'Cancel',
+    };
+  }
 }
