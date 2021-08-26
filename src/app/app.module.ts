@@ -24,7 +24,7 @@ import { TitlebarComponent } from './titlebar/titlebar.component';
     ToastrModule.forRoot(),
     NgbModule,
   ],
-  providers: [],
+  providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

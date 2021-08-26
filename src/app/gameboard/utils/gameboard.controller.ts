@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ImportModal } from 'src/app/common/modals/import.modal';
+import { SettingsService } from 'src/app/common/settings.service';
 import {
   AdditionalWorldData,
   CARDINALS,
@@ -23,7 +24,8 @@ export class GameboardController {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private settingService: SettingsService
   ) {
     this.model = new GameboardModel();
   }
