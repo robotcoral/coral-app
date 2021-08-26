@@ -3,9 +3,11 @@ import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ImportModal } from 'src/app/common/modals/import.modal';
+import { SettingsService } from 'src/app/common/settings.service';
 import {
   AdditionalWorldData,
   CARDINALS,
+  Coordinates2,
   Coordinates3,
   GameboardModel,
 } from '.';
@@ -15,7 +17,9 @@ import {
 } from '../gameboard-controls/gameboard-controls.component';
 import { WorldFile } from './world.schema';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GameboardController {
   private model: GameboardModel;
   private download: HTMLElement;
@@ -23,9 +27,10 @@ export class GameboardController {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private settingService: SettingsService
   ) {
-    this.model = new GameboardModel();
+    this.model = new GameboardModel(settingService);
   }
 
   move() {
@@ -43,8 +48,7 @@ export class GameboardController {
   place(event: PlaceEvent) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (event.mode == WORLDOBJECTTYPES.SLAB)
-        this.model.world.placeSlab(coo, event.color);
+      if (event.mode == WORLDOBJECTTYPES.SLAB) this.placeSlab(coo, event.color);
       else if (event.mode == WORLDOBJECTTYPES.CUBE)
         this.model.world.placeBlock(coo);
       else
@@ -55,6 +59,16 @@ export class GameboardController {
     } catch (error) {
       this.toastr.error(error);
     }
+    console.log(this.model.currentSlabs);
+  }
+
+  private placeSlab(coo: Coordinates2, color: string) {
+    if (this.settingService.settings.inventoryActive) {
+      if (this.model.currentSlabs === 0)
+        throw new Error('You have no slabs left in your inventory');
+      this.model.world.placeSlab(coo, color);
+      this.model.currentSlabs--;
+    } else this.model.world.placeSlab(coo, color);
   }
 
   pickUp(mode: WORLDOBJECTTYPES) {
@@ -175,5 +189,9 @@ export class GameboardController {
   saveWorld() {
     const worldFile = this.model.export({});
     this.model.save(worldFile.world_data);
+  }
+
+  getCurrentSlabs() {
+    return this.model.currentSlabs;
   }
 }
