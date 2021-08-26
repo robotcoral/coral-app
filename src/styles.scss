@@ -13,6 +13,8 @@ html {
 body {
   height: 100%;
   margin: 0;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
 }
 
 app-root {
