@@ -1,5 +1,11 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Color, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
+import {
+  AxesHelper,
+  Color,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GameboardController } from '../utils';
 
@@ -11,20 +17,32 @@ import { GameboardController } from '../utils';
 export class GameboardViewComponent implements AfterViewInit {
   @ViewChild('gameboard')
   gameboardRef: ElementRef;
-  gameboard: HTMLElement;
+  gameboard: HTMLDivElement;
+  @ViewChild('inset')
+  insetRef: ElementRef;
+  inset: HTMLDivElement;
   canvas: HTMLElement;
+  gridScale = 50;
 
+  // Main scene
   scene: Scene;
   camera: PerspectiveCamera;
   renderer: WebGLRenderer;
   controls: OrbitControls;
-  gridScale = 50;
+
+  // Axes Helper
+  axesScene: Scene;
+  axesCamera: PerspectiveCamera;
+  axesRenderer: WebGLRenderer;
 
   constructor(private controller: GameboardController) {}
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
+    this.inset = this.insetRef.nativeElement;
+
     this.init();
+    this.setupAxesHelper();
     this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
     this.render();
   }
@@ -59,7 +77,14 @@ export class GameboardViewComponent implements AfterViewInit {
     const animate = () => {
       requestAnimationFrame(animate);
       this.controls.update();
+
+      this.axesCamera.position.copy(this.camera.position);
+      this.axesCamera.position.sub(this.controls.target);
+      this.axesCamera.position.setLength(300);
+      this.axesCamera.lookAt(this.axesScene.position);
+
       this.renderer.render(this.scene, this.camera);
+      this.axesRenderer.render(this.axesScene, this.axesCamera);
     };
     animate();
   }
@@ -76,5 +101,19 @@ export class GameboardViewComponent implements AfterViewInit {
 
   resetCamera() {
     this.controls.reset();
+  }
+
+  setupAxesHelper() {
+    this.axesRenderer = new WebGLRenderer({ alpha: true });
+    this.axesRenderer.setClearColor(0, 0);
+    this.axesRenderer.setSize(this.inset.clientHeight, this.inset.clientWidth);
+    this.inset.appendChild(this.axesRenderer.domElement);
+
+    this.axesScene = new Scene();
+    this.axesCamera = new PerspectiveCamera(50, 1, 1, 1000);
+    this.axesCamera.up = this.camera.up;
+
+    const axes = new AxesHelper(100);
+    this.axesScene.add(axes);
   }
 }
