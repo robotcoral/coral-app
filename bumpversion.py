@@ -25,14 +25,26 @@ def detect_version(argv):
             else:
                 valid = False
         else:
-            valid = False
+            version_string_split = version_string.split(".")
+            if(len(version_string_split) == 3):
+                for i in range(0, 3):
+                    if(not(version_string_split[i].isdigit())):
+                        valid = False
+                    elif(not(str(int(version_string_split[i]))
+                             == version_string_split[i])):
+                        valid = False
+            else:
+                valid = False
 
         if not(valid):
             throw_error("Version doesn't match required format")
 
         print("✅ Detected version: VERSION \"{}\"".format(version_string[1:]))
 
-        return version_string[1:]
+        if(version_string[0] == "v"):
+            return version_string[1:]
+        else:
+            return version_string
 
     else:
         throw_error("No command line argument detected")
@@ -136,4 +148,5 @@ if __name__ == "__main__":
 
     print("\n---Bumping versions---")
 
+    print(version)
     bump_version(version)
