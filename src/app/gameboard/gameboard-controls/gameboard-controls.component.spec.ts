@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GameboardController } from '../utils';
 import { GameboardControlsComponent } from './gameboard-controls.component';
 
@@ -11,10 +10,12 @@ describe('GameboardControlsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [GameboardControlsComponent],
       providers: [
-        { provide: NgbModal, useValue: {} },
+        { provide: Document, useValue: {} },
         {
           provide: GameboardController,
-          useValue: {},
+          useValue: {
+            openModal: () => {},
+          },
         },
       ],
     }).compileComponents();
