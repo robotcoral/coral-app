@@ -94,7 +94,7 @@ export class WorldImport {
     const errors = validate(world, WorldSchema).errors;
     if (errors.length == 0) return;
 
-    console.log('Encountered errors while parsing world:\n' + errors);
+    console.error('Encountered errors while parsing world:\n' + errors);
     throw new Error(
       'Could not read world file.\nCheck console for additional details'
     );

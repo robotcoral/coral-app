@@ -26,7 +26,14 @@ export class GeneralSettingsModal {
     console.log(settingsService.theme);
   }
 
-  onApply() {}
+  onApply() {
+    const theme = this.formGroup.get('theme').value as unknown as
+      | THEMES
+      | 'auto';
+    const language = this.formGroup.get('language')
+      .value as unknown as LANGUAGES;
+    this.settingsService.saveGeneralSettings(theme, language);
+  }
 
   originalOrder = (a: any, b: any): number => {
     return 0;
