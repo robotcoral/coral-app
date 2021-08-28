@@ -64,4 +64,4 @@ html_theme_options = {
     'style_external_links': True
 }
 
-master_doc = 'index'
+master_doc = '/source/index'
