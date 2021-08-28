@@ -10,11 +10,12 @@ Welcome to Robot Coral's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   _docfiles/test.md
 
 
 Indices and tables
 ==================
 
-* :ref:`genindex`
+* :doc:`_docfiles/test`
 * :ref:`modindex`
 * :ref:`search`
