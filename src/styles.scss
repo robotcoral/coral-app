@@ -40,6 +40,7 @@ html {
 body {
   height: 100%;
   margin: 0;
+  overscroll-behavior: none;
   background-color: var(--theme-main-bg-color);
   @include themes.bg-color-transition;
 }
