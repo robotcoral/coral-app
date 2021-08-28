@@ -1,7 +1,15 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { AfterViewInit, Component, Inject } from '@angular/core';
+import {
+  ExportModal,
+  ResizeModal,
+  SettingsModal,
+  WarningModal,
+} from 'src/app/common/modals';
+import { AdditionalWorldData, Coordinates3 } from '../utils';
+import { GameboardController } from '../utils/gameboard.controller';
 
-export enum MODES {
+export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
   CUBE = 'CUBE',
   SLAB = 'SLAB',
@@ -9,7 +17,7 @@ export enum MODES {
 
 export interface PlaceEvent {
   color: string;
-  mode: MODES;
+  mode: WORLDOBJECTTYPES;
 }
 
 @Component({
@@ -17,13 +25,7 @@ export interface PlaceEvent {
   templateUrl: './gameboard-controls.component.html',
   styleUrls: ['./gameboard-controls.component.scss'],
 })
-export class GameboardControlsComponent {
-  @Output() move = new EventEmitter();
-  @Output() rotate = new EventEmitter<number>();
-  @Output() place = new EventEmitter<PlaceEvent>();
-  @Output() pickUp = new EventEmitter<MODES>();
-  @Output() reset = new EventEmitter();
-
+export class GameboardControlsComponent implements AfterViewInit {
   colors = {
     red: '#ff0000',
     green: '#00ff00',
@@ -38,12 +40,12 @@ export class GameboardControlsComponent {
     }
   }).bind(this);
 
-  modes: { [key in MODES]: string } = {
+  modes: { [key in WORLDOBJECTTYPES]: string } = {
     SLAB: 'assets/icons/ic_fluent_slab_24_regular.svg',
     CUBE: 'assets/icons/ic_fluent_cube_24_regular.svg',
     FLAG: 'assets/icons/ic_fluent_flag_24_regular.svg',
   };
-  mode: MODES = MODES.CUBE;
+  mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB;
   modeStyle = '';
   modeExpanded = false;
   modeCallback = ((e) => {
@@ -54,14 +56,13 @@ export class GameboardControlsComponent {
 
   settingsOpen = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    public controller: GameboardController
+  ) {}
 
-  onMove() {
-    this.move.emit(null);
-  }
-
-  onRotate(dir = 1) {
-    this.rotate.emit(dir);
+  ngAfterViewInit(): void {
+    this.controller.openModal(SettingsModal);
   }
 
   onColorMenu() {
@@ -90,19 +91,70 @@ export class GameboardControlsComponent {
   }
 
   onModeSelect(mode: string) {
-    this.mode = mode as MODES;
+    this.mode = mode as WORLDOBJECTTYPES;
     this.onModeMenu();
   }
 
   onPlace() {
-    this.place.emit({ mode: this.mode, color: this.colors[this.color] });
+    this.controller.place({ mode: this.mode, color: this.colors[this.color] });
   }
 
   onPickUp() {
-    this.pickUp.emit(this.mode);
+    this.controller.pickUp(this.mode);
   }
 
   onReset() {
-    this.reset.emit();
+    const modalRef = this.controller.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'Reset World',
+      description: 'Are you sure you want to reset the world?',
+      successButton: 'Reset',
+    });
+    modalRef.result
+      .then(() => {
+        this.controller.reset();
+      })
+      .catch(() => {});
+  }
+
+  onResize() {
+    const modalRef = this.controller.openModal(ResizeModal);
+
+    modalRef.componentInstance.init(this.controller.getWorldSize());
+    modalRef.result
+      .then((coo: Coordinates3) => {
+        this.controller.resize(coo);
+      })
+      .catch(() => {});
+  }
+
+  onFileSelected(event: Event) {
+    const file: File = (event.target as HTMLInputElement).files[0];
+
+    this.controller.importWorld(file);
+  }
+
+  onExport() {
+    this.controller
+      .openModal(ExportModal)
+      .result.then((data: AdditionalWorldData) => {
+        this.controller.exportWorld(data);
+      })
+      .catch(() => {});
+  }
+
+  onSave() {
+    const modalRef = this.controller.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'Save world as default',
+      description:
+        'Do you want to save this world as default? Resetting will then return the world to this state.',
+      successButton: 'Save',
+    });
+    modalRef.result
+      .then(() => {
+        this.controller.saveWorld();
+      })
+      .catch(() => {});
   }
 }

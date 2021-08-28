@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { GameboardController } from '../utils';
 import { GameboardViewComponent } from './gameboard-view.component';
 
 describe('GameboardViewComponent', () => {
@@ -8,9 +8,21 @@ describe('GameboardViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameboardViewComponent ]
-    })
-    .compileComponents();
+      declarations: [GameboardViewComponent],
+      providers: [
+        {
+          provide: GameboardController,
+          useValue: {
+            getRobot: () => {
+              return {
+                mesh: {},
+              };
+            },
+            getWorld: () => {},
+          },
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

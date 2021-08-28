@@ -12,12 +12,14 @@ export class Robot {
   mesh: Mesh;
   position: Vector3;
   direction: Vector3;
+  world: World;
 
-  constructor(private world: World) {
+  constructor(world: World) {
+    this.world = world;
     this.init();
   }
 
-  init() {
+  private init() {
     const robotGeo = new BoxGeometry(
       this.world.gridScale,
       this.world.gridScale,
@@ -27,29 +29,25 @@ export class Robot {
     const loader = new CubeTextureLoader();
     loader.setPath('assets/materials/');
     const robotMaterial = new MeshBasicMaterial({
-      color: 0xffffff,
-      envMap: loader.load([
-        'side.png',
-        'face.png',
-        'side.png',
-        'side.png',
-        'side.png',
-        'side.png',
-      ]),
+      color: 0x8a8a8a,
     });
     this.mesh = new Mesh(robotGeo, robotMaterial);
     this.reset();
   }
 
   reset() {
-    this.mesh.position.set(0, 0, 0).add(this.world.offsetVector);
-    this.direction = new Vector3(0, 0, 1);
-    this.position = new Vector3(0, 0, 0);
+    if (this.world.defaultWorld.starting_position) {
+      const coo = this.world.defaultWorld.starting_position;
+      this.setPosition(coo);
+    } else this.setPosition({ x: 0, y: 0, z: 0 });
+    if (this.world.defaultWorld.starting_rotation)
+      this.setDirection(this.world.defaultWorld.starting_rotation);
+    else this.setDirection(CARDINALS.SOUTH);
   }
 
   getMoveCoordinates(): Coordinates3 {
     const moveVector = this.position.clone().add(this.direction);
-    return { x: moveVector.x, y: moveVector.z, z: this.direction.y * 2 };
+    return { x: moveVector.x, y: moveVector.z, z: moveVector.y * 2 };
   }
 
   getCurrentCoordinates(): Coordinates3 {
@@ -62,6 +60,7 @@ export class Robot {
     this.direction.y = (this.world.height(coo) - this.position.y * 2) * 0.5;
     this.position.add(this.direction);
     this.mesh.position.addScaledVector(this.direction, this.world.gridScale);
+    this.direction.y = 0;
   }
 
   rotate(dir = 1) {
@@ -73,11 +72,30 @@ export class Robot {
     return this.getCardinal() === cardinal;
   }
 
-  private getCardinal(): CARDINALS {
-    if (this.direction.x === 1) return CARDINALS.NORTH;
-    if (this.direction.x === -1) return CARDINALS.SOUTH;
-    if (this.direction.y === 1) return CARDINALS.EAST;
-    if (this.direction.y === 1) return CARDINALS.WEST;
+  getCardinal(): CARDINALS {
+    if (this.direction.z === -1) return CARDINALS.NORTH;
+    if (this.direction.z === 1) return CARDINALS.SOUTH;
+    if (this.direction.x === 1) return CARDINALS.EAST;
+    if (this.direction.x === -1) return CARDINALS.WEST;
     return null;
+  }
+
+  setPosition(coo: Coordinates3) {
+    this.position = new Vector3(coo.x, coo.z / 2, coo.y);
+    this.mesh.position
+      .set(0, 0, 0)
+      .add(this.world.offsetVector)
+      .addScaledVector(this.position, this.world.gridScale);
+    return this;
+  }
+
+  setDirection(direction: CARDINALS) {
+    const vector = new Vector3(0, 0, 0);
+    if (direction === CARDINALS.NORTH) vector.z = -1;
+    if (direction === CARDINALS.SOUTH) vector.z = 1;
+    if (direction === CARDINALS.EAST) vector.x = 1;
+    if (direction === CARDINALS.WEST) vector.x = -1;
+    this.direction = vector;
+    return this;
   }
 }

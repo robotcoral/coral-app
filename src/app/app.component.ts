@@ -1,5 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { GameboardViewComponent } from './gameboard/gameboard-view/gameboard-view.component';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { GameboardComponent } from './gameboard/gameboard.component';
 
 @Component({
@@ -9,42 +14,66 @@ import { GameboardComponent } from './gameboard/gameboard.component';
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild(GameboardComponent)
-  gameboard: GameboardComponent;
-  gameboardView: GameboardViewComponent;
+  gameboardView: GameboardComponent;
   @ViewChild('splitBorder', { static: true })
   resizerRef: ElementRef;
   resizer: HTMLElement;
+  @ViewChild('innerSplitBorder', { static: true })
+  test: ElementRef;
   leftSide: HTMLElement;
   rightSide: HTMLElement;
   x = 0;
   y = 0;
   leftWidth = 0;
+  canvasParent: HTMLElement;
+  canvas: HTMLCanvasElement;
+
+  constructor(public window: Window) {}
 
   ngAfterViewInit(): void {
-    this.gameboardView = this.gameboard.gameboardView;
     this.resizer = this.resizerRef.nativeElement;
     this.leftSide = this.resizer.previousElementSibling as HTMLElement;
     this.rightSide = this.resizer.nextElementSibling as HTMLElement;
 
-    this.resizer.addEventListener('mousedown', this.mouseDownHandler);
+    this.canvasParent = document.getElementById('canvas-parent');
+    this.canvas = this.canvasParent.getElementsByTagName('canvas')[0];
+
+    this.test.nativeElement.addEventListener(
+      'mousedown',
+      this.mouseDownHandler
+    );
+    this.test.nativeElement.addEventListener(
+      'touchstart',
+      (event: TouchEvent) => {
+        event.preventDefault();
+        this.mouseDownHandler(event as unknown as MouseEvent);
+      }
+    );
   }
 
   // Handle the mousedown event
   // that's triggered when user drags the resizer
-  mouseDownHandler = (event: MouseEvent) => {
+  mouseDownHandler = (event: MouseEvent | TouchEvent) => {
     // Get the current mouse position
-    this.x = event.clientX;
-    this.y = event.clientY;
+    this.x =
+      event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    this.y =
+      event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
     this.leftWidth = this.leftSide.getBoundingClientRect().width;
 
     // Attach the listeners to `document`
     document.addEventListener('mousemove', this.mouseMoveHandler);
+    document.addEventListener('touchmove', this.mouseMoveHandler);
     document.addEventListener('mouseup', this.mouseUpHandler);
+    document.addEventListener('touchend', this.mouseUpHandler);
   };
 
-  mouseMoveHandler = (event: MouseEvent) => {
+  mouseMoveHandler = (event: TouchEvent | MouseEvent) => {
     // How far the mouse has been moved
-    const dx = event.clientX - this.x;
+    const dx =
+      event instanceof MouseEvent
+        ? event.clientX - this.x
+        : event.touches[0].clientX - this.x;
 
     const newLeftWidth =
       ((this.leftWidth + dx) * 100) /
@@ -60,9 +89,7 @@ export class AppComponent implements AfterViewInit {
     this.rightSide.style.userSelect = 'none';
     this.rightSide.style.pointerEvents = 'none';
 
-    // resize canvas
-    this.gameboardView.canvas.style.width =
-      this.gameboardView.gameboard.clientWidth + 'px';
+    this.onWindowResize();
   };
 
   mouseUpHandler = () => {
@@ -77,6 +104,15 @@ export class AppComponent implements AfterViewInit {
 
     // Remove the handlers of `mousemove` and `mouseup`
     document.removeEventListener('mousemove', this.mouseMoveHandler);
+    document.removeEventListener('touchmove', this.mouseMoveHandler);
     document.removeEventListener('mouseup', this.mouseUpHandler);
+    document.removeEventListener('touchend', this.mouseUpHandler);
+  };
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize = () => {
+    this.canvas.height = this.canvasParent.clientHeight;
+    this.canvas.width = this.canvasParent.clientWidth;
+    this.gameboardView.onResize();
   };
 }

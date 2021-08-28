@@ -12,7 +12,6 @@ img {
   margin: 0.25rem;
 }
 
-button,
 .separator {
   margin: 0.5rem;
 }
@@ -34,7 +33,7 @@ button:hover {
 }
 
 .left-controls {
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .wrapper {
@@ -67,4 +66,8 @@ button:hover {
 
 .settings-panel {
   box-shadow: -1px -2px 4px grey;
+}
+
+.file-input {
+  display: none;
 }

@@ -1,7 +1,7 @@
 name: CI Angular app through Github Actions
 on: push
 jobs:
-  build:
+  run-angular-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,7 +11,7 @@ jobs:
           node-version: 14.x
 
       - name: Setup
-        run: npm ci
+        run: npm ci --no-optional --debug
 
       - name: Test
         run: |

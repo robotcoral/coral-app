@@ -1,32 +1,38 @@
 name: Publish on Dockerhub multi-arch
 on:
-  release:
-    types: [created]
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*.*.*"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
+      - name: Set version
+        run: echo "RELEASE_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
+
+      - name: Log version
+        run: echo "${{ env.RELEASE_VERSION }}"
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-        
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
         with:
           install: true
-          
+
       #- name: Available platforms
       #  run: echo ${{ steps.buildx.outputs.platforms }}
-        
+
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
@@ -35,4 +41,4 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           file: ./Dockerfile
           push: true
-          tags: robotcoral/coral-site:latest
+          tags: robotcoral/coral-site:latest,robotcoral/coral-site:${{ env.RELEASE_VERSION }}

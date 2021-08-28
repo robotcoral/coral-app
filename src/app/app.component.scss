@@ -18,12 +18,14 @@
   cursor: ew-resize;
   height: 100%;
   width: 2px;
+  position: relative;
 }
 
 .split-container-right {
   /* Take the remaining width */
   flex: 1;
   height: 100%;
+  min-width: 34rem;
 }
 
 app-editor {
@@ -46,4 +48,22 @@ app-titlebar {
   z-index: 10;
   align-items:center;
   @include themes.bg-color-transition;
+}
+
+.touch-border {
+  width: 4px;
+}
+
+.inner-border {
+  width: 10px;
+  background-color: transparent;
+  height: 100%;
+  position: absolute;
+  left: -5px;
+  z-index: 11;
+}
+
+.touch-inner-border {
+  width: 40px;
+  left: -10px;
 }

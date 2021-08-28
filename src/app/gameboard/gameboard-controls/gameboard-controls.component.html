@@ -1,18 +1,32 @@
 <div class="control-panel">
   <div class="left-controls controls">
-    <button (click)="onRotate()">
+    <button
+      (click)="controller.rotate()"
+      title="Rotate counterclockwise"
+      class="icon-button"
+    >
       <img
         src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
-        alt="RL" draggable="false"
+        alt="Rotate counterclockwise"
+        draggable="false"
       />
     </button>
-    <button (click)="onMove()">
-      <img src="assets/icons/ic_fluent_arrow_up_24_regular.svg" alt="M" draggable="false" />
+    <button (click)="controller.move()" title="Move" class="icon-button">
+      <img
+        src="assets/icons/ic_fluent_arrow_up_24_regular.svg"
+        alt="Move"
+        draggable="false"
+      />
     </button>
-    <button (click)="onRotate(-1)">
+    <button
+      (click)="controller.rotate(-1)"
+      title="Rotate clockwise"
+      class="icon-button"
+    >
       <img
         src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
-        alt="RR" draggable="false"
+        alt="Rotate clockwise"
+        draggable="false"
       />
     </button>
   </div>
@@ -22,16 +36,22 @@
   <div class="right-controls controls">
     <div class="wrapper">
       <div id="modeMenu" [style]="modeStyle" class="menu">
-        <button (click)="onModeMenu()">
-          <img [src]="modes[mode]" alt="B" draggable="false"/>
+        <button
+          (click)="onModeMenu()"
+          title="Change placement mode"
+          class="icon-button"
+        >
+          <img [src]="modes[mode]" [alt]="mode" draggable="false" />
         </button>
         <ng-container *ngIf="modeExpanded">
           <button
             *ngFor="let m of modes | keyvalue"
             [style.display]="m.key == mode ? 'none' : ''"
             (click)="onModeSelect(m.key)"
+            [title]="m.key"
+            class="icon-button"
           >
-            <img [src]="m.value" draggable="false"/>
+            <img [src]="m.value" draggable="false" [alt]="m.key" />
           </button>
         </ng-container>
       </div>
@@ -42,8 +62,14 @@
         <button
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"
+          title="Change color"
+          class="icon-button"
         >
-          <img src="assets/icons/ic_fluent_color_24_regular.svg" alt="A"  draggable="false"/>
+          <img
+            src="assets/icons/ic_fluent_color_24_regular.svg"
+            alt="Colors"
+            draggable="false"
+          />
         </button>
         <ng-container *ngIf="colorExpanded">
           <button
@@ -52,30 +78,80 @@
             [style.background-color]="c.value"
             [style.display]="c.key == color ? 'none' : ''"
             (click)="onColorSelect(c.key)"
+            [title]="c.key"
+            class="icon-button"
           ></button>
         </ng-container>
       </div>
     </div>
-    <button (click)="onPlace()">
-      <img src="assets/icons/ic_fluent_add_square_24_regular.svg" alt="A"  draggable="false"/>
+    <button (click)="onPlace()" title="Put down" class="icon-button">
+      <img
+        src="assets/icons/ic_fluent_add_square_24_regular.svg"
+        alt="Put down"
+        draggable="false"
+      />
     </button>
-    <button (click)="onPickUp()">
+    <button (click)="onPickUp()" title="Pick up" class="icon-button">
       <img
         src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
-        alt="S" draggable="false"
+        alt="Pick up"
+        draggable="false"
       />
     </button>
   </div>
 
-  <button class="settingsbtn" (click)="settingsOpen = !settingsOpen">
-    <img src="assets/icons/ic_fluent_settings_24_regular.svg" alt="Settings"  draggable="false"/>
+  <button
+    class="settingsbtn icon-button"
+    (click)="settingsOpen = !settingsOpen"
+    title="Expand/Collapse settings"
+  >
+    <img
+      src="assets/icons/ic_fluent_settings_24_regular.svg"
+      alt="Settings"
+      draggable="false"
+    />
   </button>
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
-  <button (click)="onReset()">
+  <button (click)="onReset()" title="Reset world" class="icon-button">
     <img
       src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
-      alt="Settings" draggable="false"
+      alt="Reset"
+      draggable="false"
+    />
+  </button>
+  <button (click)="onResize()" title="Resize world" class="icon-button">
+    <img
+      src="assets/icons/ic_fluent_slide_size_24_regular.svg"
+      alt="Resize"
+      draggable="false"
+    />
+  </button>
+  <input
+    type="file"
+    class="file-input"
+    (change)="onFileSelected($event)"
+    accept=".coralworld,.json"
+    #fileUpload
+  />
+  <button (click)="onSave()" title="Save world as default" class="icon-button">
+    <img
+      src="assets/icons/ic_fluent_save_24_regular.svg"
+      alt="Save"
+      draggable="false"
+    />
+  </button>
+  <button (click)="fileUpload.click()" title="Import world" class="icon-button">
+    <img
+      src="assets/icons/ic_fluent_cloud_backup_24_regular.svg"
+      alt="Import"
+      draggable="false"
+    /></button
+  ><button (click)="onExport()" title="Export world" class="icon-button">
+    <img
+      src="assets/icons/ic_fluent_cloud_download_24_regular.svg"
+      alt="Export"
+      draggable="false"
     />
   </button>
 </div>
