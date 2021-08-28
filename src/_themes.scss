@@ -1,0 +1,16 @@
+// Variables for color schemes
+@mixin theme-light {
+    --theme-font-color: #212121;
+    --theme-main-bg-color: #ffffff;
+}
+
+@mixin theme-dark {
+    --theme-font-color: #f2f2f2 ;
+    --theme-main-bg-color: #1a1a1a ;
+
+}
+
+@mixin theme-midnight{
+    --theme-font-color: #f2f2f2 ;
+    --theme-main-bg-color: #0d0d0d;
+}

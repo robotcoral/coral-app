@@ -1,16 +1,39 @@
+@use "sass:math";
+
 .app-titlebar-logo-area {
-    width: 52px;
+    width: 3.5rem;
     height: inherit;
     text-align: center;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 math.div(5rem, 16) math.div(5rem, 16) 0;
     background-image: linear-gradient(to top right, #A20098, #F56B6B);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-.app-titlebar-logo {
-    width: 20px;
+.app-titlebar-logo-button {
+    height: inherit;
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+    font-size: 11pt;
 }
 
-.app-titlebar-menu-buttons{
-    margin: 0 0 0 10px;
+.app-titlebar-logo {
+    height: inherit;
+    padding: 0.4rem;
+    user-select: none;
+    cursor: default;
+}
+
+.app-titlebar-button-container{
+    height: inherit;
+    display: grid;
+    grid-template-columns: repeat(6, [col-start] auto [col-end]);
+    margin: 0 0 0 0.75rem;
+}
+
+.app-titelbar-button{
+    height: inherit;
+    border-color: transparent;
+    background-color: green;
+    padding-left: 8px;
+    padding-right: 8px;
 }
