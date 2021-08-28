@@ -1,3 +1,5 @@
+@use "../themes" as themes;
+
 .split-container {
   display: flex;
   /* Misc */
@@ -38,11 +40,14 @@ app-gameboard {
 }
 
 app-titlebar {
-  display: block;
-  height: 32px;
-  box-shadow: 0px 2px 4px grey;
+  display: flex;
+  height: 2rem;
+  background-color: var(--theme-titlebar-bg-color);
+  box-shadow: 0px 2px 6px hsla(0,0%,0%, 0.35);
   position: relative;
   z-index: 10;
+  align-items:center;
+  @include themes.bg-color-transition;
 }
 
 .touch-border {

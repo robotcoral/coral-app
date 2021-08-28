@@ -54,7 +54,7 @@ export class GameboardViewComponent implements AfterViewInit {
     this.camera = new PerspectiveCamera(
       45,
       this.gameboard.clientWidth / this.gameboard.clientHeight,
-      1,
+      0.1,
       10000
     );
     this.camera.position.set(500, 800, 1300);

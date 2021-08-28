@@ -1,8 +1,35 @@
+@use "themes" as themes;
 @import "~ngx-toastr/toastr";
+
+// Theme loading
+@media (prefers-color-scheme: light) {
+  html[light-color-scheme="light"] {
+    @include themes.theme-light;
+  }
+  html[light-color-scheme="dark"] {
+    @include themes.theme-dark;
+  }
+  html[light-color-scheme="midnight"] {
+    @include themes.theme-midnight;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html[dark-color-scheme="light"] {
+    @include themes.theme-light;
+  }
+  html[dark-color-scheme="dark"] {
+    @include themes.theme-dark;
+  }
+  html[dark-color-scheme="midnight"] {
+    @include themes.theme-midnight;
+  }
+}
 
 html {
   height: 100%;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 *,
 *:before,
@@ -14,6 +41,8 @@ body {
   height: 100%;
   margin: 0;
   overscroll-behavior: none;
+  background-color: var(--theme-main-bg-color);
+  @include themes.bg-color-transition;
 }
 
 app-root {
