@@ -23,7 +23,6 @@ export class GeneralSettingsModal {
       theme: [settingsService.theme],
       language: [settingsService.language],
     });
-    console.log(settingsService.theme);
   }
 
   onApply() {
