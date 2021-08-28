@@ -1,6 +1,6 @@
 {
   "name": "carol-site",
-  "version": "0.0.0",
+  "version": "0.0.10",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robotcoral/coral-site.git"
