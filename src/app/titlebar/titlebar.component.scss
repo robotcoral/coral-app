@@ -1,19 +1,14 @@
 @use "sass:math";
+@use "../../themes" as themes;
 
 .app-titlebar-logo-area {
     width: 3.5rem;
     height: inherit;
     text-align: center;
     border-radius: 0 math.div(5rem, 16) math.div(5rem, 16) 0;
-    background-image: linear-gradient(to top right, #A20098, #F56B6B);
+    background-image: var(--theme-titlebar-bg-logo);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-
-.app-titlebar-logo-button {
-    height: inherit;
-    background-color: rgba(0,0,0,0);
-    border-color: rgba(0,0,0,0);
-    font-size: 11pt;
+    @include themes.bg-img-transition;
 }
 
 .app-titlebar-logo {
@@ -31,9 +26,17 @@
 }
 
 .app-titelbar-button{
+    color: var(--theme-font-color);
     height: inherit;
     border-color: transparent;
-    background-color: green;
-    padding-left: 8px;
-    padding-right: 8px;
+    background-color: transparent;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.25rem;
+
+    @include themes.bg-highlight-color-transition;
+}
+
+.app-titelbar-button:hover{
+    background-color: var(--theme-titlebar-bg-highlight);
 }

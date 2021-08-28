@@ -1,3 +1,5 @@
+@use "../themes" as themes;
+
 .split-container {
   display: flex;
   /* Misc */
@@ -38,9 +40,10 @@ app-gameboard {
 app-titlebar {
   display: flex;
   height: 2rem;
-  background-color: hsl(0,0%,100%);
+  background-color: var(--theme-titlebar-bg-color);
   box-shadow: 0px 2px 6px hsla(0,0%,0%, 0.35);
   position: relative;
   z-index: 10;
   align-items:center;
+  @include themes.bg-color-transition;
 }

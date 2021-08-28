@@ -42,11 +42,9 @@ html {
 body {
     height: 100%;
     margin: 0;
-    //color: $theme-font-color;
     background-color: var(--theme-main-bg-color);
+    @include themes.bg-color-transition;
 }
-
-
 
 app-root {
     height: 100%;
