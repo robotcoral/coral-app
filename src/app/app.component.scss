@@ -16,6 +16,7 @@
   cursor: ew-resize;
   height: 100%;
   width: 2px;
+  position: relative;
 }
 
 .split-container-right {
@@ -42,4 +43,22 @@ app-titlebar {
   box-shadow: 0px 2px 4px grey;
   position: relative;
   z-index: 10;
+}
+
+.touch-border {
+  width: 4px;
+}
+
+.inner-border {
+  width: 10px;
+  background-color: transparent;
+  height: 100%;
+  position: absolute;
+  left: -5px;
+  z-index: 11;
+}
+
+.touch-inner-border {
+  width: 40px;
+  left: -10px;
 }
