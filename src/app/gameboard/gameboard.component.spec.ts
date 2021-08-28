@@ -13,7 +13,10 @@ describe('GameboardComponent', () => {
       providers: [
         {
           provide: SettingsService,
-          useValue: { settings: { inventoryActive: false } },
+          useValue: {
+            settings: { inventoryActive: false },
+            ngOnInit: () => {},
+          },
         },
         {
           provide: GameboardController,
