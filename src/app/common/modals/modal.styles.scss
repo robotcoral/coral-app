@@ -1,5 +1,6 @@
 .nameField {
   min-width: 30%;
+  text-align: center left;
 }
 
 .inputWrapper {
@@ -8,6 +9,7 @@
 }
 
 input,
+select,
 textarea {
   min-width: none;
   width: 100%;

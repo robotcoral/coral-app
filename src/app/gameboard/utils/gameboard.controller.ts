@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ImportModal } from 'src/app/common/modals/import.modal';
+import { ImportModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
 import {
   AdditionalWorldData,

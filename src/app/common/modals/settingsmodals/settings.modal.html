@@ -1,0 +1,23 @@
+<div id="modal" class="settings-modal-wrapper">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title">Settings</h4>
+    </div>
+    <div class="modal-body modal-mode-body">
+      <div
+        *ngFor="let item of modes | keyvalue: originalOrder"
+        [ngClass]="{'mode-highlight':openTab==item.value}"
+      >
+        <button class="mode-button" (click)="openTab=item.value">
+          <div class="mode">{{item.value}}</div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <world-settings-modal *ngIf="openTab==modes.WORLD"></world-settings-modal>
+  <general-settings-modal
+    *ngIf="openTab==modes.GENERAL"
+  ></general-settings-modal>
+  <editor-settings-modal *ngIf="openTab==modes.EDITOR"></editor-settings-modal>
+</div>

@@ -1,0 +1,46 @@
+::ng-deep .custom-modal .modal-dialog {
+  max-width: fit-content;
+  min-width: 600px;
+}
+
+.settings-modal-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.separator {
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.mode {
+  padding: 1rem;
+}
+
+.mode-highlight {
+  background-color: lightgray;
+}
+
+.modal-mode-body {
+  padding: 0px;
+}
+
+.mode-button {
+  background-color: transparent;
+  border: 0px;
+  width: 100%;
+}
+
+.nameField {
+  min-width: 40%;
+}
+
+.number-field {
+  text-align: right;
+}
+
+world-settings-modal,
+general-settings-modal,
+editor-settings-modal {
+  width: 100%;
+}

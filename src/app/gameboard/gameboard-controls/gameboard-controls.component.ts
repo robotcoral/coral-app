@@ -1,6 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
-import { ExportModal, ResizeModal, WarningModal } from 'src/app/common/modals';
+import { AfterViewInit, Component, Inject } from '@angular/core';
+import {
+  ExportModal,
+  ResizeModal,
+  SettingsModal,
+  WarningModal,
+} from 'src/app/common/modals';
 import { AdditionalWorldData, Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 
@@ -20,7 +25,7 @@ export interface PlaceEvent {
   templateUrl: './gameboard-controls.component.html',
   styleUrls: ['./gameboard-controls.component.scss'],
 })
-export class GameboardControlsComponent {
+export class GameboardControlsComponent implements AfterViewInit {
   colors = {
     red: '#ff0000',
     green: '#00ff00',
@@ -55,6 +60,10 @@ export class GameboardControlsComponent {
     @Inject(DOCUMENT) private document: Document,
     public controller: GameboardController
   ) {}
+
+  ngAfterViewInit(): void {
+    this.controller.openModal(SettingsModal);
+  }
 
   onColorMenu() {
     this.colorStyle = this.colorExpanded
