@@ -7,11 +7,11 @@ on:
         # Friendly description to be shown in the UI instead of 'name'
         description: 'Version number'
         # Default value if no value is explicitly provided
-        default: 'v0.0.0'
+        default: '0.0.0'
         # Input has to be provided for the workflow to run
         required: true
 jobs:
-  build:
+  build_and_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -59,6 +59,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: robotcoralci
+          password: ${{ secrets.CI_PERSONAL_TOKEN }}
 
       - name: Build and push to DockerHub
         id: docker_build
@@ -68,5 +75,21 @@ jobs:
           platforms: linux/386, linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x
           file: ./Dockerfile
           push: true
-          tags: robotcoral/coral-app:latest,robotcoral/coral-app:${{ github.event.inputs.version }}
-          
+          tags: |
+            robotcoral/coral-app:latest
+            robotcoral/coral-app:${{ github.event.inputs.version }}
+            ghcr.io/robotcoral/coral-app:latest
+            ghcr.io/robotcoral/coral-app:${{ github.event.inputs.version }}
+      
+      - name: Create Release strings
+        id: release_strings
+        run: |
+          echo "::set-env name=VERSION_TAG::v${{ github.event.inputs.version }}"
+          echo "::set-env name=RELEASE_NAME::Version ${{ github.event.inputs.version }}"
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: true
+          tag_name: steps.release_strings.outputs.VERSION_TAG 
+          name: steps.release_strings.outputs.RELEASE_NAME          
