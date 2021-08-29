@@ -35,7 +35,7 @@
 
   <div class="right-controls controls">
     <div class="wrapper">
-      <div id="modeMenu" [style]="modeStyle" class="menu">
+      <div id="modeMenu" [ngClass]="{ openMenu: modeExpanded }" class="menu">
         <button
           (click)="onModeMenu()"
           title="Change placement mode"
@@ -58,7 +58,7 @@
     </div>
 
     <div class="wrapper" *ngIf="mode != 'CUBE'">
-      <div id="colorMenu" [style]="colorStyle" class="menu">
+      <div id="colorMenu" [ngClass]="{ openMenu: colorExpanded }" class="menu">
         <button
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"
@@ -79,7 +79,7 @@
             [style.display]="c.key == color ? 'none' : ''"
             (click)="onColorSelect(c.key)"
             [title]="c.key"
-            class="icon-button"
+            class="icon-button colorbtn"
           ></button>
         </ng-container>
       </div>

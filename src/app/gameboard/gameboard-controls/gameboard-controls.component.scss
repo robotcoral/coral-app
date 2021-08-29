@@ -16,17 +16,6 @@ img {
   margin: 0.5rem;
 }
 
-button {
-  border: 0rem;
-  min-height: math.div(3rem, 16);
-  border-radius: math.div(4rem, 16);
-  background-color: white;
-}
-
-button:hover {
-  box-shadow: 0 0 2px 2px lightgray;
-}
-
 .controls {
   flex: 1;
   display: flex;
@@ -47,12 +36,19 @@ button:hover {
   margin: 0.25rem;
 }
 
+.openMenu {
+  position: absolute;
+  margin-top: -6.75rem;
+  background-color: var(--theme-main-bg-color);
+  box-shadow: 0 0 2px 2px lightgray;
+}
+
 .menu button {
   margin: 0.25rem;
 }
 
 .colorbtn {
-  border-radius: 2rem !important;
+  border-radius: 2rem;
 }
 
 .settingsbtn {

@@ -27,7 +27,6 @@ export class GameboardControlsComponent implements AfterViewInit {
     blue: '#0000ff',
   };
   color = 'red';
-  colorStyle = '';
   colorExpanded = false;
   colorCallback = ((e) => {
     if (!this.document.getElementById('colorMenu').contains(e.target)) {
@@ -41,7 +40,6 @@ export class GameboardControlsComponent implements AfterViewInit {
     FLAG: 'assets/icons/ic_fluent_flag_24_regular.svg',
   };
   mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB;
-  modeStyle = '';
   modeExpanded = false;
   modeCallback = ((e) => {
     if (!this.document.getElementById('modeMenu').contains(e.target)) {
@@ -59,9 +57,6 @@ export class GameboardControlsComponent implements AfterViewInit {
   ngAfterViewInit(): void {}
 
   onColorMenu() {
-    this.colorStyle = this.colorExpanded
-      ? ''
-      : 'position:absolute; margin-top:-6.75rem; background-color: white; box-shadow: 0 0 2px 2px lightgray';
     this.colorExpanded = !this.colorExpanded;
     if (this.colorExpanded)
       this.document.addEventListener('click', this.colorCallback);
@@ -74,9 +69,6 @@ export class GameboardControlsComponent implements AfterViewInit {
   }
 
   onModeMenu() {
-    this.modeStyle = this.modeExpanded
-      ? ''
-      : 'position:absolute; margin-top:-6.75rem; background-color: white; box-shadow: 0 0 2px 2px lightgray';
     this.modeExpanded = !this.modeExpanded;
     if (this.modeExpanded)
       this.document.addEventListener('click', this.modeCallback);
