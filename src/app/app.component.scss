@@ -1,4 +1,4 @@
-@use "../themes" as themes;
+@use "../themes"as themes;
 
 .split-container {
   display: flex;
@@ -43,10 +43,10 @@ app-titlebar {
   display: flex;
   height: 2rem;
   background-color: var(--theme-titlebar-bg-color);
-  box-shadow: 0px 2px 6px hsla(0,0%,0%, 0.35);
+  box-shadow: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
   position: relative;
   z-index: 10;
-  align-items:center;
+  align-items: center;
   @include themes.bg-color-transition;
 }
 
