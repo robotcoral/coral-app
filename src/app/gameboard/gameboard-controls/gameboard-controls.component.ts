@@ -1,11 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, Inject } from '@angular/core';
-import {
-  ExportModal,
-  ResizeModal,
-  SettingsModal,
-  WarningModal,
-} from 'src/app/common/modals';
+import { ExportModal, ResizeModal, WarningModal } from 'src/app/common/modals';
 import { AdditionalWorldData, Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 
@@ -61,9 +56,7 @@ export class GameboardControlsComponent implements AfterViewInit {
     public controller: GameboardController
   ) {}
 
-  ngAfterViewInit(): void {
-    this.controller.openModal(SettingsModal);
-  }
+  ngAfterViewInit(): void {}
 
   onColorMenu() {
     this.colorStyle = this.colorExpanded

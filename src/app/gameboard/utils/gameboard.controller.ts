@@ -59,7 +59,6 @@ export class GameboardController {
     } catch (error) {
       this.toastr.error(error);
     }
-    console.log(this.model.currentSlabs);
   }
 
   private placeSlab(coo: Coordinates2, color: string) {

@@ -71,7 +71,7 @@ export class SettingsService implements OnInit {
   private loadGeneralSettings() {
     const savedTheme = window.localStorage.getItem(THEME_KEY) as THEMES;
     if (Object.values(THEMES).includes(savedTheme)) this.saveTheme(savedTheme);
-    this.theme = 'auto';
+    else this.theme = 'auto';
 
     this.language =
       navigator.language == LANGUAGES.German
@@ -80,11 +80,14 @@ export class SettingsService implements OnInit {
   }
 
   private saveTheme(theme: THEMES | 'auto') {
-    if (theme != 'auto') {
-      this.theme = theme;
+    this.theme = theme;
 
+    if (theme != 'auto') {
       this.document.documentElement.setAttribute('light-color-scheme', theme);
       this.document.documentElement.setAttribute('dark-color-scheme', theme);
+    } else {
+      this.document.documentElement.setAttribute('light-color-scheme', 'light');
+      this.document.documentElement.setAttribute('dark-color-scheme', 'dark');
     }
 
     this.window.localStorage.setItem(THEME_KEY, theme);

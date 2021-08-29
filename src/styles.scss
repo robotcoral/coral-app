@@ -1,5 +1,6 @@
 @use "themes" as themes;
 @import "~ngx-toastr/toastr";
+@import "~bootstrap/scss/bootstrap";
 
 // Theme loading
 @media (prefers-color-scheme: light) {
@@ -52,4 +53,3 @@ app-root {
 }
 
 /* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
