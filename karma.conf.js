@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require("path").join(__dirname, "./coverage/carol-site"),
+      dir: require("path").join(__dirname, "./coverage/coral-app"),
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }],
     },

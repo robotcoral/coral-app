@@ -32,7 +32,7 @@ export interface WorldFile {
 }
 
 export const WorldSchema: Schema = {
-  $id: 'https://robotcarol.de/world',
+  $id: 'https://robotcoral.de/world',
   title: 'World',
   description: 'A robot coral world',
   type: 'object',

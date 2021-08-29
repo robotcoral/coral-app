@@ -14,7 +14,7 @@ export class Settings {
 }
 
 export const SettingsSchema: Schema = {
-  $id: 'https://robotcarol.de/settings',
+  $id: 'https://robotcoral.de/settings',
   title: 'Settings',
   description: 'Serialised settings for robot coral',
   type: 'object',
