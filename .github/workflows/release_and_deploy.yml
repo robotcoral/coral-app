@@ -1,0 +1,36 @@
+name: Create release and deploy
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      version:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Version number'
+        # Default value if no value is explicitly provided
+        default: 'v0.0.0'
+        # Input has to be provided for the workflow to run
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Bump versions
+        run:
+          python3 ./bumpversion.py ${{ github.event.inputs.version }}
+      
+      - name: Commit changes
+        run: |
+          git config --global user.name 'robotcoralci'
+          git config --global user.email 'robotcoralci@users.noreply.github.com'
+          git checkout -b "citest"
+          git commit -am "chore: bump version"
+          git push
+
+      
