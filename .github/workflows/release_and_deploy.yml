@@ -31,7 +31,7 @@ jobs:
         run: |
           git config --global user.name 'robotcoralci'
           git config --global user.email 'robotcoralci@users.noreply.github.com'
-          git commit -am "chore: bump version"
+          git commit -am "chore: bump version to ${{ github.event.inputs.version }}"
           git push
           
       - name: Setup Node.js
@@ -84,12 +84,12 @@ jobs:
       - name: Create Release strings
         id: release_strings
         run: |
-          echo "::set-env name=VERSION_TAG::v${{ github.event.inputs.version }}"
-          echo "::set-env name=RELEASE_NAME::Version ${{ github.event.inputs.version }}"
+          echo "RELEASE_TAG=v${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Version ${{ github.event.inputs.version }}" >> $GITHUB_ENV
       
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
-          tag_name: steps.release_strings.outputs.VERSION_TAG 
-          name: steps.release_strings.outputs.RELEASE_NAME          
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_NAME }}          
