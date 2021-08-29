@@ -29,7 +29,6 @@ jobs:
         run: |
           git config --global user.name 'robotcoralci'
           git config --global user.email 'robotcoralci@users.noreply.github.com'
-          git checkout -b "citest"
           git commit -am "chore: bump version"
           git push
           
