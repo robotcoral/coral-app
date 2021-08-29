@@ -42,8 +42,8 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-optional
         
-      - name: ng build
-        run: ng build
+      - name: Build production files
+        run: npm run build --production
         
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v1
