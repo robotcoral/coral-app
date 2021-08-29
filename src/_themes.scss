@@ -2,24 +2,26 @@
 @mixin theme-light {
     --theme-font-color: hsl(0, 0%, 13%);
     --theme-main-bg-color: hsl(0, 0%, 100%);
-    --theme-titlebar-bg-color: hsl(0, 0%, 100%);
-    --theme-titlebar-bg-highlight: hsl(0, 0%, 85%);
+    --theme-highlight-1: hsl(0, 0%, 100%);
+    --theme-highlight-2: hsl(0, 0%, 85%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
 }
 
 @mixin theme-dark {
     --theme-font-color: hsla(0, 0%, 90%);
+    --theme-font-color-dim: hsla(0, 0%, 80%);
     --theme-main-bg-color: hsl(0, 0%, 10%);
-    --theme-titlebar-bg-color: hsl(0, 0%, 15%);
-    --theme-titlebar-bg-highlight: hsl(0, 0%, 25%);
+    --theme-highlight-1: hsl(0, 0%, 15%);
+    --theme-highlight-2: hsl(0, 0%, 25%);
+    --theme-highlight-3: hsl(0, 0%, 35%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 27%), hsl(0, 87%, 64%));
 }
 
 @mixin theme-midnight {
     --theme-font-color: #hsla(0, 0%, 90%);
     --theme-main-bg-color: hsl(0, 0%, 5%);
-    --theme-titlebar-bg-color: hsl(0, 0%, 5%);
-    --theme-titlebar-bg-highlight: hsl(0, 0%, 10%);
+    --theme-highlight-1: hsl(0, 0%, 5%);
+    --theme-highlight-2: hsl(0, 0%, 10%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
 }
 

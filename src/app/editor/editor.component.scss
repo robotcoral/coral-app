@@ -1,3 +1,5 @@
+@use "../../themes"as themes;
+
 .codemirrorhost {
   height: 100%;
   display: block;
@@ -6,4 +8,46 @@
 
 .cm-editor {
   height: 100%;
+}
+
+.cm-gutter {
+  @include themes.bg-color-transition;
+}
+
+//TODO Comments
+
+.ͼ1 {
+  .cm-lineNumbers {
+    .cm-gutterElement {
+      transition: none;
+    }
+  }
+}
+
+.ͼ2 {
+  .cm-line {
+    color: var(--theme-font-color-dim);
+  }
+
+  .cm-gutters {
+    border: none;
+    background-color: var(--theme-highlight-1);
+    @include themes.bg-color-transition;
+  }
+
+  .cm-activeLine {
+    background-color: var(--theme-highlight-2);
+    color: var(--theme-font-color);
+  }
+
+  .cm-activeLineGutter {
+    background-color: var(--theme-highlight-2);
+  }
+}
+
+.ͼ4 {
+  .cm-line::selection {
+    // !important required
+    background-color: var(--theme-highlight-2) !important;
+  }
 }

@@ -35,8 +35,9 @@
     border-radius: 0.25rem;
 
     @include themes.bg-highlight-color-transition;
+    @include themes.color-transition;
 }
 
 .app-titelbar-button:hover {
-    background-color: var(--theme-titlebar-bg-highlight);
+    background-color: var(--theme-highlight-2);
 }
