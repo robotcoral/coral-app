@@ -34,7 +34,7 @@ jobs:
       #    git commit -am "chore: bump version"
       #    git push
       - name: Install tree
-        run: apt-get update && apt-get install tree -y
+        run: sudo apt-get update && sudo apt-get install tree -y
           
       - name: Setup Node.js
         uses: actions/setup-node@v2
