@@ -27,14 +27,12 @@ jobs:
         run:
           python3 bumpversion.py ${{ github.event.inputs.version }}
       
-      #- name: Commit changes
-      #  run: |
-      #    git config --global user.name 'robotcoralci'
-      #    git config --global user.email 'robotcoralci@users.noreply.github.com'
-      #    git commit -am "chore: bump version"
-      #    git push
-      - name: Install tree
-        run: sudo apt-get update && sudo apt-get install tree -y
+      - name: Commit changes
+        run: |
+          git config --global user.name 'robotcoralci'
+          git config --global user.email 'robotcoralci@users.noreply.github.com'
+          git commit -am "chore: bump version"
+          git push
           
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -46,9 +44,6 @@ jobs:
       
       - name: Build production files
         run: npm run build --production
-      
-      - name: Run tree
-        run: tree -L 3
         
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v1
@@ -59,22 +54,19 @@ jobs:
         with:
           install: true
 
-      - name: Run buildx
-        run: docker build .
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      #- name: Login to DockerHub
-      #  uses: docker/login-action@v1
-      #  with:
-      #    username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #    password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      #- name: Build and push to DockerHub
-      #  id: docker_build
-      #  uses: docker/build-push-action@v2
-      #  with:
-      #    context: ./
-      #    platforms: linux/amd64 #,linux/arm64,linux/arm/v7
-      #    file: ./Dockerfile
-      #    push: true
-      #    tags: robotcoral/coral-site:latest,robotcoral/coral-site:${{ github.event.inputs.version }}
+      - name: Build and push to DockerHub
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          platforms: linux/386, linux/amd64, linux/arm/v6, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x
+          file: ./Dockerfile
+          push: true
+          tags: robotcoral/coral-app:latest,robotcoral/coral-app:${{ github.event.inputs.version }}
           
