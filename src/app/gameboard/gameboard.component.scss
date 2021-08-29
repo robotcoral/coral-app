@@ -35,6 +35,7 @@ app-gameboard-controls {
   z-index: 10;
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
+  background-color: var(--theme-main-bg-color);
 }
 
 img {
@@ -52,4 +53,6 @@ img {
   align-items: center;
   display: flex;
   font-size: 1.5rem;
+  background-color: var(--theme-main-bg-color);
+  color: var(--theme-font-color);
 }
