@@ -1,9 +1,9 @@
 {
-  "name": "carol-site",
-  "version": "0.0.13",
+  "name": "coral-app",
+  "version": "0.0.10",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robotcoral/coral-site.git"
+    "url": "git+https://github.com/robotcoral/coral-app.git"
   },
   "scripts": {
     "ng": "ng",
@@ -15,9 +15,9 @@
   "author": "Robot Coral",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/robotcoral/coral-site/issues"
+    "url": "https://github.com/robotcoral/coral-app/issues"
   },
-  "homepage": "https://github.com/robotcoral/coral-site#readme",
+  "homepage": "https://github.com/robotcoral/coral-app#readme",
   "private": true,
   "dependencies": {
     "@angular/animations": "^12.2.2",

@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/github/license/robotcoral/coral-site" alt="Package License" />
-<a href="https://snyk.io/test/github/robotcoral/coral-site/"><img src="https://snyk.io/test/github/robotcoral/coral-site/badge.svg" alt="Vulnerabilities" /></a>
+<img src="https://img.shields.io/github/license/robotcoral/coral-app" alt="Package License" />
+<a href="https://snyk.io/test/github/robotcoral/coral-app/"><img src="https://snyk.io/test/github/robotcoral/coral-app/badge.svg" alt="Vulnerabilities" /></a>
 </p>
 
 ## Description
@@ -26,4 +26,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Contributing
 
-If you want to help develop the Robot Coral Site please contact our team and read the [Contributing Guidelines](https://github.com/robotcoral/coral-site/blob/main/CONTRIBUTING.md).
+If you want to help develop the Robot Coral Site please contact our team and read the [Contributing Guidelines](https://github.com/robotcoral/coral-app/blob/main/CONTRIBUTING.md).
