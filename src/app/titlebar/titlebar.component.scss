@@ -1,5 +1,5 @@
 @use "sass:math";
-@use "../../themes" as themes;
+@use "../../themes"as themes;
 
 .app-titlebar-logo-area {
     width: 3.5rem;
@@ -7,7 +7,7 @@
     text-align: center;
     border-radius: 0 math.div(5rem, 16) math.div(5rem, 16) 0;
     background-image: var(--theme-titlebar-bg-logo);
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     @include themes.bg-img-transition;
 }
 
@@ -18,14 +18,14 @@
     cursor: default;
 }
 
-.app-titlebar-button-container{
+.app-titlebar-button-container {
     height: inherit;
     display: grid;
     grid-template-columns: repeat(6, [col-start] auto [col-end]);
     margin: 0 0 0 0.75rem;
 }
 
-.app-titelbar-button{
+.app-titelbar-button {
     color: var(--theme-font-color);
     height: inherit;
     border-color: transparent;
@@ -37,6 +37,6 @@
     @include themes.bg-highlight-color-transition;
 }
 
-.app-titelbar-button:hover{
+.app-titelbar-button:hover {
     background-color: var(--theme-titlebar-bg-highlight);
 }
