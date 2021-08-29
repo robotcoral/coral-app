@@ -23,7 +23,7 @@ jobs:
 
       - name: Bump versions
         run:
-          python3 ./bumpversion.py ${{ github.event.inputs.version }}
+          python3 bumpversion.py ${{ github.event.inputs.version }}
       
       - name: Commit changes
         run: |
