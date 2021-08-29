@@ -30,7 +30,7 @@ jobs:
           git config --global user.name 'robotcoralci'
           git config --global user.email 'robotcoralci@users.noreply.github.com'
           git commit -am "chore: bump version"
-          git push
+          git push --force
           
       - name: Setup Node.js
         uses: actions/setup-node@v2
