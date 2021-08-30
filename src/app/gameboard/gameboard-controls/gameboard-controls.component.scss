@@ -1,15 +1,10 @@
 @use "sass:math";
 
 .separator {
-  background-color: slategray;
+  background-color: var(--theme-highlight-2);
   width: 2px;
   height: 2.5rem;
   border-radius: 2px;
-}
-
-img {
-  height: 2rem;
-  margin: 0.25rem;
 }
 
 .separator {

@@ -2,11 +2,10 @@
 <app-gameboard-controls></app-gameboard-controls>
 <span class="camera-button-wrapper">
   <button (click)="onCameraReset()" class="icon-button" title="Reset Camera">
-    <img
+    <svg-icon
       src="assets/icons/ic_fluent_video_24_regular.svg"
-      alt="Camera"
-      draggable="false"
-    />
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
 </span>
 <span
@@ -15,9 +14,8 @@
 >
   {{ controller.getCurrentSlabs() }}x
 
-  <img
+  <svg-icon
     src="assets/icons/ic_fluent_slab_24_regular.svg"
-    alt="Slab"
-    draggable="false"
-  />
+    [svgClass]="'svg'"
+  ></svg-icon>
 </span>

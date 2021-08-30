@@ -24,7 +24,10 @@ export interface PlaceEvent {
 @Component({
   selector: 'app-gameboard-controls',
   templateUrl: './gameboard-controls.component.html',
-  styleUrls: ['./gameboard-controls.component.scss'],
+  styleUrls: [
+    './gameboard-controls.component.scss',
+    '../gameboard.component.scss',
+  ],
 })
 export class GameboardControlsComponent implements AfterViewInit {
   @ViewChild('fileUpload')

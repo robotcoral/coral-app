@@ -35,21 +35,22 @@
   border-radius: 0.25rem;
 
   @include themes.bg-highlight-color-transition;
+  @include themes.color-transition;
 }
 
 .app-titelbar-button:hover,
 .dropdown-item:hover {
-  background-color: var(--theme-titlebar-bg-highlight);
+  background-color: var(--theme-highlight-2);
 }
 
-.dropdown-toggle::after {
-  display: none;
+.dropdown-menu {
+  background-color: var(--theme-highlight-1);
 }
 
 .dropdown-item {
   color: var(--theme-font-color);
 }
 
-.dropdown-menu {
-  background-color: var(--theme-titlebar-bg-color);
+.dropdown-toggle::after {
+  display: none;
 }
