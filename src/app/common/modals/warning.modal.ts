@@ -9,7 +9,7 @@ export interface WarningModalConfig {
 }
 
 @Component({
-  selector: 'save-modal',
+  selector: 'warning-modal',
   template: `
     <div id="modal">
       <div class="modal-header">

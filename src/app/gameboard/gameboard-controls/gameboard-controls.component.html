@@ -127,13 +127,7 @@
       draggable="false"
     />
   </button>
-  <input
-    type="file"
-    class="file-input"
-    (change)="onFileSelected($event)"
-    accept=".coralworld,.json"
-    #fileUpload
-  />
+
   <button (click)="onSave()" title="Save world as default" class="icon-button">
     <img
       src="assets/icons/ic_fluent_save_24_regular.svg"
@@ -155,3 +149,10 @@
     />
   </button>
 </div>
+<input
+  type="file"
+  class="file-input"
+  (change)="onFileSelected($event)"
+  accept=".coralworld,.json"
+  #fileUpload
+/>
