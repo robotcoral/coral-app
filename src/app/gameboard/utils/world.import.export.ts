@@ -21,6 +21,7 @@ export class WorldExport {
       starting_rotation: robot.getCardinal(),
       objects: [],
     };
+    worldData.starting_position.z *= 2;
     Object.entries(data).forEach(([key, value]) => {
       worldData[key] = value;
     });
