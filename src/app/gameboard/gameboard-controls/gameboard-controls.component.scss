@@ -7,15 +7,6 @@
   border-radius: 2px;
 }
 
-.svg {
-  height: 2rem;
-  width: 2rem;
-  margin: 0.25rem;
-  path {
-    fill: var(--theme-font-color);
-  }
-}
-
 .separator {
   margin: 0.5rem;
 }
@@ -70,8 +61,4 @@
 
 .file-input {
   display: none;
-}
-
-button {
-  background-color: transparent;
 }
