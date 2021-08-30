@@ -29,8 +29,8 @@ export class TitlebarComponent {
       Settings: () => this.onSettings(SETTINGSMODES.GENERAL),
     },
     Edit: {
-      Undo: null,
-      Redo: null,
+      Undo: () => this.eController.undo(),
+      Redo: () => this.eController.redo(),
       Cut: null,
       Copy: null,
       Paste: null,
@@ -48,9 +48,9 @@ export class TitlebarComponent {
       'Reset world on start': null,
     },
     Editor: {
-      'Zoom in': null,
-      'Zoom out': null,
-      'Reset font size': null,
+      'Zoom in': () => this.eController.zoomIn(),
+      'Zoom out': () => this.eController.zoomOut(),
+      'Reset font size': () => this.eController.resetFontSize(),
       'Editor settings': () => this.onSettings(SETTINGSMODES.EDITOR),
     },
     World: {
