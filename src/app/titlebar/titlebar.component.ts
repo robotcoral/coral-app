@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { EditorController } from '../common/editor.controller';
 import { SettingsModal, SETTINGSMODES } from '../common/modals';
+import { ImpressumModal } from '../common/modals/impressum.modal';
+import { InfoModal } from '../common/modals/info.modal';
 import { GameboardController } from '../gameboard/utils';
 
 @Component({
@@ -60,8 +62,8 @@ export class TitlebarComponent {
     },
     Help: {
       Documentation: () => window.open('https://docs.robotcoral.de'),
-      Info: null,
-      Impressum: null,
+      Info: () => this.gbController.openModal(InfoModal),
+      Impressum: () => this.gbController.openModal(ImpressumModal),
     },
   };
 
