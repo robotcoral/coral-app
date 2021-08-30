@@ -8,12 +8,19 @@
 </div>
 
 <div class="app-titlebar-button-container">
-  <button class="app-titelbar-button">Datei</button>
-  <button class="app-titelbar-button" (click)="openSettings()">
-    Bearbeiten
-  </button>
-  <button class="app-titelbar-button">Ausführen</button>
-  <button class="app-titelbar-button">Editor</button>
-  <button class="app-titelbar-button">Welt</button>
-  <button class="app-titelbar-button">Hilfe</button>
+  <div ngbDropdown *ngFor="let item of titlebar | keyvalue: originalOrder">
+    <button class="app-titelbar-button" id="item.key" ngbDropdownToggle>
+      {{ item.key }}
+    </button>
+    <div ngbDropdownMenu [attr.aria-labelledby]="item.key">
+      <button
+        ngbDropdownItem
+        *ngFor="let subItem of item.value | keyvalue: originalOrder"
+        (click)="subItem.value()"
+        [disabled]="!subItem.value"
+      >
+        {{ subItem.key }}
+      </button>
+    </div>
+  </div>
 </div>
