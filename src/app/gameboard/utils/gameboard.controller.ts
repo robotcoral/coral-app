@@ -23,6 +23,7 @@ import { WorldFile } from './world.schema';
 export class GameboardController {
   private model: GameboardModel;
   private download: HTMLElement;
+  upload: HTMLInputElement;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,

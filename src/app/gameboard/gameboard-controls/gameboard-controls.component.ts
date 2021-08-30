@@ -1,5 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild,
+} from '@angular/core';
 import { ResizeModal } from 'src/app/common/modals';
 import { Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
@@ -21,6 +27,8 @@ export interface PlaceEvent {
   styleUrls: ['./gameboard-controls.component.scss'],
 })
 export class GameboardControlsComponent implements AfterViewInit {
+  @ViewChild('fileUpload')
+  fileUpload: ElementRef;
   colors = {
     red: '#ff0000',
     green: '#00ff00',
@@ -54,7 +62,9 @@ export class GameboardControlsComponent implements AfterViewInit {
     public controller: GameboardController
   ) {}
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.controller.upload = this.fileUpload.nativeElement;
+  }
 
   onColorMenu() {
     this.colorExpanded = !this.colorExpanded;

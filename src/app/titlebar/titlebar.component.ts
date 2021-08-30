@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EditorController } from '../common/editor.controller';
 import { SettingsModal, SETTINGSMODES } from '../common/modals';
 import { GameboardController } from '../gameboard/utils';
 
@@ -8,11 +9,14 @@ import { GameboardController } from '../gameboard/utils';
   styleUrls: ['./titlebar.component.scss'],
 })
 export class TitlebarComponent {
-  constructor(public controller: GameboardController) {}
+  constructor(
+    public gbController: GameboardController,
+    private eController: EditorController
+  ) {}
 
   onSettings = (mode: SETTINGSMODES) => {
     (
-      this.controller.openModal(SettingsModal)
+      this.gbController.openModal(SettingsModal)
         .componentInstance as SettingsModal
     ).setMode(mode);
   };
@@ -50,10 +54,10 @@ export class TitlebarComponent {
       'Editor settings': () => this.onSettings(SETTINGSMODES.EDITOR),
     },
     World: {
-      'Import world': null,
-      'Export world': () => this.controller.exportWorld(),
-      'Reset World': () => this.controller.reset(),
-      'Set world reset point': () => this.controller.saveWorld(),
+      'Import world': () => this.gbController.upload.click(),
+      'Export world': () => this.gbController.exportWorld(),
+      'Reset World': () => this.gbController.reset(),
+      'Set world reset point': () => this.gbController.saveWorld(),
       'World settings': () => this.onSettings(SETTINGSMODES.WORLD),
     },
     Help: {

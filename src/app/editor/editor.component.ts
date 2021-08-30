@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { basicSetup, EditorState, EditorView } from '@codemirror/basic-setup';
+import { EditorController } from '../common/editor.controller';
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
@@ -20,18 +21,19 @@ export class EditorComponent {
     extensions: [basicSetup],
   };
   editor: EditorView;
+  state: EditorState;
 
   @ViewChild('codemirrorhost') codemirrorhost: ElementRef = null;
 
-  ngAfterViewInit(): void {
-    this.config = this.config || {};
-    const state = EditorState.create(this.config);
-    this.init(state);
+  constructor(private controller: EditorController) {
+    this.controller.editor = this;
   }
 
-  init(state: EditorState) {
+  ngAfterViewInit(): void {
+    this.config = this.config || {};
+    this.state = EditorState.create(this.config);
     this.editor = new EditorView({
-      state,
+      state: this.state,
       parent: this.codemirrorhost.nativeElement,
     });
   }
