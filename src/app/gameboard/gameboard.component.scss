@@ -21,10 +21,19 @@ app-gameboard-controls {
   border-radius: 4px;
   margin: 0.5rem;
   background-color: transparent;
+  transition: all 0.1s ease-in-out;
 }
 
 .icon-button:hover {
-  box-shadow: 0 0 2px 2px lightgray;
+  scale: 1.02;
+  background-color: var(--theme-highlight-1);
+  box-shadow: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+}
+
+.icon-button:active {
+  box-shadow: 0px 1px 4px hsla(0, 0%, 0%, 0.35);
+  background-color: var(--theme-highlight-2);
+  transition: all 0.05s ease-in-out;
 }
 
 .camera-button-wrapper {
