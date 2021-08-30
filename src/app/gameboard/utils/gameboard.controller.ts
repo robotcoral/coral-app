@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ImportModal } from 'src/app/common/modals';
+import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
 import {
   AdditionalWorldData,
@@ -105,7 +105,17 @@ export class GameboardController {
   }
 
   reset() {
-    this.model.reset();
+    const modalRef = this.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'Reset World',
+      description: 'Are you sure you want to reset the world?',
+      successButton: 'Reset',
+    });
+    modalRef.result
+      .then(() => {
+        this.model.reset();
+      })
+      .catch(() => {});
   }
 
   resize(coo: Coordinates3) {
@@ -124,10 +134,14 @@ export class GameboardController {
     return this.model.robot;
   }
 
-  exportWorld(data: AdditionalWorldData) {
-    const worldFile = this.model.export(data);
-    const text = JSON.stringify(worldFile, null, 2);
-    this.dyanmicDownloadByHtmlTag(text);
+  exportWorld() {
+    this.openModal(ExportModal)
+      .result.then((data: AdditionalWorldData) => {
+        const worldFile = this.model.export(data);
+        const text = JSON.stringify(worldFile, null, 2);
+        this.dyanmicDownloadByHtmlTag(text);
+      })
+      .catch(() => {});
   }
 
   async importWorld(file: File) {
@@ -186,8 +200,19 @@ export class GameboardController {
   }
 
   saveWorld() {
-    const worldFile = this.model.export({});
-    this.model.save(worldFile.world_data);
+    const modalRef = this.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'Save world as default',
+      description:
+        'Do you want to save this world as default? Resetting will then return the world to this state.',
+      successButton: 'Save',
+    });
+    modalRef.result
+      .then(() => {
+        const worldFile = this.model.export({});
+        this.model.save(worldFile.world_data);
+      })
+      .catch(() => {});
   }
 
   getCurrentSlabs() {

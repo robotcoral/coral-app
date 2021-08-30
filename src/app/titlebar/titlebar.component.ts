@@ -51,7 +51,7 @@ export class TitlebarComponent {
     },
     World: {
       'Import world': null,
-      'Export world': null,
+      'Export world': () => this.controller.exportWorld(),
       'Reset World': () => this.controller.reset(),
       'Set world reset point': () => this.controller.saveWorld(),
       'World settings': () => this.onSettings(SETTINGSMODES.WORLD),
