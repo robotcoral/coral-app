@@ -1,15 +1,19 @@
 @use "sass:math";
 
 .separator {
-  background-color: slategray;
+  background-color: var(--theme-highlight-2);
   width: 2px;
   height: 2.5rem;
   border-radius: 2px;
 }
 
-img {
+.svg {
   height: 2rem;
+  width: 2rem;
   margin: 0.25rem;
+  path {
+    fill: var(--theme-font-color);
+  }
 }
 
 .separator {
@@ -66,4 +70,8 @@ img {
 
 .file-input {
   display: none;
+}
+
+button {
+  background-color: transparent;
 }
