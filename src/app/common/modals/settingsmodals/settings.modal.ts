@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Coordinates3 } from 'src/app/gameboard/utils';
 
-enum SETTINGSMODES {
+export enum SETTINGSMODES {
   GENERAL = 'General',
   EDITOR = 'Editor',
   WORLD = 'World',
@@ -25,4 +25,8 @@ export class SettingsModal {
   originalOrder = (a: any, b: any): number => {
     return 0;
   };
+
+  setMode(mode: SETTINGSMODES) {
+    this.openTab = mode;
+  }
 }

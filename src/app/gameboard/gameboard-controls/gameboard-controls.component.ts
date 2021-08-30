@@ -1,7 +1,13 @@
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject } from '@angular/core';
-import { ExportModal, ResizeModal, WarningModal } from 'src/app/common/modals';
-import { AdditionalWorldData, Coordinates3 } from '../utils';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import { ResizeModal } from 'src/app/common/modals';
+import { Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 
 export enum WORLDOBJECTTYPES {
@@ -21,6 +27,8 @@ export interface PlaceEvent {
   styleUrls: ['./gameboard-controls.component.scss'],
 })
 export class GameboardControlsComponent implements AfterViewInit {
+  @ViewChild('fileUpload')
+  fileUpload: ElementRef;
   colors = {
     red: '#ff0000',
     green: '#00ff00',
@@ -54,7 +62,9 @@ export class GameboardControlsComponent implements AfterViewInit {
     public controller: GameboardController
   ) {}
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.controller.upload = this.fileUpload.nativeElement;
+  }
 
   onColorMenu() {
     this.colorExpanded = !this.colorExpanded;
@@ -89,17 +99,7 @@ export class GameboardControlsComponent implements AfterViewInit {
   }
 
   onReset() {
-    const modalRef = this.controller.openModal(WarningModal);
-    (modalRef.componentInstance as WarningModal).init({
-      title: 'Reset World',
-      description: 'Are you sure you want to reset the world?',
-      successButton: 'Reset',
-    });
-    modalRef.result
-      .then(() => {
-        this.controller.reset();
-      })
-      .catch(() => {});
+    this.controller.reset();
   }
 
   onResize() {
@@ -120,26 +120,10 @@ export class GameboardControlsComponent implements AfterViewInit {
   }
 
   onExport() {
-    this.controller
-      .openModal(ExportModal)
-      .result.then((data: AdditionalWorldData) => {
-        this.controller.exportWorld(data);
-      })
-      .catch(() => {});
+    this.controller.exportWorld();
   }
 
   onSave() {
-    const modalRef = this.controller.openModal(WarningModal);
-    (modalRef.componentInstance as WarningModal).init({
-      title: 'Save world as default',
-      description:
-        'Do you want to save this world as default? Resetting will then return the world to this state.',
-      successButton: 'Save',
-    });
-    modalRef.result
-      .then(() => {
-        this.controller.saveWorld();
-      })
-      .catch(() => {});
+    this.controller.saveWorld();
   }
 }

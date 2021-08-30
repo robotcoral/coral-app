@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditorComponent } from './editor.component';
 
 describe('EditorComponent', () => {
@@ -8,9 +7,19 @@ describe('EditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditorComponent ]
-    })
-    .compileComponents();
+      declarations: [EditorComponent],
+      providers: [
+        {
+          provide: Window,
+          useValue: {
+            getComputedStyle: () => {
+              return { 'font-size': 16 };
+            },
+          },
+        },
+        { provide: Document, useValue: {} },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
