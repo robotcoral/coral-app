@@ -26,6 +26,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
         <h4>Kontakt</h4>
         <p>E-Mail: contact(at)robotcoral.de</p>
+
+        <h4>Datenschutz</h4>
+        <p>
+          Der Webserver loggt Zugriffe und die IP-Adressen der Zugreifer. Diese
+          Daten sind anonym und dienen nur der Auslastungsanalyse bzw. zur
+          Fehlersuche im Krisenfall.
+        </p>
       </div>
     </div>
   `,
