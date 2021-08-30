@@ -31,11 +31,9 @@ export class TitlebarComponent {
     Edit: {
       Undo: () => this.eController.undo(),
       Redo: () => this.eController.redo(),
-      Cut: null,
-      Copy: null,
-      Paste: null,
-      Search: null,
-      'Search and Replace': null,
+      Cut: () => this.eController.cut(),
+      Copy: () => this.eController.copy(),
+      Paste: () => this.eController.paste(),
       'Toggle Comments': null,
     },
     Execute: {

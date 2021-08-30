@@ -27,4 +27,20 @@ export class EditorController {
   resetFontSize() {
     this.editor.fontSize = this.editor.defaultFontSize;
   }
+
+  cut() {
+    this.clipboardEvent('cut');
+  }
+
+  copy() {
+    this.clipboardEvent('copy');
+  }
+
+  paste() {
+    this.clipboardEvent('paste');
+  }
+
+  private clipboardEvent(event: string) {
+    this.editor.view.contentDOM.dispatchEvent(new ClipboardEvent(event));
+  }
 }
