@@ -1,6 +1,7 @@
 import { CommonModule as AngularCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   EditorSettingsModal,
   ExportModal,
@@ -21,6 +22,11 @@ import {
     GeneralSettingsModal,
     EditorSettingsModal,
   ],
-  imports: [AngularCommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    AngularCommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule.forChild(),
+  ],
 })
 export class CommonModule {}

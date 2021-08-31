@@ -91,7 +91,7 @@ import { Coordinates3 } from 'src/app/gameboard/utils';
           class="btn btn-outline-dark"
           (click)="activeModal.dismiss('Close click')"
         >
-          Close
+          {{ 'COMMON.CANCEL' | translate }}
         </button>
       </div>
     </div>

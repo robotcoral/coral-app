@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { validate } from 'jsonschema';
 import { Settings, SettingsSchema } from './settings.schema';
 
@@ -28,7 +29,8 @@ export class SettingsService implements OnInit {
 
   constructor(
     private window: Window,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private translationService: TranslateService
   ) {
     this.loadWorldSettings();
     this.saveWorldSettings();
@@ -73,10 +75,13 @@ export class SettingsService implements OnInit {
     if (Object.values(THEMES).includes(savedTheme)) this.saveTheme(savedTheme);
     else this.theme = 'auto';
 
-    this.language =
-      navigator.language == LANGUAGES.German
-        ? LANGUAGES.German
-        : LANGUAGES.English;
+    let savedLanguage = window.localStorage.getItem(LANGUAGE_KEY) as LANGUAGES;
+    if (!Object.values(LANGUAGES).includes(savedLanguage))
+      savedLanguage =
+        navigator.language == LANGUAGES.German
+          ? LANGUAGES.German
+          : LANGUAGES.English;
+    this.saveLanguage(savedLanguage);
   }
 
   private saveTheme(theme: THEMES | 'auto') {
@@ -94,8 +99,10 @@ export class SettingsService implements OnInit {
   }
 
   private saveLanguage(language: LANGUAGES) {
+    this.language = language;
     this.document.documentElement.lang = language;
 
     this.window.localStorage.setItem(LANGUAGE_KEY, language);
+    this.translationService.use(this.language);
   }
 }

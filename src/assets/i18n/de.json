@@ -1,0 +1,17 @@
+{
+  "SETTINGS": {
+    "TITLE": "Einstellungen",
+    "GENERAL": {
+      "TITLE": "Allgemeine Einstellungen",
+      "THEME": "Theme",
+      "LANGUAGE": "Sprache",
+      "SYSTEM_DEFAULT": "Systemstandard"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Abbrechen",
+    "APPLY": "Speichern",
+    "CLOSE": "Schließen"
+  },
+  "NAVBAR": {}
+}

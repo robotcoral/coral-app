@@ -24,46 +24,46 @@ export class TitlebarComponent {
   };
 
   titlebar: { [key: string]: { [key: string]: Function } } = {
-    File: {
-      New: null,
-      Import: null,
-      Export: null,
-      Settings: () => this.onSettings(SETTINGSMODES.GENERAL),
+    FILE: {
+      NEW: null,
+      IMPORT: null,
+      EXPORT: null,
+      SETTINGS: () => this.onSettings(SETTINGSMODES.GENERAL),
     },
-    Edit: {
-      Undo: () => this.eController.undo(),
-      Redo: () => this.eController.redo(),
-      Cut: () => this.eController.cut(),
-      Copy: () => this.eController.copy(),
-      Paste: () => this.eController.paste(),
-      'Toggle Comments': null,
+    EDIT: {
+      UNDO: () => this.eController.undo(),
+      REDO: () => this.eController.redo(),
+      CUT: () => this.eController.cut(),
+      COPY: () => this.eController.copy(),
+      PASTE: () => this.eController.paste(),
+      TOGGLE_COMMENTS: null,
     },
-    Execute: {
-      Start: null,
-      Step: null,
-      'Pause/Unpause': null,
-      Stop: null,
-      'Raise speed': null,
-      'Lower speed': null,
-      'Reset world on start': null,
+    EXECUTE: {
+      START: null,
+      STEP: null,
+      PAUSE_UNPAUSE: null,
+      STOP: null,
+      RAISE_SPEED: null,
+      LOWER_SPEED: null,
+      RESET_WORLD: null,
     },
-    Editor: {
-      'Zoom in': () => this.eController.zoomIn(),
-      'Zoom out': () => this.eController.zoomOut(),
-      'Reset font size': () => this.eController.resetFontSize(),
-      'Editor settings': () => this.onSettings(SETTINGSMODES.EDITOR),
+    EDITOR: {
+      ZOOM_IN: () => this.eController.zoomIn(),
+      ZOOM_OUT: () => this.eController.zoomOut(),
+      RESET: () => this.eController.resetFontSize(),
+      SETTINGS: () => this.onSettings(SETTINGSMODES.EDITOR),
     },
-    World: {
-      'Import world': () => this.gbController.upload.click(),
-      'Export world': () => this.gbController.exportWorld(),
-      'Reset World': () => this.gbController.reset(),
-      'Set world reset point': () => this.gbController.saveWorld(),
-      'World settings': () => this.onSettings(SETTINGSMODES.WORLD),
+    WORLD: {
+      IMPORT: () => this.gbController.upload.click(),
+      EXPORT: () => this.gbController.exportWorld(),
+      RESET: () => this.gbController.reset(),
+      SAVE: () => this.gbController.saveWorld(),
+      SETTINGS: () => this.onSettings(SETTINGSMODES.WORLD),
     },
-    Help: {
-      Documentation: () => window.open('https://docs.robotcoral.de'),
-      Info: () => this.gbController.openModal(InfoModal),
-      Impressum: () => this.gbController.openModal(ImpressumModal),
+    HELP: {
+      DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
+      INFO: () => this.gbController.openModal(InfoModal),
+      IMPRESSUM: () => this.gbController.openModal(ImpressumModal),
     },
   };
 

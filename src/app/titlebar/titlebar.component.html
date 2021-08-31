@@ -10,7 +10,7 @@
 <div class="app-titlebar-button-container">
   <div ngbDropdown *ngFor="let item of titlebar | keyvalue: originalOrder">
     <button class="app-titelbar-button" id="item.key" ngbDropdownToggle>
-      {{ item.key }}
+      {{ "NAVBAR." + item.key + ".TITLE" | translate }}
     </button>
     <div ngbDropdownMenu [attr.aria-labelledby]="item.key">
       <button
@@ -19,7 +19,7 @@
         (click)="subItem.value()"
         [disabled]="!subItem.value"
       >
-        {{ subItem.key }}
+        {{ "NAVBAR." + item.key + "." + subItem.key | translate }}
       </button>
     </div>
   </div>
