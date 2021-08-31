@@ -1,6 +1,7 @@
 import { CommonModule as AngularCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   EditorSettingsModal,
   ExportModal,
@@ -8,8 +9,11 @@ import {
   ImportModal,
   ResizeModal,
   SettingsModal,
+  WarningModal,
   WorldSettingsModal,
 } from './modals';
+import { ImpressumModal } from './modals/impressum.modal';
+import { InfoModal } from './modals/info.modal';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,15 @@ import {
     WorldSettingsModal,
     GeneralSettingsModal,
     EditorSettingsModal,
+    WarningModal,
+    ImpressumModal,
+    InfoModal,
   ],
-  imports: [AngularCommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    AngularCommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule.forChild(),
+  ],
 })
 export class CommonModule {}

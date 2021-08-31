@@ -1,0 +1,155 @@
+{
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "GENERAL": {
+      "TITLE": "General Settings",
+      "THEME": "Theme",
+      "LANGUAGE": "Language",
+      "SYSTEM_DEFAULT": "System default"
+    },
+    "EDITOR": {
+      "TITLE": "Editor Settings"
+    },
+    "WORLD": {
+      "TITLE": "World Settings",
+      "INVENTORY_ACTIVE": "Inventory active:",
+      "INVENTORY_MAX_SIZE": "Inventory size:",
+      "INVENTORY_START_SIZE": "Start slabs:"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Cancel",
+    "APPLY": "Apply",
+    "CLOSE": "Close",
+    "OK": "Ok",
+    "VERSION": "Version",
+    "LOAD": "Load",
+    "LENGTH": "Length",
+    "WIDTH": "Width",
+    "HEIGHT": "Height"
+  },
+  "NAVBAR": {
+    "FILE": {
+      "TITLE": "File",
+      "NEW": "New",
+      "IMPORT": "Import",
+      "EXPORT": "Export",
+      "SETTINGS": "Settings"
+    },
+    "EDIT": {
+      "TITLE": "Edit",
+      "UNDO": "Undo",
+      "REDO": "Redo",
+      "CUT": "Cut",
+      "COPY": "Copy",
+      "PASTE": "Paste",
+      "TOGGLE_COMMENTS": "Toggle Comments"
+    },
+    "EXECUTE": {
+      "TITLE": "Execute",
+      "START": "Start",
+      "STEP": "Step",
+      "PAUSE_UNPAUSE": "Pause/Resume",
+      "STOP": "Stop",
+      "RAISE_SPEED": "Raise speed",
+      "LOWER_SPEED": "Lower speed",
+      "RESET_WORLD": "Reset world on start"
+    },
+    "EDITOR": {
+      "TITLE": "Editor",
+      "ZOOM_IN": "Zoom in",
+      "ZOOM_OUT": "Zoom out",
+      "RESET": "Reset font size",
+      "SETTINGS": "Editor settings"
+    },
+    "WORLD": {
+      "TITLE": "World",
+      "IMPORT": "Import world",
+      "EXPORT": "Export world",
+      "RESET": "Reset World",
+      "SAVE": "Set world reset point",
+      "SETTINGS": "World settings"
+    },
+    "HELP": {
+      "TITLE": "Help",
+      "DOCUMENTATION": "Documentation",
+      "INFO": "Info",
+      "IMPRESSUM": "Impressum"
+    }
+  },
+  "TOOLTIPS": {
+    "RESET_CAMERA": "Reset Camera",
+    "ROTATE_COUNTERCLOCKWISE": "Rotate counterclockwise",
+    "MOVE": "Step",
+    "ROTATE_CLOCKWISE": "Rotate clockwise",
+    "CHANGE_PLACEMENT_MODE": "Change placement mode",
+    "CHANGE_COLOR": "Change color",
+    "PUT_DOWN": "Put down",
+    "PICK_UP": "Pick up",
+    "EXPAND_COLLAPSE_SETTINGS": "Expand/Collapse settings",
+    "RESET_WORLD": "Reset world",
+    "RESIZE_WORLD": "Resize world",
+    "SAVE_WORLD": "Save world as default",
+    "IMPORT_WORLD": "Import world",
+    "EXPORT_WORLD": "Export world"
+  },
+  "ERRORS": {
+    "NO_SLABS": "You have no slabs left in your inventory",
+    "FILE_UPLOAD_FAILED": "File upload failed.\nPlease try again",
+    "SLAB_OUTSIDE_WORLD": "You can't place slabs outside the map",
+    "BLOCK_IN_WAY": "There is a block on this field",
+    "MAX_HEIGHT": "You can't put more blocks on this tile",
+    "BLOCK_OUTSIDE_WORLD": "You can't place blocks outside the map",
+    "CANT_PLACE_BLOCK_HERE": "You can't put a block on this tile",
+    "ALREADY_FLAG": "There is already a flag here",
+    "CANT_PICK_UP": "You can't pick this up",
+    "NOTHING_TO_PICK_UP": "Nothing to pick up",
+    "WALL_IN_WAY": "There is a wall in front of you",
+    "BLOCK_IN_PATH": "There is a block in your way",
+    "JUMP": "You can't jump this high"
+  },
+  "MODALS": {
+    "RESET_WORLD": {
+      "TITLE": "Reset World",
+      "DESCRIPTION": "Are you sure you want to reset the world?",
+      "SUCCESS_BUTTON": "Reset"
+    },
+    "SAVE_WORLD": {
+      "TITLE": "Save world as default",
+      "DESCRIPTION": "Do you want to save this world as default? Resetting will then return the world to this state.",
+      "SUCCESS_BUTTON": "Save"
+    },
+    "EXPORT_WORLD": {
+      "TITLE": "Export World",
+      "WORLDNAME": "Worldname",
+      "AUTHOR": "Author",
+      "DESCRIPTION": "Description"
+    },
+    "IMPORT_WORLD": {
+      "TITLE": "Import World",
+      "VERSION_WARNING": {
+        "START": "This world was exported from a",
+        "END": "version of Robot Coral.\nLoading may not be possible!"
+      },
+      "OLDER": "n older",
+      "NEWER": " newer "
+    },
+    "IMPRESSUM": {
+      "PRIVACY_STATEMENT": {
+        "TITLE": "Privacy Statement",
+        "BODY": "The server logs IP-adresses and accesses of all users. This data is anonymous and is only used for loadanalysis and debugging purposes during outages."
+      }
+    },
+    "RESIZE_MODAL": {
+      "TITLE": "Resize World",
+      "WARNING": {
+        "1_1024": "must be between 1 and 1024",
+        "NUMBER": "must be a number",
+        "1_256": "must be between 0 and 256"
+      }
+    },
+    "INFO": {
+      "TITLE": "Info"
+    }
+  }
+}

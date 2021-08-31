@@ -5,53 +5,7 @@ import { AdditionalWorldData } from 'src/app/gameboard/utils';
 
 @Component({
   selector: 'export-modal',
-  template: `
-    <div id="modal">
-      <div class="modal-header">
-        <h4 class="modal-title">Export World</h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="activeModal.dismiss('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="formGroup">
-          <div class="inputWrapper">
-            <div class="nameField">Worldname:</div>
-            <input type="text" name="name" formControlName="name" />
-          </div>
-          <div class="inputWrapper">
-            <div class="nameField">Author:</div>
-            <input type="text" name="author" formControlName="author" />
-          </div>
-          <div class="inputWrapper">
-            <div class="nameField">Description:</div>
-            <textarea
-              type="text"
-              name="description"
-              formControlName="description"
-            ></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="onApply()">
-          Apply
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          (click)="activeModal.dismiss('Close click')"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  `,
+  templateUrl: './export.modal.html',
   styleUrls: ['./modal.styles.scss'],
   styles: [
     `

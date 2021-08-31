@@ -1,6 +1,6 @@
-<div>
+<div id="modal">
   <div class="modal-header">
-    <h4 class="modal-title">{{ 'SETTINGS.WORLD.TITLE' | translate }}</h4>
+    <h4 class="modal-title">{{ 'MODALS.EXPORT_WORLD.TITLE' | translate }}</h4>
     <button
       type="button"
       class="close"
@@ -13,35 +13,25 @@
     <form [formGroup]="formGroup">
       <div class="inputWrapper">
         <div class="nameField">
-          {{ 'SETTINGS.WORLD.INVENTORY_ACTIVE' | translate }}
+          {{ 'MODALS.EXPORT_WORLD.WORLDNAME' | translate }}:
         </div>
-        <input
-          type="checkbox"
-          name="inventoryActive"
-          formControlName="inventoryActive"
-        />
+        <input type="text" name="name" formControlName="name" />
       </div>
       <div class="inputWrapper">
         <div class="nameField">
-          {{ 'SETTINGS.WORLD.INVENTORY_MAX_SIZE' | translate }}
+          {{ 'MODALS.EXPORT_WORLD.AUTHOR' | translate }}:
         </div>
-        <input
-          type="number"
-          class="number-field"
-          name="maxSlabs"
-          formControlName="maxSlabs"
-        />
+        <input type="text" name="author" formControlName="author" />
       </div>
       <div class="inputWrapper">
         <div class="nameField">
-          {{ 'SETTINGS.WORLD.INVENTORY_START_SIZE' | translate }}
+          {{ 'MODALS.EXPORT_WORLD.DESCRIPTION' | translate }}:
         </div>
-        <input
-          type="number"
-          class="number-field"
-          name="startSlabs"
-          formControlName="startSlabs"
-        />
+        <textarea
+          type="text"
+          name="description"
+          formControlName="description"
+        ></textarea>
       </div>
     </form>
   </div>
@@ -54,7 +44,7 @@
       class="btn btn-outline-dark"
       (click)="activeModal.dismiss('Close click')"
     >
-      {{'COMMON.CANCEL'|translate}}
+      {{ 'COMMON.CANCEL' | translate }}
     </button>
   </div>
 </div>

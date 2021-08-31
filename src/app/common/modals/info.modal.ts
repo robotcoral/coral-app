@@ -6,11 +6,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   template: `
     <div id="modal">
       <div class="modal-header">
-        <h4 class="modal-title">Info</h4>
+        <h4 class="modal-title">{{ 'MODALS.INFO.TITLE' | translate }}</h4>
         <button
           type="button"
           class="close"
-          aria-label="Close"
           (click)="activeModal.dismiss('Cross click')"
         >
           <span aria-hidden="true">&times;</span>
