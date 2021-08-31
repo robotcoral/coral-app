@@ -29,6 +29,11 @@ textarea {
   border-color: var(--theme-highlight-2);
 }
 
+::ng-deep .modal-header,
+.modal-footer {
+  border-color: var(--theme-highlight-2);
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -43,9 +48,7 @@ input[type="number"] {
 
 button {
   border: 0px;
-  min-height: 3rem;
   border-radius: 4px;
-  margin: 0.5rem;
   background-color: transparent;
   transition: all 0.1s ease-in-out;
   color: var(--theme-font-color);
