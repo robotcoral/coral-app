@@ -56,14 +56,11 @@ app-titlebar {
 
 .inner-border {
   width: 10px;
-  background-color: transparent;
   height: 100%;
   position: absolute;
-  left: -5px;
   z-index: 11;
 }
 
 .touch-inner-border {
-  width: 40px;
-  left: -10px;
+  width: 30px;
 }
