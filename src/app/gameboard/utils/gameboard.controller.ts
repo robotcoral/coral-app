@@ -74,10 +74,15 @@ export class GameboardController {
   pickUp(mode: WORLDOBJECTTYPES) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (mode == WORLDOBJECTTYPES.SLAB) this.model.world.pickUpSlab(coo);
-      else if (mode == WORLDOBJECTTYPES.CUBE) this.model.world.pickUpBlock(coo);
-      else
+      if (mode == WORLDOBJECTTYPES.SLAB) {
+        this.model.world.pickUpSlab(coo);
+        if (this.settingService.settings.inventoryActive)
+          this.model.currentSlabs++;
+      } else if (mode == WORLDOBJECTTYPES.CUBE) {
+        this.model.world.pickUpBlock(coo);
+      } else {
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
+      }
     } catch (error) {
       this.toastr.error(error);
     }
