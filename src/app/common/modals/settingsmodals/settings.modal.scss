@@ -1,4 +1,4 @@
-::ng-deep .custom-modal .modal-dialog {
+::ng-deep .modal-content {
   max-width: fit-content;
   min-width: 600px;
 }
@@ -9,8 +9,8 @@
 }
 
 .separator {
-  width: 1px;
-  background-color: rgba(0, 0, 0, 0.2);
+  width: 2px;
+  background-color: var(--theme-highlight-2);
 }
 
 .mode {
@@ -18,7 +18,7 @@
 }
 
 .mode-highlight {
-  background-color: lightgray;
+  background-color: var(--theme-highlight-1);
 }
 
 .modal-mode-body {
@@ -29,6 +29,7 @@
   background-color: transparent;
   border: 0px;
   width: 100%;
+  color: var(--theme-font-color);
 }
 
 .nameField {
