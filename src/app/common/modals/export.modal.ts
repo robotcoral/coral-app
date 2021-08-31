@@ -55,7 +55,7 @@ import { AdditionalWorldData } from 'src/app/gameboard/utils';
   styleUrls: ['./modal.styles.scss'],
   styles: [
     `
-      ::ng-deep .custom-modal .modal-dialog {
+      ::ng-deep .modal-content {
         max-width: 500px;
         width: auto;
         min-width: none;

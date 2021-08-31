@@ -81,7 +81,7 @@ import { commonEnvironment } from 'src/environments/environment.common';
   styleUrls: ['./modal.styles.scss'],
   styles: [
     `
-      ::ng-deep .custom-modal .modal-dialog {
+      ::ng-deep .modal-content {
         max-width: 500px !important;
         width: auto;
         min-width: none;

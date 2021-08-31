@@ -13,16 +13,25 @@ select,
 textarea {
   min-width: none;
   width: 100%;
-  background-color: lightgray;
+  background-color: var(--theme-highlight-2);
   border: 0px;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  color: var(--theme-font-color);
 }
 
-::ng-deep .custom-modal .modal-dialog {
+::ng-deep .modal-content {
   max-width: 300px;
-  width: auto;
+  width: 300px;
   min-width: none;
+  background-color: var(--theme-main-bg-color);
+  color: var(--theme-font-color);
+  border-color: var(--theme-highlight-2);
+}
+
+::ng-deep .modal-header,
+.modal-footer {
+  border-color: var(--theme-highlight-2);
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -35,4 +44,25 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+button {
+  border: 0px;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: all 0.1s ease-in-out;
+  color: var(--theme-font-color);
+}
+
+button:hover {
+  scale: 1.02;
+  background-color: var(--theme-highlight-1);
+  color: var(--theme-font-color);
+  box-shadow: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+}
+
+button:active {
+  box-shadow: 0px 1px 4px hsla(0, 0%, 0%, 0.35);
+  background-color: var(--theme-highlight-2);
+  transition: all 0.05s ease-in-out;
 }

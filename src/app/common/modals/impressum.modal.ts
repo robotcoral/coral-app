@@ -39,7 +39,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal.styles.scss'],
   styles: [
     `
-      ::ng-deep .custom-modal .modal-dialog {
+      ::ng-deep .modal-content {
         max-width: 350px;
       }
     `,
