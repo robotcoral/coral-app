@@ -9,8 +9,11 @@ import {
   ImportModal,
   ResizeModal,
   SettingsModal,
+  WarningModal,
   WorldSettingsModal,
 } from './modals';
+import { ImpressumModal } from './modals/impressum.modal';
+import { InfoModal } from './modals/info.modal';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import {
     WorldSettingsModal,
     GeneralSettingsModal,
     EditorSettingsModal,
+    WarningModal,
+    ImpressumModal,
+    InfoModal,
   ],
   imports: [
     AngularCommonModule,

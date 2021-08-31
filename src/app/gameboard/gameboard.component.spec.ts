@@ -1,4 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { SettingsService } from '../common/settings.service';
 import { GameboardComponent } from './gameboard.component';
 import { GameboardController } from './utils';
@@ -22,6 +27,14 @@ describe('GameboardComponent', () => {
           provide: GameboardController,
           useValue: {},
         },
+      ],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
       ],
     }).compileComponents();
   });

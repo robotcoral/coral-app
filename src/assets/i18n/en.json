@@ -20,7 +20,13 @@
   "COMMON": {
     "CANCEL": "Cancel",
     "APPLY": "Apply",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "OK": "Ok",
+    "VERSION": "Version",
+    "LOAD": "Load",
+    "LENGTH": "Length",
+    "WIDTH": "Width",
+    "HEIGHT": "Height"
   },
   "NAVBAR": {
     "FILE": {
@@ -74,7 +80,7 @@
   "TOOLTIPS": {
     "RESET_CAMERA": "Reset Camera",
     "ROTATE_COUNTERCLOCKWISE": "Rotate counterclockwise",
-    "MOVE": "Move",
+    "MOVE": "Step",
     "ROTATE_CLOCKWISE": "Rotate clockwise",
     "CHANGE_PLACEMENT_MODE": "Change placement mode",
     "CHANGE_COLOR": "Change color",
@@ -86,5 +92,64 @@
     "SAVE_WORLD": "Save world as default",
     "IMPORT_WORLD": "Import world",
     "EXPORT_WORLD": "Export world"
+  },
+  "ERRORS": {
+    "NO_SLABS": "You have no slabs left in your inventory",
+    "FILE_UPLOAD_FAILED": "File upload failed.\nPlease try again",
+    "SLAB_OUTSIDE_WORLD": "You can't place slabs outside the map",
+    "BLOCK_IN_WAY": "There is a block on this field",
+    "MAX_HEIGHT": "You can't put more blocks on this tile",
+    "BLOCK_OUTSIDE_WORLD": "You can't place blocks outside the map",
+    "CANT_PLACE_BLOCK_HERE": "You can't put a block on this tile",
+    "ALREADY_FLAG": "There is already a flag here",
+    "CANT_PICK_UP": "You can't pick this up",
+    "NOTHING_TO_PICK_UP": "Nothing to pick up",
+    "WALL_IN_WAY": "There is a wall in front of you",
+    "BLOCK_IN_PATH": "There is a block in your way",
+    "JUMP": "You can't jump this high"
+  },
+  "MODALS": {
+    "RESET_WORLD": {
+      "TITLE": "Reset World",
+      "DESCRIPTION": "Are you sure you want to reset the world?",
+      "SUCCESS_BUTTON": "Reset"
+    },
+    "SAVE_WORLD": {
+      "TITLE": "Save world as default",
+      "DESCRIPTION": "Do you want to save this world as default? Resetting will then return the world to this state.",
+      "SUCCESS_BUTTON": "Save"
+    },
+    "EXPORT_WORLD": {
+      "TITLE": "Export World",
+      "WORLDNAME": "Worldname",
+      "AUTHOR": "Author",
+      "DESCRIPTION": "Description"
+    },
+    "IMPORT_WORLD": {
+      "TITLE": "Import World",
+      "VERSION_WARNING": {
+        "START": "This world was exported from a",
+        "END": "version of Robot Coral.\nLoading may not be possible!"
+      },
+      "OLDER": "n older",
+      "NEWER": " newer "
+    },
+    "IMPRESSUM": {
+      "PRIVACY_STATEMENT": {
+        "TITLE": "Privacy Statement",
+        "BODY": "The server logs IP-adresses and accesses of all users. This data is anonymous and is only used for loadanalysis and debugging purposes during outages."
+      }
+    },
+    "RESIZE_MODAL": {
+      "TITLE": "Resize World",
+      "WARNING": {
+        "1_1024": "must be between 1 and 1024",
+        "NUMBER": "must be a number",
+        "1_256": "must be between 0 and 256"
+      }
+    },
+    "INFO": {
+      "TITLE": "Info"
+    }
   }
 }

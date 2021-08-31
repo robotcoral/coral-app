@@ -37,6 +37,7 @@ export function HTTPLoaderFactory(http: HttpClient) {
         useFactory: HTTPLoaderFactory,
         deps: [HttpClient],
       },
+      defaultLanguage: 'en',
     }),
   ],
   providers: [{ provide: Window, useValue: window }],

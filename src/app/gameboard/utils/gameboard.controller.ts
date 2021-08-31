@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
@@ -29,7 +30,8 @@ export class GameboardController {
     @Inject(DOCUMENT) private document: Document,
     private modalService: NgbModal,
     private toastr: ToastrService,
-    private settingService: SettingsService
+    private settingService: SettingsService,
+    private translate: TranslateService
   ) {
     this.model = new GameboardModel(settingService);
   }
@@ -38,7 +40,7 @@ export class GameboardController {
     try {
       this.model.robot.move();
     } catch (error) {
-      this.toastr.error(error);
+      this.translateError(error);
     }
   }
 
@@ -58,14 +60,13 @@ export class GameboardController {
           event.color
         );
     } catch (error) {
-      this.toastr.error(error);
+      this.translateError(error);
     }
   }
 
   private placeSlab(coo: Coordinates2, color: string) {
     if (this.settingService.settings.inventoryActive) {
-      if (this.model.currentSlabs === 0)
-        throw new Error('You have no slabs left in your inventory');
+      if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
       this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
     } else this.model.world.placeSlab(coo, color);
@@ -84,7 +85,7 @@ export class GameboardController {
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
       }
     } catch (error) {
-      this.toastr.error(error);
+      this.translateError(error);
     }
   }
 
@@ -113,15 +114,15 @@ export class GameboardController {
   reset() {
     const modalRef = this.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
-      title: 'Reset World',
-      description: 'Are you sure you want to reset the world?',
-      successButton: 'Reset',
+      title: 'MODALS.RESET_WORLD.TITLE',
+      description: 'MODALS.RESET_WORLD.DESCRIPTION',
+      successButton: 'MODALS.RESET_WORLD.SUCCESS_BUTTON',
     });
     modalRef.result
       .then(() => {
         this.model.reset();
       })
-      .catch(() => {});
+      .catch(null);
   }
 
   resize(coo: Coordinates3) {
@@ -147,12 +148,12 @@ export class GameboardController {
         const text = JSON.stringify(worldFile, null, 2);
         this.dyanmicDownloadByHtmlTag(text);
       })
-      .catch(() => {});
+      .catch(null);
   }
 
   async importWorld(file: File) {
     try {
-      if (!file) throw new Error('File upload failed.\nPlease try again');
+      if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
 
       const worldFile: WorldFile = this.model.import(await file.text());
       const modalRef = this.openModal(ImportModal);
@@ -162,9 +163,9 @@ export class GameboardController {
           this.model.world.defaultWorld = worldFile.world_data;
           this.model.reset();
         })
-        .catch(() => {});
+        .catch(null);
     } catch (error) {
-      this.toastr.error(error);
+      this.translateError(error);
     }
   }
 
@@ -208,20 +209,25 @@ export class GameboardController {
   saveWorld() {
     const modalRef = this.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
-      title: 'Save world as default',
-      description:
-        'Do you want to save this world as default? Resetting will then return the world to this state.',
-      successButton: 'Save',
+      title: 'MODALS.SAVE_WORLD.TITLE',
+      description: 'MODALS.SAVE_WORLD.DESCRIPTION',
+      successButton: 'MODALS.SAVE_WORLD.SUCCESS_BUTTON',
     });
     modalRef.result
       .then(() => {
         const worldFile = this.model.export({});
         this.model.save(worldFile.world_data);
       })
-      .catch(() => {});
+      .catch(null);
   }
 
   getCurrentSlabs() {
     return this.model.currentSlabs;
+  }
+
+  private translateError(error: Error) {
+    this.translate.get(error.message).subscribe((translation: string) => {
+      this.toastr.error(translation);
+    });
   }
 }
