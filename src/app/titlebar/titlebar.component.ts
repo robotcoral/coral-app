@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EditorController } from '../common/editor.controller';
+import { ModalController } from '../common/modal.controller';
 import { SettingsModal, SETTINGSMODES } from '../common/modals';
 import { ImpressumModal } from '../common/modals/impressum.modal';
 import { InfoModal } from '../common/modals/info.modal';
@@ -13,12 +14,13 @@ import { GameboardController } from '../gameboard/utils';
 export class TitlebarComponent {
   constructor(
     public gbController: GameboardController,
-    private eController: EditorController
+    private eController: EditorController,
+    private mController: ModalController
   ) {}
 
   onSettings = (mode: SETTINGSMODES) => {
     (
-      this.gbController.openModal(SettingsModal)
+      this.mController.openModal(SettingsModal)
         .componentInstance as SettingsModal
     ).setMode(mode);
   };
@@ -62,8 +64,8 @@ export class TitlebarComponent {
     },
     HELP: {
       DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
-      INFO: () => this.gbController.openModal(InfoModal),
-      IMPRESSUM: () => this.gbController.openModal(ImpressumModal),
+      INFO: () => this.mController.openModal(InfoModal),
+      IMPRESSUM: () => this.mController.openModal(ImpressumModal),
     },
   };
 

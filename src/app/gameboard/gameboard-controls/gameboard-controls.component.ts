@@ -6,6 +6,7 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
+import { ModalController } from 'src/app/common/modal.controller';
 import { ResizeModal } from 'src/app/common/modals';
 import { Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
@@ -62,7 +63,8 @@ export class GameboardControlsComponent implements AfterViewInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    public controller: GameboardController
+    public controller: GameboardController,
+    private modal: ModalController
   ) {}
 
   ngAfterViewInit(): void {
@@ -106,7 +108,7 @@ export class GameboardControlsComponent implements AfterViewInit {
   }
 
   onResize() {
-    const modalRef = this.controller.openModal(ResizeModal);
+    const modalRef = this.modal.openModal(ResizeModal);
 
     modalRef.componentInstance.init(this.controller.getWorldSize());
     modalRef.result

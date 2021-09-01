@@ -1,8 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { ModalController } from 'src/app/common/modal.controller';
 import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
 import {
@@ -27,8 +26,7 @@ export class GameboardController {
   upload: HTMLInputElement;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private modalService: NgbModal,
+    private modalController: ModalController,
     private toastr: ToastrService,
     private settingService: SettingsService,
     private translate: TranslateService
@@ -112,7 +110,7 @@ export class GameboardController {
   }
 
   reset() {
-    const modalRef = this.openModal(WarningModal);
+    const modalRef = this.modalController.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.RESET_WORLD.TITLE',
       description: 'MODALS.RESET_WORLD.DESCRIPTION',
@@ -142,7 +140,8 @@ export class GameboardController {
   }
 
   exportWorld() {
-    this.openModal(ExportModal)
+    this.modalController
+      .openModal(ExportModal)
       .result.then((data: AdditionalWorldData) => {
         const worldFile = this.model.export(data);
         const text = JSON.stringify(worldFile, null, 2);
@@ -156,7 +155,7 @@ export class GameboardController {
       if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
 
       const worldFile: WorldFile = this.model.import(await file.text());
-      const modalRef = this.openModal(ImportModal);
+      const modalRef = this.modalController.openModal(ImportModal);
       modalRef.componentInstance.init(worldFile);
       modalRef.result
         .then(() => {
@@ -167,29 +166,6 @@ export class GameboardController {
     } catch (error) {
       this.translateError(error);
     }
-  }
-
-  openModal(content: any) {
-    const modalRef = this.modalService.open(content, {
-      backdrop: false,
-      centered: true,
-      windowClass: 'custom-modal',
-    });
-    const callback = (e: any) => {
-      if (!this.document.getElementById('modal').contains(e.target)) {
-        modalRef.dismiss();
-      }
-    };
-
-    // makes sure the modal isn't immediately closed
-    setTimeout(() => {
-      this.document.addEventListener('click', callback);
-    }, 0);
-
-    modalRef.result.finally(() => {
-      this.document.removeEventListener('click', callback);
-    });
-    return modalRef;
   }
 
   private dyanmicDownloadByHtmlTag(text: string) {
@@ -207,7 +183,7 @@ export class GameboardController {
   }
 
   saveWorld() {
-    const modalRef = this.openModal(WarningModal);
+    const modalRef = this.modalController.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.SAVE_WORLD.TITLE',
       description: 'MODALS.SAVE_WORLD.DESCRIPTION',
