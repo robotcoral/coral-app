@@ -6,78 +6,7 @@ import { commonEnvironment } from 'src/environments/environment.common';
 
 @Component({
   selector: 'import-modal',
-  template: `
-    <div id="modal">
-      <div class="modal-header">
-        <h4 class="modal-title">Import World</h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="activeModal.dismiss('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="formGroup">
-          <div class="inputWrapper">
-            <div class="nameField">Worldname:</div>
-            <input
-              type="text"
-              name="name"
-              formControlName="name"
-              [attr.disabled]="true"
-            />
-          </div>
-          <div class="inputWrapper">
-            <div class="nameField">Author:</div>
-            <input
-              type="text"
-              name="author"
-              formControlName="author"
-              [attr.disabled]="true"
-            />
-          </div>
-          <div class="inputWrapper">
-            <div class="nameField">Description:</div>
-            <textarea
-              type="text"
-              name="description"
-              formControlName="description"
-              [attr.disabled]="true"
-            ></textarea>
-          </div>
-          <div class="inputWrapper">
-            <div class="nameField">Version:</div>
-            <input
-              type="text"
-              name="version"
-              formControlName="version"
-              [attr.disabled]="true"
-            />
-          </div>
-          <span *ngIf="versionError">{{ versionError }}</span>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          (click)="activeModal.close()"
-        >
-          Load
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          (click)="activeModal.dismiss('Close click')"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  `,
+  templateUrl: './import.modal.html',
   styleUrls: ['./modal.styles.scss'],
   styles: [
     `
@@ -95,7 +24,8 @@ import { commonEnvironment } from 'src/environments/environment.common';
 })
 export class ImportModal {
   formGroup: FormGroup;
-  versionError = '';
+  versionError: boolean;
+  olderNewer: string;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -109,12 +39,10 @@ export class ImportModal {
       description: [worldFile.world_data.description],
       version: [worldFile.version],
     });
-    if (worldFile.version != commonEnvironment.worldFileVersion)
-      this.versionError =
-        'This world was exported from a' +
-        (worldFile.version > commonEnvironment.worldFileVersion
-          ? ' newer'
-          : 'n older') +
-        ' version of Robot Coral.\nLoading may not be possible!';
+    this.versionError = worldFile.version != commonEnvironment.worldFileVersion;
+    this.olderNewer =
+      worldFile.version > commonEnvironment.worldFileVersion
+        ? 'MODALS.IMPORT_WORLD.OLDER'
+        : 'MODALS.IMPORT_WORLD.NEWER';
   }
 }

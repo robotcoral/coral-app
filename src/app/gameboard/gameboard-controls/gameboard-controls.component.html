@@ -2,7 +2,7 @@
   <div class="left-controls controls">
     <button
       (click)="controller.rotate()"
-      title="Rotate counterclockwise"
+      [title]="'TOOLTIPS.ROTATE_COUNTERCLOCKWISE' | translate"
       class="icon-button"
     >
       <svg-icon
@@ -10,7 +10,11 @@
         [svgClass]="'svg'"
       ></svg-icon>
     </button>
-    <button (click)="controller.move()" title="Move" class="icon-button">
+    <button
+      (click)="controller.move()"
+      [title]="'TOOLTIPS.MOVE' | translate"
+      class="icon-button"
+    >
       <svg-icon
         src="assets/icons/ic_fluent_arrow_up_24_regular.svg"
         [svgClass]="'svg'"
@@ -18,7 +22,7 @@
     </button>
     <button
       (click)="controller.rotate(-1)"
-      title="Rotate clockwise"
+      [title]="'TOOLTIPS.ROTATE_CLOCKWISE' | translate"
       class="icon-button"
     >
       <svg-icon
@@ -35,7 +39,7 @@
       <div id="modeMenu" [ngClass]="{ openMenu: modeExpanded }" class="menu">
         <button
           (click)="onModeMenu()"
-          title="Change placement mode"
+          [title]="'TOOLTIPS.CHANGE_PLACEMENT_MODE' | translate"
           class="icon-button"
         >
           <svg-icon [src]="modes[mode]" [svgClass]="'svg'"></svg-icon>
@@ -59,7 +63,7 @@
         <button
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"
-          title="Change color"
+          [title]="'TOOLTIPS.CHANGE_COLOR' | translate"
           class="icon-button"
         >
           <svg-icon
@@ -80,13 +84,21 @@
         </ng-container>
       </div>
     </div>
-    <button (click)="onPlace()" title="Put down" class="icon-button">
+    <button
+      (click)="onPlace()"
+      [title]="'TOOLTIPS.PUT_DOWN' | translate"
+      class="icon-button"
+    >
       <svg-icon
         src="assets/icons/ic_fluent_add_square_24_regular.svg"
         [svgClass]="'svg'"
       ></svg-icon>
     </button>
-    <button (click)="onPickUp()" title="Pick up" class="icon-button">
+    <button
+      (click)="onPickUp()"
+      [title]="'TOOLTIPS.PICK_UP' | translate"
+      class="icon-button"
+    >
       <svg-icon
         src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
         [svgClass]="'svg'"
@@ -97,7 +109,7 @@
   <button
     class="settingsbtn icon-button"
     (click)="settingsOpen = !settingsOpen"
-    title="Expand/Collapse settings"
+    [title]="'TOOLTIPS.EXPAND_COLLAPSE_SETTINGS' | translate"
   >
     <svg-icon
       src="assets/icons/ic_fluent_settings_24_regular.svg"
@@ -106,41 +118,54 @@
   </button>
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
-  <button (click)="onReset()" title="Reset world" class="icon-button">
+  <button
+    (click)="controller.reset()"
+    [title]="'TOOLTIPS.RESET_WORLD' | translate"
+    class="icon-button"
+  >
     <svg-icon
       src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
       [svgClass]="'svg'"
     ></svg-icon>
   </button>
-  <button (click)="onResize()" title="Resize world" class="icon-button">
+  <button
+    (click)="onResize()"
+    [title]="'TOOLTIPS.RESIZE_WORLD' | translate"
+    class="icon-button"
+  >
     <svg-icon
       src="assets/icons/ic_fluent_slide_size_24_regular.svg"
       [svgClass]="'svg'"
     ></svg-icon>
   </button>
 
-  <button (click)="onSave()" title="Save world as default" class="icon-button">
+  <button
+    (click)="controller.saveWorld()"
+    [title]="'TOOLTIPS.SAVE_WORLD' | translate"
+    class="icon-button"
+  >
     <svg-icon
       src="assets/icons/ic_fluent_save_24_regular.svg"
       [svgClass]="'svg'"
     ></svg-icon>
   </button>
-  <button (click)="fileUpload.click()" title="Import world" class="icon-button">
+  <button
+    (click)="controller.importWorld()"
+    [title]="'TOOLTIPS.IMPORT_WORLD' | translate"
+    class="icon-button"
+  >
     <svg-icon
       src="assets/icons/ic_fluent_cloud_backup_24_regular.svg"
       [svgClass]="'svg'"
     ></svg-icon></button
-  ><button (click)="onExport()" title="Export world" class="icon-button">
+  ><button
+    (click)="controller.exportWorld()"
+    [title]="'TOOLTIPS.EXPORT_WORLD' | translate"
+    class="icon-button"
+  >
     <svg-icon
       src="assets/icons/ic_fluent_cloud_download_24_regular.svg"
       [svgClass]="'svg'"
     ></svg-icon>
   </button>
 </div>
-<input
-  type="file"
-  class="file-input"
-  (change)="onFileSelected($event)"
-  accept=".coralworld,.json"
-  #fileUpload
-/>

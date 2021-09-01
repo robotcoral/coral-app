@@ -1,0 +1,94 @@
+<div id="modal">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ 'MODALS.RESIZE_MODAL.TITLE' | translate }}</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formGroup">
+      <div class="inputWrapper">
+        <div class="nameField">{{ 'COMMON.LENGTH' | translate }}:</div>
+        <input type="number" name="length" formControlName="length" />
+      </div>
+      <div *ngIf="formGroup.get('length').errors != null">
+        <small
+          class="text-danger"
+          *ngIf="
+              formGroup.get('length').hasError('min') ||
+              formGroup.get('length').hasError('max')
+            "
+          >{{ 'COMMON.LENGTH' | translate }} {{
+          'MODALS.RESIZE_MODAL.WARNING.1_1024' | translate }}</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="formGroup.get('length').hasError('required')"
+          >{{ 'COMMON.LENGTH' | translate }} {{
+          'MODALS.RESIZE_MODAL.WARNING.NUMBER' | translate }}</small
+        >
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">{{ 'COMMON.WIDTH' | translate }}:</div>
+        <input type="number" name="width" formControlName="width" />
+      </div>
+      <div *ngIf="formGroup.get('width').errors != null">
+        <small
+          class="text-danger"
+          *ngIf="
+              formGroup.get('width').hasError('min') ||
+              formGroup.get('width').hasError('max')
+            "
+          >{{ 'COMMON.WIDTH' | translate }} {{
+          'MODALS.RESIZE_MODAL.WARNING.1_1024' | translate }}</small
+        ><small
+          class="text-danger"
+          *ngIf="formGroup.get('width').hasError('required')"
+          >{{ 'COMMON.WIDTH' | translate }} {{
+          'MODALS.RESIZE_MODAL.WARNING.NUMBER' | translate }}</small
+        >
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">{{ 'COMMON.HEIGHT' | translate }}:</div>
+        <input type="number" name="height" formControlName="height" />
+      </div>
+      <div *ngIf="formGroup.get('height').errors != null">
+        <small
+          class="text-danger"
+          *ngIf="
+              formGroup.get('height').hasError('min') ||
+              formGroup.get('height').hasError('max')
+            "
+          >{{ 'COMMON.HEIGHT' | translate }} {{
+          'MODALS.RESIZE_MODAL.WARNING.1_256' | translate }}</small
+        ><small
+          class="text-danger"
+          *ngIf="formGroup.get('height').hasError('required')"
+          >{{ 'COMMON.HEIGHT' | translate }} {{
+          'MODALS.RESIZE_MODAL.WARNING.NUMBER' | translate }}</small
+        >
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="onApply()"
+      [disabled]="formGroup.invalid"
+    >
+      {{ 'COMMON.APPLY' | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.dismiss('Close click')"
+    >
+      {{ 'COMMON.CANCEL' | translate }}
+    </button>
+  </div>
+</div>

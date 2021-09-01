@@ -1,10 +1,9 @@
 <div>
   <div class="modal-header">
-    <h4 class="modal-title">Editor Settings</h4>
+    <h4 class="modal-title">{{ 'SETTINGS.EDITOR.TITLE' | translate }}</h4>
     <button
       type="button"
       class="close"
-      aria-label="Close"
       (click)="activeModal.dismiss('Cross click')"
     >
       <span aria-hidden="true">&times;</span>
@@ -13,14 +12,14 @@
   <div class="modal-body"></div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="onApply()">
-      Apply
+      {{ 'COMMON.APPLY' | translate }}
     </button>
     <button
       type="button"
       class="btn btn-outline-dark"
       (click)="activeModal.dismiss('Close click')"
     >
-      Close
+      {{'COMMON.CANCEL'|translate}}
     </button>
   </div>
 </div>

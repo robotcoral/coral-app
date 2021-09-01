@@ -34,7 +34,7 @@ export class EditorComponent {
     window: Window,
     @Inject(DOCUMENT) document: Document
   ) {
-    this.controller.editor = this;
+    this.controller.setEditor(this);
     this.fontSize = parseInt(
       window.getComputedStyle(document.documentElement)['font-size']
     );
