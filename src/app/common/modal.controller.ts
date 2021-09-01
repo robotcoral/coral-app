@@ -9,8 +9,9 @@ export interface File {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ModalController {
-  private download: HTMLElement;
+export class UtilService {
+  private downloadElement: HTMLElement;
+  private uploadElement: HTMLInputElement;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -41,15 +42,30 @@ export class ModalController {
   }
 
   dyanmicDownloadByHtmlTag(file: File) {
-    if (!this.download) {
-      this.download = document.createElement('a');
+    if (!this.downloadElement) {
+      this.downloadElement = this.document.createElement('a');
     }
-    this.download.setAttribute(
+    this.downloadElement.setAttribute(
       'href',
       `data:${file.fileType};charset=utf-8,${encodeURIComponent(file.content)}`
     );
-    this.download.setAttribute('download', file.title);
+    this.downloadElement.setAttribute('download', file.title);
 
-    this.download.click();
+    this.downloadElement.click();
+  }
+
+  upload(fileTypes: string, callback: Function) {
+    if (!this.uploadElement)
+      this.uploadElement = this.document.getElementById(
+        'fileUpload'
+      ) as HTMLInputElement;
+    this.uploadElement.setAttribute('accept', fileTypes);
+    const eventListener = ($event) => {
+      this.uploadElement.removeAllListeners('change');
+      callback($event);
+    };
+
+    this.uploadElement.addEventListener('change', eventListener);
+    this.uploadElement.click();
   }
 }

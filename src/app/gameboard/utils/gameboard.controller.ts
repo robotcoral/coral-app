@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { ModalController } from 'src/app/common/modal.controller';
+import { UtilService } from 'src/app/common/modal.controller';
 import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
 import {
@@ -22,11 +22,10 @@ import { WorldFile } from './world.schema';
 })
 export class GameboardController {
   private model: GameboardModel;
-  private download: HTMLElement;
   upload: HTMLInputElement;
 
   constructor(
-    private modalController: ModalController,
+    private utilService: UtilService,
     private toastr: ToastrService,
     private settingService: SettingsService,
     private translate: TranslateService
@@ -110,7 +109,7 @@ export class GameboardController {
   }
 
   reset() {
-    const modalRef = this.modalController.openModal(WarningModal);
+    const modalRef = this.utilService.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.RESET_WORLD.TITLE',
       description: 'MODALS.RESET_WORLD.DESCRIPTION',
@@ -140,12 +139,12 @@ export class GameboardController {
   }
 
   exportWorld() {
-    this.modalController
+    this.utilService
       .openModal(ExportModal)
       .result.then((data: AdditionalWorldData) => {
         const worldFile = this.model.export(data);
         const text = JSON.stringify(worldFile, null, 2);
-        this.modalController.dyanmicDownloadByHtmlTag({
+        this.utilService.dyanmicDownloadByHtmlTag({
           title: 'world.coralworld',
           content: text,
           fileType: 'text/json',
@@ -159,7 +158,7 @@ export class GameboardController {
       if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
 
       const worldFile: WorldFile = this.model.import(await file.text());
-      const modalRef = this.modalController.openModal(ImportModal);
+      const modalRef = this.utilService.openModal(ImportModal);
       modalRef.componentInstance.init(worldFile);
       modalRef.result
         .then(() => {
@@ -173,7 +172,7 @@ export class GameboardController {
   }
 
   saveWorld() {
-    const modalRef = this.modalController.openModal(WarningModal);
+    const modalRef = this.utilService.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.SAVE_WORLD.TITLE',
       description: 'MODALS.SAVE_WORLD.DESCRIPTION',

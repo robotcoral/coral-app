@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { redo, undo } from '../editor/codemirror.setup';
 import { EditorComponent } from '../editor/editor.component';
-import { ModalController } from './modal.controller';
+import { UtilService } from './modal.controller';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { ModalController } from './modal.controller';
 export class EditorController {
   private editor: EditorComponent;
 
-  constructor(private modalController: ModalController) {}
+  constructor(private utilService: UtilService) {}
 
   undo() {
     undo(this.editor.view);
@@ -45,7 +45,7 @@ export class EditorController {
 
   export() {
     const code = this.editor.view.state.doc.toString();
-    this.modalController.dyanmicDownloadByHtmlTag({
+    this.utilService.dyanmicDownloadByHtmlTag({
       title: 'code.txt',
       content: code,
       fileType: 'text/plain',

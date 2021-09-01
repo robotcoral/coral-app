@@ -5,6 +5,7 @@ import {
   HostListener,
   ViewChild,
 } from '@angular/core';
+import { UtilService } from './common/modal.controller';
 import { GameboardComponent } from './gameboard/gameboard.component';
 
 @Component({
@@ -28,7 +29,7 @@ export class AppComponent implements AfterViewInit {
   canvasParent: HTMLElement;
   canvas: HTMLCanvasElement;
 
-  constructor(public window: Window) {}
+  constructor(public window: Window, private utilService: UtilService) {}
 
   ngAfterViewInit(): void {
     this.resizer = this.resizerRef.nativeElement;

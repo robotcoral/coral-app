@@ -150,7 +150,7 @@
     ></svg-icon>
   </button>
   <button
-    (click)="fileUpload.click()"
+    (click)="importWorld()"
     [title]="'TOOLTIPS.IMPORT_WORLD' | translate"
     class="icon-button"
   >
@@ -169,10 +169,3 @@
     ></svg-icon>
   </button>
 </div>
-<input
-  type="file"
-  class="file-input"
-  (change)="onFileSelected($event)"
-  accept=".coralworld,.json"
-  #fileUpload
-/>

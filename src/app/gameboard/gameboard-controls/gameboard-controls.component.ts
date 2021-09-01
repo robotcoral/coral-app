@@ -1,12 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Inject,
-  ViewChild,
-} from '@angular/core';
-import { ModalController } from 'src/app/common/modal.controller';
+import { Component, Inject } from '@angular/core';
+import { UtilService } from 'src/app/common/modal.controller';
 import { ResizeModal } from 'src/app/common/modals';
 import { Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
@@ -30,9 +24,7 @@ export interface PlaceEvent {
     '../gameboard.component.scss',
   ],
 })
-export class GameboardControlsComponent implements AfterViewInit {
-  @ViewChild('fileUpload')
-  fileUpload: ElementRef;
+export class GameboardControlsComponent {
   colors = {
     red: '#ff0000',
     green: '#00ff00',
@@ -64,12 +56,8 @@ export class GameboardControlsComponent implements AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     public controller: GameboardController,
-    private modal: ModalController
+    private utilService: UtilService
   ) {}
-
-  ngAfterViewInit(): void {
-    this.controller.upload = this.fileUpload.nativeElement;
-  }
 
   onColorMenu() {
     this.colorExpanded = !this.colorExpanded;
@@ -108,7 +96,7 @@ export class GameboardControlsComponent implements AfterViewInit {
   }
 
   onResize() {
-    const modalRef = this.modal.openModal(ResizeModal);
+    const modalRef = this.utilService.openModal(ResizeModal);
 
     modalRef.componentInstance.init(this.controller.getWorldSize());
     modalRef.result
@@ -118,17 +106,21 @@ export class GameboardControlsComponent implements AfterViewInit {
       .catch(() => {});
   }
 
-  onFileSelected(event: Event) {
-    const file: File = (event.target as HTMLInputElement).files[0];
-
-    this.controller.importWorld(file);
-  }
-
   onExport() {
     this.controller.exportWorld();
   }
 
   onSave() {
     this.controller.saveWorld();
+  }
+
+  onFileSelected = (event: Event) => {
+    const file: File = (event.target as HTMLInputElement).files[0];
+
+    this.controller.importWorld(file);
+  };
+
+  importWorld() {
+    this.utilService.upload('.coralworld,.json', this.onFileSelected);
   }
 }
