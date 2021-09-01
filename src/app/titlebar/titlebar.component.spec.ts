@@ -4,6 +4,8 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { EditorController } from '../common/editor.controller';
+import { UtilService } from '../common/util.service';
 import { GameboardController } from '../gameboard/utils';
 import { TitlebarComponent } from './titlebar.component';
 
@@ -15,6 +17,16 @@ describe('TitlebarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TitlebarComponent],
       providers: [
+        {
+          provide: UtilService,
+          useValue: {
+            openModal: () => {},
+          },
+        },
+        {
+          provide: EditorController,
+          useValue: {},
+        },
         {
           provide: GameboardController,
           useValue: {

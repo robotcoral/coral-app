@@ -4,6 +4,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { UtilService } from 'src/app/common/util.service';
 import { GameboardController } from '../utils';
 import { GameboardControlsComponent } from './gameboard-controls.component';
 
@@ -18,6 +19,10 @@ describe('GameboardControlsComponent', () => {
         { provide: Document, useValue: {} },
         {
           provide: GameboardController,
+          useValue: {},
+        },
+        {
+          provide: UtilService,
           useValue: {
             openModal: () => {},
           },

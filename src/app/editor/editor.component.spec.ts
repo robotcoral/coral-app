@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { EditorController } from '../common/editor.controller';
 import { EditorComponent } from './editor.component';
 
 describe('EditorComponent', () => {
@@ -16,6 +17,10 @@ describe('EditorComponent', () => {
               return { 'font-size': 16 };
             },
           },
+        },
+        {
+          provide: EditorController,
+          useValue: { setEditor: () => {} },
         },
         { provide: Document, useValue: {} },
       ],
