@@ -1,10 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
 import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
+import { UtilService } from 'src/app/common/util.service';
 import {
   AdditionalWorldData,
   CARDINALS,
@@ -23,15 +20,10 @@ import { WorldFile } from './world.schema';
 })
 export class GameboardController {
   private model: GameboardModel;
-  private download: HTMLElement;
-  upload: HTMLInputElement;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private modalService: NgbModal,
-    private toastr: ToastrService,
-    private settingService: SettingsService,
-    private translate: TranslateService
+    private utilService: UtilService,
+    private settingService: SettingsService
   ) {
     this.model = new GameboardModel(settingService);
   }
@@ -40,7 +32,7 @@ export class GameboardController {
     try {
       this.model.robot.move();
     } catch (error) {
-      this.translateError(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -60,7 +52,7 @@ export class GameboardController {
           event.color
         );
     } catch (error) {
-      this.translateError(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -85,7 +77,7 @@ export class GameboardController {
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
       }
     } catch (error) {
-      this.translateError(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -112,7 +104,7 @@ export class GameboardController {
   }
 
   reset() {
-    const modalRef = this.openModal(WarningModal);
+    const modalRef = this.utilService.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.RESET_WORLD.TITLE',
       description: 'MODALS.RESET_WORLD.DESCRIPTION',
@@ -142,72 +134,44 @@ export class GameboardController {
   }
 
   exportWorld() {
-    this.openModal(ExportModal)
+    this.utilService
+      .openModal(ExportModal)
       .result.then((data: AdditionalWorldData) => {
         const worldFile = this.model.export(data);
         const text = JSON.stringify(worldFile, null, 2);
-        this.dyanmicDownloadByHtmlTag(text);
+        this.utilService.dyanmicDownloadByHtmlTag({
+          title: 'world.coralworld',
+          content: text,
+          fileType: 'text/json',
+        });
       })
       .catch(null);
   }
 
-  async importWorld(file: File) {
-    try {
-      if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
+  importWorld() {
+    const callback = async (event: Event) => {
+      const file: File = (event.target as HTMLInputElement).files[0];
+      try {
+        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
 
-      const worldFile: WorldFile = this.model.import(await file.text());
-      const modalRef = this.openModal(ImportModal);
-      modalRef.componentInstance.init(worldFile);
-      modalRef.result
-        .then(() => {
-          this.model.world.defaultWorld = worldFile.world_data;
-          this.model.reset();
-        })
-        .catch(null);
-    } catch (error) {
-      this.translateError(error);
-    }
-  }
-
-  openModal(content: any) {
-    const modalRef = this.modalService.open(content, {
-      backdrop: false,
-      centered: true,
-      windowClass: 'custom-modal',
-    });
-    const callback = (e: any) => {
-      if (!this.document.getElementById('modal').contains(e.target)) {
-        modalRef.dismiss();
+        const worldFile: WorldFile = this.model.import(await file.text());
+        const modalRef = this.utilService.openModal(ImportModal);
+        modalRef.componentInstance.init(worldFile);
+        modalRef.result
+          .then(() => {
+            this.model.world.defaultWorld = worldFile.world_data;
+            this.model.reset();
+          })
+          .catch(null);
+      } catch (error) {
+        this.utilService.translateError(error);
       }
     };
-
-    // makes sure the modal isn't immediately closed
-    setTimeout(() => {
-      this.document.addEventListener('click', callback);
-    }, 0);
-
-    modalRef.result.finally(() => {
-      this.document.removeEventListener('click', callback);
-    });
-    return modalRef;
-  }
-
-  private dyanmicDownloadByHtmlTag(text: string) {
-    if (!this.download) {
-      this.download = document.createElement('a');
-    }
-    const fileType = 'text/json';
-    this.download.setAttribute(
-      'href',
-      `data:${fileType};charset=utf-8,${encodeURIComponent(text)}`
-    );
-    this.download.setAttribute('download', 'world.coralworld');
-
-    this.download.click();
+    this.utilService.upload('.coralworld,.json', callback);
   }
 
   saveWorld() {
-    const modalRef = this.openModal(WarningModal);
+    const modalRef = this.utilService.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.SAVE_WORLD.TITLE',
       description: 'MODALS.SAVE_WORLD.DESCRIPTION',
@@ -223,11 +187,5 @@ export class GameboardController {
 
   getCurrentSlabs() {
     return this.model.currentSlabs;
-  }
-
-  private translateError(error: Error) {
-    this.translate.get(error.message).subscribe((translation: string) => {
-      this.toastr.error(translation);
-    });
   }
 }

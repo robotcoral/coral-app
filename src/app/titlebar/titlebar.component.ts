@@ -3,6 +3,7 @@ import { EditorController } from '../common/editor.controller';
 import { SettingsModal, SETTINGSMODES } from '../common/modals';
 import { ImpressumModal } from '../common/modals/impressum.modal';
 import { InfoModal } from '../common/modals/info.modal';
+import { UtilService } from '../common/util.service';
 import { GameboardController } from '../gameboard/utils';
 
 @Component({
@@ -13,21 +14,22 @@ import { GameboardController } from '../gameboard/utils';
 export class TitlebarComponent {
   constructor(
     public gbController: GameboardController,
-    private eController: EditorController
+    private eController: EditorController,
+    private utilService: UtilService
   ) {}
 
   onSettings = (mode: SETTINGSMODES) => {
     (
-      this.gbController.openModal(SettingsModal)
+      this.utilService.openModal(SettingsModal)
         .componentInstance as SettingsModal
     ).setMode(mode);
   };
 
   titlebar: { [key: string]: { [key: string]: Function } } = {
     FILE: {
-      NEW: null,
-      IMPORT: null,
-      EXPORT: null,
+      NEW: () => this.eController.setState(),
+      IMPORT: () => this.eController.import(),
+      EXPORT: () => this.eController.export(),
       SETTINGS: () => this.onSettings(SETTINGSMODES.GENERAL),
     },
     EDIT: {
@@ -54,7 +56,7 @@ export class TitlebarComponent {
       SETTINGS: () => this.onSettings(SETTINGSMODES.EDITOR),
     },
     WORLD: {
-      IMPORT: () => this.gbController.upload.click(),
+      IMPORT: () => this.gbController.importWorld(),
       EXPORT: () => this.gbController.exportWorld(),
       RESET: () => this.gbController.reset(),
       SAVE: () => this.gbController.saveWorld(),
@@ -62,8 +64,8 @@ export class TitlebarComponent {
     },
     HELP: {
       DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
-      INFO: () => this.gbController.openModal(InfoModal),
-      IMPRESSUM: () => this.gbController.openModal(ImpressumModal),
+      INFO: () => this.utilService.openModal(InfoModal),
+      IMPRESSUM: () => this.utilService.openModal(ImpressumModal),
       SUPPORT_US: () => window.open('https://ko-fi.com/robotcoral'),
     },
   };
