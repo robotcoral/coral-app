@@ -1,15 +1,10 @@
-import {
-  BoxGeometry,
-  CubeTextureLoader,
-  Mesh,
-  MeshBasicMaterial,
-  Vector3,
-} from 'three';
+import { Group, Vector3 } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { CARDINALS, Coordinates3 } from './coordinates';
 import { World } from './world';
 
 export class Robot {
-  mesh: Mesh;
+  robot: Group = new Group();
   position: Vector3;
   direction: Vector3;
   world: World;
@@ -20,18 +15,20 @@ export class Robot {
   }
 
   private init() {
-    const robotGeo = new BoxGeometry(
-      this.world.gridScale,
-      this.world.gridScale,
-      this.world.gridScale
+    const loader = new GLTFLoader();
+
+    loader.load(
+      'assets/robot/Companion-bot.gltf',
+      (gltf) => {
+        this.robot.add(gltf.scene);
+        this.robot.scale.set(20, 20, 20);
+      },
+      undefined,
+      function (error) {
+        console.error(error);
+      }
     );
 
-    const loader = new CubeTextureLoader();
-    loader.setPath('assets/materials/');
-    const robotMaterial = new MeshBasicMaterial({
-      color: 0x8a8a8a,
-    });
-    this.mesh = new Mesh(robotGeo, robotMaterial);
     this.reset();
   }
 
@@ -59,13 +56,15 @@ export class Robot {
     this.world.collision(coo);
     this.direction.y = (this.world.height(coo) - this.position.y * 2) * 0.5;
     this.position.add(this.direction);
-    this.mesh.position.addScaledVector(this.direction, this.world.gridScale);
+    this.robot.position.addScaledVector(this.direction, this.world.gridScale);
     this.direction.y = 0;
   }
 
   rotate(dir = 1) {
     this.direction.multiply(new Vector3(0 - dir, 0, 0 + dir));
     [this.direction.x, this.direction.z] = [this.direction.z, this.direction.x];
+
+    this.robot.rotateY(dir * (Math.PI / 2));
   }
 
   isCardinal(cardinal: CARDINALS): boolean {
@@ -82,8 +81,8 @@ export class Robot {
 
   setPosition(coo: Coordinates3) {
     this.position = new Vector3(coo.x, coo.z / 2, coo.y);
-    this.mesh.position
-      .set(0, 0, 0)
+    this.robot.position.set(0, -25, 0);
+    this.robot.position
       .add(this.world.offsetVector)
       .addScaledVector(this.position, this.world.gridScale);
     return this;
@@ -91,6 +90,11 @@ export class Robot {
 
   setDirection(direction: CARDINALS) {
     const vector = new Vector3(0, 0, 0);
+    switch (direction) {
+      case CARDINALS.NORTH:
+        vector.z = -1;
+        this.robot.rotation.y = 0;
+    }
     if (direction === CARDINALS.NORTH) vector.z = -1;
     if (direction === CARDINALS.SOUTH) vector.z = 1;
     if (direction === CARDINALS.EAST) vector.x = 1;
