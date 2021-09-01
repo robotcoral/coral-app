@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { UtilService } from 'src/app/common/modal.controller';
 import { ResizeModal } from 'src/app/common/modals';
+import { UtilService } from 'src/app/common/util.service';
 import { Coordinates3 } from '../utils';
 import { GameboardController } from '../utils/gameboard.controller';
 
@@ -91,10 +91,6 @@ export class GameboardControlsComponent {
     this.controller.pickUp(this.mode);
   }
 
-  onReset() {
-    this.controller.reset();
-  }
-
   onResize() {
     const modalRef = this.utilService.openModal(ResizeModal);
 
@@ -104,23 +100,5 @@ export class GameboardControlsComponent {
         this.controller.resize(coo);
       })
       .catch(() => {});
-  }
-
-  onExport() {
-    this.controller.exportWorld();
-  }
-
-  onSave() {
-    this.controller.saveWorld();
-  }
-
-  onFileSelected = (event: Event) => {
-    const file: File = (event.target as HTMLInputElement).files[0];
-
-    this.controller.importWorld(file);
-  };
-
-  importWorld() {
-    this.utilService.upload('.coralworld,.json', this.onFileSelected);
   }
 }

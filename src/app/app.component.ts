@@ -5,7 +5,7 @@ import {
   HostListener,
   ViewChild,
 } from '@angular/core';
-import { UtilService } from './common/modal.controller';
+import { UtilService } from './common/util.service';
 import { GameboardComponent } from './gameboard/gameboard.component';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { EditorController } from '../common/editor.controller';
-import { UtilService } from '../common/modal.controller';
 import { SettingsModal, SETTINGSMODES } from '../common/modals';
 import { ImpressumModal } from '../common/modals/impressum.modal';
 import { InfoModal } from '../common/modals/info.modal';
+import { UtilService } from '../common/util.service';
 import { GameboardController } from '../gameboard/utils';
 
 @Component({
@@ -27,8 +27,8 @@ export class TitlebarComponent {
 
   titlebar: { [key: string]: { [key: string]: Function } } = {
     FILE: {
-      NEW: null,
-      IMPORT: null,
+      NEW: () => this.eController.setState(),
+      IMPORT: () => this.eController.import(),
       EXPORT: () => this.eController.export(),
       SETTINGS: () => this.onSettings(SETTINGSMODES.GENERAL),
     },
@@ -56,7 +56,7 @@ export class TitlebarComponent {
       SETTINGS: () => this.onSettings(SETTINGSMODES.EDITOR),
     },
     WORLD: {
-      IMPORT: () => this.gbController.upload.click(),
+      IMPORT: () => this.gbController.importWorld(),
       EXPORT: () => this.gbController.exportWorld(),
       RESET: () => this.gbController.reset(),
       SAVE: () => this.gbController.saveWorld(),

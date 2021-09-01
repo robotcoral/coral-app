@@ -119,7 +119,7 @@
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
   <button
-    (click)="onReset()"
+    (click)="controller.reset()"
     [title]="'TOOLTIPS.RESET_WORLD' | translate"
     class="icon-button"
   >
@@ -140,7 +140,7 @@
   </button>
 
   <button
-    (click)="onSave()"
+    (click)="controller.saveWorld()"
     [title]="'TOOLTIPS.SAVE_WORLD' | translate"
     class="icon-button"
   >
@@ -150,7 +150,7 @@
     ></svg-icon>
   </button>
   <button
-    (click)="importWorld()"
+    (click)="controller.importWorld()"
     [title]="'TOOLTIPS.IMPORT_WORLD' | translate"
     class="icon-button"
   >
@@ -159,7 +159,7 @@
       [svgClass]="'svg'"
     ></svg-icon></button
   ><button
-    (click)="onExport()"
+    (click)="controller.exportWorld()"
     [title]="'TOOLTIPS.EXPORT_WORLD' | translate"
     class="icon-button"
   >

@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 export interface File {
   title: string;
@@ -15,7 +17,9 @@ export class UtilService {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {}
 
   openModal(content: any) {
@@ -67,5 +71,11 @@ export class UtilService {
 
     this.uploadElement.addEventListener('change', eventListener);
     this.uploadElement.click();
+  }
+
+  translateError(error: Error) {
+    this.translate.get(error.message).subscribe((translation: string) => {
+      this.toastr.error(translation);
+    });
   }
 }

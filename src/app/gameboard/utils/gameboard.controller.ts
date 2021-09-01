@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
-import { UtilService } from 'src/app/common/modal.controller';
 import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
+import { UtilService } from 'src/app/common/util.service';
 import {
   AdditionalWorldData,
   CARDINALS,
@@ -22,13 +20,10 @@ import { WorldFile } from './world.schema';
 })
 export class GameboardController {
   private model: GameboardModel;
-  upload: HTMLInputElement;
 
   constructor(
     private utilService: UtilService,
-    private toastr: ToastrService,
-    private settingService: SettingsService,
-    private translate: TranslateService
+    private settingService: SettingsService
   ) {
     this.model = new GameboardModel(settingService);
   }
@@ -37,7 +32,7 @@ export class GameboardController {
     try {
       this.model.robot.move();
     } catch (error) {
-      this.translateError(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -57,7 +52,7 @@ export class GameboardController {
           event.color
         );
     } catch (error) {
-      this.translateError(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -82,7 +77,7 @@ export class GameboardController {
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
       }
     } catch (error) {
-      this.translateError(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -153,22 +148,26 @@ export class GameboardController {
       .catch(null);
   }
 
-  async importWorld(file: File) {
-    try {
-      if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
+  importWorld() {
+    const callback = async (event: Event) => {
+      const file: File = (event.target as HTMLInputElement).files[0];
+      try {
+        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
 
-      const worldFile: WorldFile = this.model.import(await file.text());
-      const modalRef = this.utilService.openModal(ImportModal);
-      modalRef.componentInstance.init(worldFile);
-      modalRef.result
-        .then(() => {
-          this.model.world.defaultWorld = worldFile.world_data;
-          this.model.reset();
-        })
-        .catch(null);
-    } catch (error) {
-      this.translateError(error);
-    }
+        const worldFile: WorldFile = this.model.import(await file.text());
+        const modalRef = this.utilService.openModal(ImportModal);
+        modalRef.componentInstance.init(worldFile);
+        modalRef.result
+          .then(() => {
+            this.model.world.defaultWorld = worldFile.world_data;
+            this.model.reset();
+          })
+          .catch(null);
+      } catch (error) {
+        this.utilService.translateError(error);
+      }
+    };
+    this.utilService.upload('.coralworld,.json', callback);
   }
 
   saveWorld() {
@@ -188,11 +187,5 @@ export class GameboardController {
 
   getCurrentSlabs() {
     return this.model.currentSlabs;
-  }
-
-  private translateError(error: Error) {
-    this.translate.get(error.message).subscribe((translation: string) => {
-      this.toastr.error(translation);
-    });
   }
 }
