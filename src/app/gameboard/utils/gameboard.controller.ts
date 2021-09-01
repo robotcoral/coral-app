@@ -145,7 +145,11 @@ export class GameboardController {
       .result.then((data: AdditionalWorldData) => {
         const worldFile = this.model.export(data);
         const text = JSON.stringify(worldFile, null, 2);
-        this.dyanmicDownloadByHtmlTag(text);
+        this.modalController.dyanmicDownloadByHtmlTag({
+          title: 'world.coralworld',
+          content: text,
+          fileType: 'text/json',
+        });
       })
       .catch(null);
   }
@@ -166,20 +170,6 @@ export class GameboardController {
     } catch (error) {
       this.translateError(error);
     }
-  }
-
-  private dyanmicDownloadByHtmlTag(text: string) {
-    if (!this.download) {
-      this.download = document.createElement('a');
-    }
-    const fileType = 'text/json';
-    this.download.setAttribute(
-      'href',
-      `data:${fileType};charset=utf-8,${encodeURIComponent(text)}`
-    );
-    this.download.setAttribute('download', 'world.coralworld');
-
-    this.download.click();
   }
 
   saveWorld() {
