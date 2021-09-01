@@ -29,7 +29,7 @@ export class TitlebarComponent {
     FILE: {
       NEW: null,
       IMPORT: null,
-      EXPORT: null,
+      EXPORT: () => this.eController.export(),
       SETTINGS: () => this.onSettings(SETTINGSMODES.GENERAL),
     },
     EDIT: {
