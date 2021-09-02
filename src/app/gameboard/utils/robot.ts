@@ -93,12 +93,20 @@ export class Robot {
     switch (direction) {
       case CARDINALS.NORTH:
         vector.z = -1;
+        this.robot.rotation.y = Math.PI;
+        break;
+      case CARDINALS.SOUTH:
+        vector.z = 1;
         this.robot.rotation.y = 0;
+        break;
+      case CARDINALS.EAST:
+        vector.x = 1;
+        this.robot.rotation.y = Math.PI / 2;
+        break;
+      default:
+        vector.x = -1;
+        this.robot.rotation.y = -Math.PI / 2;
     }
-    if (direction === CARDINALS.NORTH) vector.z = -1;
-    if (direction === CARDINALS.SOUTH) vector.z = 1;
-    if (direction === CARDINALS.EAST) vector.x = 1;
-    if (direction === CARDINALS.WEST) vector.x = -1;
     this.direction = vector;
     return this;
   }
