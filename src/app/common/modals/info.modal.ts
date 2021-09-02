@@ -16,7 +16,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
         </button>
       </div>
       <div class="modal-body">
-        Robot model by <a href="https://maxparata.itch.io/">Max Parata</a>
+        Robot model by
+        <a href="https://maxparata.itch.io/" target="_blank">Max Parata</a>
       </div>
     </div>
   `,
