@@ -26,17 +26,25 @@
 }
 
 @mixin bg-color-transition {
-    transition: background-color 0.5s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 0.5s ease-in-out;
+    }
 }
 
 @mixin bg-highlight-color-transition {
-    transition: background-color 0.05s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 0.05s ease-in-out;
+    }
 }
 
 @mixin bg-img-transition {
-    transition: background-image 2s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-image 2s ease-in-out;
+    }
 }
 
 @mixin color-transition {
-    transition: color 0.5s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: color 0.5s ease-in-out;
+    }
 }
