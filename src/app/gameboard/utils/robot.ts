@@ -17,11 +17,13 @@ export class Robot {
   private init() {
     const loader = new GLTFLoader();
 
+    const scale = 20;
+
     loader.load(
       'assets/robot/Companion-bot.gltf',
       (gltf) => {
         this.robot.add(gltf.scene);
-        this.robot.scale.set(20, 20, 20);
+        this.robot.scale.set(scale, scale, scale);
       },
       undefined,
       function (error) {
