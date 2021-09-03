@@ -21,6 +21,8 @@
 .app-titlebar-button-container {
   height: inherit;
   display: grid;
+  align-items: center;
+  justify-items: center;
   grid-template-columns: repeat(6, [col-start] auto [col-end]);
   margin: 0 0 0 0.75rem;
 }
@@ -28,14 +30,19 @@
 .app-titelbar-button {
   color: var(--theme-font-color);
   height: inherit;
+  line-height: 1rem;
   border-color: transparent;
   background-color: transparent;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 0.66rem;
+  padding-right: 0.66rem;
   border-radius: 0.25rem;
 
   @include themes.bg-highlight-color-transition;
   @include themes.color-transition;
+}
+
+.dropdown {
+  height: 1.8rem;
 }
 
 .app-titelbar-button:hover,

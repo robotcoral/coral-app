@@ -32,6 +32,7 @@
   .cm-gutters {
     border: none;
     background-color: var(--theme-highlight-1);
+    box-shadow: var(--box-shadow-elevation-1);
     @include themes.bg-color-transition;
   }
 
