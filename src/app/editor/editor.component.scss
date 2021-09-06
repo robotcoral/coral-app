@@ -20,6 +20,7 @@
   .cm-lineNumbers {
     .cm-gutterElement {
       transition: none;
+      min-width: 2.5rem;
     }
   }
 }
@@ -27,6 +28,7 @@
 .ͼ2 {
   .cm-line {
     color: var(--theme-font-color-dim);
+    padding-left: 1rem;
   }
 
   .cm-gutters {
