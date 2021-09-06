@@ -80,6 +80,12 @@ jobs:
             robotcoral/coral-app:${{ github.event.inputs.version }}
             ghcr.io/robotcoral/coral-app:latest
             ghcr.io/robotcoral/coral-app:${{ github.event.inputs.version }}
+  
+  github_release:
+    runs-on: ubuntu-latest
+    needs: build_and_release
+    steps:
+      - uses: actions/checkout@v2
       
       - name: Create Release strings
         id: release_strings
