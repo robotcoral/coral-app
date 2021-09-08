@@ -151,6 +151,10 @@
     "RESIZE_WORLD": "Weltgröße ändern",
     "ROTATE_CLOCKWISE": "Im Uhrzeigersinn drehen",
     "ROTATE_COUNTERCLOCKWISE": "Gegen den Uhrzeigersinn drehen",
-    "SAVE_WORLD": "Welt-Reset-Punkt setzen"
+    "SAVE_WORLD": "Welt-Reset-Punkt setzen",
+    "PAUSE": "Pausieren",
+    "START": "Starten",
+    "STEP": "Schritt",
+    "STOP": "Stoppen"
   }
 }

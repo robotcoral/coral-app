@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { redo, undo } from '../editor/codemirror.setup';
-import { EditorComponent } from '../editor/editor.component';
+import { redo, undo } from '../editor/util/codemirror.setup';
+import { EditorViewComponent } from '../editor/view/editor-view.component';
 import { UtilService } from './util.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EditorController {
-  private editor: EditorComponent;
+  private editor: EditorViewComponent;
 
   constructor(private utilService: UtilService) {}
 
@@ -83,7 +83,7 @@ export class EditorController {
     this.editor.view.contentDOM.dispatchEvent(new ClipboardEvent(event));
   }
 
-  setEditor(editor: EditorComponent) {
+  setEditor(editor: EditorViewComponent) {
     this.editor = editor;
   }
 }

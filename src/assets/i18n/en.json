@@ -92,7 +92,11 @@
     "RESIZE_WORLD": "Resize world",
     "SAVE_WORLD": "Save world as default",
     "IMPORT_WORLD": "Import world",
-    "EXPORT_WORLD": "Export world"
+    "EXPORT_WORLD": "Export world",
+    "START": "Start",
+    "PAUSE": "Pause",
+    "STEP": "Step",
+    "STOP": "Stop"
   },
   "ERRORS": {
     "NO_SLABS": "You have no slabs left in your inventory",

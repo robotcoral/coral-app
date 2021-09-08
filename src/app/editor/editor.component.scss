@@ -1,5 +1,20 @@
 @use "../../themes"as themes;
 
+app-editor-view {
+  flex: 1;
+  width: 100%;
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+app-editor-controls {
+  box-shadow: -1px -2px 4px grey;
+  width: 100%;
+  z-index: 12;
+}
+
 .codemirrorhost {
   height: 100%;
   display: block;
