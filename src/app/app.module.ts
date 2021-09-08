@@ -10,7 +10,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { CommonModule } from './common/common.module';
-import { EditorComponent } from './editor/editor.component';
+import { EditorModule } from './editor/editor.module';
 import { GameboardModule } from './gameboard/gameboard.module';
 import { TitlebarComponent } from './titlebar/titlebar.component';
 
@@ -19,7 +19,7 @@ export function HTTPLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, EditorComponent, TitlebarComponent],
+  declarations: [AppComponent, TitlebarComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -39,6 +39,7 @@ export function HTTPLoaderFactory(http: HttpClient) {
       },
       defaultLanguage: 'en',
     }),
+    EditorModule,
   ],
   providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent],

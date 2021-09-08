@@ -17,6 +17,7 @@ import {
   highlightSpecialChars,
   keymap,
 } from '@codemirror/view';
+import { karol } from '@robotcoral/lang-karol';
 
 export * from '@codemirror/history';
 export { EditorState } from '@codemirror/state';
@@ -47,4 +48,5 @@ export const customSetup = [
     ...completionKeymap,
     ...lintKeymap,
   ]),
+  karol(),
 ];

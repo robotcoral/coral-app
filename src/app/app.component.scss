@@ -30,7 +30,8 @@
 
 app-editor {
   height: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 app-gameboard {
@@ -67,4 +68,34 @@ app-titlebar {
 
 .file-input {
   display: none;
+}
+
+.icon-button {
+  border: 0px;
+  min-height: 3rem;
+  border-radius: 4px;
+  margin: 0.5rem;
+  background-color: transparent;
+  transition: all 0.1s ease-in-out;
+}
+
+.icon-button:hover {
+  scale: 1.02;
+  background-color: var(--theme-highlight-1);
+  box-shadow: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+}
+
+.icon-button:active {
+  box-shadow: 0px 1px 4px hsla(0, 0%, 0%, 0.35);
+  background-color: var(--theme-highlight-2);
+  transition: all 0.05s ease-in-out;
+}
+
+.svg {
+  height: 2rem;
+  width: 2rem;
+  margin: 0.25rem;
+  path {
+    fill: var(--theme-font-color);
+  }
 }

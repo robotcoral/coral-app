@@ -73,7 +73,7 @@ export class UtilService {
     this.uploadElement.click();
   }
 
-  translateError(error: Error) {
+  translateError(error: any) {
     this.translate.get(error.message).subscribe((translation: string) => {
       this.toastr.error(translation);
     });

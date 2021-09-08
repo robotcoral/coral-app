@@ -2,6 +2,7 @@ import { CommonModule as AngularCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { KarolInterpreter } from './karol.interpreter';
 import {
   EditorSettingsModal,
   ExportModal,
@@ -28,6 +29,7 @@ import { InfoModal } from './modals/info.modal';
     ImpressumModal,
     InfoModal,
   ],
+  providers: [KarolInterpreter],
   imports: [
     AngularCommonModule,
     FormsModule,
