@@ -25,6 +25,7 @@
   justify-items: center;
   grid-template-columns: repeat(6, [col-start] auto [col-end]);
   margin: 0 0 0 0.75rem;
+  column-gap: 0.25rem;
 }
 
 .app-titelbar-button {
@@ -45,6 +46,12 @@
   height: 1.8rem;
 }
 
+.show .app-titelbar-button {
+  background-color: var(--theme-highlight-3);
+  color: var(--theme-font-color-invert);
+  box-shadow: var(--box-shadow-elevation-1);
+}
+
 .app-titelbar-button:hover,
 .dropdown-item:hover {
   background-color: var(--theme-highlight-2);
@@ -52,6 +59,8 @@
 
 .dropdown-menu {
   background-color: var(--theme-highlight-1);
+  border: none;
+  box-shadow: var(--box-shadow-elevation-2);
 }
 
 .dropdown-item {
