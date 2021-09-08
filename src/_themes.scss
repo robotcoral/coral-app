@@ -4,39 +4,62 @@
     --theme-main-bg-color: hsl(0, 0%, 100%);
     --theme-highlight-1: hsl(0, 0%, 100%);
     --theme-highlight-2: hsl(0, 0%, 85%);
+    --theme-highlight-3: hsl(0, 100%, 50%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
+    --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
 }
 
 @mixin theme-dark {
-    --theme-font-color: hsla(0, 0%, 90%);
+    --theme-font-color: hsl(0, 0%, 90%);
     --theme-font-color-dim: hsla(0, 0%, 80%);
     --theme-main-bg-color: hsl(0, 0%, 10%);
     --theme-highlight-1: hsl(0, 0%, 15%);
     --theme-highlight-2: hsl(0, 0%, 25%);
     --theme-highlight-3: hsl(0, 0%, 35%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 27%), hsl(0, 87%, 64%));
+    --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
 }
 
 @mixin theme-midnight {
-    --theme-font-color: #hsla(0, 0%, 90%);
+    --theme-font-color: hsl(0, 0%, 90%);
     --theme-main-bg-color: hsl(0, 0%, 5%);
     --theme-highlight-1: hsl(0, 0%, 5%);
     --theme-highlight-2: hsl(0, 0%, 10%);
+    --theme-highlight-3: hsl(0, 100%, 50%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
+    --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
 }
 
+// Transitions
 @mixin bg-color-transition {
-    transition: background-color 0.5s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 0.5s ease-in-out;
+    }
 }
 
 @mixin bg-highlight-color-transition {
-    transition: background-color 0.05s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 0.05s ease-in-out;
+    }
 }
 
 @mixin bg-img-transition {
-    transition: background-image 2s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-image 2s ease-in-out;
+    }
 }
 
 @mixin color-transition {
-    transition: color 0.5s ease-in-out;
+    @media (prefers-reduced-motion: no-preference) {
+        transition: color 0.5s ease-in-out;
+    }
 }
