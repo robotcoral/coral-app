@@ -15,7 +15,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">TODO</div>
+      <div class="modal-body">
+        Robot model by
+        <a href="https://maxparata.itch.io/" target="_blank">Max Parata</a>
+      </div>
     </div>
   `,
   styleUrls: ['./modal.styles.scss'],
