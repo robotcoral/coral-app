@@ -13,10 +13,22 @@
     <form [formGroup]="formGroup">
       <div class="inputWrapper">
         <div class="nameField">
+          {{ 'SETTINGS.WORLD.RESET_WORLD_ON_START' | translate }}
+        </div>
+        <input
+          class="checkbox"
+          type="checkbox"
+          name="resetWorldOnStart"
+          formControlName="resetWorldOnStart"
+        />
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">
           {{ 'SETTINGS.WORLD.INVENTORY_ACTIVE' | translate }}
         </div>
         <input
           type="checkbox"
+          class="checkbox"
           name="inventoryActive"
           formControlName="inventoryActive"
         />

@@ -18,6 +18,7 @@ export class WorldSettingsModal {
   ) {
     this.formGroup = this.formBuilder.group({
       inventoryActive: [settingsService.settings.inventoryActive],
+      resetWorldOnStart: [settingsService.settings.resetOnStart],
       maxSlabs: [
         settingsService.settings.maxSlabs,
         [Validators.required, Validators.min(1), Validators.max(1024)],
@@ -36,6 +37,8 @@ export class WorldSettingsModal {
       this.formGroup.get('maxSlabs').value;
     this.settingsService.settings.startSlabs =
       this.formGroup.get('startSlabs').value;
+    this.settingsService.settings.resetOnStart =
+      this.formGroup.get('resetWorldOnStart').value;
     this.settingsService.saveWorldSettings();
 
     this.activeModal.close();

@@ -8,6 +8,7 @@ import { EditorController } from '../common/editor.controller';
 import { UtilService } from '../common/util.service';
 import { GameboardController } from '../gameboard/utils';
 import { TitlebarComponent } from './titlebar.component';
+import { KarolInterpreter } from '../common/karol.interpreter';
 
 describe('TitlebarComponent', () => {
   let component: TitlebarComponent;
@@ -32,6 +33,10 @@ describe('TitlebarComponent', () => {
           useValue: {
             openModal: () => {},
           },
+        },
+        {
+          provide: KarolInterpreter,
+          useValue: {},
         },
       ],
       imports: [

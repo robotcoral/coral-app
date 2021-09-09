@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EditorController } from '../common/editor.controller';
+import { KarolInterpreter } from '../common/karol.interpreter';
 import { SettingsModal, SETTINGSMODES } from '../common/modals';
 import { ImpressumModal } from '../common/modals/impressum.modal';
 import { InfoModal } from '../common/modals/info.modal';
@@ -15,7 +16,8 @@ export class TitlebarComponent {
   constructor(
     public gbController: GameboardController,
     private eController: EditorController,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private interpreter: KarolInterpreter
   ) {}
 
   onSettings = (mode: SETTINGSMODES) => {
@@ -41,10 +43,10 @@ export class TitlebarComponent {
       TOGGLE_COMMENTS: null,
     },
     EXECUTE: {
-      START: null,
-      STEP: null,
-      PAUSE_UNPAUSE: null,
-      STOP: null,
+      START: () => this.interpreter.play(),
+      STEP: () => this.interpreter.step(),
+      PAUSE_UNPAUSE: () => this.pauseUnpause(),
+      STOP: () => this.interpreter.stop(),
       RAISE_SPEED: null,
       LOWER_SPEED: null,
       RESET_WORLD: null,
@@ -69,6 +71,11 @@ export class TitlebarComponent {
       SUPPORT_US: () => window.open('https://ko-fi.com/robotcoral'),
     },
   };
+
+  pauseUnpause() {
+    if (this.interpreter.pause) this.interpreter.play();
+    else this.interpreter.pause();
+  }
 
   originalOrder = (a: any, b: any): number => {
     return 0;
