@@ -91,7 +91,7 @@ export class SettingsService implements OnInit {
   private saveTheme(theme: THEMES | 'auto') {
     this.applyTheme(theme);
 
-    const transitionTime: number = 10;
+    const transitionTime: number = 0.5;
 
     // start theme transition
     document.body.style.setProperty("--theme-transition-time", transitionTime.toString() + "s");
