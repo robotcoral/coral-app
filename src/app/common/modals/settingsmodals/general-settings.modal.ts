@@ -19,7 +19,6 @@ export class GeneralSettingsModal {
     private formBuilder: FormBuilder,
     public settingsService: SettingsService
   ) {
-    console.log(settingsService.language);
     this.formGroup = this.formBuilder.group({
       theme: [settingsService.theme],
       language: [settingsService.language],

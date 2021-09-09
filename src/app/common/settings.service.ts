@@ -66,13 +66,17 @@ export class SettingsService implements OnInit {
   }
 
   saveGeneralSettings(theme: THEMES | 'auto', language: LANGUAGES) {
-    this.saveTheme(theme);
-    this.saveLanguage(language);
+    if (theme != this.theme) {
+      this.saveTheme(theme);
+    }
+    if (language != this.language) {
+      this.applyLanguage(language);
+    }
   }
 
   private loadGeneralSettings() {
     const savedTheme = window.localStorage.getItem(THEME_KEY) as THEMES;
-    if (Object.values(THEMES).includes(savedTheme)) this.saveTheme(savedTheme);
+    if (Object.values(THEMES).includes(savedTheme)) this.applyTheme(savedTheme);
     else this.theme = 'auto';
 
     let savedLanguage = window.localStorage.getItem(LANGUAGE_KEY) as LANGUAGES;
@@ -81,10 +85,24 @@ export class SettingsService implements OnInit {
         navigator.language == LANGUAGES.German
           ? LANGUAGES.German
           : LANGUAGES.English;
-    this.saveLanguage(savedLanguage);
+    this.applyLanguage(savedLanguage);
   }
 
   private saveTheme(theme: THEMES | 'auto') {
+    this.applyTheme(theme);
+
+    const transitionTime: number = 0.5;
+
+    // start theme transition
+    document.body.style.setProperty("--theme-transition-time", transitionTime.toString() + "s");
+
+    // end theme transition
+    setTimeout(() => {
+      document.body.style.removeProperty("--theme-transition-time");
+    }, transitionTime * 1000)
+  }
+
+  private applyTheme(theme: THEMES | 'auto') {
     this.theme = theme;
 
     if (theme != 'auto') {
@@ -98,7 +116,7 @@ export class SettingsService implements OnInit {
     this.window.localStorage.setItem(THEME_KEY, theme);
   }
 
-  private saveLanguage(language: LANGUAGES) {
+  private applyLanguage(language: LANGUAGES) {
     this.language = language;
     this.document.documentElement.lang = language;
 
