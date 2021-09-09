@@ -5,6 +5,7 @@ import { EditorViewComponent } from '../editor/view/editor-view.component';
 import { WORLDOBJECTTYPES } from '../gameboard/gameboard-controls/gameboard-controls.component';
 import { CARDINALS, GameboardController } from '../gameboard/utils';
 import { Identifiers } from './identifiers';
+import { SettingsService } from './settings.service';
 
 type KarolMethods = {
   [key in Identifiers]: (param?: string) => void | boolean;
@@ -27,8 +28,8 @@ export class KarolInterpreter {
   };
   private audio: HTMLAudioElement;
   private methods: KarolMethods = {
-    Schritt: () => {
-      this.controller.move();
+    Schritt: (param) => {
+      this.move(param);
     },
     LinksDrehen: () => {
       this.controller.rotate();
@@ -102,7 +103,10 @@ export class KarolInterpreter {
     },
   };
 
-  constructor(private controller: GameboardController) {}
+  constructor(
+    private controller: GameboardController,
+    private settings: SettingsService
+  ) {}
 
   play() {
     if (!this.paused) {
@@ -112,6 +116,7 @@ export class KarolInterpreter {
           `Error: ${program.msg} at ${program.pos.from} to ${program.pos.to}`
         );
       this.statements = program.result(this.methods);
+      if (this.settings.settings.resetOnStart) this.controller.reset(true);
     }
     this.running.next(true);
     this.paused = false;
@@ -132,6 +137,13 @@ export class KarolInterpreter {
 
   step() {
     this.statements.next();
+  }
+
+  private move(param: string) {
+    const distance = Number.parseInt(param);
+    if (!Number.isInteger(distance)) return this.controller.move();
+
+    for (let i = 0; i < distance; i++) this.controller.move();
   }
 
   private placeSlab(param: string) {

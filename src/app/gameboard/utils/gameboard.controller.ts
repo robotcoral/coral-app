@@ -109,7 +109,8 @@ export class GameboardController {
     return this.model.robot.isCardinal(cardinal);
   }
 
-  reset() {
+  reset(force: boolean = false) {
+    if (force) return this.model.reset();
     const modalRef = this.utilService.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.RESET_WORLD.TITLE',

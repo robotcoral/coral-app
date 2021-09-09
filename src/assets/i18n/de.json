@@ -14,7 +14,8 @@
       "INVENTORY_ACTIVE": "Inventar aktiv:",
       "INVENTORY_MAX_SIZE": "Inventargröße:",
       "INVENTORY_START_SIZE": "Start Fliesen:",
-      "TITLE": "Welteinstellungen"
+      "TITLE": "Welteinstellungen",
+      "RESET_WORLD_ON_START": "Welt beim Programmstart zurücksetzen?"
     }
   },
   "COMMON": {
