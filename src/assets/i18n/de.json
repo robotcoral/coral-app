@@ -14,7 +14,8 @@
       "INVENTORY_ACTIVE": "Inventar aktiv:",
       "INVENTORY_MAX_SIZE": "Inventargröße:",
       "INVENTORY_START_SIZE": "Start Fliesen:",
-      "TITLE": "Welteinstellungen"
+      "TITLE": "Welteinstellungen",
+      "RESET_WORLD_ON_START": "Welt beim Programmstart zurücksetzen?"
     }
   },
   "COMMON": {
@@ -151,6 +152,10 @@
     "RESIZE_WORLD": "Weltgröße ändern",
     "ROTATE_CLOCKWISE": "Im Uhrzeigersinn drehen",
     "ROTATE_COUNTERCLOCKWISE": "Gegen den Uhrzeigersinn drehen",
-    "SAVE_WORLD": "Welt-Reset-Punkt setzen"
+    "SAVE_WORLD": "Welt-Reset-Punkt setzen",
+    "PAUSE": "Pausieren",
+    "START": "Starten",
+    "STEP": "Schritt",
+    "STOP": "Stoppen"
   }
 }

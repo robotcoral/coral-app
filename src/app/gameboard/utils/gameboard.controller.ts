@@ -23,7 +23,7 @@ export class GameboardController {
 
   constructor(
     private utilService: UtilService,
-    private settingService: SettingsService
+    public settingService: SettingsService
   ) {
     this.model = new GameboardModel(settingService);
   }
@@ -64,7 +64,7 @@ export class GameboardController {
     } else this.model.world.placeSlab(coo, color);
   }
 
-  pickUp(mode: WORLDOBJECTTYPES) {
+  pickUp(mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
       if (mode == WORLDOBJECTTYPES.SLAB) {
@@ -99,11 +99,18 @@ export class GameboardController {
     );
   }
 
+  isFlag(color?: string): boolean {
+    const coo = this.model.robot.getCurrentCoordinates();
+    if (color) return this.model.world.flags[coo.x][coo.y].color === color;
+    return this.model.world.flags[coo.x][coo.y] != undefined;
+  }
+
   isCardinal(cardinal: CARDINALS): boolean {
     return this.model.robot.isCardinal(cardinal);
   }
 
-  reset() {
+  reset(force: boolean = false) {
+    if (force) return this.model.reset();
     const modalRef = this.utilService.openModal(WarningModal);
     (modalRef.componentInstance as WarningModal).init({
       title: 'MODALS.RESET_WORLD.TITLE',

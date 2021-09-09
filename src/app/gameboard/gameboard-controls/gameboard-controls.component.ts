@@ -21,7 +21,7 @@ export interface PlaceEvent {
   templateUrl: './gameboard-controls.component.html',
   styleUrls: [
     './gameboard-controls.component.scss',
-    '../gameboard.component.scss',
+    '../../app.component.scss',
   ],
 })
 export class GameboardControlsComponent {

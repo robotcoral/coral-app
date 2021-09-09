@@ -4,12 +4,14 @@ export class Settings {
   inventoryActive: boolean;
   maxSlabs: number;
   startSlabs: number;
+  resetOnStart: boolean;
 
   constructor(settings: Partial<Settings>) {
     if (settings == null) settings = {};
     this.inventoryActive = settings.inventoryActive == true || false;
     this.maxSlabs = settings.maxSlabs || 20;
     this.startSlabs = settings.startSlabs || 20;
+    this.resetOnStart = settings.resetOnStart || false;
   }
 }
 
@@ -27,6 +29,9 @@ export const SettingsSchema: Schema = {
     },
     startSlabs: {
       type: 'number',
+    },
+    resetOnStart: {
+      type: 'boolean',
     },
   },
 };

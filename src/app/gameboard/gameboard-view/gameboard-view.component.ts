@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import {
+  AmbientLight,
   AxesHelper,
   Color,
   PerspectiveCamera,
@@ -60,8 +61,11 @@ export class GameboardViewComponent implements AfterViewInit {
     this.camera.position.set(500, 800, 1300);
     this.camera.lookAt(0, 0, 0);
 
-    this.scene.add(this.controller.getRobot().mesh);
+    this.scene.add(this.controller.getRobot().robot);
     this.scene.add(this.controller.getWorld());
+
+    const light = new AmbientLight(0xffffff);
+    this.scene.add(light);
 
     this.renderer = new WebGLRenderer({ antialias: true });
     this.renderer.setSize(
