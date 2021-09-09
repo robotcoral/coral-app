@@ -33,6 +33,10 @@ describe('TitlebarComponent', () => {
             openModal: () => {},
           },
         },
+        {
+          provide: KarolInterpreter,
+          useValue: {},
+        },
       ],
       imports: [
         TranslateModule.forRoot({
