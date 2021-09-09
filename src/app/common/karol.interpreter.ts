@@ -16,7 +16,7 @@ const TIMEOUT = 500;
 @Injectable()
 export class KarolInterpreter {
   running: Subject<boolean> = new Subject<boolean>();
-  private paused = false;
+  paused = false;
   private editor: EditorViewComponent;
   private statements: Generator<unknown, any, unknown>;
   private interval: any;
