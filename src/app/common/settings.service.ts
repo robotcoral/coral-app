@@ -103,8 +103,6 @@ export class SettingsService implements OnInit {
   }
 
   private saveTheme(theme: THEMES | 'auto') {
-    this.applyTheme(theme);
-
     const transitionTime: number = 0.5;
 
     // start theme transition
@@ -117,6 +115,8 @@ export class SettingsService implements OnInit {
     setTimeout(() => {
       document.body.style.removeProperty('--theme-transition-time');
     }, transitionTime * 1000);
+
+    this.applyTheme(theme);
   }
 
   private applyTheme(theme: THEMES | 'auto') {
