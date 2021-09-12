@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import { SettingsService } from 'src/app/common/settings.service';
 import {
   AmbientLight,
   AxesHelper,
@@ -36,7 +44,11 @@ export class GameboardViewComponent implements AfterViewInit {
   axesCamera: PerspectiveCamera;
   axesRenderer: WebGLRenderer;
 
-  constructor(private controller: GameboardController) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private settingsService: SettingsService,
+    private controller: GameboardController
+  ) {}
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
@@ -46,11 +58,20 @@ export class GameboardViewComponent implements AfterViewInit {
     this.setupAxesHelper();
     this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
     this.render();
+
+    this.settingsService.onThemeChange.subscribe(() => this.setTheme());
   }
+
+  setTheme = () => {
+    const bgColor = getComputedStyle(this.document.body).getPropertyValue(
+      '--theme-main-bg-color'
+    );
+    this.scene.background = new Color(bgColor);
+  };
 
   init() {
     this.scene = new Scene();
-    this.scene.background = new Color(0xffffff);
+    this.setTheme();
 
     this.camera = new PerspectiveCamera(
       45,

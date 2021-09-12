@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { validate } from 'jsonschema';
+import { Subject } from 'rxjs';
 import { Settings, SettingsSchema } from './settings.schema';
 
 const WORLD_SETTINGS_KEY = 'Settings';
@@ -26,6 +27,7 @@ export class SettingsService implements OnInit {
   settings: Settings;
   theme: THEMES | 'auto';
   language: LANGUAGES;
+  onThemeChange: Subject<void> = new Subject();
 
   constructor(
     private window: Window,
@@ -34,6 +36,12 @@ export class SettingsService implements OnInit {
   ) {
     this.loadWorldSettings();
     this.saveWorldSettings();
+
+    this.window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', () => {
+        this.onThemeChange.next();
+      });
   }
 
   ngOnInit(): void {
@@ -94,12 +102,15 @@ export class SettingsService implements OnInit {
     const transitionTime: number = 0.5;
 
     // start theme transition
-    document.body.style.setProperty("--theme-transition-time", transitionTime.toString() + "s");
+    document.body.style.setProperty(
+      '--theme-transition-time',
+      transitionTime.toString() + 's'
+    );
 
     // end theme transition
     setTimeout(() => {
-      document.body.style.removeProperty("--theme-transition-time");
-    }, transitionTime * 1000)
+      document.body.style.removeProperty('--theme-transition-time');
+    }, transitionTime * 1000);
   }
 
   private applyTheme(theme: THEMES | 'auto') {
@@ -114,6 +125,7 @@ export class SettingsService implements OnInit {
     }
 
     this.window.localStorage.setItem(THEME_KEY, theme);
+    this.onThemeChange.next();
   }
 
   private applyLanguage(language: LANGUAGES) {

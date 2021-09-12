@@ -3,17 +3,12 @@ import { Component, Inject } from '@angular/core';
 import { ResizeModal } from 'src/app/common/modals';
 import { UtilService } from 'src/app/common/util.service';
 import { Coordinates3 } from '../utils';
-import { GameboardController } from '../utils/gameboard.controller';
+import { COLORS, GameboardController } from '../utils/gameboard.controller';
 
 export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
   CUBE = 'CUBE',
   SLAB = 'SLAB',
-}
-
-export interface PlaceEvent {
-  color: string;
-  mode: WORLDOBJECTTYPES;
 }
 
 @Component({
@@ -25,12 +20,13 @@ export interface PlaceEvent {
   ],
 })
 export class GameboardControlsComponent {
-  colors = {
-    red: '#ff0000',
-    green: '#00ff00',
-    blue: '#0000ff',
+  colors: { [key in COLORS]: string } = {
+    [COLORS.RED]: '#ff0000',
+    [COLORS.GREEN]: '#00ff00',
+    [COLORS.BLUE]: '#0000ff',
+    [COLORS.YELLOW]: '#ffff00',
   };
-  color = 'red';
+  color: COLORS = COLORS.RED;
   colorExpanded = false;
   colorCallback = ((e) => {
     if (!this.document.getElementById('colorMenu').contains(e.target)) {
@@ -67,7 +63,7 @@ export class GameboardControlsComponent {
   }
 
   onColorSelect(color: string) {
-    this.color = color;
+    this.color = color as COLORS;
     this.onColorMenu();
   }
 
@@ -84,7 +80,7 @@ export class GameboardControlsComponent {
   }
 
   onPlace() {
-    this.controller.place({ mode: this.mode, color: this.colors[this.color] });
+    this.controller.place({ mode: this.mode, color: this.color });
   }
 
   onPickUp() {
