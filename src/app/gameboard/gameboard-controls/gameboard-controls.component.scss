@@ -33,9 +33,18 @@
 
 .openMenu {
   position: absolute;
-  margin-top: -6.75rem;
   background-color: var(--theme-main-bg-color);
   box-shadow: 0 0 2px 2px lightgray;
+}
+
+.openColorMenu {
+  @extend .openMenu;
+  margin-top: -10.25rem;
+}
+
+.openModeMenu {
+  @extend .openMenu;
+  margin-top: -6.75rem;
 }
 
 .menu button {

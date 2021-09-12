@@ -16,10 +16,10 @@
   --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
   --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
 
-  --gb-red: red;
-  --gb-green: green;
-  --gb-blue: blue;
-  --gb-yellow: yellow;
+  --gb-red: #990f02;
+  --gb-green: #028a0f;
+  --gb-blue: #2832c2;
+  --gb-yellow: #ffd300;
 }
 
 @mixin theme-dark {
@@ -40,10 +40,10 @@
   --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
   --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
 
-  --gb-red: red;
-  --gb-green: green;
-  --gb-blue: blue;
-  --gb-yellow: yellow;
+  --gb-red: #990f02;
+  --gb-green: #028a0f;
+  --gb-blue: #2832c2;
+  --gb-yellow: #ffd300;
 }
 
 @mixin theme-midnight {
@@ -62,10 +62,10 @@
   --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
   --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
 
-  --gb-red: red;
-  --gb-green: green;
-  --gb-blue: blue;
-  --gb-yellow: yellow;
+  --gb-red: #990f02;
+  --gb-green: #028a0f;
+  --gb-blue: #2832c2;
+  --gb-yellow: #ffd300;
 }
 
 // Transitions

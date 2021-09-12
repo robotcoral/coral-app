@@ -59,10 +59,16 @@ export class ObjectFactory {
 
   static getInstance() {
     if (!this.instance) this.instance = new ObjectFactory();
+
     return this.instance;
   }
 
-  private constructor() {}
+  private constructor() {
+    this._colorMaterials = {} as ColorMaterials;
+    Object.values(COLORS).forEach((color) => {
+      this._colorMaterials[color] = new MeshBasicMaterial();
+    });
+  }
 
   slab(color: COLORS): Slab {
     return new Slab(this._scale, color, this._colorMaterials[color]);
@@ -81,12 +87,6 @@ export class ObjectFactory {
   }
 
   public set colorMaterials(value: MaterialColors) {
-    if (!this._colorMaterials) {
-      this._colorMaterials = {} as ColorMaterials;
-      Object.values(COLORS).forEach((color) => {
-        this._colorMaterials[color] = new MeshBasicMaterial();
-      });
-    }
     Object.entries(value).forEach(([key, value]) => {
       this._colorMaterials[key as COLORS].color.set(value);
     });

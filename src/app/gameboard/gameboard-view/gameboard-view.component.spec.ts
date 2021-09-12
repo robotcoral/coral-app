@@ -28,6 +28,7 @@ describe('GameboardViewComponent', () => {
             onThemeChange: {
               subscribe: () => {},
             },
+            gameboardTheme: {},
           },
         },
         {

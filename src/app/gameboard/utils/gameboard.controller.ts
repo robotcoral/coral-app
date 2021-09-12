@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
 import { UtilService } from 'src/app/common/util.service';
@@ -33,13 +32,13 @@ export class GameboardController {
   private model: GameboardModel;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private utilService: UtilService,
     public settingService: SettingsService
   ) {
     this.model = new GameboardModel(settingService);
-    this.setTheme();
-    this.settingService.onThemeChange.subscribe(() => this.setTheme());
+    this.settingService.onThemeChange.subscribe((theme) =>
+      this.setTheme(theme.colors)
+    );
   }
 
   move() {
@@ -210,21 +209,7 @@ export class GameboardController {
     return this.model.currentSlabs;
   }
 
-  setTheme() {
-    const colorMaterials: MaterialColors = {
-      [COLORS.RED]: getComputedStyle(this.document.body).getPropertyValue(
-        '--gb-red'
-      ),
-      [COLORS.GREEN]: getComputedStyle(this.document.body).getPropertyValue(
-        '--gb-green'
-      ),
-      [COLORS.BLUE]: getComputedStyle(this.document.body).getPropertyValue(
-        '--gb-blue'
-      ),
-      [COLORS.YELLOW]: getComputedStyle(this.document.body).getPropertyValue(
-        '--gb-yellow'
-      ),
-    };
-    this.model.world.setTheme(colorMaterials);
+  setTheme(theme: MaterialColors) {
+    this.model.world.setTheme(theme);
   }
 }

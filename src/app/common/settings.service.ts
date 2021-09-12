@@ -3,11 +3,17 @@ import { Inject, Injectable, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { validate } from 'jsonschema';
 import { Subject } from 'rxjs';
+import { COLORS, MaterialColors } from '../gameboard/utils';
 import { Settings, SettingsSchema } from './settings.schema';
 
 const WORLD_SETTINGS_KEY = 'Settings';
 const THEME_KEY = 'Theme';
 const LANGUAGE_KEY = 'Language';
+
+export interface GameboardTheme {
+  background: string;
+  colors: MaterialColors;
+}
 
 export enum THEMES {
   Light = 'light',
@@ -27,7 +33,8 @@ export class SettingsService implements OnInit {
   settings: Settings;
   theme: THEMES | 'auto';
   language: LANGUAGES;
-  onThemeChange: Subject<void> = new Subject();
+  onThemeChange: Subject<GameboardTheme> = new Subject();
+  gameboardTheme: GameboardTheme;
 
   constructor(
     private window: Window,
@@ -39,13 +46,12 @@ export class SettingsService implements OnInit {
 
     this.window
       .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', () => {
-        this.onThemeChange.next();
-      });
+      .addEventListener('change', () => this.triggerThemeChange());
   }
 
   ngOnInit(): void {
     this.loadGeneralSettings();
+    this.triggerThemeChange();
   }
 
   loadWorldSettings() {
@@ -125,7 +131,7 @@ export class SettingsService implements OnInit {
     }
 
     this.window.localStorage.setItem(THEME_KEY, theme);
-    this.onThemeChange.next();
+    this.triggerThemeChange();
   }
 
   private applyLanguage(language: LANGUAGES) {
@@ -134,5 +140,21 @@ export class SettingsService implements OnInit {
 
     this.window.localStorage.setItem(LANGUAGE_KEY, language);
     this.translationService.use(this.language);
+  }
+
+  private triggerThemeChange() {
+    const style = getComputedStyle(this.document.body);
+
+    this.gameboardTheme = {
+      colors: {
+        [COLORS.RED]: style.getPropertyValue('--gb-red'),
+        [COLORS.GREEN]: style.getPropertyValue('--gb-green'),
+        [COLORS.BLUE]: style.getPropertyValue('--gb-blue'),
+        [COLORS.YELLOW]: style.getPropertyValue('--gb-yellow'),
+      },
+      background: style.getPropertyValue('--theme-main-bg-color'),
+    };
+
+    this.onThemeChange.next(this.gameboardTheme);
   }
 }
