@@ -6,11 +6,16 @@
     --theme-highlight-1: hsl(0, 0%, 100%);
     --theme-highlight-2: hsl(0, 0%, 90%);
     --theme-highlight-3: hsl(0, 87%, 69%);
+    --theme-highlight-4: hsl(304, 100%, 32%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
     --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-1-center: 0px 0px 6px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-2-center: 0px 0px 9px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-3-center: 0px 0px 12px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-4-center: 0px 0px 15px hsla(0, 0%, 0%, 0.35);
 }
 
 @mixin theme-dark {
@@ -26,6 +31,10 @@
     --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-1: 0px 0px 6px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-2: 0px 0px 9px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-3: 0px 0px 12px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-4: 0px 0px 15px hsla(0, 0%, 0%, 0.35);
 }
 
 @mixin theme-midnight {
@@ -64,4 +73,8 @@
     @media (prefers-reduced-motion: no-preference) {
         transition: color var(--theme-transition-time) ease-in-out;
     }
+}
+
+@mixin textfield-borderradius {
+    border-radius: 3px;
 }

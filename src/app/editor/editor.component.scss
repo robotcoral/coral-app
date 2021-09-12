@@ -38,6 +38,10 @@ app-editor-controls {
       min-width: 2.5rem;
     }
   }
+
+  .cm-panel {
+    background-color: var(--theme-main-bg-color);
+  }
 }
 
 .ͼ2 {
@@ -60,6 +64,24 @@ app-editor-controls {
 
   .cm-activeLineGutter {
     background-color: var(--theme-highlight-2);
+  }
+
+  .cm-panels {
+    border: none;
+    box-shadow: var(--box-shadow-elevation-1-center);
+  }
+
+  .cm-button {
+    background: var(--theme-highlight-1);
+  }
+
+  .cm-textfield {
+    border: 1px solid silver;
+    @include themes.textfield-borderradius;
+  }
+
+  .cm-textfield:focus-visible {
+    @include themes.textfield-borderradius;
   }
 }
 
