@@ -36,7 +36,11 @@
 
   <div class="right-controls controls">
     <div class="wrapper">
-      <div id="modeMenu" [ngClass]="{ openMenu: modeExpanded }" class="menu">
+      <div
+        id="modeMenu"
+        [ngClass]="{ openModeMenu: modeExpanded }"
+        class="menu"
+      >
         <button
           (click)="onModeMenu()"
           [title]="'TOOLTIPS.CHANGE_PLACEMENT_MODE' | translate"
@@ -59,7 +63,11 @@
     </div>
 
     <div class="wrapper" *ngIf="mode != 'CUBE'">
-      <div id="colorMenu" [ngClass]="{ openMenu: colorExpanded }" class="menu">
+      <div
+        id="colorMenu"
+        [ngClass]="{ openColorMenu: colorExpanded }"
+        class="menu"
+      >
         <button
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"

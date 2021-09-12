@@ -1,8 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { ResizeModal } from 'src/app/common/modals';
+import { SettingsService } from 'src/app/common/settings.service';
 import { UtilService } from 'src/app/common/util.service';
-import { Coordinates3 } from '../utils';
+import { Coordinates3, MaterialColors } from '../utils';
 import { COLORS, GameboardController } from '../utils/gameboard.controller';
 
 export enum WORLDOBJECTTYPES {
@@ -20,11 +21,11 @@ export enum WORLDOBJECTTYPES {
   ],
 })
 export class GameboardControlsComponent {
-  colors: { [key in COLORS]: string } = {
-    [COLORS.RED]: '#ff0000',
-    [COLORS.GREEN]: '#00ff00',
-    [COLORS.BLUE]: '#0000ff',
-    [COLORS.YELLOW]: '#ffff00',
+  colors: MaterialColors = {
+    [COLORS.RED]: '#121212',
+    [COLORS.GREEN]: '#121212',
+    [COLORS.BLUE]: '#121212',
+    [COLORS.YELLOW]: '#121212',
   };
   color: COLORS = COLORS.RED;
   colorExpanded = false;
@@ -52,8 +53,13 @@ export class GameboardControlsComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     public controller: GameboardController,
-    private utilService: UtilService
-  ) {}
+    private utilService: UtilService,
+    private settingsService: SettingsService
+  ) {
+    this.settingsService.onThemeChange.subscribe((theme) =>
+      this.onThemeChange(theme.colors)
+    );
+  }
 
   onColorMenu() {
     this.colorExpanded = !this.colorExpanded;
@@ -96,5 +102,9 @@ export class GameboardControlsComponent {
         this.controller.resize(coo);
       })
       .catch(() => {});
+  }
+
+  onThemeChange(theme: MaterialColors) {
+    this.colors = theme;
   }
 }

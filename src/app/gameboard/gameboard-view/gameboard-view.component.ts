@@ -59,19 +59,20 @@ export class GameboardViewComponent implements AfterViewInit {
     this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
     this.render();
 
-    this.settingsService.onThemeChange.subscribe(() => this.setTheme());
+    this.settingsService.onThemeChange.subscribe((theme) =>
+      this.setTheme(theme.background)
+    );
   }
 
-  setTheme = () => {
-    const bgColor = getComputedStyle(this.document.body).getPropertyValue(
-      '--theme-main-bg-color'
-    );
-    this.scene.background = new Color(bgColor);
-  };
+  setTheme(background: string) {
+    this.scene.background = new Color(background);
+  }
 
   init() {
     this.scene = new Scene();
-    this.setTheme();
+    this.scene.background = new Color(
+      this.settingsService.gameboardTheme.background
+    );
 
     this.camera = new PerspectiveCamera(
       45,
