@@ -8,7 +8,9 @@
       "SYSTEM_DEFAULT": "Systemstandard"
     },
     "EDITOR": {
-      "TITLE": "Editor-Einstellungen"
+      "TITLE": "Editor-Einstellungen",
+      "FONT_SIZE": "Schriftgröße:",
+      "TAB_WIDTH": "Tabbreite"
     },
     "WORLD": {
       "INVENTORY_ACTIVE": "Inventar aktiv:",

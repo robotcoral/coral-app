@@ -31,7 +31,7 @@ export class GeneralSettingsModal {
       | 'auto';
     const language = this.formGroup.get('language')
       .value as unknown as LANGUAGES;
-    this.settingsService.saveGeneralSettings(theme, language);
+    this.settingsService.saveMiscSettings(theme, language);
   }
 
   originalOrder = (a: any, b: any): number => {

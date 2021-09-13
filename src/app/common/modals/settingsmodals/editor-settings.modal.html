@@ -1,4 +1,4 @@
-<div>
+<div class="editor-settings">
   <div class="modal-header">
     <h4 class="modal-title">{{ 'SETTINGS.EDITOR.TITLE' | translate }}</h4>
     <button
@@ -9,7 +9,32 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body"></div>
+  <div class="modal-body">
+    <form [formGroup]="formGroup">
+      <div class="inputWrapper">
+        <div class="nameField">
+          {{ 'SETTINGS.EDITOR.FONT_SIZE' | translate }}
+        </div>
+        <input
+          type="number"
+          class="number-field"
+          name="fontsize"
+          formControlName="fontsize"
+        />
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">
+          {{ 'SETTINGS.EDITOR.TAB_WIDTH' | translate }}:
+        </div>
+        <input
+          type="number"
+          class="number-field"
+          name="tabwidth"
+          formControlName="tabwidth"
+        />
+      </div>
+    </form>
+  </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="onApply()">
       {{ 'COMMON.APPLY' | translate }}

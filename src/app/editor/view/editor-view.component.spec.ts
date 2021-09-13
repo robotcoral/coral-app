@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditorController } from 'src/app/common/editor.controller';
 import { KarolInterpreter } from 'src/app/common/karol.interpreter';
+import { SettingsService } from 'src/app/common/settings.service';
 import { EditorViewComponent } from './editor-view.component';
 
 describe('EditorViewComponent', () => {
@@ -12,18 +13,16 @@ describe('EditorViewComponent', () => {
       declarations: [EditorViewComponent],
       providers: [
         {
-          provide: Window,
-          useValue: {
-            getComputedStyle: () => {
-              return { 'font-size': 16 };
-            },
-          },
-        },
-        {
           provide: EditorController,
           useValue: { setEditor: () => {} },
         },
-        { provide: Document, useValue: {} },
+        {
+          provide: SettingsService,
+          useValue: {
+            onEditorSettingsChange: { subscribe: () => {} },
+            settings: {},
+          },
+        },
         { provide: KarolInterpreter, useValue: { setEditor: () => {} } },
       ],
     }).compileComponents();
