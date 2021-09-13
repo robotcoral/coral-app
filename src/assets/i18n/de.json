@@ -119,7 +119,10 @@
       }
     },
     "INFO": {
-      "TITLE": "Info"
+      "TITLE": "Info",
+      "LICENSE": "Dieses Programm ist unter der",
+      "LICENSE2": "Lizenz veröffentlicht.",
+      "ROBOT_CREDIT": "Robot Modell von"
     },
     "RESET_WORLD": {
       "DESCRIPTION": "Willst du die Welt wirklich zurücksetzen?",
