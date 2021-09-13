@@ -157,7 +157,10 @@
       }
     },
     "INFO": {
-      "TITLE": "Info"
+      "TITLE": "Info",
+      "LICENSE": "This program is licensed under the",
+      "LICENSE2": "license.",
+      "ROBOT_CREDIT": " Robot model by"
     }
   }
 }
