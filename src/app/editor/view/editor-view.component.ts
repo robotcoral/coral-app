@@ -55,11 +55,11 @@ export class EditorViewComponent {
       parent: this.codemirrorhost.nativeElement,
     });
     this.interpreter.setEditor(this);
-    this.applySettings(this.settingsService.settings);
   }
 
   applySettings(settings: Settings) {
     this.fontSize = settings.fontSize;
+    if (!this.view) return;
     this.view.dispatch({
       effects: this.compartment.reconfigure(
         EditorState.tabSize.of(settings.tabWidth)

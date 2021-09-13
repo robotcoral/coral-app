@@ -53,6 +53,7 @@ export class SettingsService implements OnInit {
   ngOnInit(): void {
     this.loadMiscSettings();
     this.triggerThemeChange();
+    this.onEditorSettingsChange.next(this.settings);
   }
 
   loadSettings() {
