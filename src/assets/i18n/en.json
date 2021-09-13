@@ -8,7 +8,9 @@
       "SYSTEM_DEFAULT": "System default"
     },
     "EDITOR": {
-      "TITLE": "Editor Settings"
+      "TITLE": "Editor Settings",
+      "FONT_SIZE": "Fontsize:",
+      "TAB_WIDTH": "Tabwidth"
     },
     "WORLD": {
       "TITLE": "World Settings",

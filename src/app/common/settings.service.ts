@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { COLORS, MaterialColors } from '../gameboard/utils';
 import { Settings, SettingsSchema } from './settings.schema';
 
-const WORLD_SETTINGS_KEY = 'Settings';
+const SETTINGS_KEY = 'Settings';
 const THEME_KEY = 'Theme';
 const LANGUAGE_KEY = 'Language';
 
@@ -35,14 +35,15 @@ export class SettingsService implements OnInit {
   language: LANGUAGES;
   onThemeChange: Subject<GameboardTheme> = new Subject();
   gameboardTheme: GameboardTheme;
+  onEditorSettingsChange: Subject<Settings> = new Subject();
 
   constructor(
     private window: Window,
     @Inject(DOCUMENT) private document: Document,
     private translationService: TranslateService
   ) {
-    this.loadWorldSettings();
-    this.saveWorldSettings();
+    this.loadSettings();
+    this.saveSettings();
 
     this.window
       .matchMedia('(prefers-color-scheme: dark)')
@@ -50,12 +51,12 @@ export class SettingsService implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadGeneralSettings();
+    this.loadMiscSettings();
     this.triggerThemeChange();
   }
 
-  loadWorldSettings() {
-    const settingsString = window.localStorage.getItem(WORLD_SETTINGS_KEY);
+  loadSettings() {
+    const settingsString = window.localStorage.getItem(SETTINGS_KEY);
     if (settingsString == null) {
       this.settings = new Settings({});
       return;
@@ -72,14 +73,14 @@ export class SettingsService implements OnInit {
     this.settings = new Settings(settingsObject);
   }
 
-  saveWorldSettings() {
+  saveSettings() {
     this.window.localStorage.setItem(
-      WORLD_SETTINGS_KEY,
+      SETTINGS_KEY,
       JSON.stringify(this.settings)
     );
   }
 
-  saveGeneralSettings(theme: THEMES | 'auto', language: LANGUAGES) {
+  saveMiscSettings(theme: THEMES | 'auto', language: LANGUAGES) {
     if (theme != this.theme) {
       this.saveTheme(theme);
     }
@@ -88,7 +89,13 @@ export class SettingsService implements OnInit {
     }
   }
 
-  private loadGeneralSettings() {
+  saveEditorSettings(fontSize: number, tabWidth: number) {
+    this.settings.fontSize = fontSize;
+    this.settings.tabWidth = tabWidth;
+    this.onEditorSettingsChange.next(this.settings);
+  }
+
+  private loadMiscSettings() {
     const savedTheme = window.localStorage.getItem(THEME_KEY) as THEMES;
     if (Object.values(THEMES).includes(savedTheme)) this.applyTheme(savedTheme);
     else this.theme = 'auto';

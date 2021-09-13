@@ -1,14 +1,15 @@
-import { DOCUMENT } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
-  Inject,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { indentUnit } from '@codemirror/language';
+import { Compartment } from '@codemirror/state';
 import { EditorController } from 'src/app/common/editor.controller';
 import { KarolInterpreter } from 'src/app/common/karol.interpreter';
+import { Settings } from 'src/app/common/settings.schema';
+import { SettingsService } from 'src/app/common/settings.service';
 import { customSetup, EditorState, EditorView } from '../util/codemirror.setup';
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
@@ -19,31 +20,34 @@ type EditorStateConfig = Parameters<typeof EditorState.create>[0];
   styleUrls: ['../editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class EditorViewComponent implements AfterViewInit {
+export class EditorViewComponent {
+  compartment = new Compartment();
   sourceCode = '';
   config: EditorStateConfig = {
-    extensions: [customSetup],
+    extensions: [
+      customSetup,
+      this.compartment.of(EditorState.tabSize.of(4)),
+      // Indent with Tab
+      indentUnit.of('	'),
+    ],
   };
   view: EditorView;
-  fontSize: number;
-  defaultFontSize: number;
+  fontSize: number = 16;
 
   @ViewChild('codemirrorhost') codemirrorhost: ElementRef = null;
 
   constructor(
     private controller: EditorController,
     private interpreter: KarolInterpreter,
-    window: Window,
-    @Inject(DOCUMENT) document: Document
+    private settingsService: SettingsService
   ) {
     this.controller.setEditor(this);
-    this.fontSize = parseInt(
-      window.getComputedStyle(document.documentElement)['font-size']
+    this.settingsService.onEditorSettingsChange.subscribe((settings) =>
+      this.applySettings(settings)
     );
-    this.defaultFontSize = this.fontSize;
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.config = this.config || {};
     const state = EditorState.create(this.config);
     this.view = new EditorView({
@@ -51,5 +55,15 @@ export class EditorViewComponent implements AfterViewInit {
       parent: this.codemirrorhost.nativeElement,
     });
     this.interpreter.setEditor(this);
+    this.applySettings(this.settingsService.settings);
+  }
+
+  applySettings(settings: Settings) {
+    this.fontSize = settings.fontSize;
+    this.view.dispatch({
+      effects: this.compartment.reconfigure(
+        EditorState.tabSize.of(settings.tabWidth)
+      ),
+    });
   }
 }
