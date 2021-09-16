@@ -3,7 +3,7 @@ import * as karol from '@robotcoral/lang-karol';
 import { Subject } from 'rxjs';
 import { EditorViewComponent } from '../editor/view/editor-view.component';
 import { WORLDOBJECTTYPES } from '../gameboard/gameboard-controls/gameboard-controls.component';
-import { CARDINALS, GameboardController } from '../gameboard/utils';
+import { CARDINALS, COLORS, GameboardController } from '../gameboard/utils';
 import { Identifiers } from './identifiers';
 import { SettingsService } from './settings.service';
 
@@ -72,7 +72,7 @@ export class KarolInterpreter {
       return this.controller.isFlag();
     },
     NichtIstMarke: (param) => {
-      return !this.controller.isFlag(param);
+      return !this.controller.isFlag();
     },
     IstNorden: () => {
       return this.controller.isCardinal(CARDINALS.NORTH);
@@ -149,17 +149,16 @@ export class KarolInterpreter {
   private placeSlab(param: string) {
     const amount = Number.parseInt(param);
     if (!Number.isInteger(amount)) {
-      this.controller.place({
+      return this.controller.place({
         mode: WORLDOBJECTTYPES.SLAB,
-        color: param,
+        color: param as COLORS,
       });
-      return;
     }
 
     for (let i = 0; i < amount; i++) {
       this.controller.place({
         mode: WORLDOBJECTTYPES.SLAB,
-        color: '#ff0000',
+        color: COLORS.RED,
       });
     }
   }
@@ -173,7 +172,8 @@ export class KarolInterpreter {
 
   private isSlab(param: string) {
     const amount = Number.parseInt(param);
-    if (!Number.isInteger(amount)) return this.controller.isSlabColor(param);
+    if (!Number.isInteger(amount))
+      return this.controller.isSlabColor(COLORS.RED);
 
     return this.controller.isSlab(amount || 1);
   }
@@ -181,7 +181,7 @@ export class KarolInterpreter {
   private placeFlag(param: string) {
     this.controller.place({
       mode: WORLDOBJECTTYPES.FLAG,
-      color: param,
+      color: param as COLORS,
     });
   }
 

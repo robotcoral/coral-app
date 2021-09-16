@@ -1,19 +1,15 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { ResizeModal } from 'src/app/common/modals';
+import { SettingsService } from 'src/app/common/settings.service';
 import { UtilService } from 'src/app/common/util.service';
-import { Coordinates3 } from '../utils';
-import { GameboardController } from '../utils/gameboard.controller';
+import { Coordinates3, MaterialColors } from '../utils';
+import { COLORS, GameboardController } from '../utils/gameboard.controller';
 
 export enum WORLDOBJECTTYPES {
   FLAG = 'FLAG',
   CUBE = 'CUBE',
   SLAB = 'SLAB',
-}
-
-export interface PlaceEvent {
-  color: string;
-  mode: WORLDOBJECTTYPES;
 }
 
 @Component({
@@ -25,12 +21,13 @@ export interface PlaceEvent {
   ],
 })
 export class GameboardControlsComponent {
-  colors = {
-    red: '#ff0000',
-    green: '#00ff00',
-    blue: '#0000ff',
+  colors: MaterialColors = {
+    [COLORS.RED]: '#121212',
+    [COLORS.GREEN]: '#121212',
+    [COLORS.BLUE]: '#121212',
+    [COLORS.YELLOW]: '#121212',
   };
-  color = 'red';
+  color: COLORS = COLORS.RED;
   colorExpanded = false;
   colorCallback = ((e) => {
     if (!this.document.getElementById('colorMenu').contains(e.target)) {
@@ -56,8 +53,13 @@ export class GameboardControlsComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     public controller: GameboardController,
-    private utilService: UtilService
-  ) {}
+    private utilService: UtilService,
+    private settingsService: SettingsService
+  ) {
+    this.settingsService.onThemeChange.subscribe((theme) =>
+      this.onThemeChange(theme.colors)
+    );
+  }
 
   onColorMenu() {
     this.colorExpanded = !this.colorExpanded;
@@ -67,7 +69,7 @@ export class GameboardControlsComponent {
   }
 
   onColorSelect(color: string) {
-    this.color = color;
+    this.color = color as COLORS;
     this.onColorMenu();
   }
 
@@ -84,7 +86,7 @@ export class GameboardControlsComponent {
   }
 
   onPlace() {
-    this.controller.place({ mode: this.mode, color: this.colors[this.color] });
+    this.controller.place({ mode: this.mode, color: this.color });
   }
 
   onPickUp() {
@@ -100,5 +102,9 @@ export class GameboardControlsComponent {
         this.controller.resize(coo);
       })
       .catch(() => {});
+  }
+
+  onThemeChange(theme: MaterialColors) {
+    this.colors = theme;
   }
 }

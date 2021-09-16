@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { redo, undo } from '../editor/util/codemirror.setup';
 import { EditorViewComponent } from '../editor/view/editor-view.component';
+import { SettingsService } from './settings.service';
 import { UtilService } from './util.service';
 
 @Injectable({
@@ -9,7 +10,10 @@ import { UtilService } from './util.service';
 export class EditorController {
   private editor: EditorViewComponent;
 
-  constructor(private utilService: UtilService) {}
+  constructor(
+    private utilService: UtilService,
+    private settingsService: SettingsService
+  ) {}
 
   undo() {
     undo(this.editor.view);
@@ -28,7 +32,7 @@ export class EditorController {
   }
 
   resetFontSize() {
-    this.editor.fontSize = this.editor.defaultFontSize;
+    this.editor.fontSize = this.settingsService.settings.fontSize;
   }
 
   cut() {

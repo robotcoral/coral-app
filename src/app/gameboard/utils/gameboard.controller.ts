@@ -9,11 +9,21 @@ import {
   Coordinates3,
   GameboardModel,
 } from '.';
-import {
-  PlaceEvent,
-  WORLDOBJECTTYPES,
-} from '../gameboard-controls/gameboard-controls.component';
+import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
+import { MaterialColors } from './objects';
 import { WorldFile } from './world.schema';
+
+export enum COLORS {
+  RED = 'rot',
+  GREEN = 'grün',
+  BLUE = 'blau',
+  YELLOW = 'gelb',
+}
+
+export interface PlaceEvent {
+  color: COLORS;
+  mode: WORLDOBJECTTYPES;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +36,9 @@ export class GameboardController {
     public settingService: SettingsService
   ) {
     this.model = new GameboardModel(settingService);
+    this.settingService.onThemeChange.subscribe((theme) =>
+      this.setTheme(theme.colors)
+    );
   }
 
   move() {
@@ -56,12 +69,12 @@ export class GameboardController {
     }
   }
 
-  private placeSlab(coo: Coordinates2, color: string) {
+  private placeSlab(coo: Coordinates2, color: COLORS) {
     if (this.settingService.settings.inventoryActive) {
       if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
-      this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
-    } else this.model.world.placeSlab(coo, color);
+    }
+    this.model.world.placeSlab(coo, color);
   }
 
   pickUp(mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB) {
@@ -92,14 +105,14 @@ export class GameboardController {
     );
   }
 
-  isSlabColor(color: string) {
+  isSlabColor(color: COLORS) {
     return this.model.world.isColor(
       this.model.robot.getMoveCoordinates(),
       color
     );
   }
 
-  isFlag(color?: string): boolean {
+  isFlag(color?: COLORS): boolean {
     const coo = this.model.robot.getCurrentCoordinates();
     if (color) return this.model.world.flags[coo.x][coo.y].color === color;
     return this.model.world.flags[coo.x][coo.y] != undefined;
@@ -194,5 +207,9 @@ export class GameboardController {
 
   getCurrentSlabs() {
     return this.model.currentSlabs;
+  }
+
+  setTheme(theme: MaterialColors) {
+    this.model.world.setTheme(theme);
   }
 }

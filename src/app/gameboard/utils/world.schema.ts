@@ -1,9 +1,10 @@
 import { Schema } from 'jsonschema';
 import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
 import { Coordinates2, Coordinates3 } from './coordinates';
+import { COLORS } from './gameboard.controller';
 
 export interface WorldObjectData {
-  color: string;
+  color: COLORS;
 }
 
 export interface WorldObject {

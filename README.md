@@ -5,6 +5,8 @@
 <p align="center">
 <img src="https://img.shields.io/github/license/robotcoral/coral-app" alt="Package License" />
 <a href="https://snyk.io/test/github/robotcoral/coral-app/"><img src="https://snyk.io/test/github/robotcoral/coral-app/badge.svg" alt="Vulnerabilities" /></a>
+<a href="https://codeclimate.com/github/robotcoral/coral-app/maintainability"><img src="https://api.codeclimate.com/v1/badges/966e9bb988125a797370/maintainability" /></a>
+<a href="https://github.com/robotcoral/coral-app/actions/workflows/release_and_deploy.yml"><img src="https://github.com/robotcoral/coral-app/actions/workflows/release_and_deploy.yml/badge.svg" /></a>
 </p>
 
 ## Description

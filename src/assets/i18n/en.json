@@ -8,7 +8,9 @@
       "SYSTEM_DEFAULT": "System default"
     },
     "EDITOR": {
-      "TITLE": "Editor Settings"
+      "TITLE": "Editor Settings",
+      "FONT_SIZE": "Fontsize:",
+      "TAB_WIDTH": "Tabwidth"
     },
     "WORLD": {
       "TITLE": "World Settings",
@@ -155,7 +157,10 @@
       }
     },
     "INFO": {
-      "TITLE": "Info"
+      "TITLE": "Info",
+      "LICENSE": "This program is licensed under the",
+      "LICENSE2": "license.",
+      "ROBOT_CREDIT": " Robot model by"
     }
   }
 }

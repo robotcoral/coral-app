@@ -19,6 +19,11 @@
     --box-shadow-elevation-2-center: 0px 0px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3-center: 0px 0px 12px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-4-center: 0px 0px 15px hsla(0, 0%, 0%, 0.35);
+  
+    --gb-red: #990f02;
+    --gb-green: #028a0f;
+    --gb-blue: #2832c2;
+    --gb-yellow: #ffd300;
 }
 
 @mixin theme-dark {
@@ -41,6 +46,11 @@
     --box-shadow-elevation-2-center: 0px 0px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3-center: 0px 0px 12px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-4-center: 0px 0px 15px hsla(0, 0%, 0%, 0.35);
+  
+    --gb-red: #990f02;
+    --gb-green: #028a0f;
+    --gb-blue: #2832c2;
+    --gb-yellow: #ffd300;
 }
 
 @mixin theme-midnight {
@@ -54,31 +64,37 @@
     --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
+  
+    --gb-red: #990f02;
+    --gb-green: #028a0f;
+    --gb-blue: #2832c2;
+    --gb-yellow: #ffd300;
+
 }
 
 // Transitions
 @mixin bg-color-transition {
-    @media (prefers-reduced-motion: no-preference) {
-        transition: background-color var(--theme-transition-time) ease-in-out;
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color var(--theme-transition-time) ease-in-out;
+  }
 }
 
 @mixin bg-highlight-color-transition {
-    @media (prefers-reduced-motion: no-preference) {
-        transition: background-color var(--theme-transition-time) ease-in-out;
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color var(--theme-transition-time) ease-in-out;
+  }
 }
 
 @mixin bg-img-transition {
-    @media (prefers-reduced-motion: no-preference) {
-        transition: background-image var(--theme-transition-time) ease-in-out;
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-image var(--theme-transition-time) ease-in-out;
+  }
 }
 
 @mixin color-transition {
-    @media (prefers-reduced-motion: no-preference) {
-        transition: color var(--theme-transition-time) ease-in-out;
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: color var(--theme-transition-time) ease-in-out;
+  }
 }
 
 @mixin box-shadow-transition {

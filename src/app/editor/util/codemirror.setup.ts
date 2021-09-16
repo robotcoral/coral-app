@@ -1,6 +1,6 @@
 import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/closebrackets';
-import { defaultKeymap } from '@codemirror/commands';
+import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { commentKeymap } from '@codemirror/comment';
 import { foldGutter, foldKeymap } from '@codemirror/fold';
 import { highlightActiveLineGutter, lineNumbers } from '@codemirror/gutter';
@@ -47,6 +47,7 @@ export const customSetup = [
     ...commentKeymap,
     ...completionKeymap,
     ...lintKeymap,
+    indentWithTab,
   ]),
   karol(),
 ];

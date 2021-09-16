@@ -39,7 +39,7 @@ export class WorldSettingsModal {
       this.formGroup.get('startSlabs').value;
     this.settingsService.settings.resetOnStart =
       this.formGroup.get('resetWorldOnStart').value;
-    this.settingsService.saveWorldSettings();
+    this.settingsService.saveSettings();
 
     this.activeModal.close();
   }

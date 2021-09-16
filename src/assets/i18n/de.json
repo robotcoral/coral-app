@@ -8,7 +8,9 @@
       "SYSTEM_DEFAULT": "Systemstandard"
     },
     "EDITOR": {
-      "TITLE": "Editor-Einstellungen"
+      "TITLE": "Editor-Einstellungen",
+      "FONT_SIZE": "Schriftgröße:",
+      "TAB_WIDTH": "Tabbreite"
     },
     "WORLD": {
       "INVENTORY_ACTIVE": "Inventar aktiv:",
@@ -117,7 +119,10 @@
       }
     },
     "INFO": {
-      "TITLE": "Info"
+      "TITLE": "Info",
+      "LICENSE": "Dieses Programm ist unter der",
+      "LICENSE2": "Lizenz veröffentlicht.",
+      "ROBOT_CREDIT": "Robot Modell von"
     },
     "RESET_WORLD": {
       "DESCRIPTION": "Willst du die Welt wirklich zurücksetzen?",
