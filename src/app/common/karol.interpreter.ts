@@ -11,8 +11,6 @@ type KarolMethods = {
   [key in Identifiers]: (param?: string) => void | boolean;
 };
 
-const TIMEOUT = 500;
-
 @Injectable()
 export class KarolInterpreter {
   running: Subject<boolean> = new Subject<boolean>();
@@ -22,9 +20,11 @@ export class KarolInterpreter {
   private interval: any;
   private callback = () => {
     const result = this.statements.next();
-    if (!result.done) return;
-    clearInterval(this.interval);
-    this.running.next(false);
+    if (result.done) {
+      this.running.next(false);
+      return;
+    }
+    setTimeout(this.callback, (6 - this.settings.settings.executionSpeed) * 100);
   };
   private audio: HTMLAudioElement;
   private methods: KarolMethods = {
@@ -139,6 +139,16 @@ export class KarolInterpreter {
     this.statements.next();
   }
 
+  raiseSpeed() {
+    if(this.settings.settings.executionSpeed < 5)
+      this.settings.setSpeed(this.settings.settings.executionSpeed + 1);
+  }
+
+  lowerSpeed() {
+    if(this.settings.settings.executionSpeed > 1)
+      this.settings.setSpeed(this.settings.settings.executionSpeed - 1);
+  }
+
   private move(param: string) {
     const distance = Number.parseInt(param);
     if (!Number.isInteger(distance)) return this.controller.move();
@@ -202,7 +212,7 @@ export class KarolInterpreter {
   }
 
   private execute(callback: () => void | boolean = this.callback) {
-    this.interval = setInterval(callback, TIMEOUT);
+    this.interval = setTimeout(callback, (6 - this.settings.settings.executionSpeed) * 100);
   }
 
   private getEditorString() {

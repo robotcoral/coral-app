@@ -47,8 +47,8 @@ export class TitlebarComponent {
       STEP: () => this.interpreter.step(),
       PAUSE_UNPAUSE: () => this.pauseUnpause(),
       STOP: () => this.interpreter.stop(),
-      RAISE_SPEED: null,
-      LOWER_SPEED: null,
+      RAISE_SPEED: () => this.interpreter.raiseSpeed(),
+      LOWER_SPEED: () => this.interpreter.lowerSpeed(),
       RESET_WORLD: null,
     },
     EDITOR: {
