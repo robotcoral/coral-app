@@ -32,7 +32,7 @@ release = '0.1.7'
 # ones.
 extensions = [
     'sphinx_rtd_theme',
-    'myst_parser' # ,
+    'myst_parser'
     # 'sphinx_search.extension'
 ]
 
@@ -45,6 +45,13 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 root_doc = 'index'
+
+latex_engine = 'xelatex'
+latex_show_pagerefs = True
+latex_show_urls = 'footnote'
+latex_elements = {
+    'papersize': 'a4paper',
+}
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -60,7 +67,7 @@ html_static_path = ['_static']
 
 html_css_files = [
     'custom.css',
-] 
+]
 
 html_logo = "_images/logo_monochrome_white.png"
 html_theme_options = {
