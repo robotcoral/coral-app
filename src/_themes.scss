@@ -3,11 +3,14 @@
     --theme-font-color: hsl(0, 0%, 13%);
     --theme-font-color-invert: hsl(0, 0%, 100%);
     --theme-main-bg-color: hsl(0, 0%, 100%);
+    --theme-input-box: hsl(0, 0%, 90%);
     --theme-highlight-1: hsl(0, 0%, 100%);
     --theme-highlight-2: hsl(0, 0%, 90%);
-    --theme-highlight-3: hsl(0, 87%, 69%);
-    --theme-highlight-4: hsl(304, 100%, 32%);
+    --theme-highlight-3: hsl(0, 0%, 70%);
+    --theme-highlight-4: hsl(0, 87%, 69%);
+    --theme-highlight-5: hsl(304, 100%, 32%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
+    --box-shadow-elevation-low: 0px 1px 3px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
@@ -23,18 +26,21 @@
     --theme-font-color-invert: hsl(0, 0%, 95%);
     --theme-font-color-dim: hsla(0, 0%, 80%);
     --theme-main-bg-color: hsl(0, 0%, 10%);
+    --theme-input-box: hsl(0, 0%, 25%);
     --theme-highlight-1: hsl(0, 0%, 15%);
     --theme-highlight-2: hsl(0, 0%, 25%);
     --theme-highlight-3: hsl(0, 0%, 35%);
+    --theme-highlight-4: hsl(0, 0%, 45%);
+    --theme-highlight-5: hsl(0, 0%, 55%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 27%), hsl(0, 87%, 64%));
     --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
-    --box-shadow-elevation-1: 0px 0px 6px hsla(0, 0%, 0%, 0.35);
-    --box-shadow-elevation-2: 0px 0px 9px hsla(0, 0%, 0%, 0.35);
-    --box-shadow-elevation-3: 0px 0px 12px hsla(0, 0%, 0%, 0.35);
-    --box-shadow-elevation-4: 0px 0px 15px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-1-center: 0px 0px 6px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-2-center: 0px 0px 9px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-3-center: 0px 0px 12px hsla(0, 0%, 0%, 0.35);
+    --box-shadow-elevation-4-center: 0px 0px 15px hsla(0, 0%, 0%, 0.35);
 }
 
 @mixin theme-midnight {
@@ -42,7 +48,7 @@
     --theme-main-bg-color: hsl(0, 0%, 5%);
     --theme-highlight-1: hsl(0, 0%, 5%);
     --theme-highlight-2: hsl(0, 0%, 10%);
-    --theme-highlight-3: hsl(0, 100%, 50%);
+    --theme-highlight-4: hsl(0, 100%, 50%);
     --theme-titlebar-bg-logo: linear-gradient(to top right, hsl(304, 100%, 32%), hsl(0, 87%, 69%));
     --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
     --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
@@ -72,6 +78,12 @@
 @mixin color-transition {
     @media (prefers-reduced-motion: no-preference) {
         transition: color var(--theme-transition-time) ease-in-out;
+    }
+}
+
+@mixin box-shadow-transition {
+    @media (prefers-reduced-motion: no-preference) {
+        transition: box-shadow var(--shadow-transition-time) ease-in-out;
     }
 }
 

@@ -40,7 +40,14 @@ app-editor-controls {
   }
 
   .cm-panel {
-    background-color: var(--theme-main-bg-color);
+    background-color: var(--theme-highlight-1);
+  }
+
+  .cm-panel.cm-search [name="close"] {
+    color: var(--theme-font-color);
+    font-size: 2rem;
+    top: -0.5rem;
+    background-color: transparent;
   }
 }
 
@@ -67,16 +74,37 @@ app-editor-controls {
   }
 
   .cm-panels {
+    color: var(--theme-font-color);
     border: none;
     box-shadow: var(--box-shadow-elevation-1-center);
   }
 
   .cm-button {
-    background: var(--theme-highlight-1);
+    background: var(--theme-highlight-2);
+    border: none;
+    color: var(--theme-font-color);
+    @include themes.box-shadow-transition;
+  }
+
+  .cm-button:hover,
+  .cm-button:focus {
+    background: var(--theme-highlight-4);
+    color: var(--theme-font-color-invert);
+    box-shadow: var(--box-shadow-elevation-1);
+    transform: translate(0, -0.05rem);
+  }
+
+  .cm-button:active {
+    background: var(--theme-highlight-5);
+    box-shadow: var(--box-shadow-elevation-low);
+    transform: translate(0, 0);
+
   }
 
   .cm-textfield {
-    border: 1px solid silver;
+    color: var(--theme-font-color);
+    border: 1px solid var(--theme-highlight-3);
+    background-color: var(--theme-input-box);
     @include themes.textfield-borderradius;
   }
 
