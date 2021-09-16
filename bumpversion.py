@@ -13,28 +13,28 @@ def detect_version(argv):
         version_string = version_string.lower()
         print("Version in argv: \"{}\"".format(version_string))
         valid = True
-        if(version_string[0] == "v"):
-            version_string_split = version_string[1:].split(".")
-            if(len(version_string_split) == 3):
-                for i in range(0, 3):
-                    if(not(version_string_split[i].isdigit())):
-                        valid = False
-                    elif(not(str(int(version_string_split[i]))
-                             == version_string_split[i])):
-                        valid = False
-            else:
-                valid = False
+        # if(version_string[0] == "v"):
+        #     version_string_split = version_string[1:].split(".")
+        #     if(len(version_string_split) == 3):
+        #         for i in range(0, 3):
+        #             if(not(version_string_split[i].isdigit())):
+        #                 valid = False
+        #             elif(not(str(int(version_string_split[i]))
+        #                      == version_string_split[i])):
+        #                 valid = False
+        #     else:
+        #         valid = False
+        # else:
+        version_string_split = version_string.split(".")
+        if(len(version_string_split) == 3):
+            for i in range(0, 3):
+                if(not(version_string_split[i].isdigit())):
+                    valid = False
+                elif(not(str(int(version_string_split[i]))
+                         == version_string_split[i])):
+                    valid = False
         else:
-            version_string_split = version_string.split(".")
-            if(len(version_string_split) == 3):
-                for i in range(0, 3):
-                    if(not(version_string_split[i].isdigit())):
-                        valid = False
-                    elif(not(str(int(version_string_split[i]))
-                             == version_string_split[i])):
-                        valid = False
-            else:
-                valid = False
+            valid = False
 
         if not(valid):
             throw_error("Version doesn't match required format")
@@ -133,10 +133,35 @@ def bump_environment_common_ts(version):
     print("✅ SUCCESS")
 
 
+def bump_documentation(version):
+    print("\n> Loading conf.py")
+    with open("./docs/source/conf.py", "r") as f:
+        file = f.read()
+
+    begin_version_line = file.find("release = '")
+    begin_version = begin_version_line+len("release = '")
+    end_version = file.find("'", begin_version)
+    env_com_version = file[begin_version:end_version]
+
+    print("Old Version: " + env_com_version)
+    print("New Version: " + version)
+
+    check_version = new_version_greater(version, env_com_version)
+
+    if(not(check_version)):
+        throw_error("New version is <= old version")
+
+    with open("./docs/source/conf.py", "w") as f:
+        f.write(file[0:begin_version] + version + file[end_version:])
+
+    print("✅ SUCCESS")
+
+
 def bump_version(version):
     bump_package_json(version)
     bump_package_lock_json(version)
     bump_environment_common_ts(version)
+    bump_documentation(version)
 
 
 if __name__ == "__main__":
@@ -150,3 +175,6 @@ if __name__ == "__main__":
 
     print(version)
     bump_version(version)
+
+    print("\n----------")
+    print("\n✅ SUCCESS")
