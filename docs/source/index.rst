@@ -3,19 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Robot Coral's documentation!
+Robot Coral
 =======================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Coming soon!
 
-   _docfiles/test.md
-
-
-Indices and tables
-==================
-
-* :doc:`_docfiles/test`
-* :ref:`modindex`
-* :ref:`search`
+Visit `robotcoral.de <https://robotcoral.de>`_ for more information
