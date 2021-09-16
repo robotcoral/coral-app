@@ -10,21 +10,7 @@ app-gameboard-view {
 app-gameboard-controls {
   box-shadow: -1px -2px 4px grey;
   width: 100%;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  z-index: 10;
-}
-
-::ng-deep .icon-button {
-  border: 0px;
-  min-height: 3rem;
-  border-radius: 4px;
-  background-color: white;
-  margin: 0.5rem;
-}
-
-::ng-deep .icon-button:hover {
-  box-shadow: 0 0 2px 2px lightgray;
+  z-index: 12;
 }
 
 .camera-button-wrapper {
@@ -35,11 +21,7 @@ app-gameboard-controls {
   z-index: 10;
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
-}
-
-img {
-  height: 2rem;
-  margin: 0.25rem;
+  background-color: var(--theme-main-bg-color);
 }
 
 .inventory-wrapper {
@@ -52,4 +34,6 @@ img {
   align-items: center;
   display: flex;
   font-size: 1.5rem;
+  background-color: var(--theme-main-bg-color);
+  color: var(--theme-font-color);
 }

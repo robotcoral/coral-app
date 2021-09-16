@@ -1,7 +1,8 @@
 import { Group, Vector3 } from 'three';
 import { Coordinates2, Coordinates3 } from './coordinates';
+import { COLORS } from './gameboard.controller';
 import { Grid } from './grid';
-import { Block, Flag, Slab } from './objects';
+import { Block, Flag, MaterialColors, ObjectFactory, Slab } from './objects';
 import { WorldImport } from './world.import.export';
 import { WorldData } from './world.schema';
 
@@ -20,6 +21,7 @@ export class World extends Group {
   offsetVector: Vector3;
   grid: Grid;
   defaultWorld: WorldData;
+  factory: ObjectFactory;
 
   constructor(options: WorldOptions = {}) {
     super();
@@ -30,6 +32,12 @@ export class World extends Group {
     this.add(this.meshGroup);
     this.defaultWorld = { dimensions: this.dimensions };
     this.reset();
+    this.initFactory();
+  }
+
+  private initFactory() {
+    this.factory = ObjectFactory.getInstance();
+    this.factory.scale = this.gridScale;
   }
 
   reset() {
@@ -78,16 +86,14 @@ export class World extends Group {
     this.add(this.grid);
   }
 
-  placeSlab(coo: Coordinates2, color = '#ff0000') {
-    if (this.outOfBounds(coo))
-      throw new Error("You can't place slabs outside the map");
-    if (this.isBlock(coo)) throw new Error('There is a block on this field');
-    if (this.isFullStack(coo))
-      throw new Error("You can't put more blocks on this tile");
+  placeSlab(coo: Coordinates2, color = COLORS.RED) {
+    if (this.outOfBounds(coo)) throw new Error('ERRORS.SLAB_OUTSIDE_WORLD');
+    if (this.isBlock(coo)) throw new Error('ERRORS.BLOCK_IN_WAY');
+    if (this.isFullStack(coo)) throw new Error('ERRORS.MAX_HEIGHT');
 
     if (!this.objects[coo.x][coo.y]) this.objects[coo.x][coo.y] = [];
     const height = (this.objects[coo.x][coo.y] as Slab[]).push(
-      new Slab(this.gridScale, color)
+      this.factory.slab(color)
     );
     const vector = new Vector3(coo.x, -0.75 + 0.5 * height, coo.y);
     (this.objects[coo.x][coo.y][height - 1] as Slab).position
@@ -97,13 +103,12 @@ export class World extends Group {
   }
 
   placeBlock(coo: Coordinates2) {
-    if (this.outOfBounds(coo))
-      throw new Error("You can't place blocks outside the map");
-    if (this.isBlock(coo)) throw new Error('There is a block on this field');
+    if (this.outOfBounds(coo)) throw new Error('ERRORS.BLOCK_OUTSIDE_WORLD');
+    if (this.isBlock(coo)) throw new Error('ERRORS.BLOCK_IN_WAY');
     if (this.isStackMinHeight(coo, 1))
-      throw new Error("You can't put a blocks on this tile");
+      throw new Error('ERRORS.CANT_PLACE_BLOCK_HERE');
 
-    this.objects[coo.x][coo.y] = new Block(this.gridScale);
+    this.objects[coo.x][coo.y] = this.factory.block();
 
     (this.objects[coo.x][coo.y] as Block).position
       .add(this.offsetVector)
@@ -111,10 +116,10 @@ export class World extends Group {
     this.meshGroup.add(this.objects[coo.x][coo.y] as Block);
   }
 
-  placeFlag(coo: Coordinates2, color = '#ff0000') {
+  placeFlag(coo: Coordinates2, color = COLORS.RED) {
     if (this.flags[coo.x][coo.y] != undefined)
-      throw new Error('There is already a flag here');
-    this.flags[coo.x][coo.y] = new Flag(this.gridScale, color);
+      throw new Error('ERRORS.ALREADY_FLAG');
+    this.flags[coo.x][coo.y] = this.factory.flag(color);
     this.flags[coo.x][coo.y].position
       .add(this.offsetVector)
       .addScaledVector(new Vector3(coo.x, -0.5, coo.y), this.gridScale);
@@ -122,24 +127,23 @@ export class World extends Group {
   }
 
   pickUpSlab(coo: Coordinates2) {
-    if (this.isBlock(coo)) throw new Error("You can't pick this up");
+    if (this.isBlock(coo)) throw new Error('ERRORS.CANT_PICK_UP');
     if (this.outOfBounds(coo) || !this.isStackMinHeight(coo, 1))
-      throw new Error('Nothing to pick up');
+      throw new Error('ERRORS.NOTHING_TO_PICK_UP');
     this.meshGroup.remove((this.objects[coo.x][coo.y] as Slab[]).pop());
   }
 
   pickUpBlock(coo: Coordinates2) {
-    if (this.isStackMinHeight(coo, 1))
-      throw new Error("You can't pick this up");
+    if (this.isStackMinHeight(coo, 1)) throw new Error('ERRORS.CANT_PICK_UP');
     if (this.outOfBounds(coo) || !this.isBlock(coo))
-      throw new Error('Nothing to pick up');
+      throw new Error('ERRORS.NOTHING_TO_PICK_UP');
     this.meshGroup.remove(this.objects[coo.x][coo.y] as Block);
     this.objects[coo.x][coo.y] = undefined;
   }
 
   pickUpFlag(coo: Coordinates2) {
     if (this.flags[coo.x][coo.y] == undefined)
-      throw new Error('Nothing to pick up');
+      throw new Error('ERRORS.NOTHING_TO_PICK_UP');
     this.meshGroup.remove(this.flags[coo.x][coo.y]);
     this.flags[coo.x][coo.y] = undefined;
   }
@@ -160,7 +164,7 @@ export class World extends Group {
     return this.height(coo) <= height;
   }
 
-  isColor(coo: Coordinates2, color: string) {
+  isColor(coo: Coordinates2, color: COLORS) {
     return (
       this.isStackMinHeight(coo, 1) &&
       (this.objects[coo.x][coo.y] as Slab[])[this.height(coo) - 1].color ===
@@ -177,7 +181,7 @@ export class World extends Group {
     return this.objects[coo.x][coo.y] instanceof Block;
   }
 
-  isFlag(coo: Coordinates2, color?: string) {
+  isFlag(coo: Coordinates2, color?: COLORS) {
     return this.flags[coo.x][coo.y] && color
       ? this.flags[coo.x][coo.y].color == color
       : true;
@@ -193,14 +197,16 @@ export class World extends Group {
   }
 
   collision(coo: Coordinates3) {
-    if (this.outOfBounds(coo))
-      throw new Error('There is a wall in front of you');
-    if (this.isBlock(coo)) throw new Error('There is a block in your way');
-    if (!this.isStackMaxHeight(coo, coo.z + 1))
-      throw new Error("You can't jump this high");
+    if (this.outOfBounds(coo)) throw new Error('ERRORS.WALL_IN_WAY');
+    if (this.isBlock(coo)) throw new Error('ERRORS.BLOCK_IN_PATH');
+    if (!this.isStackMaxHeight(coo, coo.z + 1)) throw new Error('ERRORS.JUMP');
   }
 
   getWorldSize(): Coordinates3 {
     return { x: this.dimensions.x, y: this.dimensions.y, z: this.dimensions.z };
+  }
+
+  setTheme(colorMaterials: MaterialColors) {
+    this.factory.colorMaterials = colorMaterials;
   }
 }

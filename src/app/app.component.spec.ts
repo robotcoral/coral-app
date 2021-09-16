@@ -5,6 +5,12 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
+      providers: [
+        {
+          provide: Window,
+          useValue: {},
+        },
+      ],
     }).compileComponents();
   });
 

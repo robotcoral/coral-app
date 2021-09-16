@@ -1,5 +1,14 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import { SettingsService } from 'src/app/common/settings.service';
+import {
+  AmbientLight,
   AxesHelper,
   Color,
   PerspectiveCamera,
@@ -35,7 +44,11 @@ export class GameboardViewComponent implements AfterViewInit {
   axesCamera: PerspectiveCamera;
   axesRenderer: WebGLRenderer;
 
-  constructor(private controller: GameboardController) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private settingsService: SettingsService,
+    private controller: GameboardController
+  ) {}
 
   ngAfterViewInit(): void {
     this.gameboard = this.gameboardRef.nativeElement;
@@ -45,23 +58,36 @@ export class GameboardViewComponent implements AfterViewInit {
     this.setupAxesHelper();
     this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
     this.render();
+
+    this.settingsService.onThemeChange.subscribe((theme) =>
+      this.setTheme(theme.background)
+    );
+  }
+
+  setTheme(background: string) {
+    this.scene.background = new Color(background);
   }
 
   init() {
     this.scene = new Scene();
-    this.scene.background = new Color(0xffffff);
+    this.scene.background = new Color(
+      this.settingsService.gameboardTheme.background
+    );
 
     this.camera = new PerspectiveCamera(
       45,
       this.gameboard.clientWidth / this.gameboard.clientHeight,
-      1,
+      0.1,
       10000
     );
     this.camera.position.set(500, 800, 1300);
     this.camera.lookAt(0, 0, 0);
 
-    this.scene.add(this.controller.getRobot().mesh);
+    this.scene.add(this.controller.getRobot().robot);
     this.scene.add(this.controller.getWorld());
+
+    const light = new AmbientLight(0xffffff);
+    this.scene.add(light);
 
     this.renderer = new WebGLRenderer({ antialias: true });
     this.renderer.setSize(

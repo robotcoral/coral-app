@@ -1,0 +1,166 @@
+{
+  "SETTINGS": {
+    "TITLE": "Einstellungen",
+    "GENERAL": {
+      "TITLE": "Allgemeine Einstellungen",
+      "THEME": "Theme",
+      "LANGUAGE": "Sprache",
+      "SYSTEM_DEFAULT": "Systemstandard"
+    },
+    "EDITOR": {
+      "TITLE": "Editor-Einstellungen",
+      "FONT_SIZE": "Schriftgröße:",
+      "TAB_WIDTH": "Tabbreite"
+    },
+    "WORLD": {
+      "INVENTORY_ACTIVE": "Inventar aktiv:",
+      "INVENTORY_MAX_SIZE": "Inventargröße:",
+      "INVENTORY_START_SIZE": "Start Fliesen:",
+      "TITLE": "Welteinstellungen",
+      "RESET_WORLD_ON_START": "Welt beim Programmstart zurücksetzen?"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Abbrechen",
+    "APPLY": "Speichern",
+    "CLOSE": "Schließen",
+    "HEIGHT": "Höhe",
+    "LENGTH": "Länge",
+    "LOAD": "Laden",
+    "WIDTH": "Breite",
+    "OK": "Ok",
+    "VERSION": "Version"
+  },
+  "NAVBAR": {
+    "EDIT": {
+      "COPY": "Kopieren",
+      "CUT": "Ausschneiden",
+      "PASTE": "Einfügen",
+      "REDO": "Wiederherstellen",
+      "TITLE": "Bearbeiten",
+      "TOGGLE_COMMENTS": "Kommentare umschalten",
+      "UNDO": "Rückgängig"
+    },
+    "EDITOR": {
+      "RESET": "Schriftgröße zurücksetzen",
+      "SETTINGS": "Editor-Einstellungen",
+      "TITLE": "Editor",
+      "ZOOM_IN": "Hineinzoomen",
+      "ZOOM_OUT": "Rauszoomen"
+    },
+    "EXECUTE": {
+      "LOWER_SPEED": "Niedrigere Geschwindigkeit",
+      "PAUSE_UNPAUSE": "Pausieren/Fortsetzen",
+      "RAISE_SPEED": "Geschwindigkeit erhöhen",
+      "RESET_WORLD": "Welt beim Start zurücksetzen",
+      "START": "Start",
+      "STEP": "Schritt",
+      "STOP": "Stopp",
+      "TITLE": "Ausführen"
+    },
+    "FILE": {
+      "EXPORT": "Export",
+      "IMPORT": "Importieren",
+      "NEW": "Neu",
+      "SETTINGS": "Einstellungen",
+      "TITLE": "Datei"
+    },
+    "HELP": {
+      "DOCUMENTATION": "Dokumentation",
+      "IMPRESSUM": "Impressum",
+      "INFO": "Info",
+      "TITLE": "Hilfe",
+      "SUPPORT_US": "Unterstütze uns"
+    },
+    "WORLD": {
+      "EXPORT": "Welt exportieren",
+      "IMPORT": "Welt importieren",
+      "RESET": "Welt zurücksetzen",
+      "SAVE": "Welt-Reset-Punkt setzen",
+      "SETTINGS": "Welteinstellungen",
+      "TITLE": "Welt"
+    }
+  },
+  "ERRORS": {
+    "ALREADY_FLAG": "Hier ist schon eine Flagge",
+    "BLOCK_IN_PATH": "Vor dir ist ein Block",
+    "BLOCK_IN_WAY": "Es ist bereits ein Block auf diesem Feld",
+    "BLOCK_OUTSIDE_WORLD": "Du kannst keine Blöcke außerhalb der Karte platzieren",
+    "CANT_PICK_UP": "Du kannst das nicht aufheben",
+    "CANT_PLACE_BLOCK_HERE": "Du kannst hier keinen Block platzieren",
+    "FILE_UPLOAD_FAILED": "Datei upload fehlgeschlagen.\nBitte probiere es nochmal",
+    "JUMP": "Du kannst nicht so hoch springen",
+    "MAX_HEIGHT": "Du kannst hier keine Fliesen mehr platzieren",
+    "NOTHING_TO_PICK_UP": "Hier gibt es nichts aufzuheben",
+    "NO_SLABS": "Du hast keine Fliesen mehr in deinem Inventar",
+    "SLAB_OUTSIDE_WORLD": "Du kannst keine Fliesen außerhalb der Karte platzieren",
+    "WALL_IN_WAY": "Vor dir ist eine Wand"
+  },
+  "MODALS": {
+    "EXPORT_WORLD": {
+      "AUTHOR": "Autor",
+      "DESCRIPTION": "Beschreibung",
+      "TITLE": "Welt exportieren",
+      "WORLDNAME": "Weltname"
+    },
+    "IMPORT_WORLD": {
+      "NEWER": " neueren",
+      "VERSION_WARNING": {
+        "START": "Diese Welt wurde aus einer",
+        "END": "version von RobotCoral exportiert."
+      },
+      "OLDER": " älteren",
+      "TITLE": "Welt importieren"
+    },
+    "IMPRESSUM": {
+      "PRIVACY_STATEMENT": {
+        "BODY": "Der Webserver loggt Zugriffe und die IP-Adressen der Zugreifer. Diese Daten sind anonym und dienen nur der Auslastungsanalyse bzw. \nzur Fehlersuche im Krisenfall.",
+        "TITLE": "Datenschutz"
+      }
+    },
+    "INFO": {
+      "TITLE": "Info",
+      "LICENSE": "Dieses Programm ist unter der",
+      "LICENSE2": "Lizenz veröffentlicht.",
+      "ROBOT_CREDIT": "Robot Modell von"
+    },
+    "RESET_WORLD": {
+      "DESCRIPTION": "Willst du die Welt wirklich zurücksetzen?",
+      "SUCCESS_BUTTON": "Zurücksetzen",
+      "TITLE": "Welt zurücksetzen"
+    },
+    "RESIZE_MODAL": {
+      "TITLE": "Weltgröße ändern",
+      "WARNING": {
+        "1_1024": "muss zwischen 1 und 1024 liegen",
+        "1_256": "muss zwischen 0 und 256 liegen",
+        "NUMBER": "muss eine Nummer sein"
+      }
+    },
+    "SAVE_WORLD": {
+      "DESCRIPTION": "Willst du einen Welt-Reset-Punkt setzen? Beim zurücksetzen wird dann die aktuelle Welt geladen.",
+      "SUCCESS_BUTTON": "Speichern",
+      "TITLE": "Welt abspeichern"
+    }
+  },
+  "TOOLTIPS": {
+    "CHANGE_COLOR": "Farbe wechseln",
+    "CHANGE_PLACEMENT_MODE": "Platzierungsmodus umschalten",
+    "EXPAND_COLLAPSE_SETTINGS": "Einstellungen aus-/einklappen",
+    "EXPORT_WORLD": "Welt exportieren",
+    "IMPORT_WORLD": "Welt importieren",
+    "MOVE": "Schritt",
+    "PICK_UP": "Aufheben",
+    "PUT_DOWN": "Plazieren",
+    "RESET_CAMERA": "Kamera zurücksetzen",
+    "RESET_WORLD": "Welt zurücksetzen",
+    "RESIZE_WORLD": "Weltgröße ändern",
+    "ROTATE_CLOCKWISE": "Im Uhrzeigersinn drehen",
+    "ROTATE_COUNTERCLOCKWISE": "Gegen den Uhrzeigersinn drehen",
+    "SAVE_WORLD": "Welt-Reset-Punkt setzen",
+    "PAUSE": "Pausieren",
+    "START": "Starten",
+    "STEP": "Schritt",
+    "STOP": "Stoppen"
+  }
+}

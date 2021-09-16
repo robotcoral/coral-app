@@ -9,11 +9,11 @@ export interface WarningModalConfig {
 }
 
 @Component({
-  selector: 'save-modal',
+  selector: 'warning-modal',
   template: `
     <div id="modal">
       <div class="modal-header">
-        <h4 class="modal-title">{{ data.title }}</h4>
+        <h4 class="modal-title">{{ data.title | translate }}</h4>
         <button
           type="button"
           class="close"
@@ -24,7 +24,7 @@ export interface WarningModalConfig {
         </button>
       </div>
       <div class="modal-body">
-        {{ data.description }}
+        {{ data.description | translate }}
       </div>
       <div class="modal-footer">
         <button
@@ -32,14 +32,14 @@ export interface WarningModalConfig {
           class="btn btn-outline-dark"
           (click)="activeModal.close('')"
         >
-          {{ data.successButton }}
+          {{ data.successButton | translate }}
         </button>
         <button
           type="button"
           class="btn btn-outline-dark"
           (click)="activeModal.dismiss('Close click')"
         >
-          {{ data.abortButton }}
+          {{ data.abortButton | translate }}
         </button>
       </div>
     </div>
@@ -54,8 +54,8 @@ export class WarningModal {
     this.data = {
       title: config.title,
       description: config.description,
-      successButton: config.successButton || 'Ok',
-      abortButton: config.abortButton || 'Cancel',
+      successButton: config.successButton || 'COMMON.OK',
+      abortButton: config.abortButton || 'COMMON.CANCEL',
     };
   }
 }

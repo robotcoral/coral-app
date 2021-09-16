@@ -1,13 +1,10 @@
+@use "sass:math";
+
 .separator {
-  background-color: slategray;
+  background-color: var(--theme-highlight-2);
   width: 2px;
   height: 2.5rem;
   border-radius: 2px;
-}
-
-img {
-  height: 2rem;
-  margin: 0.25rem;
 }
 
 .separator {
@@ -34,12 +31,28 @@ img {
   margin: 0.25rem;
 }
 
+.openMenu {
+  position: absolute;
+  background-color: var(--theme-main-bg-color);
+  box-shadow: 0 0 2px 2px lightgray;
+}
+
+.openColorMenu {
+  @extend .openMenu;
+  margin-top: -10.25rem;
+}
+
+.openModeMenu {
+  @extend .openMenu;
+  margin-top: -6.75rem;
+}
+
 .menu button {
   margin: 0.25rem;
 }
 
 .colorbtn {
-  border-radius: 2rem !important;
+  border-radius: 2rem;
 }
 
 .settingsbtn {
@@ -53,8 +66,4 @@ img {
 
 .settings-panel {
   box-shadow: -1px -2px 4px grey;
-}
-
-.file-input {
-  display: none;
 }

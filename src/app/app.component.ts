@@ -18,6 +18,8 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('splitBorder', { static: true })
   resizerRef: ElementRef;
   resizer: HTMLElement;
+  @ViewChild('innerSplitBorder', { static: true })
+  test: ElementRef;
   leftSide: HTMLElement;
   rightSide: HTMLElement;
   x = 0;
@@ -25,6 +27,8 @@ export class AppComponent implements AfterViewInit {
   leftWidth = 0;
   canvasParent: HTMLElement;
   canvas: HTMLCanvasElement;
+
+  constructor(public window: Window) {}
 
   ngAfterViewInit(): void {
     this.resizer = this.resizerRef.nativeElement;
@@ -34,26 +38,42 @@ export class AppComponent implements AfterViewInit {
     this.canvasParent = document.getElementById('canvas-parent');
     this.canvas = this.canvasParent.getElementsByTagName('canvas')[0];
 
-    this.resizer.addEventListener('mousedown', this.mouseDownHandler);
+    this.test.nativeElement.addEventListener(
+      'mousedown',
+      this.mouseDownHandler
+    );
+    this.test.nativeElement.addEventListener(
+      'touchstart',
+      (event: TouchEvent) => {
+        event.preventDefault();
+        this.mouseDownHandler(event as unknown as MouseEvent);
+      }
+    );
   }
 
   // Handle the mousedown event
   // that's triggered when user drags the resizer
-  mouseDownHandler = (event: MouseEvent) => {
+  mouseDownHandler = (event: MouseEvent | TouchEvent) => {
     // Get the current mouse position
-    this.x = event.clientX;
-    this.y = event.clientY;
+    this.x =
+      event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    this.y =
+      event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
     this.leftWidth = this.leftSide.getBoundingClientRect().width;
 
     // Attach the listeners to `document`
     document.addEventListener('mousemove', this.mouseMoveHandler);
+    document.addEventListener('touchmove', this.mouseMoveHandler);
     document.addEventListener('mouseup', this.mouseUpHandler);
-    window.onresize = this.onWindowResize;
+    document.addEventListener('touchend', this.mouseUpHandler);
   };
 
-  mouseMoveHandler = (event: MouseEvent) => {
+  mouseMoveHandler = (event: TouchEvent | MouseEvent) => {
     // How far the mouse has been moved
-    const dx = event.clientX - this.x;
+    const dx =
+      event instanceof MouseEvent
+        ? event.clientX - this.x
+        : event.touches[0].clientX - this.x;
 
     const newLeftWidth =
       ((this.leftWidth + dx) * 100) /
@@ -84,7 +104,9 @@ export class AppComponent implements AfterViewInit {
 
     // Remove the handlers of `mousemove` and `mouseup`
     document.removeEventListener('mousemove', this.mouseMoveHandler);
+    document.removeEventListener('touchmove', this.mouseMoveHandler);
     document.removeEventListener('mouseup', this.mouseUpHandler);
+    document.removeEventListener('touchend', this.mouseUpHandler);
   };
 
   @HostListener('window:resize', ['$event'])

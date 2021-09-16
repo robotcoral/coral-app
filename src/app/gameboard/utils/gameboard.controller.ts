@@ -1,9 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
-import { ImportModal } from 'src/app/common/modals/import.modal';
+import { Injectable } from '@angular/core';
+import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
+import { UtilService } from 'src/app/common/util.service';
 import {
   AdditionalWorldData,
   CARDINALS,
@@ -11,33 +9,43 @@ import {
   Coordinates3,
   GameboardModel,
 } from '.';
-import {
-  PlaceEvent,
-  WORLDOBJECTTYPES,
-} from '../gameboard-controls/gameboard-controls.component';
+import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
+import { MaterialColors } from './objects';
 import { WorldFile } from './world.schema';
+
+export enum COLORS {
+  RED = 'rot',
+  GREEN = 'grün',
+  BLUE = 'blau',
+  YELLOW = 'gelb',
+}
+
+export interface PlaceEvent {
+  color: COLORS;
+  mode: WORLDOBJECTTYPES;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameboardController {
   private model: GameboardModel;
-  private download: HTMLElement;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private modalService: NgbModal,
-    private toastr: ToastrService,
-    private settingService: SettingsService
+    private utilService: UtilService,
+    public settingService: SettingsService
   ) {
     this.model = new GameboardModel(settingService);
+    this.settingService.onThemeChange.subscribe((theme) =>
+      this.setTheme(theme.colors)
+    );
   }
 
   move() {
     try {
       this.model.robot.move();
     } catch (error) {
-      this.toastr.error(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -57,29 +65,32 @@ export class GameboardController {
           event.color
         );
     } catch (error) {
-      this.toastr.error(error);
+      this.utilService.translateError(error);
     }
-    console.log(this.model.currentSlabs);
   }
 
-  private placeSlab(coo: Coordinates2, color: string) {
+  private placeSlab(coo: Coordinates2, color: COLORS) {
     if (this.settingService.settings.inventoryActive) {
-      if (this.model.currentSlabs === 0)
-        throw new Error('You have no slabs left in your inventory');
-      this.model.world.placeSlab(coo, color);
+      if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
       this.model.currentSlabs--;
-    } else this.model.world.placeSlab(coo, color);
+    }
+    this.model.world.placeSlab(coo, color);
   }
 
-  pickUp(mode: WORLDOBJECTTYPES) {
+  pickUp(mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB) {
     try {
       const coo = this.model.robot.getMoveCoordinates();
-      if (mode == WORLDOBJECTTYPES.SLAB) this.model.world.pickUpSlab(coo);
-      else if (mode == WORLDOBJECTTYPES.CUBE) this.model.world.pickUpBlock(coo);
-      else
+      if (mode == WORLDOBJECTTYPES.SLAB) {
+        this.model.world.pickUpSlab(coo);
+        if (this.settingService.settings.inventoryActive)
+          this.model.currentSlabs++;
+      } else if (mode == WORLDOBJECTTYPES.CUBE) {
+        this.model.world.pickUpBlock(coo);
+      } else {
         this.model.world.pickUpFlag(this.model.robot.getCurrentCoordinates());
+      }
     } catch (error) {
-      this.toastr.error(error);
+      this.utilService.translateError(error);
     }
   }
 
@@ -94,19 +105,36 @@ export class GameboardController {
     );
   }
 
-  isSlabColor(color: string) {
+  isSlabColor(color: COLORS) {
     return this.model.world.isColor(
       this.model.robot.getMoveCoordinates(),
       color
     );
   }
 
+  isFlag(color?: COLORS): boolean {
+    const coo = this.model.robot.getCurrentCoordinates();
+    if (color) return this.model.world.flags[coo.x][coo.y].color === color;
+    return this.model.world.flags[coo.x][coo.y] != undefined;
+  }
+
   isCardinal(cardinal: CARDINALS): boolean {
     return this.model.robot.isCardinal(cardinal);
   }
 
-  reset() {
-    this.model.reset();
+  reset(force: boolean = false) {
+    if (force) return this.model.reset();
+    const modalRef = this.utilService.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'MODALS.RESET_WORLD.TITLE',
+      description: 'MODALS.RESET_WORLD.DESCRIPTION',
+      successButton: 'MODALS.RESET_WORLD.SUCCESS_BUTTON',
+    });
+    modalRef.result
+      .then(() => {
+        this.model.reset();
+      })
+      .catch(null);
   }
 
   resize(coo: Coordinates3) {
@@ -125,73 +153,63 @@ export class GameboardController {
     return this.model.robot;
   }
 
-  exportWorld(data: AdditionalWorldData) {
-    const worldFile = this.model.export(data);
-    const text = JSON.stringify(worldFile, null, 2);
-    this.dyanmicDownloadByHtmlTag(text);
+  exportWorld() {
+    this.utilService
+      .openModal(ExportModal)
+      .result.then((data: AdditionalWorldData) => {
+        const worldFile = this.model.export(data);
+        const text = JSON.stringify(worldFile, null, 2);
+        this.utilService.dyanmicDownloadByHtmlTag({
+          title: 'world.coralworld',
+          content: text,
+          fileType: 'text/json',
+        });
+      })
+      .catch(null);
   }
 
-  async importWorld(file: File) {
-    try {
-      if (!file) throw new Error('File upload failed.\nPlease try again');
+  importWorld() {
+    const callback = async (event: Event) => {
+      const file: File = (event.target as HTMLInputElement).files[0];
+      try {
+        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
 
-      const worldFile: WorldFile = this.model.import(await file.text());
-      const modalRef = this.openModal(ImportModal);
-      modalRef.componentInstance.init(worldFile);
-      modalRef.result
-        .then(() => {
-          this.model.world.defaultWorld = worldFile.world_data;
-          this.model.reset();
-        })
-        .catch(() => {});
-    } catch (error) {
-      this.toastr.error(error);
-    }
-  }
-
-  openModal(content: any) {
-    const modalRef = this.modalService.open(content, {
-      backdrop: false,
-      centered: true,
-      windowClass: 'custom-modal',
-    });
-    const callback = (e: any) => {
-      if (!this.document.getElementById('modal').contains(e.target)) {
-        modalRef.dismiss();
+        const worldFile: WorldFile = this.model.import(await file.text());
+        const modalRef = this.utilService.openModal(ImportModal);
+        modalRef.componentInstance.init(worldFile);
+        modalRef.result
+          .then(() => {
+            this.model.world.defaultWorld = worldFile.world_data;
+            this.model.reset();
+          })
+          .catch(null);
+      } catch (error) {
+        this.utilService.translateError(error);
       }
     };
-
-    // makes sure the modal isn't immediately closed
-    setTimeout(() => {
-      this.document.addEventListener('click', callback);
-    }, 0);
-
-    modalRef.result.finally(() => {
-      this.document.removeEventListener('click', callback);
-    });
-    return modalRef;
-  }
-
-  private dyanmicDownloadByHtmlTag(text: string) {
-    if (!this.download) {
-      this.download = document.createElement('a');
-    }
-    const fileType = 'text/json';
-    this.download.setAttribute(
-      'href',
-      `data:${fileType};charset=utf-8,${encodeURIComponent(text)}`
-    );
-    this.download.setAttribute('download', 'world.coralworld');
-
-    this.download.click();
+    this.utilService.upload('.coralworld,.json', callback);
   }
 
   saveWorld() {
-    const worldFile = this.model.export({});
-    this.model.save(worldFile.world_data);
+    const modalRef = this.utilService.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'MODALS.SAVE_WORLD.TITLE',
+      description: 'MODALS.SAVE_WORLD.DESCRIPTION',
+      successButton: 'MODALS.SAVE_WORLD.SUCCESS_BUTTON',
+    });
+    modalRef.result
+      .then(() => {
+        const worldFile = this.model.export({});
+        this.model.save(worldFile.world_data);
+      })
+      .catch(null);
   }
 
   getCurrentSlabs() {
     return this.model.currentSlabs;
+  }
+
+  setTheme(theme: MaterialColors) {
+    this.model.world.setTheme(theme);
   }
 }

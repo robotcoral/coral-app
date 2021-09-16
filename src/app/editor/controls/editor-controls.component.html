@@ -1,0 +1,57 @@
+<div class="control-panel">
+  <div class="left-controls controls">
+    <ng-container *ngIf="!running">
+      <button
+        [title]="'TOOLTIPS.START' | translate"
+        class="icon-button"
+        (click)="interpreter.play()"
+      >
+        <svg-icon
+          src="assets/icons/ic_fluent_play_24_regular.svg"
+          [svgClass]="'svg'"
+        ></svg-icon></button
+    ></ng-container>
+    <ng-container *ngIf="running">
+      <button
+        [title]="'TOOLTIPS.PAUSE' | translate"
+        class="icon-button"
+        (click)="interpreter.pause()"
+      >
+        <svg-icon
+          src="assets/icons/ic_fluent_pause_24_regular.svg"
+          [svgClass]="'svg'"
+        ></svg-icon></button
+    ></ng-container>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="right-controls controls">
+    <button
+      [title]="'TOOLTIPS.STEP' | translate"
+      class="icon-button"
+      (click)="interpreter.step()"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_arrow_next_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
+    </button>
+    <button
+      [title]="'TOOLTIPS.STOP' | translate"
+      class="icon-button"
+      (click)="interpreter.stop()"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_stop_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
+    </button>
+  </div>
+  <button disabled class="status-btn">
+    <svg-icon
+      src="assets/icons/ic_fluent_circle_24_filled.svg"
+      [svgClass]="status"
+    ></svg-icon>
+  </button>
+</div>

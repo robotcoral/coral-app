@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SettingsService } from '../common/settings.service';
 import { GameboardViewComponent } from './gameboard-view/gameboard-view.component';
 import { GameboardController } from './utils';
@@ -6,9 +6,9 @@ import { GameboardController } from './utils';
 @Component({
   selector: 'app-gameboard',
   templateUrl: './gameboard.component.html',
-  styleUrls: ['./gameboard.component.scss'],
+  styleUrls: ['./gameboard.component.scss', '../app.component.scss'],
 })
-export class GameboardComponent {
+export class GameboardComponent implements OnInit {
   @ViewChild(GameboardViewComponent)
   gameboardView: GameboardViewComponent;
 
@@ -16,6 +16,10 @@ export class GameboardComponent {
     public settingsService: SettingsService,
     public controller: GameboardController
   ) {}
+
+  ngOnInit(): void {
+    this.settingsService.ngOnInit();
+  }
 
   onResize() {
     this.gameboardView.onWindowResize();

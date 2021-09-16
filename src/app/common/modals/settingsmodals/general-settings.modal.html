@@ -1,0 +1,53 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title">{{'SETTINGS.GENERAL.TITLE'|translate}}</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formGroup">
+      <div class="inputWrapper">
+        <div class="nameField">{{'SETTINGS.GENERAL.THEME'|translate}}:</div>
+        <select name="theme" formControlName="theme">
+          <option
+            *ngFor="let item of themes | keyvalue: originalOrder"
+            [value]="item.value"
+          >
+            {{item.key}}
+          </option>
+          <option value="auto">
+            {{ 'SETTINGS.GENERAL.SYSTEM_DEFAULT' | translate }}
+          </option>
+        </select>
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">{{'SETTINGS.GENERAL.LANGUAGE'|translate}}:</div>
+        <select name="language" formControlName="language">
+          <option
+            *ngFor="let item of languages | keyvalue: originalOrder"
+            [value]="item.value"
+          >
+            {{item.key}}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onApply()">
+      {{ 'COMMON.APPLY' | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.dismiss('Close click')"
+    >
+      {{'COMMON.CANCEL'|translate}}
+    </button>
+  </div>
+</div>

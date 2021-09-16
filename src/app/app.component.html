@@ -3,8 +3,24 @@
   <div class="split-container-left">
     <app-editor></app-editor>
   </div>
-  <div #splitBorder class="split-border"></div>
+  <div
+    #splitBorder
+    class="split-border"
+    [ngClass]="{ 'touch-border': window.navigator.maxTouchPoints > 0 }"
+  >
+    <div
+      #innerSplitBorder
+      class="inner-border"
+      [ngClass]="{ 'touch-inner-border': window.navigator.maxTouchPoints > 0 }"
+    ></div>
+  </div>
   <div class="split-container-right">
     <app-gameboard></app-gameboard>
   </div>
 </div>
+<input
+  type="file"
+  class="file-input"
+  accept=".coralworld,.json"
+  id="fileUpload"
+/>

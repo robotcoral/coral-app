@@ -1,0 +1,49 @@
+@use "sass:math";
+
+.separator {
+  background-color: var(--theme-highlight-2);
+  width: 2px;
+  height: 2.5rem;
+  border-radius: 2px;
+}
+
+.separator {
+  margin: 0.5rem;
+}
+
+.controls {
+  flex: 1;
+  display: flex;
+}
+
+.left-controls {
+  justify-content: flex-end;
+}
+
+.control-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.status-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.status-running {
+  path {
+    fill: lime !important;
+  }
+}
+
+.status-paused {
+  path {
+    fill: yellow !important;
+  }
+}
+
+.status-stopped {
+  path {
+    fill: red !important;
+  }
+}

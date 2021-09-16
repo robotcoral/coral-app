@@ -2,32 +2,33 @@
   <div class="left-controls controls">
     <button
       (click)="controller.rotate()"
-      title="Rotate counterclockwise"
+      [title]="'TOOLTIPS.ROTATE_COUNTERCLOCKWISE' | translate"
       class="icon-button"
     >
-      <img
+      <svg-icon
         src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
-        alt="Rotate counterclockwise"
-        draggable="false"
-      />
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
-    <button (click)="controller.move()" title="Move" class="icon-button">
-      <img
+    <button
+      (click)="controller.move()"
+      [title]="'TOOLTIPS.MOVE' | translate"
+      class="icon-button"
+    >
+      <svg-icon
         src="assets/icons/ic_fluent_arrow_up_24_regular.svg"
-        alt="Move"
-        draggable="false"
-      />
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
     <button
       (click)="controller.rotate(-1)"
-      title="Rotate clockwise"
+      [title]="'TOOLTIPS.ROTATE_CLOCKWISE' | translate"
       class="icon-button"
     >
-      <img
+      <svg-icon
         src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
-        alt="Rotate clockwise"
-        draggable="false"
-      />
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
   </div>
 
@@ -35,13 +36,17 @@
 
   <div class="right-controls controls">
     <div class="wrapper">
-      <div id="modeMenu" [style]="modeStyle" class="menu">
+      <div
+        id="modeMenu"
+        [ngClass]="{ openModeMenu: modeExpanded }"
+        class="menu"
+      >
         <button
           (click)="onModeMenu()"
-          title="Change placement mode"
+          [title]="'TOOLTIPS.CHANGE_PLACEMENT_MODE' | translate"
           class="icon-button"
         >
-          <img [src]="modes[mode]" [alt]="mode" draggable="false" />
+          <svg-icon [src]="modes[mode]" [svgClass]="'svg'"></svg-icon>
         </button>
         <ng-container *ngIf="modeExpanded">
           <button
@@ -51,25 +56,28 @@
             [title]="m.key"
             class="icon-button"
           >
-            <img [src]="m.value" draggable="false" [alt]="m.key" />
+            <svg-icon [src]="m.value" [svgClass]="'svg'"></svg-icon>
           </button>
         </ng-container>
       </div>
     </div>
 
     <div class="wrapper" *ngIf="mode != 'CUBE'">
-      <div id="colorMenu" [style]="colorStyle" class="menu">
+      <div
+        id="colorMenu"
+        [ngClass]="{ openColorMenu: colorExpanded }"
+        class="menu"
+      >
         <button
           [style.background-color]="colors[color]"
           (click)="onColorMenu()"
-          title="Change color"
+          [title]="'TOOLTIPS.CHANGE_COLOR' | translate"
           class="icon-button"
         >
-          <img
+          <svg-icon
             src="assets/icons/ic_fluent_color_24_regular.svg"
-            alt="Colors"
-            draggable="false"
-          />
+            [svgClass]="'svg'"
+          ></svg-icon>
         </button>
         <ng-container *ngIf="colorExpanded">
           <button
@@ -79,79 +87,93 @@
             [style.display]="c.key == color ? 'none' : ''"
             (click)="onColorSelect(c.key)"
             [title]="c.key"
-            class="icon-button"
+            class="icon-button colorbtn"
           ></button>
         </ng-container>
       </div>
     </div>
-    <button (click)="onPlace()" title="Put down" class="icon-button">
-      <img
+    <button
+      (click)="onPlace()"
+      [title]="'TOOLTIPS.PUT_DOWN' | translate"
+      class="icon-button"
+    >
+      <svg-icon
         src="assets/icons/ic_fluent_add_square_24_regular.svg"
-        alt="Put down"
-        draggable="false"
-      />
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
-    <button (click)="onPickUp()" title="Pick up" class="icon-button">
-      <img
+    <button
+      (click)="onPickUp()"
+      [title]="'TOOLTIPS.PICK_UP' | translate"
+      class="icon-button"
+    >
+      <svg-icon
         src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
-        alt="Pick up"
-        draggable="false"
-      />
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
   </div>
 
   <button
     class="settingsbtn icon-button"
     (click)="settingsOpen = !settingsOpen"
-    title="Expand/Collapse settings"
+    [title]="'TOOLTIPS.EXPAND_COLLAPSE_SETTINGS' | translate"
   >
-    <img
+    <svg-icon
       src="assets/icons/ic_fluent_settings_24_regular.svg"
-      alt="Settings"
-      draggable="false"
-    />
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
-  <button (click)="onReset()" title="Reset world" class="icon-button">
-    <img
+  <button
+    (click)="controller.reset()"
+    [title]="'TOOLTIPS.RESET_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
       src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
-      alt="Reset"
-      draggable="false"
-    />
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
-  <button (click)="onResize()" title="Resize world" class="icon-button">
-    <img
+  <button
+    (click)="onResize()"
+    [title]="'TOOLTIPS.RESIZE_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
       src="assets/icons/ic_fluent_slide_size_24_regular.svg"
-      alt="Resize"
-      draggable="false"
-    />
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
-  <input
-    type="file"
-    class="file-input"
-    (change)="onFileSelected($event)"
-    accept=".coralworld,.json"
-    #fileUpload
-  />
-  <button (click)="onSave()" title="Save world as default" class="icon-button">
-    <img
+
+  <button
+    (click)="controller.saveWorld()"
+    [title]="'TOOLTIPS.SAVE_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
       src="assets/icons/ic_fluent_save_24_regular.svg"
-      alt="Save"
-      draggable="false"
-    />
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
-  <button (click)="fileUpload.click()" title="Import world" class="icon-button">
-    <img
+  <button
+    (click)="controller.importWorld()"
+    [title]="'TOOLTIPS.IMPORT_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
       src="assets/icons/ic_fluent_cloud_backup_24_regular.svg"
-      alt="Import"
-      draggable="false"
-    /></button
-  ><button (click)="onExport()" title="Export world" class="icon-button">
-    <img
+      [svgClass]="'svg'"
+    ></svg-icon></button
+  ><button
+    (click)="controller.exportWorld()"
+    [title]="'TOOLTIPS.EXPORT_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
       src="assets/icons/ic_fluent_cloud_download_24_regular.svg"
-      alt="Export"
-      draggable="false"
-    />
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
 </div>
