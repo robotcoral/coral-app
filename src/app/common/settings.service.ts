@@ -165,4 +165,9 @@ export class SettingsService implements OnInit {
 
     this.onThemeChange.next(this.gameboardTheme);
   }
+
+  public setSpeed(speed: number) {
+    this.settings.executionSpeed = speed;
+    this.saveSettings();
+  }
 }

@@ -7,6 +7,7 @@ export class Settings {
   resetOnStart: boolean;
   fontSize: number;
   tabWidth: number;
+  executionSpeed: number;
 
   constructor(settings: Partial<Settings>) {
     if (settings == null) settings = {};
@@ -16,6 +17,7 @@ export class Settings {
     this.resetOnStart = settings.resetOnStart || true;
     this.fontSize = settings.fontSize || 16;
     this.tabWidth = settings.tabWidth || 4;
+    this.executionSpeed = settings.executionSpeed || 3;
   }
 }
 
@@ -43,5 +45,8 @@ export const SettingsSchema: Schema = {
     tabWidth: {
       type: 'number',
     },
+    executionSpeed: {
+      type: 'number',
+    }
   },
 };
