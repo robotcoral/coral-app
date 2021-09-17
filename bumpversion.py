@@ -51,8 +51,8 @@ def detect_version(argv):
 
 
 def new_version_greater(new_ver, old_ver):
-    new_ver = new_ver.split(".")
-    old_ver = old_ver.split(".")
+    new_ver = list(map(int, new_ver.split(".")))
+    old_ver = list(map(int, old_ver.split(".")))
     for i in range(0, 3):
         if(new_ver[i] > old_ver[i]):
             return True
