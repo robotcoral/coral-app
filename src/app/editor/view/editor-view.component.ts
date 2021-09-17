@@ -59,10 +59,11 @@ export class EditorViewComponent {
       parent: this.codemirrorhost.nativeElement,
     });
     this.interpreter.setEditor(this);
-    window.addEventListener("beforeunload", () => {
+    window.addEventListener("beforeunload", (event) => {
       if(!this.unsavedChanges) return undefined;
-      return "Achtung! Es existieren ungespeicherte Änderungen am Karol-Program. Möchten Sie wirklich diese Seite verlassen?";
-    });
+      event.preventDefault();
+      return;
+    }, {capture: true});
   }
 
   applySettings(settings: Settings) {
