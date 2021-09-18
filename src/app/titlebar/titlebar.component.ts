@@ -56,6 +56,7 @@ export class TitlebarComponent {
       ZOOM_OUT: () => this.eController.zoomOut(),
       RESET: () => this.eController.resetFontSize(),
       SETTINGS: () => this.onSettings(SETTINGSMODES.EDITOR),
+      SEARCH_AND_REPLACE: () => this.eController.openSearchPanel(),
     },
     WORLD: {
       IMPORT: () => this.gbController.importWorld(),
