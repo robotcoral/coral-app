@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { redo, undo } from '../editor/util/codemirror.setup';
 import { EditorViewComponent } from '../editor/view/editor-view.component';
+import { openSearchPanel } from '@codemirror/search';
 import { SettingsService } from './settings.service';
 import { UtilService } from './util.service';
 
@@ -45,6 +46,10 @@ export class EditorController {
 
   paste() {
     this.clipboardEvent('paste');
+  }
+
+  openSearchPanel() {
+    openSearchPanel(this.editor.view);
   }
 
   export() {

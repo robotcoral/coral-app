@@ -63,7 +63,8 @@
       "ZOOM_IN": "Zoom in",
       "ZOOM_OUT": "Zoom out",
       "RESET": "Reset font size",
-      "SETTINGS": "Editor settings"
+      "SETTINGS": "Editor settings",
+      "SEARCH_AND_REPLACE": "Search and Replace"
     },
     "WORLD": {
       "TITLE": "World",
