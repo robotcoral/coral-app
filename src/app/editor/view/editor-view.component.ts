@@ -23,12 +23,16 @@ type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 export class EditorViewComponent {
   compartment = new Compartment();
   sourceCode = '';
+  unsavedChanges = false;
   config: EditorStateConfig = {
     extensions: [
       customSetup,
       this.compartment.of(EditorState.tabSize.of(4)),
       // Indent with Tab
       indentUnit.of('	'),
+      EditorView.updateListener.of((update) => {
+        if(!update.changes.empty) this.unsavedChanges = true;
+      })
     ],
   };
   view: EditorView;
@@ -55,6 +59,11 @@ export class EditorViewComponent {
       parent: this.codemirrorhost.nativeElement,
     });
     this.interpreter.setEditor(this);
+    window.addEventListener("beforeunload", (event) => {
+      if(!this.unsavedChanges) return undefined;
+      event.preventDefault();
+      return;
+    }, {capture: true});
   }
 
   applySettings(settings: Settings) {

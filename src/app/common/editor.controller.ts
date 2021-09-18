@@ -54,6 +54,7 @@ export class EditorController {
       content: code,
       fileType: 'text/plain',
     });
+    this.editor.unsavedChanges = false;
   }
 
   import() {
