@@ -29,7 +29,7 @@
     "@angular/platform-browser": "^12.2.6",
     "@angular/platform-browser-dynamic": "^12.2.6",
     "@angular/router": "^12.2.6",
-    "@codemirror/autocomplete": "^0.19.2",
+    "@codemirror/autocomplete": "^0.19.3",
     "@codemirror/closebrackets": "^0.19.0",
     "@codemirror/commands": "^0.19.2",
     "@codemirror/comment": "^0.19.0",
@@ -53,7 +53,7 @@
     "jsonschema": "^1.4.0",
     "ngx-toastr": "^14.1.0",
     "rxjs": "^7.3.0",
-    "three": "^0.132.0",
+    "three": "^0.132.2",
     "tslib": "^2.3.1",
     "zone.js": "^0.11.4"
   },
