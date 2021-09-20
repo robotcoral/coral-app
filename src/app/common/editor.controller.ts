@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { openSearchPanel } from '@codemirror/search';
 import { redo, undo } from '../editor/util/codemirror.setup';
 import { EditorViewComponent } from '../editor/view/editor-view.component';
-import { openSearchPanel } from '@codemirror/search';
+import { WarningModal } from './modals';
 import { SettingsService } from './settings.service';
 import { UtilService } from './util.service';
 
@@ -10,6 +11,7 @@ import { UtilService } from './util.service';
 })
 export class EditorController {
   private editor: EditorViewComponent;
+  unsavedChanges: boolean = false;
 
   constructor(
     private utilService: UtilService,
@@ -59,7 +61,7 @@ export class EditorController {
       content: code,
       fileType: 'text/plain',
     });
-    this.editor.unsavedChanges = false;
+    this.unsavedChanges = false;
   }
 
   import() {
@@ -79,14 +81,31 @@ export class EditorController {
   }
 
   setState(text = '') {
-    const transaction = this.editor.view.state.update({
-      changes: {
-        from: 0,
-        to: this.editor.view.state.doc.length,
-        insert: text,
-      },
+    const callback = () => {
+      const transaction = this.editor.view.state.update({
+        changes: {
+          from: 0,
+          to: this.editor.view.state.doc.length,
+          insert: text,
+        },
+      });
+      this.editor.view.update([transaction]);
+      // prevents editor setting unsavedChanges to true instantly
+      setTimeout(() => {
+        this.unsavedChanges = false;
+      }, 100);
+    };
+
+    if (!this.unsavedChanges) return callback();
+
+    const modalRef = this.utilService.openModal(WarningModal);
+    (modalRef.componentInstance as WarningModal).init({
+      title: 'MODALS.UNSAVED_CHANGES.TITLE',
+      description: 'MODALS.UNSAVED_CHANGES.DESCRIPTION',
+      successButton: 'MODALS.UNSAVED_CHANGES.SUCCESS_BUTTON',
     });
-    this.editor.view.update([transaction]);
+
+    modalRef.result.then(() => callback()).catch(() => {});
   }
 
   private clipboardEvent(event: string) {
