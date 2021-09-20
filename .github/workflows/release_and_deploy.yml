@@ -90,13 +90,12 @@ jobs:
       - name: Create Release strings
         id: release_strings
         run: |
-          echo "RELEASE_TAG=v${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "RELEASE_TAG=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           echo "RELEASE_NAME=Version ${{ github.event.inputs.version }}" >> $GITHUB_ENV
       
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          prerelease: true
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_NAME }}          
       
