@@ -22,7 +22,7 @@ copyright = '2021, Robot Coral Team'
 author = 'Robot Coral Team'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.10'
+release = '0.1.11'
 
 
 # -- General configuration ---------------------------------------------------
