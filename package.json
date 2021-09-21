@@ -42,7 +42,7 @@
     "@codemirror/matchbrackets": "^0.19.1",
     "@codemirror/search": "^0.19.2",
     "@codemirror/state": "^0.19.2",
-    "@codemirror/text": "^0.19.1",
+    "@codemirror/text": "^0.19.3",
     "@codemirror/view": "^0.19.7",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "@ngx-translate/core": "^13.0.0",
@@ -70,7 +70,7 @@
     "karma-coverage": "^2.0.3",
     "karma-jasmine": "^4.0.0",
     "karma-jasmine-html-reporter": "^1.7.0",
-    "typescript": "^4.3.2"
+    "typescript": "^4.4.3"
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
