@@ -133,35 +133,10 @@ def bump_environment_common_ts(version):
     print("✅ SUCCESS")
 
 
-def bump_documentation(version):
-    print("\n> Loading conf.py")
-    with open("./docs/source/conf.py", "r") as f:
-        file = f.read()
-
-    begin_version_line = file.find("release = '")
-    begin_version = begin_version_line+len("release = '")
-    end_version = file.find("'", begin_version)
-    env_com_version = file[begin_version:end_version]
-
-    print("Old Version: " + env_com_version)
-    print("New Version: " + version)
-
-    check_version = new_version_greater(version, env_com_version)
-
-    if(not(check_version)):
-        throw_error("New version is <= old version")
-
-    with open("./docs/source/conf.py", "w") as f:
-        f.write(file[0:begin_version] + version + file[end_version:])
-
-    print("✅ SUCCESS")
-
-
 def bump_version(version):
     bump_package_json(version)
     bump_package_lock_json(version)
     bump_environment_common_ts(version)
-    bump_documentation(version)
 
 
 if __name__ == "__main__":
