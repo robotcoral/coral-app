@@ -10,6 +10,9 @@ jobs:
         with:
           node-version: 14.x
 
+      - name: Test
+        run: echo "Hello World"
+
       - name: Setup
         run: npm ci --no-optional --debug
 
