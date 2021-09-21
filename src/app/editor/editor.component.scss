@@ -1,4 +1,4 @@
-@use "../../themes"as themes;
+@use "../../themes" as themes;
 
 app-editor-view {
   flex: 1;
@@ -98,7 +98,6 @@ app-editor-controls {
     background: var(--theme-highlight-5);
     box-shadow: var(--box-shadow-elevation-low);
     transform: translate(0, 0);
-
   }
 
   .cm-textfield {

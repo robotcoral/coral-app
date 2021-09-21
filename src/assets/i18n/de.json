@@ -46,7 +46,8 @@
       "SETTINGS": "Editor-Einstellungen",
       "TITLE": "Editor",
       "ZOOM_IN": "Hineinzoomen",
-      "ZOOM_OUT": "Rauszoomen"
+      "ZOOM_OUT": "Rauszoomen",
+      "SEARCH_AND_REPLACE": "Suchen und Ersetzen"
     },
     "EXECUTE": {
       "LOWER_SPEED": "Niedrigere Geschwindigkeit",
@@ -141,6 +142,11 @@
       "DESCRIPTION": "Willst du einen Welt-Reset-Punkt setzen? Beim zurücksetzen wird dann die aktuelle Welt geladen.",
       "SUCCESS_BUTTON": "Speichern",
       "TITLE": "Welt abspeichern"
+    },
+    "UNSAVED_CHANGES": {
+      "DESCRIPTION": "Du hast ungespeicherte Änderungen. Bist du dir sicher, dass du sie verwerfen willst?",
+      "SUCCESS_BUTTON": "Verwerfen",
+      "TITLE": "Ungespeicherte Änderungen"
     }
   },
   "TOOLTIPS": {

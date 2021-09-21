@@ -72,9 +72,11 @@ export class GameboardController {
   private placeSlab(coo: Coordinates2, color: COLORS) {
     if (this.settingService.settings.inventoryActive) {
       if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
+      this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
+    } else {
+      this.model.world.placeSlab(coo, color);
     }
-    this.model.world.placeSlab(coo, color);
   }
 
   pickUp(mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB) {

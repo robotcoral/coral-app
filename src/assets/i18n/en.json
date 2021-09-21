@@ -63,7 +63,8 @@
       "ZOOM_IN": "Zoom in",
       "ZOOM_OUT": "Zoom out",
       "RESET": "Reset font size",
-      "SETTINGS": "Editor settings"
+      "SETTINGS": "Editor settings",
+      "SEARCH_AND_REPLACE": "Search and Replace"
     },
     "WORLD": {
       "TITLE": "World",
@@ -161,6 +162,11 @@
       "LICENSE": "This program is licensed under the",
       "LICENSE2": "license.",
       "ROBOT_CREDIT": " Robot model by"
+    },
+    "UNSAVED_CHANGES": {
+      "TITLE": "Unsaved Changes",
+      "DESCRIPTION": "You have unsaved changes. Do you want to discard them?",
+      "SUCCESS_BUTTON": "Discard"
     }
   }
 }

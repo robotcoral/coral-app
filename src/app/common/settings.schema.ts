@@ -47,6 +47,6 @@ export const SettingsSchema: Schema = {
     },
     executionSpeed: {
       type: 'number',
-    }
+    },
   },
 };

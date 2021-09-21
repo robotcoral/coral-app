@@ -1,11 +1,11 @@
-## Development Guidelines
+# Development Guidelines
 
 Please abide by the following guidelines to keep the repository as clean as possible.
 As a general rule we require all commits to be signed.
 
-### Branches
+## Branches
 
-#### Adding new Features and Refactoring
+### Adding new Features and Refactoring
 
 All feature and refactor branches must stem from the `development` branch and have to be merged back into it by pull requests.
 
@@ -19,7 +19,7 @@ The following types can be used:
 - bugfix: fixing a bug
 - docs: update documentation without changing production code
 
-#### Release Branches
+### Release Branches
 
 After all the features that will be included in the next release have been merged into master, you can create a new branch named `release/version`.
 No new features may be added to this release branch. The only acceptable commits to release branches are:
@@ -28,11 +28,11 @@ No new features may be added to this release branch. The only acceptable commits
 - bumping the version
 - fixes
 
-#### Hotfixes
+### Hotfixes
 
 Hotfix branches may be created from master and merged directly back into it. They have to be named `hotfix/issue`
 
-#### Master Branch
+### Master Branch
 
 The master branch **only** contains tagged commits corresponding to software releases!
 To create a new release merge a release or hotfix branch into master and create a new tag (`v1.2.3`).
@@ -41,7 +41,7 @@ To create a new release merge a release or hotfix branch into master and create 
 <img src="https://cdn.robotcoral.de/coral.svg" height="100px" alt="Logo" />
 </p>
 
-### Commits
+## Commits
 
 To keep our repository tidy all commits have to adhere to the [Conventional Commit Guidelines](https://www.conventionalcommits.org/en/).
 You can find a brief summary below:

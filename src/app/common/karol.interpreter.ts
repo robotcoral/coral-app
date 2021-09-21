@@ -17,14 +17,17 @@ export class KarolInterpreter {
   paused = false;
   private editor: EditorViewComponent;
   private statements: Generator<unknown, any, unknown>;
-  private interval: any;
+  private timeout: any;
   private callback = () => {
     const result = this.statements.next();
-    if (result.done) {
+    if (result.done) {
       this.running.next(false);
       return;
     }
-    setTimeout(this.callback, (6 - this.settings.settings.executionSpeed) * 100);
+    this.timeout = setTimeout(
+      this.callback,
+      (6 - this.settings.settings.executionSpeed) * 100
+    );
   };
   private audio: HTMLAudioElement;
   private methods: KarolMethods = {
@@ -126,13 +129,13 @@ export class KarolInterpreter {
   pause() {
     this.paused = true;
     this.running.next(false);
-    clearInterval(this.interval);
+    clearTimeout(this.timeout);
   }
 
   stop() {
     this.paused = false;
     this.running.next(false);
-    clearInterval(this.interval);
+    clearTimeout(this.timeout);
   }
 
   step() {
@@ -140,12 +143,12 @@ export class KarolInterpreter {
   }
 
   raiseSpeed() {
-    if(this.settings.settings.executionSpeed < 5)
+    if (this.settings.settings.executionSpeed < 5)
       this.settings.setSpeed(this.settings.settings.executionSpeed + 1);
   }
 
   lowerSpeed() {
-    if(this.settings.settings.executionSpeed > 1)
+    if (this.settings.settings.executionSpeed > 1)
       this.settings.setSpeed(this.settings.settings.executionSpeed - 1);
   }
 
@@ -212,7 +215,10 @@ export class KarolInterpreter {
   }
 
   private execute(callback: () => void | boolean = this.callback) {
-    this.interval = setTimeout(callback, (6 - this.settings.settings.executionSpeed) * 100);
+    this.timeout = setTimeout(
+      callback,
+      (6 - this.settings.settings.executionSpeed) * 100
+    );
   }
 
   private getEditorString() {
