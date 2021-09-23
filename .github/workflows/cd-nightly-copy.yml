@@ -21,5 +21,8 @@ jobs:
         with:
           python-version: "3.8"
 
+      - name: Print python script
+        run: cat bumpversion.py
+
       - name: Bump versions
         run: python3 bumpversion.py nightly
