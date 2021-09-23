@@ -14,4 +14,4 @@ jobs:
           ref: development
 
       - name: Get ref
-        run: echo ${{ github.ref }}
+        run: echo "$(git branch)"
