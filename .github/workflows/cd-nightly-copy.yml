@@ -1,0 +1,23 @@
+name: "Nightly build Debug"
+on:
+  schedule:
+    - cron: "0 3 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CI_PERSONAL_TOKEN }}
+          ref: development
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Bump versions
+        run: python3 bumpversion.py nightly
