@@ -13,7 +13,7 @@ def detect_version(argv):
     if len(argv) > 1:
         version_string = argv[1]
         version_string = version_string.lower()
-        print('Version in argv: "{}"'.format(version_string))
+        print('Version in argv: "{}"'.format(repr(version_string)))
         if (
             not (re.match("^[0-9]+\.[0-9]+\.[0-9]+$", version_string) is None)
             or version_string == "nightly"
@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     print("\n---Bumping versions---")
 
-    print(version)
+    print("{}\n".format(version))
     if version[:7] == "nightly":
         bump_version(version, True)
     else:
