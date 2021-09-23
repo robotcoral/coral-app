@@ -2,7 +2,7 @@ name: Create release and deploy
 on:
   push:
 
-  workflow-dispatch:
+  workflow_dispatch:
 
 jobs:
   build_and_release:
