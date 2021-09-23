@@ -1,0 +1,16 @@
+name: Create release and deploy
+on:
+  push:
+
+  workflow-dispatch:
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CI_PERSONAL_TOKEN }}
+
+      - name: Get ref
+        run: echo ${{ github.ref }}
