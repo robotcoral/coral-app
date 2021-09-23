@@ -63,7 +63,7 @@ export class EditorViewComponent {
       (event) => {
         if (!this.controller.unsavedChanges) return undefined;
         event.preventDefault();
-        event.returnValue = ""; // needed for Microsoft Edge compability
+        event.returnValue = ''; // needed for Microsoft Edge compability
         return;
       },
       { capture: true }
