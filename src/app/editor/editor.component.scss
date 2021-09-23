@@ -49,6 +49,10 @@ app-editor-controls {
     top: -0.5rem;
     background-color: transparent;
   }
+
+  .cm-cursor{
+    border-left: 0.1rem solid var(--theme-font-color);
+  }
 }
 
 .ͼ2 {
