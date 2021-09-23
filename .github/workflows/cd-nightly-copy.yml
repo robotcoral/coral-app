@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: "3.8"
 
+      - name: Add something to trigger push
+        run: echo "🐙"
+
       - name: Print python script
         run: cat bumpversion.py
 
