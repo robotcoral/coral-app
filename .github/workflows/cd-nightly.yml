@@ -70,6 +70,6 @@ jobs:
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v2
         env:
-          webhook_url: ${{ secrets.NIGHTLY_WEBHOOK }}
-          webhook_secret: ${{ secrets.NIGHTLY_WEBHOOK_SECRET }}
+          webhook_url: ${{ secrets.DEPLOY_NIGHTLY_WEBHOOK }}
+          webhook_secret: ${{ secrets.DEPLOY_NIGHTLY_SECRET }}
           silent: true
