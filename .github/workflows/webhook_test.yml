@@ -1,7 +1,6 @@
 name: "Test hook"
 on:
   push:
-
   workflow_dispatch:
 
 jobs:
