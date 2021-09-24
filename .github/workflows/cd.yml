@@ -74,7 +74,7 @@ jobs:
           username: robotcoralci
           password: ${{ secrets.CI_PERSONAL_TOKEN }}
 
-      - name: Build and push to DockerHub
+      - name: Build and push to Docker registries
         id: docker_build
         uses: docker/build-push-action@v2
         with:
