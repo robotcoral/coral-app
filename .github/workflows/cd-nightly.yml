@@ -55,7 +55,7 @@ jobs:
           username: robotcoralci
           password: ${{ secrets.CI_PERSONAL_TOKEN }}
 
-      - name: Build and push to DockerHub
+      - name: Build and push to Docker registries
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -66,3 +66,10 @@ jobs:
           tags: |
             robotcoral/coral-app:nightly
             ghcr.io/robotcoral/coral-app:nightly
+
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.NIGHTLY_WEBHOOK }}
+          webhook_secret: ${{ secrets.NIGHTLY_WEBHOOK_SECRET }}
+          silent: true
