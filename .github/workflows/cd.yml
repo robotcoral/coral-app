@@ -106,3 +106,10 @@ jobs:
           repository: robotcoral/coral-docs
           token: ${{ secrets.CI_PERSONAL_TOKEN }}
           event-type: sync_version
+
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.DEPLOY_STABLE_WEBHOOK }}
+          webhook_secret: ${{ secrets.DEPLOY_STABLE_SECRET }}
+          silent: true
