@@ -93,7 +93,7 @@ jobs:
         run: |
           echo "RELEASE_TAG=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           echo "RELEASE_NAME=Version ${{ github.event.inputs.version }}" >> $GITHUB_ENV
-          echo "RELEASE_FILENAME=coral-app-${{ env.RELEASE_TAG }}.zip" >> $GITHUB_ENV
+          echo "RELEASE_FILENAME=coral-app-${{ github.event.inputs.version }}.zip" >> $GITHUB_ENV
 
       - name: Zip output files
         run: |
