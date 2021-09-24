@@ -1,4 +1,4 @@
-name: "Nightly build"
+name: "Test hook"
 on:
   push:
 
