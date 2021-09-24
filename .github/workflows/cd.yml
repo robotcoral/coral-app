@@ -93,12 +93,13 @@ jobs:
         run: |
           echo "RELEASE_TAG=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           echo "RELEASE_NAME=Version ${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "RELEASE_FILENAME=coral-app-${{ env.RELEASE_TAG }}.zip" >> $GITHUB_ENV
 
       - name: Zip output files
         run: |
           cd dist/coral-app/
-          zip -r "coral-app-${{ env.RELEASE_TAG }}.zip" *
-          mv "coral-app-${{ env.RELEASE_TAG }}.zip" ../../
+          zip -r "${{ env.RELEASE_FILENAME }}" *
+          mv "${{ env.RELEASE_FILENAME }}" ../../
           cd ../../
 
       - name: Create GitHub Release
@@ -107,7 +108,7 @@ jobs:
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_NAME }}
           files: |
-            "coral-app-${{ env.RELEASE_TAG }}.zip"
+            ${{ env.RELEASE_FILENAME }}
 
       - name: Trigger version bump in documentation
         uses: peter-evans/repository-dispatch@v1
