@@ -1,0 +1,19 @@
+name: "Nightly build"
+on:
+  push:
+
+  workflow_dispatch:
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.NIGHTLY_WEBHOOK }}
+          webhook_secret: ${{ secrets.NIGHTLY_WEBHOOK_SECRET }}
+          data: '{ "version": "nightly" }'
+          silent: true
