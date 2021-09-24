@@ -9,7 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           token: ${{ secrets.CI_PERSONAL_TOKEN }}
 
       - name: Import GPG key
