@@ -15,10 +15,10 @@
         <div class="nameField">{{ 'SETTINGS.GENERAL.THEME' | translate }}:</div>
         <select name="theme" formControlName="theme">
           <option
-          *ngFor="let item of themes | keyvalue: originalOrder"
-          [value]="item.value"
+            *ngFor="let item of themes | keyvalue: originalOrder"
+            [value]="item.value"
           >
-          {{item.key}}
+            {{item.key}}
           </option>
           <option value="auto">
             {{ 'SETTINGS.GENERAL.SYSTEM_DEFAULT' | translate }}
@@ -31,19 +31,24 @@
         </div>
         <select name="language" formControlName="language">
           <option
-          *ngFor="let item of languages | keyvalue: originalOrder"
-          [value]="item.value"
+            *ngFor="let item of languages | keyvalue: originalOrder"
+            [value]="item.value"
           >
-          {{item.key}}
+            {{item.key}}
           </option>
-          </select>
-    </div>
-    <div class="inputWrapper">
-      <div class="nameField">
-        {{ 'SETTINGS.GENERAL.TOUCH_UI' | translate }}:
+        </select>
       </div>
-      <input class="checkbox" type="checkbox" name="touchUIActive" formControlName="touchUIActive" />
-    </div>
+      <div class="inputWrapper">
+        <div class="nameField">
+          {{ 'SETTINGS.GENERAL.TOUCH_UI' | translate }}:
+        </div>
+        <input
+          class="checkbox"
+          type="checkbox"
+          name="touchUIActive"
+          formControlName="touchUIActive"
+        />
+      </div>
     </form>
   </div>
   <div class="modal-footer">
