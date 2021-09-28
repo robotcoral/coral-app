@@ -3,6 +3,7 @@
     "TITLE": "Einstellungen",
     "GENERAL": {
       "TITLE": "Allgemeine Einstellungen",
+      "TOUCH_UI": "Touch UI",
       "THEME": "Theme",
       "LANGUAGE": "Sprache",
       "SYSTEM_DEFAULT": "Systemstandard"

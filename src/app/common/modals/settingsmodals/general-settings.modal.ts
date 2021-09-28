@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { LANGUAGES, SettingsService, THEMES } from '../../settings.service';
+import { SettingsService } from '../../settings.service';
+import { LANGUAGES, THEMES } from '../../settings.schema';
 
 @Component({
   selector: 'general-settings-modal',
@@ -13,6 +14,7 @@ export class GeneralSettingsModal {
 
   themes = THEMES;
   languages = LANGUAGES;
+  touchUIActive: boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -20,8 +22,9 @@ export class GeneralSettingsModal {
     public settingsService: SettingsService
   ) {
     this.formGroup = this.formBuilder.group({
-      theme: [settingsService.theme],
-      language: [settingsService.language],
+      theme: [settingsService.settings.globalSettings.theme],
+      language: [settingsService.settings.globalSettings.language],
+      touchUIActive: settingsService.settings.globalSettings.touchUIActive,
     });
   }
 
@@ -31,7 +34,8 @@ export class GeneralSettingsModal {
       | 'auto';
     const language = this.formGroup.get('language')
       .value as unknown as LANGUAGES;
-    this.settingsService.saveMiscSettings(theme, language);
+    const touchUIActivate = this.formGroup.get('touchUIActive').value;
+    this.settingsService.changeUISettings(theme, language, touchUIActivate); //TODO
   }
 
   originalOrder = (a: any, b: any): number => {

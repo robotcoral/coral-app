@@ -35,7 +35,8 @@ export class EditorController {
   }
 
   resetFontSize() {
-    this.editor.fontSize = this.settingsService.settings.fontSize;
+    this.editor.fontSize =
+      this.settingsService.settings.globalSettings.fontSize;
   }
 
   cut() {

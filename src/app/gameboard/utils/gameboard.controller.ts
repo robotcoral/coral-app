@@ -70,7 +70,7 @@ export class GameboardController {
   }
 
   private placeSlab(coo: Coordinates2, color: COLORS) {
-    if (this.settingService.settings.inventoryActive) {
+    if (this.settingService.settings.fileSettings.inventoryActive) {
       if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
       this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
@@ -84,7 +84,7 @@ export class GameboardController {
       const coo = this.model.robot.getMoveCoordinates();
       if (mode == WORLDOBJECTTYPES.SLAB) {
         this.model.world.pickUpSlab(coo);
-        if (this.settingService.settings.inventoryActive)
+        if (this.settingService.settings.fileSettings.inventoryActive)
           this.model.currentSlabs++;
       } else if (mode == WORLDOBJECTTYPES.CUBE) {
         this.model.world.pickUpBlock(coo);
