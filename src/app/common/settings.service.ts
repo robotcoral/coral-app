@@ -101,7 +101,6 @@ export class SettingsService implements OnInit {
     }
 
     if (!LANGUAGE_CODES[this.settings.globalSettings.language]) {
-      console.log(LANGUAGE_CODES[this.settings.globalSettings.language]);
       if (LANGUAGE_CODES[navigator.language]) {
         this.settings.globalSettings.language =
           LANGUAGES[LANGUAGE_CODES[navigator.language]];
