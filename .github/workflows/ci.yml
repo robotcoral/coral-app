@@ -5,11 +5,12 @@ on: push
 jobs:
   prettify:
     runs-on: ubuntu-latest
+    if: ${{ secrets.CI_PERSONAL_TOKEN}}
 
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.CI_PERSONAL_TOKEN || github.token }}
+          token: ${{ secrets.CI_PERSONAL_TOKEN }}
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
