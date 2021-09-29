@@ -25,16 +25,20 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
+        if: ${{ env.SECRETS_AVAILABLE == 'true' }}
         with:
           node-version: "14"
 
-      - name: Install node dependencies
-        run: npm ci
+      - name: Install prettier
+        if: ${{ env.SECRETS_AVAILABLE == 'true' }}
+        run: npm install --no-save "prettier@$(node -p -e "require('./package.json').devDependencies.prettier")"
 
-      - name: Run Prettier
+      - name: Run prettier
+        if: ${{ env.SECRETS_AVAILABLE == 'true' }}
         run: npx prettier --write .
 
       - name: Commit changes
+        if: ${{ env.SECRETS_AVAILABLE == 'true' }}
         run: |
           git config --global user.name 'robotcoralci'
           git config --global user.email 'robotcoralci@users.noreply.github.com'
