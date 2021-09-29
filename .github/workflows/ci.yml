@@ -5,15 +5,18 @@ on: push
 jobs:
   prettify:
     runs-on: ubuntu-latest
-    if: ${{ secrets.CI_PERSONAL_TOKEN}}
+
+    env:
+      SECRETS_AVAILABLE: ${{ secrets.CI_PERSONAL_TOKEN != '' }}
 
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.CI_PERSONAL_TOKEN }}
+          token: ${{ secrets.CI_PERSONAL_TOKEN || github.token }}
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
+        if: ${{ env.SECRETS_AVAILABLE == 'true' }}
         with:
           gpg_private_key: ${{ secrets.PRIVATE_KEY_CI }}
           passphrase: ${{ secrets.PASSWORD_KEY_CI }}
@@ -36,7 +39,7 @@ jobs:
           git config --global user.name 'robotcoralci'
           git config --global user.email 'robotcoralci@users.noreply.github.com'
           git add -A
-          if [ "$(git diff --name-only --cached)" ]; then git commit -S -m "chore: run Prettier"; fi          
+          if [ "$(git diff --name-only --cached)" ]; then git commit -S -m "chore: run Prettier"; fi
           git push
 
   run-angular-tests:
