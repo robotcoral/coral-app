@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.CI_PERSONAL_TOKEN }}
+          token: ${{ secrets.CI_PERSONAL_TOKEN || github.token }}
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
