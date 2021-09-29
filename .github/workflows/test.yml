@@ -1,12 +1,14 @@
 name: Test
 
 on: push
+
+
+jobs:
+  test:
     env:
       SECRETS_AVAILABLE: ${{ secrets.CI_PERSONAL_TOKEN != '' }}
       SECRETS_AVAILABLE_2: ${{ secrets.CI_PERSONAL_TOKENN != '' }}
 
-jobs:
-  test:
     runs-on: ubuntu-latest
 
     steps:
