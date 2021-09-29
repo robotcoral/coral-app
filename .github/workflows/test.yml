@@ -2,10 +2,13 @@ name: Test
 
 on: push
 
+env:
+  SECRETS_AVAILABLE: ${{ secrets.CI_PERSONAL_TOKEN != '' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: ${{ secrets.CI_PERSONAL_TOKEN }}
+    if: ${{ env.SECRETS_AVAILABLE == 'true' }}
 
     steps:
       - name: echo hello world
