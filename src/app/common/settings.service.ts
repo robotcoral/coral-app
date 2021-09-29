@@ -43,7 +43,7 @@ export class SettingsService implements OnInit {
     private translationService: TranslateService
   ) {
     this.loadSettings();
-    this.fixErrors();
+    this.repairInvalidSettings();
     this.saveSettings();
 
     this.window
@@ -91,7 +91,7 @@ export class SettingsService implements OnInit {
    * e.g. "fr" is a valid string for the language, but because it
    * hasn't been implemented yet, it is considered an error
    */
-  fixErrors() {
+  repairInvalidSettings() {
     if (
       !Object.values(THEMES || 'auto').includes(
         this.settings.globalSettings.theme
