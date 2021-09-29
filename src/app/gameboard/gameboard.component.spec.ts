@@ -19,7 +19,7 @@ describe('GameboardComponent', () => {
         {
           provide: SettingsService,
           useValue: {
-            settings: { inventoryActive: false },
+            settings: { fileSettings: { inventoryActive: false } },
             ngOnInit: () => {},
           },
         },

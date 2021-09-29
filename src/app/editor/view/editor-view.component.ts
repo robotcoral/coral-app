@@ -71,11 +71,11 @@ export class EditorViewComponent {
   }
 
   applySettings(settings: Settings) {
-    this.fontSize = settings.fontSize;
+    this.fontSize = settings.globalSettings.fontSize;
     if (!this.view) return;
     this.view.dispatch({
       effects: this.compartment.reconfigure(
-        EditorState.tabSize.of(settings.tabWidth)
+        EditorState.tabSize.of(settings.globalSettings.tabWidth)
       ),
     });
   }
