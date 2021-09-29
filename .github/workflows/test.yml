@@ -1,12 +1,35 @@
 name: Test
 
 on: push
+    env:
+      SECRETS_AVAILABLE: ${{ secrets.CI_PERSONAL_TOKEN != '' }}
+      SECRETS_AVAILABLE_2: ${{ secrets.CI_PERSONAL_TOKENN != '' }}
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: ${{ secrets.CI_PERSONAL_TOKEN }}
 
     steps:
       - name: echo hello world
+        if: ${{ env.SECRETS_AVAILABLE == 'true' }}
         run: echo "Hello World!"
+      
+      - name: alternative
+        if: ${{ env.SECRETS_AVAILABLE != 'true' }}
+        run: echo "Hello World! 2"
+
+      - name: echo hello world
+        if: ${{ env.SECRETS_AVAILABLE_2 == 'true' }}
+        run: echo "Hello World! 3"
+
+      - name: alternative
+        if: ${{ env.SECRETS_AVAILABLE_2 != 'true' }}
+        run: echo "Hello World! 4"
+
+      - name: echo hello world
+        if: ${{ env.SECRETS_AVAILABLE }}
+        run: echo "Hello World! 5"
+
+      - name: echo hello world
+        if: ${{ env.SECRETS_AVAILABLE_2 }}
+        run: echo "Hello World! 6"
