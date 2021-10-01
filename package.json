@@ -20,7 +20,7 @@
   "homepage": "https://github.com/robotcoral/coral-app#readme",
   "private": true,
   "dependencies": {
-    "@angular/animations": "^12.2.2",
+    "@angular/animations": "^12.2.8",
     "@angular/common": "^12.2.7",
     "@angular/compiler": "^12.2.2",
     "@angular/core": "^12.2.7",
