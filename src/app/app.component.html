@@ -3,16 +3,8 @@
   <div class="split-container-left">
     <app-editor></app-editor>
   </div>
-  <div
-    #splitBorder
-    class="split-border"
-    [ngClass]="{ 'touch-border': window.navigator.maxTouchPoints > 0 }"
-  >
-    <div
-      #innerSplitBorder
-      class="inner-border"
-      [ngClass]="{ 'touch-inner-border': window.navigator.maxTouchPoints > 0 }"
-    ></div>
+  <div #splitBorder class="split-border">
+    <div #innerSplitBorder class="inner-border"></div>
   </div>
   <div class="split-container-right">
     <app-gameboard></app-gameboard>
