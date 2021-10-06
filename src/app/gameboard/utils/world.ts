@@ -100,6 +100,16 @@ export class World extends Group {
       .add(this.offsetVector)
       .addScaledVector(vector, this.gridScale);
     this.meshGroup.add(this.objects[coo.x][coo.y][height - 1]);
+
+    if(this.isFlag(coo))this.raiseFlag(coo);
+  }
+
+  private raiseFlag(coo: Coordinates2) {
+    this.flags[coo.x][coo.y].position.add(new Vector3(0,this.gridScale/2,0))
+  }
+
+  private lowerFlag(coo: Coordinates2) {
+    this.flags[coo.x][coo.y].position.add(new Vector3(0,-this.gridScale/2,0))
   }
 
   placeBlock(coo: Coordinates2) {
@@ -123,6 +133,7 @@ export class World extends Group {
     this.flags[coo.x][coo.y].position
       .add(this.offsetVector)
       .addScaledVector(new Vector3(coo.x, -0.5, coo.y), this.gridScale);
+      if(this.isStackMinHeight(coo,1)) this.flags[coo.x][coo.y].position.addScaledVector(new Vector3(0,(this.objects[coo.x][coo.y] as []).length/2,0),this.gridScale)
     this.meshGroup.add(this.flags[coo.x][coo.y]);
   }
 
@@ -131,6 +142,7 @@ export class World extends Group {
     if (this.outOfBounds(coo) || !this.isStackMinHeight(coo, 1))
       throw new Error('ERRORS.NOTHING_TO_PICK_UP');
     this.meshGroup.remove((this.objects[coo.x][coo.y] as Slab[]).pop());
+    if(this.isFlag(coo)) this.lowerFlag(coo)
   }
 
   pickUpBlock(coo: Coordinates2) {
@@ -182,9 +194,9 @@ export class World extends Group {
   }
 
   isFlag(coo: Coordinates2, color?: COLORS) {
-    return this.flags[coo.x][coo.y] && color
+    return this.flags[coo.x][coo.y] && (color
       ? this.flags[coo.x][coo.y].color == color
-      : true;
+      : true);
   }
 
   outOfBounds(coo: Coordinates2) {
