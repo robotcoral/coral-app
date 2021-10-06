@@ -6,7 +6,8 @@
       "TOUCH_UI": "Touch UI",
       "THEME": "Theme",
       "LANGUAGE": "Sprache",
-      "SYSTEM_DEFAULT": "Systemstandard"
+      "SYSTEM_DEFAULT": "Systemstandard",
+      "LEGACY_FLAGS": "Legacy Flaggen"
     },
     "EDITOR": {
       "TITLE": "Editor-Einstellungen",

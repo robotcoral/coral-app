@@ -5,12 +5,8 @@ import { validate } from 'jsonschema';
 import { Subject } from 'rxjs';
 import { COLORS, MaterialColors } from '../gameboard/utils';
 import {
-  THEMES,
-  LANGUAGES,
-  Settings,
   GlobalSettings,
-  GlobalSettingsSchema,
-  LANGUAGE_CODES,
+  GlobalSettingsSchema, LANGUAGES, LANGUAGE_CODES, Settings, THEMES
 } from './settings.schema';
 
 /**
@@ -263,7 +259,8 @@ export class SettingsService implements OnInit {
   changeUISettings(
     theme: THEMES | 'auto',
     language: LANGUAGES,
-    touchUIActive: boolean
+    touchUIActive: boolean,
+    legacyFlags: boolean,
   ) {
     if (theme != this.settings.globalSettings.theme) {
       this.settings.globalSettings.theme = theme;
@@ -278,6 +275,7 @@ export class SettingsService implements OnInit {
       this.settings.globalSettings.touchUIActive = touchUIActive;
       this.applyTouchUI();
     }
+    this.settings.globalSettings.legacyFlags=legacyFlags===true;
     this.saveSettings();
   }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SettingsService } from '../../settings.service';
 import { LANGUAGES, THEMES } from '../../settings.schema';
+import { SettingsService } from '../../settings.service';
 
 @Component({
   selector: 'general-settings-modal',
@@ -25,6 +25,7 @@ export class GeneralSettingsModal {
       theme: [settingsService.settings.globalSettings.theme],
       language: [settingsService.settings.globalSettings.language],
       touchUIActive: settingsService.settings.globalSettings.touchUIActive,
+      legacyFlags: settingsService.settings.globalSettings.legacyFlags,
     });
   }
 
@@ -35,7 +36,9 @@ export class GeneralSettingsModal {
     const language = this.formGroup.get('language')
       .value as unknown as LANGUAGES;
     const touchUIActivate = this.formGroup.get('touchUIActive').value;
-    this.settingsService.changeUISettings(theme, language, touchUIActivate); //TODO
+    const legacyFlags = this.formGroup.get('legacyFlags').value;
+
+    this.settingsService.changeUISettings(theme, language, touchUIActivate,legacyFlags); //TODO
   }
 
   originalOrder = (a: any, b: any): number => {
