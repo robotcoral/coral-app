@@ -5,7 +5,7 @@ import {
   LineBasicMaterial,
   LineSegments,
   Mesh,
-  MeshBasicMaterial
+  MeshBasicMaterial,
 } from 'three';
 import { COLORS } from './gameboard.controller';
 
