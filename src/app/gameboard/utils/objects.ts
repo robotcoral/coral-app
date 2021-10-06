@@ -5,7 +5,7 @@ import {
   LineBasicMaterial,
   LineSegments,
   Mesh,
-  MeshBasicMaterial,
+  MeshBasicMaterial
 } from 'three';
 import { COLORS } from './gameboard.controller';
 
@@ -86,8 +86,8 @@ export class ObjectFactory {
     this._scale = value;
   }
 
-  public set colorMaterials(value: MaterialColors) {
-    Object.entries(value).forEach(([key, value]) => {
+  public set colorMaterials(materialColors: MaterialColors) {
+    Object.entries(materialColors).forEach(([key, value]) => {
       this._colorMaterials[key as COLORS].color.set(value);
     });
   }
