@@ -49,7 +49,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@robotcoral/lang-karol": "^0.2.5",
     "angular-svg-icon": "^12.0.0",
-    "bootstrap": "^5.1.1",
+    "bootstrap": "^5.1.2",
     "jsonschema": "^1.4.0",
     "ngx-toastr": "^14.1.3",
     "rxjs": "^7.3.1",
