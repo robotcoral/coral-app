@@ -6,7 +6,8 @@
       "TOUCH_UI": "Touch UI",
       "THEME": "Theme",
       "LANGUAGE": "Language",
-      "SYSTEM_DEFAULT": "System default"
+      "SYSTEM_DEFAULT": "System default",
+      "NEW_FLAGS": "New flags"
     },
     "EDITOR": {
       "TITLE": "Editor Settings",

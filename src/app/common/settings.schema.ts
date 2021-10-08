@@ -59,6 +59,7 @@ export class GlobalSettings {
   theme: THEMES | 'auto';
   language: LANGUAGES;
   touchUIActive: boolean;
+  newFlags: boolean;
   // editor settings
   fontSize: number;
   tabWidth: number;
@@ -80,6 +81,7 @@ export class GlobalSettings {
     this.tabWidth = settings.tabWidth || 4;
     // execution settings
     this.executionSpeed = settings.executionSpeed || 3;
+    this.newFlags = settings.newFlags !== false;
   }
 }
 
@@ -127,6 +129,9 @@ export const GlobalSettingsSchema: Schema = {
         },
         touchUIActive: {
           type: 'string',
+        },
+        newFlags: {
+          type: 'boolean',
         },
       },
     },
