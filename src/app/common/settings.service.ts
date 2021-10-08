@@ -10,7 +10,7 @@ import {
   LANGUAGES,
   LANGUAGE_CODES,
   Settings,
-  THEMES
+  THEMES,
 } from './settings.schema';
 
 /**
@@ -279,7 +279,7 @@ export class SettingsService implements OnInit {
       this.settings.globalSettings.touchUIActive = touchUIActive;
       this.applyTouchUI();
     }
-    this.settings.globalSettings.newFlags = newFlags!==false;
+    this.settings.globalSettings.newFlags = newFlags !== false;
     this.saveSettings();
   }
 }

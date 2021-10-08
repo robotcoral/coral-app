@@ -81,7 +81,7 @@ export class GlobalSettings {
     this.tabWidth = settings.tabWidth || 4;
     // execution settings
     this.executionSpeed = settings.executionSpeed || 3;
-    this.newFlags = settings.newFlags!==false;
+    this.newFlags = settings.newFlags !== false;
   }
 }
 
