@@ -43,7 +43,7 @@ export class GeneralSettingsModal {
       language,
       touchUIActivate,
       legacyFlags
-    ); //TODO
+    );
   }
 
   originalOrder = (a: any, b: any): number => {
