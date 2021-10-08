@@ -156,7 +156,7 @@
       "WARNING": {
         "1_1024": "must be between 1 and 1024",
         "NUMBER": "must be a number",
-        "1_256": "must be between 0 and 256"
+        "1_255": "must be between 0 and 255"
       }
     },
     "INFO": {
