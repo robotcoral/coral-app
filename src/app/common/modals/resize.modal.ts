@@ -37,7 +37,7 @@ export class ResizeModal {
       ],
       height: [
         coo.z,
-        [Validators.required, Validators.min(0), Validators.max(256)],
+        [Validators.required, Validators.min(0), Validators.max(255)],
       ],
     });
   }
