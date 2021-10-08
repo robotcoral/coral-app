@@ -7,7 +7,7 @@
       "THEME": "Theme",
       "LANGUAGE": "Sprache",
       "SYSTEM_DEFAULT": "Systemstandard",
-      "LEGACY_FLAGS": "Legacy Flaggen"
+      "NEW_FLAGS": "Neue Flaggen"
     },
     "EDITOR": {
       "TITLE": "Editor-Einstellungen",

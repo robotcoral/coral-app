@@ -25,7 +25,7 @@ export class GeneralSettingsModal {
       theme: [settingsService.settings.globalSettings.theme],
       language: [settingsService.settings.globalSettings.language],
       touchUIActive: settingsService.settings.globalSettings.touchUIActive,
-      legacyFlags: settingsService.settings.globalSettings.legacyFlags,
+      newFlags: settingsService.settings.globalSettings.newFlags,
     });
   }
 
@@ -36,7 +36,7 @@ export class GeneralSettingsModal {
     const language = this.formGroup.get('language')
       .value as unknown as LANGUAGES;
     const touchUIActivate = this.formGroup.get('touchUIActive').value;
-    const legacyFlags = this.formGroup.get('legacyFlags').value;
+    const legacyFlags = this.formGroup.get('newFlags').value;
 
     this.settingsService.changeUISettings(
       theme,

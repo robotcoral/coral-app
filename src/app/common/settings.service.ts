@@ -10,7 +10,7 @@ import {
   LANGUAGES,
   LANGUAGE_CODES,
   Settings,
-  THEMES,
+  THEMES
 } from './settings.schema';
 
 /**
@@ -264,7 +264,7 @@ export class SettingsService implements OnInit {
     theme: THEMES | 'auto',
     language: LANGUAGES,
     touchUIActive: boolean,
-    legacyFlags: boolean
+    newFlags: boolean
   ) {
     if (theme != this.settings.globalSettings.theme) {
       this.settings.globalSettings.theme = theme;
@@ -279,7 +279,7 @@ export class SettingsService implements OnInit {
       this.settings.globalSettings.touchUIActive = touchUIActive;
       this.applyTouchUI();
     }
-    this.settings.globalSettings.legacyFlags = legacyFlags === true;
+    this.settings.globalSettings.newFlags = newFlags!==false;
     this.saveSettings();
   }
 }
