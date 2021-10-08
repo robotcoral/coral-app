@@ -26,7 +26,7 @@ export class KarolInterpreter {
     }
     this.timeout = setTimeout(
       this.callback,
-      (6 - this.settings.settings.executionSpeed) * 100
+      (6 - this.settings.settings.globalSettings.executionSpeed) * 100
     );
   };
   private audio: HTMLAudioElement;
@@ -119,7 +119,8 @@ export class KarolInterpreter {
           `Error: ${program.msg} at ${program.pos.from} to ${program.pos.to}`
         );
       this.statements = program.result(this.methods);
-      if (this.settings.settings.resetOnStart) this.controller.reset(true);
+      if (this.settings.settings.fileSettings.resetOnStart)
+        this.controller.reset(true);
     }
     this.running.next(true);
     this.paused = false;
@@ -143,13 +144,17 @@ export class KarolInterpreter {
   }
 
   raiseSpeed() {
-    if (this.settings.settings.executionSpeed < 5)
-      this.settings.setSpeed(this.settings.settings.executionSpeed + 1);
+    if (this.settings.settings.globalSettings.executionSpeed < 5)
+      this.settings.setSpeed(
+        this.settings.settings.globalSettings.executionSpeed + 1
+      );
   }
 
   lowerSpeed() {
-    if (this.settings.settings.executionSpeed > 1)
-      this.settings.setSpeed(this.settings.settings.executionSpeed - 1);
+    if (this.settings.settings.globalSettings.executionSpeed > 1)
+      this.settings.setSpeed(
+        this.settings.settings.globalSettings.executionSpeed - 1
+      );
   }
 
   private move(param: string) {
@@ -201,7 +206,7 @@ export class KarolInterpreter {
   private isFull() {
     return (
       this.controller.getCurrentSlabs() ===
-      this.controller.settingService.settings.maxSlabs
+      this.controller.settingService.settings.fileSettings.maxSlabs
     );
   }
 
@@ -217,7 +222,7 @@ export class KarolInterpreter {
   private execute(callback: () => void | boolean = this.callback) {
     this.timeout = setTimeout(
       callback,
-      (6 - this.settings.settings.executionSpeed) * 100
+      (6 - this.settings.settings.globalSettings.executionSpeed) * 100
     );
   }
 

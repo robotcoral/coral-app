@@ -12,7 +12,7 @@
   <div class="modal-body">
     <form [formGroup]="formGroup">
       <div class="inputWrapper">
-        <div class="nameField">{{'SETTINGS.GENERAL.THEME'|translate}}:</div>
+        <div class="nameField">{{ 'SETTINGS.GENERAL.THEME' | translate }}:</div>
         <select name="theme" formControlName="theme">
           <option
             *ngFor="let item of themes | keyvalue: originalOrder"
@@ -26,7 +26,9 @@
         </select>
       </div>
       <div class="inputWrapper">
-        <div class="nameField">{{'SETTINGS.GENERAL.LANGUAGE'|translate}}:</div>
+        <div class="nameField">
+          {{ 'SETTINGS.GENERAL.LANGUAGE' | translate }}:
+        </div>
         <select name="language" formControlName="language">
           <option
             *ngFor="let item of languages | keyvalue: originalOrder"
@@ -35,6 +37,28 @@
             {{item.key}}
           </option>
         </select>
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">
+          {{ 'SETTINGS.GENERAL.TOUCH_UI' | translate }}:
+        </div>
+        <input
+          class="checkbox"
+          type="checkbox"
+          name="touchUIActive"
+          formControlName="touchUIActive"
+        />
+      </div>
+      <div class="inputWrapper">
+        <div class="nameField">
+          {{ 'SETTINGS.GENERAL.NEW_FLAGS' | translate }}:
+        </div>
+        <input
+          class="checkbox"
+          type="checkbox"
+          name="newFlags"
+          formControlName="newFlags"
+        />
       </div>
     </form>
   </div>
@@ -47,7 +71,7 @@
       class="btn btn-outline-dark"
       (click)="activeModal.dismiss('Close click')"
     >
-      {{'COMMON.CANCEL'|translate}}
+      {{ 'COMMON.CANCEL' | translate }}
     </button>
   </div>
 </div>

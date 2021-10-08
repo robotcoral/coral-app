@@ -17,8 +17,8 @@ export class EditorSettingsModal {
     public settingsService: SettingsService
   ) {
     this.formGroup = this.formBuilder.group({
-      fontsize: [settingsService.settings.fontSize],
-      tabwidth: [settingsService.settings.tabWidth],
+      fontsize: [settingsService.settings.globalSettings.fontSize],
+      tabwidth: [settingsService.settings.globalSettings.tabWidth],
     });
   }
 

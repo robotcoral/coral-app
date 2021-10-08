@@ -3,9 +3,11 @@
     "TITLE": "Einstellungen",
     "GENERAL": {
       "TITLE": "Allgemeine Einstellungen",
+      "TOUCH_UI": "Touch UI",
       "THEME": "Theme",
       "LANGUAGE": "Sprache",
-      "SYSTEM_DEFAULT": "Systemstandard"
+      "SYSTEM_DEFAULT": "Systemstandard",
+      "NEW_FLAGS": "Neue Flaggen"
     },
     "EDITOR": {
       "TITLE": "Editor-Einstellungen",
@@ -134,7 +136,7 @@
       "TITLE": "Weltgröße ändern",
       "WARNING": {
         "1_1024": "muss zwischen 1 und 1024 liegen",
-        "1_256": "muss zwischen 0 und 256 liegen",
+        "1_255": "muss zwischen 0 und 255 liegen",
         "NUMBER": "muss eine Nummer sein"
       }
     },

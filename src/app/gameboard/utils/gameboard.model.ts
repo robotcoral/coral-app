@@ -17,19 +17,19 @@ export class GameboardModel {
   constructor(private settingsService: SettingsService) {
     this.world = new World();
     this.robot = new Robot(this.world);
-    this.currentSlabs = this.settingsService.settings.startSlabs;
+    this.currentSlabs = this.settingsService.settings.fileSettings.startSlabs;
   }
 
   reset() {
     this.world.reset();
     this.robot.reset();
-    this.currentSlabs = this.settingsService.settings.startSlabs;
+    this.currentSlabs = this.settingsService.settings.fileSettings.startSlabs;
   }
 
   resize(coo: Coordinates3) {
     this.world.resize(coo);
     this.robot.reset();
-    this.currentSlabs = this.settingsService.settings.startSlabs;
+    this.currentSlabs = this.settingsService.settings.fileSettings.startSlabs;
   }
 
   export(data: AdditionalWorldData) {
