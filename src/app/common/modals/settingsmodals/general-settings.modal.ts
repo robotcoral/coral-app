@@ -38,7 +38,12 @@ export class GeneralSettingsModal {
     const touchUIActivate = this.formGroup.get('touchUIActive').value;
     const legacyFlags = this.formGroup.get('legacyFlags').value;
 
-    this.settingsService.changeUISettings(theme, language, touchUIActivate,legacyFlags); //TODO
+    this.settingsService.changeUISettings(
+      theme,
+      language,
+      touchUIActivate,
+      legacyFlags
+    ); //TODO
   }
 
   originalOrder = (a: any, b: any): number => {

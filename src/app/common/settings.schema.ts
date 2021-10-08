@@ -81,7 +81,7 @@ export class GlobalSettings {
     this.tabWidth = settings.tabWidth || 4;
     // execution settings
     this.executionSpeed = settings.executionSpeed || 3;
-    this.legacyFlags= settings.legacyFlags===true;
+    this.legacyFlags = settings.legacyFlags === true;
   }
 }
 
@@ -131,8 +131,8 @@ export const GlobalSettingsSchema: Schema = {
           type: 'string',
         },
         legacyFlags: {
-          type:'boolean',
-        }
+          type: 'boolean',
+        },
       },
     },
     editor: {

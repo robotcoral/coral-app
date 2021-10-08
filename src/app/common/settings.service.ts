@@ -6,7 +6,11 @@ import { Subject } from 'rxjs';
 import { COLORS, MaterialColors } from '../gameboard/utils';
 import {
   GlobalSettings,
-  GlobalSettingsSchema, LANGUAGES, LANGUAGE_CODES, Settings, THEMES
+  GlobalSettingsSchema,
+  LANGUAGES,
+  LANGUAGE_CODES,
+  Settings,
+  THEMES,
 } from './settings.schema';
 
 /**
@@ -260,7 +264,7 @@ export class SettingsService implements OnInit {
     theme: THEMES | 'auto',
     language: LANGUAGES,
     touchUIActive: boolean,
-    legacyFlags: boolean,
+    legacyFlags: boolean
   ) {
     if (theme != this.settings.globalSettings.theme) {
       this.settings.globalSettings.theme = theme;
@@ -275,7 +279,7 @@ export class SettingsService implements OnInit {
       this.settings.globalSettings.touchUIActive = touchUIActive;
       this.applyTouchUI();
     }
-    this.settings.globalSettings.legacyFlags=legacyFlags===true;
+    this.settings.globalSettings.legacyFlags = legacyFlags === true;
     this.saveSettings();
   }
 }
