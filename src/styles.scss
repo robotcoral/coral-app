@@ -41,6 +41,10 @@ html {
   --shadow-transition-time: 0.05s;
 }
 
+#main-header {
+  display: none;
+}
+
 *,
 *:before,
 *:after {
