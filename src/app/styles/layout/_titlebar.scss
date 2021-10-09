@@ -1,0 +1,73 @@
+@use "sass:math";
+@use "abstracts/transitions" as transitions;
+
+.app-titlebar-logo-area {
+  flex: 0 0 3.5rem;
+  height: inherit;
+  text-align: center;
+  border-radius: 0 math.div(5rem, 16) math.div(5rem, 16) 0;
+  background-image: var(--theme-titlebar-bg-logo);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  @include transitions.bg-img-transition;
+}
+
+.app-titlebar-logo {
+  height: inherit;
+  padding: 0.4rem;
+  user-select: none;
+  cursor: default;
+}
+
+.app-titlebar-button-container {
+  height: inherit;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(6, [col-start] auto [col-end]);
+  margin: 0 0 0 0.75rem;
+  column-gap: 0.25rem;
+}
+
+.app-titelbar-button {
+  color: var(--theme-font-color);
+  height: inherit;
+  line-height: 1rem;
+  border-color: transparent;
+  background-color: transparent;
+  padding-left: 0.66rem;
+  padding-right: 0.66rem;
+  border-radius: 0.25rem;
+  user-select: none;
+
+  @include transitions.bg-highlight-color-transition;
+  @include transitions.color-transition;
+}
+
+.dropdown {
+  height: 1.8rem;
+}
+
+.show .app-titelbar-button {
+  background-color: var(--theme-highlight-4);
+  color: var(--theme-font-color-invert);
+  box-shadow: var(--box-shadow-elevation-1);
+}
+
+.app-titelbar-button:hover,
+.dropdown-item:hover {
+  background-color: var(--theme-highlight-2);
+}
+
+.dropdown-menu {
+  background-color: var(--theme-highlight-1);
+  border: none;
+  box-shadow: var(--box-shadow-elevation-2);
+}
+
+.dropdown-item {
+  color: var(--theme-font-color);
+}
+
+.dropdown-toggle::after {
+  display: none;
+}

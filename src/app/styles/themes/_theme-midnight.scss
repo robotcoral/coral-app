@@ -1,0 +1,21 @@
+@mixin theme {
+  --theme-font-color: hsl(0, 0%, 90%);
+  --theme-main-bg-color: hsl(0, 0%, 5%);
+  --theme-highlight-1: hsl(0, 0%, 5%);
+  --theme-highlight-2: hsl(0, 0%, 10%);
+  --theme-highlight-4: hsl(0, 100%, 50%);
+  --theme-titlebar-bg-logo: linear-gradient(
+    to top right,
+    hsl(304, 100%, 32%),
+    hsl(0, 87%, 69%)
+  );
+  --box-shadow-elevation-1: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+  --box-shadow-elevation-2: 0px 4px 9px hsla(0, 0%, 0%, 0.35);
+  --box-shadow-elevation-3: 0px 6px 12px hsla(0, 0%, 0%, 0.35);
+  --box-shadow-elevation-4: 0px 8px 15px hsla(0, 0%, 0%, 0.35);
+
+  --gb-red: #990f02;
+  --gb-green: #028a0f;
+  --gb-blue: #2832c2;
+  --gb-yellow: #ffd300;
+}

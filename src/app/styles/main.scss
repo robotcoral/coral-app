@@ -1,0 +1,27 @@
+@import "~ngx-toastr/toastr";
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+@import "abstracts/variables";
+@import "abstracts/transitions";
+
+@import "base/baserules";
+@import "base/typhography";
+
+@import "components/scrollbars";
+@import "components/textfield";
+
+@import "themes/themes";
+
+@import "layout/body";
+@import "layout/app-root";
+@import "layout/app";
+@import "layout/editor-controls";
+@import "layout/editor";
+@import "layout/gameboard-controls";
+@import "layout/gameboard-view";
+@import "layout/gameboard";
+@import "layout/modal";
+@import "layout/settings";
+@import "layout/titlebar";

@@ -1,0 +1,29 @@
+@mixin bg-color-transition {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color var(--theme-transition-time) ease-in-out;
+  }
+}
+
+@mixin bg-highlight-color-transition {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color var(--theme-transition-time) ease-in-out;
+  }
+}
+
+@mixin bg-img-transition {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-image var(--theme-transition-time) ease-in-out;
+  }
+}
+
+@mixin color-transition {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: color var(--theme-transition-time) ease-in-out;
+  }
+}
+
+@mixin box-shadow-transition {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: box-shadow var(--shadow-transition-time) ease-in-out;
+  }
+}
