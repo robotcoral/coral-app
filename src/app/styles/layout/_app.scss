@@ -14,17 +14,32 @@
 }
 
 .split-border {
-  background-color: darkslategray;
+  background-color: var(--theme-highlight-1);
   cursor: ew-resize;
   height: 100%;
   width: 2px;
   position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  font-size: 1.5rem;
+  box-shadow: var(--box-shadow-elevation-1);
+
+  color: transparent;
+  @include transitions.width-transition;
+}
+
+.split-border:hover{
+  color: var(--theme-font-color-dim);
+  width: 1rem;
 }
 
 html[touch-ui="true"] {
   .split-border {
-    background-color: red;
-    width: 200px;
+    color: var(--theme-font-color-dim);
+    width: 1rem;
   }
 }
 

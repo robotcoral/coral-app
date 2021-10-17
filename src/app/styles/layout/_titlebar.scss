@@ -1,5 +1,5 @@
 @use "sass:math";
-@use "abstracts/transitions" as transitions;
+@use "../abstracts/transitions" as transitions;
 
 .app-titlebar-logo-area {
   flex: 0 0 3.5rem;
@@ -62,6 +62,7 @@
   background-color: var(--theme-highlight-1);
   border: none;
   box-shadow: var(--box-shadow-elevation-2);
+  height: auto;
 }
 
 .dropdown-item {
