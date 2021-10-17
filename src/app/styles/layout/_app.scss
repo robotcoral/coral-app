@@ -31,7 +31,7 @@
   @include transitions.width-transition;
 }
 
-.split-border:hover{
+.split-border:hover {
   color: var(--theme-font-color-dim);
   width: 1rem;
 }
