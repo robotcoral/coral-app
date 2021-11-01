@@ -10,6 +10,7 @@ import { EditorController } from 'src/app/common/editor.controller';
 import { KarolInterpreter } from 'src/app/common/karol.interpreter';
 import { Settings } from 'src/app/common/settings.schema';
 import { SettingsService } from 'src/app/common/settings.service';
+import { environment } from 'src/environments/environment';
 import { customSetup, EditorState, EditorView } from '../util/codemirror.setup';
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
@@ -58,16 +59,17 @@ export class EditorViewComponent {
       parent: this.codemirrorhost.nativeElement,
     });
     this.interpreter.setEditor(this);
-    window.addEventListener(
-      'beforeunload',
-      (event) => {
-        if (!this.controller.unsavedChanges) return undefined;
-        event.preventDefault();
-        event.returnValue = ''; // needed for Microsoft Edge compability
-        return;
-      },
-      { capture: true }
-    );
+    if (environment.production) {
+      window.addEventListener(
+        'beforeunload',
+        (event) => {
+          if (!this.controller.unsavedChanges) return undefined;
+          event.preventDefault();
+          event.returnValue = ''; // needed for Microsoft Edge compability
+        },
+        { capture: true }
+      );
+    }
   }
 
   applySettings(settings: Settings) {
