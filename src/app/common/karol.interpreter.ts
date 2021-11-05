@@ -118,7 +118,7 @@ export class KarolInterpreter {
         this.statements = program(this.methods);
         if (this.settings.settings.fileSettings.resetOnStart)
           this.controller.reset(true);
-      } catch(err:any) {
+      } catch (err: any) {
         return console.error(
           `Error: ${err.msg} at ${err.pos.from} to ${err.pos.to}`
         );
