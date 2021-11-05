@@ -35,7 +35,7 @@ export class SettingsService implements OnInit {
   settings: Settings;
   onThemeChange: Subject<GameboardTheme> = new Subject();
   gameboardTheme: GameboardTheme;
-  onEditorSettingsChange: Subject<Settings> = new Subject();
+  onEditorSettingsChange: Subject<Partial<GlobalSettings>> = new Subject();
 
   constructor(
     private window: Window,
@@ -54,7 +54,6 @@ export class SettingsService implements OnInit {
   ngOnInit(): void {
     this.applyUISettings();
     this.triggerCanvasThemeChange();
-    this.onEditorSettingsChange.next(this.settings);
   }
 
   // load function
@@ -188,6 +187,9 @@ export class SettingsService implements OnInit {
   private applyLanguage() {
     this.document.documentElement.lang = this.settings.globalSettings.language;
     this.translationService.use(this.settings.globalSettings.language);
+    this.onEditorSettingsChange.next({
+      language: this.settings.globalSettings.language,
+    });
   }
 
   /**
@@ -236,11 +238,17 @@ export class SettingsService implements OnInit {
    * @param fontSize editor font size
    * @param tabWidth number of spaces for indentation in the editor
    */
-  saveEditorSettings(fontSize: number, tabWidth: number) {
-    this.settings.globalSettings.fontSize = fontSize;
-    this.settings.globalSettings.tabWidth = tabWidth;
+  saveEditorSettings(settings: { fontSize?: number; tabWidth?: number }) {
+    if (settings.fontSize) {
+      this.settings.globalSettings.fontSize = settings.fontSize;
+    }
+    if (settings.tabWidth) {
+      this.settings.globalSettings.tabWidth = settings.tabWidth;
+      this.onEditorSettingsChange.next({
+        tabWidth: settings.tabWidth,
+      });
+    }
     this.saveSettings();
-    this.onEditorSettingsChange.next(this.settings);
   }
 
   /**
