@@ -26,6 +26,6 @@ export class EditorSettingsModal {
     const tabWidth = this.formGroup.get('tabwidth').value;
     const fontSize = this.formGroup.get('fontsize').value;
 
-    this.settingsService.saveEditorSettings(fontSize, tabWidth);
+    this.settingsService.saveEditorSettings({ fontSize, tabWidth });
   }
 }
