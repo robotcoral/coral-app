@@ -2,11 +2,14 @@ import {
   BoxGeometry,
   ColorRepresentation,
   EdgesGeometry,
+  Group,
   LineBasicMaterial,
   LineSegments,
   Mesh,
   MeshBasicMaterial,
+  MeshStandardMaterial,
 } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { COLORS } from './gameboard.controller';
 
 export type MaterialColors = { [key in COLORS]: ColorRepresentation };
@@ -41,21 +44,45 @@ export class Block extends Mesh {
   }
 }
 
-export class Flag extends Mesh {
+export class Flag extends Group {
   color: COLORS;
 
-  constructor(scale: number, color: COLORS, material: MeshBasicMaterial) {
-    const geometry = new BoxGeometry(scale, 0, scale);
-    super(geometry, material);
-    this.renderOrder = 2;
+  constructor(color: COLORS, materialColor: ColorRepresentation) {
+    super();
     this.color = color;
+    this.init(materialColor);
+  }
+
+  init(materialColor: ColorRepresentation) {
+    const loader = new GLTFLoader();
+
+    const scale = 20;
+
+    loader.load(
+      'assets/models/flag.glb',
+      (glb) => {
+        this.add(glb.scene);
+        this.scale.set(scale, scale, scale);
+
+        (
+          (this.children[0].children[1] as Mesh)
+            .material as MeshStandardMaterial
+        ).emissive.set(materialColor);
+        console.log(this.children[0].children[1]);
+      },
+      undefined,
+      function (error) {
+        console.error(error);
+      }
+    );
   }
 }
 
 export class ObjectFactory {
   private static instance: ObjectFactory;
   private _scale: number;
-  private _colorMaterials: ColorMaterials;
+  private _materials: ColorMaterials;
+  private _materialColors: MaterialColors;
 
   static getInstance() {
     if (!this.instance) this.instance = new ObjectFactory();
@@ -64,18 +91,18 @@ export class ObjectFactory {
   }
 
   private constructor() {
-    this._colorMaterials = {} as ColorMaterials;
+    this._materials = {} as ColorMaterials;
     Object.values(COLORS).forEach((color) => {
-      this._colorMaterials[color] = new MeshBasicMaterial();
+      this._materials[color] = new MeshBasicMaterial();
     });
   }
 
   slab(color: COLORS): Slab {
-    return new Slab(this._scale, color, this._colorMaterials[color]);
+    return new Slab(this._scale, color, this._materials[color]);
   }
 
   flag(color: COLORS): Flag {
-    return new Flag(this._scale, color, this._colorMaterials[color]);
+    return new Flag(color, this._materials[color].color);
   }
 
   block(): Block {
@@ -87,8 +114,9 @@ export class ObjectFactory {
   }
 
   public set colorMaterials(materialColors: MaterialColors) {
+    this._materialColors = materialColors;
     Object.entries(materialColors).forEach(([key, value]) => {
-      this._colorMaterials[key as COLORS].color.set(value);
+      this._materials[key as COLORS].color.set(value);
     });
   }
 }
