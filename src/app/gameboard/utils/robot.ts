@@ -20,7 +20,7 @@ export class Robot {
     const scale = 20;
 
     loader.load(
-      'assets/robot/Companion-bot.gltf',
+      'assets/models/companion-bot.gltf',
       (gltf) => {
         this.robot.add(gltf.scene);
         this.robot.scale.set(scale, scale, scale);
