@@ -68,7 +68,6 @@ export class Flag extends Group {
           (this.children[0].children[1] as Mesh)
             .material as MeshStandardMaterial
         ).emissive.set(materialColor);
-        console.log(this.children[0].children[1]);
       },
       undefined,
       function (error) {
