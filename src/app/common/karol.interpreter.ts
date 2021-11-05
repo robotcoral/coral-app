@@ -113,14 +113,16 @@ export class KarolInterpreter {
 
   play() {
     if (!this.paused) {
-      const program = karol.compile(this.getEditorString());
-      if (program.kind == 'error')
+      try {
+        const program = karol.compile(this.getEditorString());
+        this.statements = program(this.methods);
+        if (this.settings.settings.fileSettings.resetOnStart)
+          this.controller.reset(true);
+      } catch(err:any) {
         return console.error(
-          `Error: ${program.msg} at ${program.pos.from} to ${program.pos.to}`
+          `Error: ${err.msg} at ${err.pos.from} to ${err.pos.to}`
         );
-      this.statements = program.result(this.methods);
-      if (this.settings.settings.fileSettings.resetOnStart)
-        this.controller.reset(true);
+      }
     }
     this.running.next(true);
     this.paused = false;
