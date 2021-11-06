@@ -7,7 +7,7 @@ import { highlightActiveLineGutter, lineNumbers } from '@codemirror/gutter';
 import { defaultHighlightStyle } from '@codemirror/highlight';
 import { history, historyKeymap } from '@codemirror/history';
 import { indentOnInput } from '@codemirror/language';
-import { lintKeymap } from '@codemirror/lint';
+import { lintKeymap, linter } from '@codemirror/lint';
 import { bracketMatching } from '@codemirror/matchbrackets';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
 import { EditorState } from '@codemirror/state';
@@ -18,6 +18,7 @@ import {
   keymap,
 } from '@codemirror/view';
 import { karol } from '@robotcoral/lang-karol';
+import { lintKarol } from './linter';
 
 export * from '@codemirror/history';
 export { EditorState } from '@codemirror/state';
@@ -50,4 +51,5 @@ export const customSetup = [
     indentWithTab,
   ]),
   karol(),
+  linter(lintKarol),
 ];
