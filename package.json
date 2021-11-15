@@ -46,7 +46,7 @@
     "@codemirror/view": "^0.19.16",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "@ngx-translate/core": "^14.0.0",
-    "@ngx-translate/http-loader": "^6.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@robotcoral/lang-karol": "^0.3.0",
     "angular-svg-icon": "^13.0.0",
     "bootstrap": "^5.1.3",
