@@ -1,25 +1,5 @@
 @use "sass:math";
 
-.separator {
-  background-color: var(--theme-highlight-2);
-  width: 2px;
-  height: 2.5rem;
-  border-radius: 2px;
-}
-
-.separator {
-  margin: 0.5rem;
-}
-
-.controls {
-  flex: 1;
-  display: flex;
-}
-
-.left-controls {
-  justify-content: flex-end;
-}
-
 .wrapper {
   min-width: 4rem;
 }
@@ -59,10 +39,6 @@
   margin-right: 0.75rem;
 }
 
-.control-panel {
-  display: flex;
-  justify-content: center;
-}
 
 .settings-panel {
   box-shadow: -1px -2px 4px grey;

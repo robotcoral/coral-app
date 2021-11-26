@@ -1,7 +1,7 @@
 @import "~ngx-toastr/toastr";
 
 /* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/scss/bootstrap";
 
 @import "abstracts/variables";
 @import "abstracts/transitions";
@@ -18,6 +18,7 @@
 @import "layout/body";
 @import "layout/app-root";
 @import "layout/app";
+@import "layout/controls";
 @import "layout/editor-controls";
 @import "layout/editor";
 @import "layout/gameboard-controls";

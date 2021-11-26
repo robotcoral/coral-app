@@ -74,7 +74,9 @@ export class GlobalSettings {
     this.theme = settings.theme || 'auto';
     this.language = settings.language || undefined;
     this.touchUIActive =
-      settings.touchUIActive || window.navigator.maxTouchPoints > 0;
+      typeof settings.touchUIActive === 'boolean'
+        ? settings.touchUIActive
+        : window.navigator.maxTouchPoints > 0;
     // editor settings
     this.fontSize = settings.fontSize || 16;
     this.tabWidth = settings.tabWidth || 4;
