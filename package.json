@@ -43,7 +43,7 @@
     "@codemirror/search": "^0.19.4",
     "@codemirror/state": "^0.19.6",
     "@codemirror/text": "^0.19.5",
-    "@codemirror/view": "^0.19.24",
+    "@codemirror/view": "^0.19.25",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
@@ -60,7 +60,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.0.4",
     "@angular/cli": "^13.0.4",
-    "@angular/compiler-cli": "^13.0.0",
+    "@angular/compiler-cli": "^13.0.3",
     "@types/jasmine": "^3.10.2",
     "@types/node": "^16.11.11",
     "@types/three": "^0.134.0",
