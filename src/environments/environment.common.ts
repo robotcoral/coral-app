@@ -1,4 +1,4 @@
 export const commonEnvironment = {
-  version: '0.1.16',
+  version: '0.2.2',
   worldFileVersion: 1,
 };
