@@ -31,77 +31,77 @@ export class KarolInterpreter {
   };
   private audio: HTMLAudioElement;
   private methods: KarolMethods = {
-    Schritt: (param) => {
+    schritt: (param) => {
       this.move(param);
     },
-    LinksDrehen: () => {
+    linksdrehen: () => {
       this.controller.rotate();
     },
-    RechtsDrehen: () => {
+    rechtsdrehen: () => {
       this.controller.rotate(-1);
     },
-    Hinlegen: (param) => {
+    hinlegen: (param) => {
       this.placeSlab(param);
     },
-    Aufheben: (param) => {
+    aufheben: (param) => {
       this.pickUpSlab(param);
     },
-    MarkeSetzen: (param) => {
+    markesetzen: (param) => {
       this.placeFlag(param);
     },
-    MarkeLöschen: () => {
+    markelöschen: () => {
       this.controller.pickUp(WORLDOBJECTTYPES.FLAG);
     },
-    Warten: () => {},
-    Ton: () => {
+    warten: () => {},
+    ton: () => {
       this.sound();
     },
-    Beenden: () => {
+    beenden: () => {
       this.stop();
     },
-    IstWand: () => {
+    istwand: () => {
       return this.controller.isWall();
     },
-    NichtIstWand: () => {
+    nichtistwand: () => {
       return !this.controller.isWall();
     },
-    IstZiegel: (param) => {
+    istziegel: (param) => {
       return this.isSlab(param);
     },
-    NichtIstZiegel: (param) => {
+    nichtistziegel: (param) => {
       return !this.isSlab(param);
     },
-    IstMarke: () => {
+    istmarke: () => {
       return this.controller.isFlag();
     },
-    NichtIstMarke: (param) => {
+    nichtistmarke: (param) => {
       return !this.controller.isFlag();
     },
-    IstNorden: () => {
+    istnorden: () => {
       return this.controller.isCardinal(CARDINALS.NORTH);
     },
-    IstOsten: () => {
+    istosten: () => {
       return this.controller.isCardinal(CARDINALS.EAST);
     },
-    IstSüden: () => {
+    istsüden: () => {
       return this.controller.isCardinal(CARDINALS.SOUTH);
     },
-    IstWesten: () => {
+    istwesten: () => {
       return this.controller.isCardinal(CARDINALS.WEST);
     },
-    IstVoll: () => {
+    istvoll: () => {
       return this.isFull();
     },
-    NichtIstVoll: () => {
+    nichtistvoll: () => {
       return !this.isFull();
     },
-    IstLeer: () => {
+    istleer: () => {
       return this.isEmpty();
     },
-    NichtIstLeer: () => {
+    nichtistleer: () => {
       return !this.isEmpty();
     },
-    HatZiegel: (param) => {
+    hatziegel: (param) => {
       return this.hasSlabs(param);
     },
   };
@@ -113,14 +113,16 @@ export class KarolInterpreter {
 
   play() {
     if (!this.paused) {
-      const program = karol.compile(this.getEditorString());
-      if (program.kind == 'error')
+      try {
+        const program = karol.compile(this.getEditorString());
+        this.statements = program(this.methods);
+        if (this.settings.settings.fileSettings.resetOnStart)
+          this.controller.reset(true);
+      } catch (err: any) {
         return console.error(
-          `Error: ${program.msg} at ${program.pos.from} to ${program.pos.to}`
+          `Error: ${err.msg} at ${err.pos.from} to ${err.pos.to}`
         );
-      this.statements = program.result(this.methods);
-      if (this.settings.settings.fileSettings.resetOnStart)
-        this.controller.reset(true);
+      }
     }
     this.running.next(true);
     this.paused = false;

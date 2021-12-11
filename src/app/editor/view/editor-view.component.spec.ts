@@ -20,7 +20,11 @@ describe('EditorViewComponent', () => {
           provide: SettingsService,
           useValue: {
             onEditorSettingsChange: { subscribe: () => {} },
-            settings: {},
+            settings: {
+              globalSettings: {
+                tabWidth: 4,
+              },
+            },
           },
         },
         { provide: KarolInterpreter, useValue: { setEditor: () => {} } },

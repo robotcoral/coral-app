@@ -27,16 +27,17 @@ export class EditorController {
   }
 
   zoomIn() {
-    this.editor.fontSize += 2;
+    const fontSize = this.settingsService.settings.globalSettings.fontSize + 2;
+    this.settingsService.saveEditorSettings({ fontSize });
   }
 
   zoomOut() {
-    this.editor.fontSize -= 2;
+    const fontSize = this.settingsService.settings.globalSettings.fontSize - 2;
+    this.settingsService.saveEditorSettings({ fontSize });
   }
 
   resetFontSize() {
-    this.editor.fontSize =
-      this.settingsService.settings.globalSettings.fontSize;
+    this.settingsService.saveEditorSettings({ fontSize: 16 });
   }
 
   cut() {
