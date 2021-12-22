@@ -92,9 +92,7 @@ export class GameboardControlsComponent {
     this.controller.pickUp(this.mode);
   }
 
-  onResize() {
-
-  }
+  onResize() {}
 
   onThemeChange(theme: MaterialColors) {
     this.colors = theme;

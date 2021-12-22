@@ -123,9 +123,7 @@ export class GameboardController {
     return this.model.robot.isCardinal(cardinal);
   }
 
-  reset(force: boolean = false) {
-
-  }
+  reset(force: boolean = false) {}
 
   resize(coo: Coordinates3) {
     this.model.resize(coo);
@@ -143,9 +141,7 @@ export class GameboardController {
     return this.model.robot;
   }
 
-  exportWorld() {
-
-  }
+  exportWorld() {}
 
   importWorld() {
     const callback = async (event: Event) => {
@@ -160,8 +156,6 @@ export class GameboardController {
     };
     this.utilService.upload('.coralworld,.json', callback);
   }
-
-
 
   getCurrentSlabs() {
     return this.model.currentSlabs;

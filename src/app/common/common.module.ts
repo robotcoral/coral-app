@@ -5,9 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { KarolInterpreter } from './karol.interpreter';
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   providers: [KarolInterpreter],
   imports: [
     AngularCommonModule,
@@ -16,4 +14,4 @@ import { KarolInterpreter } from './karol.interpreter';
     TranslateModule.forChild(),
   ],
 })
-export class CommonModule { }
+export class CommonModule {}

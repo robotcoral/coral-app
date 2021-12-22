@@ -18,9 +18,7 @@ export class UtilService {
     @Inject(DOCUMENT) private document: Document,
     private toastr: ToastrService,
     private translate: TranslateService
-  ) { }
-
-
+  ) {}
 
   dyanmicDownloadByHtmlTag(file: File) {
     if (!this.downloadElement) {

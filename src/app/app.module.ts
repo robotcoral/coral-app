@@ -42,4 +42,4 @@ export function HTTPLoaderFactory(http: HttpClient) {
   providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

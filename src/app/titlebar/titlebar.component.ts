@@ -15,8 +15,7 @@ export class TitlebarComponent {
     private eController: EditorController,
     private utilService: UtilService,
     private interpreter: KarolInterpreter
-  ) { }
-
+  ) {}
 
   titlebar: { [key: string]: { [key: string]: Function } } = {
     FILE: {
@@ -58,9 +57,9 @@ export class TitlebarComponent {
     },
     HELP: {
       DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
-      INFO: () => { },
-      IMPRESSUM: () => { }
+      INFO: () => {},
+      IMPRESSUM: () => {},
     },
     SUPPORT_US: null,
   };
-};
+}

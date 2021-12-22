@@ -15,7 +15,7 @@ export class EditorController {
   constructor(
     private utilService: UtilService,
     private settingsService: SettingsService
-  ) { }
+  ) {}
 
   undo() {
     undo(this.editor.view);
@@ -98,7 +98,6 @@ export class EditorController {
     };
 
     if (!this.unsavedChanges) return callback();
-
   }
 
   private clipboardEvent(event: string) {

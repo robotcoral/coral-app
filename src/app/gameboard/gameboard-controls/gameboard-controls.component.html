@@ -1,13 +1,34 @@
 <div class="control-panel">
   <div class="left-controls controls">
-    <button (click)="controller.rotate()" [title]="'TOOLTIPS.ROTATE_COUNTERCLOCKWISE' | translate" class="icon-button">
-      <svg-icon src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+    <button
+      (click)="controller.rotate()"
+      [title]="'TOOLTIPS.ROTATE_COUNTERCLOCKWISE' | translate"
+      class="icon-button"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_arrow_rotate_counterclockwise_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
-    <button (click)="controller.move()" [title]="'TOOLTIPS.MOVE' | translate" class="icon-button">
-      <svg-icon src="assets/icons/ic_fluent_arrow_up_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+    <button
+      (click)="controller.move()"
+      [title]="'TOOLTIPS.MOVE' | translate"
+      class="icon-button"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_arrow_up_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
-    <button (click)="controller.rotate(-1)" [title]="'TOOLTIPS.ROTATE_CLOCKWISE' | translate" class="icon-button">
-      <svg-icon src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+    <button
+      (click)="controller.rotate(-1)"
+      [title]="'TOOLTIPS.ROTATE_CLOCKWISE' | translate"
+      class="icon-button"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_arrow_rotate_clockwise_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
   </div>
 
@@ -15,13 +36,26 @@
 
   <div class="right-controls controls">
     <div class="wrapper">
-      <div id="modeMenu" [ngClass]="{ openModeMenu: modeExpanded }" class="menu">
-        <button (click)="onModeMenu()" [title]="'TOOLTIPS.CHANGE_PLACEMENT_MODE' | translate" class="icon-button">
+      <div
+        id="modeMenu"
+        [ngClass]="{ openModeMenu: modeExpanded }"
+        class="menu"
+      >
+        <button
+          (click)="onModeMenu()"
+          [title]="'TOOLTIPS.CHANGE_PLACEMENT_MODE' | translate"
+          class="icon-button"
+        >
           <svg-icon [src]="modes[mode]" [svgClass]="'svg'"></svg-icon>
         </button>
         <ng-container *ngIf="modeExpanded">
-          <button *ngFor="let m of modes | keyvalue" [style.display]="m.key == mode ? 'none' : ''"
-            (click)="onModeSelect(m.key)" [title]="m.key" class="icon-button">
+          <button
+            *ngFor="let m of modes | keyvalue"
+            [style.display]="m.key == mode ? 'none' : ''"
+            (click)="onModeSelect(m.key)"
+            [title]="m.key"
+            class="icon-button"
+          >
             <svg-icon [src]="m.value" [svgClass]="'svg'"></svg-icon>
           </button>
         </ng-container>
@@ -29,45 +63,117 @@
     </div>
 
     <div class="wrapper" *ngIf="mode != 'CUBE'">
-      <div id="colorMenu" [ngClass]="{ openColorMenu: colorExpanded }" class="menu">
-        <button [style.background-color]="colors[color]" (click)="onColorMenu()"
-          [title]="'TOOLTIPS.CHANGE_COLOR' | translate" class="icon-button">
-          <svg-icon src="assets/icons/ic_fluent_color_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+      <div
+        id="colorMenu"
+        [ngClass]="{ openColorMenu: colorExpanded }"
+        class="menu"
+      >
+        <button
+          [style.background-color]="colors[color]"
+          (click)="onColorMenu()"
+          [title]="'TOOLTIPS.CHANGE_COLOR' | translate"
+          class="icon-button"
+        >
+          <svg-icon
+            src="assets/icons/ic_fluent_color_24_regular.svg"
+            [svgClass]="'svg'"
+          ></svg-icon>
         </button>
         <ng-container *ngIf="colorExpanded">
-          <button *ngFor="let c of colors | keyvalue" class="colorbtn" [style.background-color]="c.value"
-            [style.display]="c.key == color ? 'none' : ''" (click)="onColorSelect(c.key)" [title]="c.key"
-            class="icon-button colorbtn"></button>
+          <button
+            *ngFor="let c of colors | keyvalue"
+            class="colorbtn"
+            [style.background-color]="c.value"
+            [style.display]="c.key == color ? 'none' : ''"
+            (click)="onColorSelect(c.key)"
+            [title]="c.key"
+            class="icon-button colorbtn"
+          ></button>
         </ng-container>
       </div>
     </div>
-    <button (click)="onPlace()" [title]="'TOOLTIPS.PUT_DOWN' | translate" class="icon-button">
-      <svg-icon src="assets/icons/ic_fluent_add_square_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+    <button
+      (click)="onPlace()"
+      [title]="'TOOLTIPS.PUT_DOWN' | translate"
+      class="icon-button"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_add_square_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
-    <button (click)="onPickUp()" [title]="'TOOLTIPS.PICK_UP' | translate" class="icon-button">
-      <svg-icon src="assets/icons/ic_fluent_subtract_square_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+    <button
+      (click)="onPickUp()"
+      [title]="'TOOLTIPS.PICK_UP' | translate"
+      class="icon-button"
+    >
+      <svg-icon
+        src="assets/icons/ic_fluent_subtract_square_24_regular.svg"
+        [svgClass]="'svg'"
+      ></svg-icon>
     </button>
   </div>
 
-  <button class="settingsbtn icon-button" (click)="settingsOpen = !settingsOpen"
-    [title]="'TOOLTIPS.EXPAND_COLLAPSE_SETTINGS' | translate">
-    <svg-icon src="assets/icons/ic_fluent_settings_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+  <button
+    class="settingsbtn icon-button"
+    (click)="settingsOpen = !settingsOpen"
+    [title]="'TOOLTIPS.EXPAND_COLLAPSE_SETTINGS' | translate"
+  >
+    <svg-icon
+      src="assets/icons/ic_fluent_settings_24_regular.svg"
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
 </div>
 <div class="control-panel settings-panel" *ngIf="settingsOpen">
-  <button (click)="controller.reset()" [title]="'TOOLTIPS.RESET_WORLD' | translate" class="icon-button">
-    <svg-icon src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+  <button
+    (click)="controller.reset()"
+    [title]="'TOOLTIPS.RESET_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
+      src="assets/icons/ic_fluent_arrow_counterclockwise_24_regular.svg"
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
-  <button (click)="onResize()" [title]="'TOOLTIPS.RESIZE_WORLD' | translate" class="icon-button">
-    <svg-icon src="assets/icons/ic_fluent_slide_size_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+  <button
+    (click)="onResize()"
+    [title]="'TOOLTIPS.RESIZE_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
+      src="assets/icons/ic_fluent_slide_size_24_regular.svg"
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
 
-  <button (click)="null" [title]="'TOOLTIPS.SAVE_WORLD' | translate" class="icon-button">
-    <svg-icon src="assets/icons/ic_fluent_save_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+  <button
+    (click)="(null)"
+    [title]="'TOOLTIPS.SAVE_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
+      src="assets/icons/ic_fluent_save_24_regular.svg"
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
-  <button (click)="controller.importWorld()" [title]="'TOOLTIPS.IMPORT_WORLD' | translate" class="icon-button">
-    <svg-icon src="assets/icons/ic_fluent_cloud_backup_24_regular.svg" [svgClass]="'svg'"></svg-icon>
-  </button><button (click)="controller.exportWorld()" [title]="'TOOLTIPS.EXPORT_WORLD' | translate" class="icon-button">
-    <svg-icon src="assets/icons/ic_fluent_cloud_download_24_regular.svg" [svgClass]="'svg'"></svg-icon>
+  <button
+    (click)="controller.importWorld()"
+    [title]="'TOOLTIPS.IMPORT_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
+      src="assets/icons/ic_fluent_cloud_backup_24_regular.svg"
+      [svgClass]="'svg'"
+    ></svg-icon></button
+  ><button
+    (click)="controller.exportWorld()"
+    [title]="'TOOLTIPS.EXPORT_WORLD' | translate"
+    class="icon-button"
+  >
+    <svg-icon
+      src="assets/icons/ic_fluent_cloud_download_24_regular.svg"
+      [svgClass]="'svg'"
+    ></svg-icon>
   </button>
 </div>
