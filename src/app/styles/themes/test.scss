@@ -1,0 +1,11 @@
+$name: "teeeest";
+
+html[a="#{$name}"] {
+  background-color: blue;
+}
+
+@media (prefers-color-scheme: light) {
+  html[a="#{$name}"] {
+    background-color: red;
+  }
+}
