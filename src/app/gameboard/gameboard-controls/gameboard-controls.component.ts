@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { ResizeModal } from 'src/app/common/modals';
 import { SettingsService } from 'src/app/common/settings.service';
 import { UtilService } from 'src/app/common/util.service';
 import { Coordinates3, MaterialColors } from '../utils';
@@ -94,14 +93,7 @@ export class GameboardControlsComponent {
   }
 
   onResize() {
-    const modalRef = this.utilService.openModal(ResizeModal);
 
-    modalRef.componentInstance.init(this.controller.getWorldSize());
-    modalRef.result
-      .then((coo: Coordinates3) => {
-        this.controller.resize(coo);
-      })
-      .catch(() => {});
   }
 
   onThemeChange(theme: MaterialColors) {

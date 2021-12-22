@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -28,7 +27,6 @@ export function HTTPLoaderFactory(http: HttpClient) {
     GameboardModule,
     CommonModule,
     ToastrModule.forRoot(),
-    NgbModule,
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
     TranslateModule.forRoot({
@@ -44,4 +42,4 @@ export function HTTPLoaderFactory(http: HttpClient) {
   providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

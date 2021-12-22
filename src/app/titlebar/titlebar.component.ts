@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { EditorController } from '../common/editor.controller';
 import { KarolInterpreter } from '../common/karol.interpreter';
-import { SettingsModal, SETTINGSMODES } from '../common/modals';
-import { ImpressumModal } from '../common/modals/impressum.modal';
-import { InfoModal } from '../common/modals/info.modal';
 import { UtilService } from '../common/util.service';
 import { GameboardController } from '../gameboard/utils';
 
@@ -18,21 +15,15 @@ export class TitlebarComponent {
     private eController: EditorController,
     private utilService: UtilService,
     private interpreter: KarolInterpreter
-  ) {}
+  ) { }
 
-  onSettings = (mode: SETTINGSMODES) => {
-    (
-      this.utilService.openModal(SettingsModal)
-        .componentInstance as SettingsModal
-    ).setMode(mode);
-  };
 
   titlebar: { [key: string]: { [key: string]: Function } } = {
     FILE: {
       NEW: () => this.eController.setState(),
       IMPORT: () => this.eController.import(),
       EXPORT: () => this.eController.export(),
-      SETTINGS: () => this.onSettings(SETTINGSMODES.GENERAL),
+      SETTINGS: null,
     },
     EDIT: {
       UNDO: () => this.eController.undo(),
@@ -45,7 +36,7 @@ export class TitlebarComponent {
     EXECUTE: {
       START: () => this.interpreter.play(),
       STEP: () => this.interpreter.step(),
-      PAUSE_UNPAUSE: () => this.pauseUnpause(),
+      PAUSE_UNPAUSE: null,
       STOP: () => this.interpreter.stop(),
       RAISE_SPEED: () => this.interpreter.raiseSpeed(),
       LOWER_SPEED: () => this.interpreter.lowerSpeed(),
@@ -55,30 +46,21 @@ export class TitlebarComponent {
       ZOOM_IN: () => this.eController.zoomIn(),
       ZOOM_OUT: () => this.eController.zoomOut(),
       RESET: () => this.eController.resetFontSize(),
-      SETTINGS: () => this.onSettings(SETTINGSMODES.EDITOR),
+      SETTINGS: () => null,
       SEARCH_AND_REPLACE: () => this.eController.openSearchPanel(),
     },
     WORLD: {
       IMPORT: () => this.gbController.importWorld(),
       EXPORT: () => this.gbController.exportWorld(),
       RESET: () => this.gbController.reset(),
-      SAVE: () => this.gbController.saveWorld(),
-      SETTINGS: () => this.onSettings(SETTINGSMODES.WORLD),
+      SAVE: null,
+      SETTINGS: () => null,
     },
     HELP: {
       DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
-      INFO: () => this.utilService.openModal(InfoModal),
-      IMPRESSUM: () => this.utilService.openModal(ImpressumModal),
-      SUPPORT_US: () => window.open('https://ko-fi.com/robotcoral'),
+      INFO: () => { },
+      IMPRESSUM: () => { }
     },
+    SUPPORT_US: null,
   };
-
-  pauseUnpause() {
-    if (this.interpreter.pause) this.interpreter.play();
-    else this.interpreter.pause();
-  }
-
-  originalOrder = (a: any, b: any): number => {
-    return 0;
-  };
-}
+};

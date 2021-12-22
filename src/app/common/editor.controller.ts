@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { openSearchPanel } from '@codemirror/search';
 import { redo, undo } from '../editor/util/codemirror.setup';
 import { EditorViewComponent } from '../editor/view/editor-view.component';
-import { WarningModal } from './modals';
 import { SettingsService } from './settings.service';
 import { UtilService } from './util.service';
 
@@ -16,7 +15,7 @@ export class EditorController {
   constructor(
     private utilService: UtilService,
     private settingsService: SettingsService
-  ) {}
+  ) { }
 
   undo() {
     undo(this.editor.view);
@@ -100,14 +99,6 @@ export class EditorController {
 
     if (!this.unsavedChanges) return callback();
 
-    const modalRef = this.utilService.openModal(WarningModal);
-    (modalRef.componentInstance as WarningModal).init({
-      title: 'MODALS.UNSAVED_CHANGES.TITLE',
-      description: 'MODALS.UNSAVED_CHANGES.DESCRIPTION',
-      successButton: 'MODALS.UNSAVED_CHANGES.SUCCESS_BUTTON',
-    });
-
-    modalRef.result.then(() => callback()).catch(() => {});
   }
 
   private clipboardEvent(event: string) {
