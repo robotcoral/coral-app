@@ -1,13 +1,5 @@
-@use "../theme_functions" as functions;
+@use "../theme-functions" as functions;
 
 $theme_name: "Nord";
 
-html[light-theme="#{$theme_name}"] {
-  @include functions.generate_theme();
-}
-
-html[dark-theme="#{$theme_name}"] {
-  @media (prefers-color-scheme: dark) {
-    @include functions.generate_theme(red);
-  }
-}
+@include functions.generate_theme($theme-name);

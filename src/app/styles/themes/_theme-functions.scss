@@ -1,0 +1,100 @@
+@mixin generate_theme(
+  $theme-name: "null",
+  $theme-font-color: red,
+  $theme-font-color-invert: red,
+  $theme-font-color-dim: red,
+  $theme-main-bg-color: red,
+  $theme-input-box: red,
+  $theme-highlight-1: red,
+  $theme-highlight-2: red,
+  $theme-highlight-3: red,
+  $theme-highlight-4: red,
+  $theme-highlight-5: red,
+  $theme-titlebar-bg-logo: red,
+  $box-shadow-color: red,
+  $gb-red: red,
+  $gb-green: red,
+  $gb-blue: red,
+  $gb-yellow: red
+) {
+  html[light-theme="#{$theme_name}"] {
+    @include -fill_stylesheet(
+      $theme-font-color,
+      $theme-font-color-invert,
+      $theme-font-color-dim,
+      $theme-main-bg-color,
+      $theme-input-box,
+      $theme-highlight-1,
+      $theme-highlight-2,
+      $theme-highlight-3,
+      $theme-highlight-4,
+      $theme-highlight-5,
+      $theme-titlebar-bg-logo,
+      $box-shadow-color,
+      $gb-red,
+      $gb-green,
+      $gb-blue,
+      $gb-yellow
+    );
+  }
+
+  html[dark-theme="#{$theme_name}"] {
+    @media (prefers-color-scheme: dark) {
+      @include -fill_stylesheet(
+        $theme-font-color,
+        $theme-font-color-invert,
+        $theme-font-color-dim,
+        $theme-main-bg-color,
+        $theme-input-box,
+        $theme-highlight-1,
+        $theme-highlight-2,
+        $theme-highlight-3,
+        $theme-highlight-4,
+        $theme-highlight-5,
+        $theme-titlebar-bg-logo,
+        $box-shadow-color,
+        $gb-red,
+        $gb-green,
+        $gb-blue,
+        $gb-yellow
+      );
+    }
+  }
+}
+
+@mixin -fill_stylesheet(
+  $theme-font-color: red,
+  $theme-font-color-invert: red,
+  $theme-font-color-dim: red,
+  $theme-main-bg-color: red,
+  $theme-input-box: red,
+  $theme-highlight-1: red,
+  $theme-highlight-2: red,
+  $theme-highlight-3: red,
+  $theme-highlight-4: red,
+  $theme-highlight-5: red,
+  $theme-titlebar-bg-logo: red,
+  $box-shadow-color: red,
+  $gb-red: red,
+  $gb-green: red,
+  $gb-blue: red,
+  $gb-yellow: red
+) {
+  --theme-font-color: #{$theme-font-color};
+  --theme-font-color-invert: #{$theme-font-color-invert};
+  --theme-font-color-dim: #{$theme-font-color-dim};
+  --theme-main-bg-color: #{$theme-main-bg-color};
+  --theme-input-box: #{$theme-input-box};
+  --theme-highlight-1: #{$theme-highlight-1};
+  --theme-highlight-2: #{$theme-highlight-2};
+  --theme-highlight-3: #{$theme-highlight-3};
+  --theme-highlight-4: #{$theme-highlight-4};
+  --theme-highlight-5: #{$theme-highlight-5};
+  --theme-titlebar-bg-logo: #{$theme-titlebar-bg-logo};
+  --box-shadow-color: #{$box-shadow-color};
+
+  --gb-red: #{$gb-red};
+  --gb-green: #{$gb-green};
+  --gb-blue: #{$gb-blue};
+  --gb-yellow: #{$gb-yellow};
+}
