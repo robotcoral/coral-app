@@ -156,16 +156,16 @@ export class SettingsService implements OnInit {
   private applyTheme() {
     if (this.settings.globalSettings.theme != 'auto') {
       this.document.documentElement.setAttribute(
-        'light-color-scheme',
+        'light-theme',
         this.settings.globalSettings.theme
       );
       this.document.documentElement.setAttribute(
-        'dark-color-scheme',
+        'dark-theme',
         this.settings.globalSettings.theme
       );
     } else {
-      this.document.documentElement.setAttribute('light-color-scheme', 'light');
-      this.document.documentElement.setAttribute('dark-color-scheme', 'dark');
+      this.document.documentElement.setAttribute('light-theme', 'Light');
+      this.document.documentElement.setAttribute('dark-theme', 'Dark');
     }
     this.triggerCanvasThemeChange();
   }

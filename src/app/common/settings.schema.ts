@@ -4,9 +4,9 @@ import { Schema } from 'jsonschema';
  * all available UI themes
  */
 export enum THEMES {
-  Light = 'light',
-  Dark = 'dark',
-  Midnight = 'midnight',
+  Light = 'Light',
+  Dark = 'Dark',
+  Midnight = 'Midnight',
 }
 
 /**
