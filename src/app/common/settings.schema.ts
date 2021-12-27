@@ -1,28 +1,28 @@
-import { Schema } from 'jsonschema';
+import { Schema } from "jsonschema";
 
 /**
  * all available UI themes
  */
 export enum THEMES {
-  Light = 'Light',
-  Dark = 'Dark',
-  Midnight = 'Midnight',
+  Light = "Light",
+  Dark = "Dark",
+  Midnight = "Midnight",
 }
 
 /**
  * all available UI languages
  */
 export enum LANGUAGES {
-  English = 'en',
-  German = 'de',
+  English = "en",
+  German = "de",
 }
 
 /**
  * inversion of LANGUAGES
  */
 export enum LANGUAGE_CODES {
-  'en' = 'English',
-  'de' = 'German',
+  "en" = "English",
+  "de" = "German",
 }
 
 /**
@@ -56,7 +56,7 @@ export class Settings {
  */
 export class GlobalSettings {
   // UI settings
-  theme: THEMES | 'auto';
+  theme: THEMES | "auto";
   language: LANGUAGES;
   touchUIActive: boolean;
   newFlags: boolean;
@@ -72,10 +72,10 @@ export class GlobalSettings {
    */
   constructor(settings: Partial<GlobalSettings>) {
     // UI settings
-    this.theme = settings.theme || 'auto';
+    this.theme = settings.theme || "auto";
     this.language = settings.language || undefined;
     this.touchUIActive =
-      typeof settings.touchUIActive === 'boolean'
+      typeof settings.touchUIActive === "boolean"
         ? settings.touchUIActive
         : window.navigator.maxTouchPoints > 0;
     // editor settings
@@ -113,48 +113,48 @@ export class FileSettings {
  * jsonschema for the globalSettings stored in the localStorage
  */
 export const GlobalSettingsSchema: Schema = {
-  $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cdn.robotcoral.de/schemes/settings.json',
-  title: 'Settings',
-  description: 'Serialised global settings for Robot Coral',
-  type: 'object',
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://cdn.robotcoral.de/schemes/settings.json",
+  title: "Settings",
+  description: "Serialised global settings for Robot Coral",
+  type: "object",
   properties: {
     ui: {
-      type: 'object',
-      description: 'UI settings',
+      type: "object",
+      description: "UI settings",
       properties: {
         theme: {
-          type: 'string',
+          type: "string",
         },
         language: {
-          type: 'string',
+          type: "string",
         },
         touchUIActive: {
-          type: 'string',
+          type: "string",
         },
         newFlags: {
-          type: 'boolean',
+          type: "boolean",
         },
       },
     },
     editor: {
-      type: 'object',
-      description: 'Editor settings',
+      type: "object",
+      description: "Editor settings",
       properties: {
         fontSite: {
-          type: 'number',
+          type: "number",
         },
         tabWidth: {
-          type: 'number',
+          type: "number",
         },
       },
     },
     execution: {
-      type: 'object',
-      description: 'Execution settings',
+      type: "object",
+      description: "Execution settings",
       properties: {
         executionSpeed: {
-          type: 'number',
+          type: "number",
         },
       },
     },

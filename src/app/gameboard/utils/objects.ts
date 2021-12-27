@@ -8,9 +8,9 @@ import {
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
-} from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { COLORS } from './gameboard.controller';
+} from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { COLORS } from "./gameboard.controller";
 
 export type MaterialColors = { [key in COLORS]: ColorRepresentation };
 type ColorMaterials = { [key in COLORS]: MeshBasicMaterial };
@@ -59,7 +59,7 @@ export class Flag extends Group {
     const scale = 20;
 
     loader.load(
-      'assets/models/flag.glb',
+      "assets/models/flag.glb",
       (glb) => {
         this.add(glb.scene);
         this.scale.set(scale, scale, scale);

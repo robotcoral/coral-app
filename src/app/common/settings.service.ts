@@ -1,9 +1,9 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { validate } from 'jsonschema';
-import { Subject } from 'rxjs';
-import { COLORS, MaterialColors } from '../gameboard/utils';
+import { DOCUMENT } from "@angular/common";
+import { Inject, Injectable, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { validate } from "jsonschema";
+import { Subject } from "rxjs";
+import { COLORS, MaterialColors } from "../gameboard/utils";
 import {
   GlobalSettings,
   GlobalSettingsSchema,
@@ -11,17 +11,17 @@ import {
   LANGUAGE_CODES,
   Settings,
   THEMES,
-} from './settings.schema';
+} from "./settings.schema";
 
 /**
  * localStorage key for the global settings object
  */
-const GLOBAL_SETTINGS_KEY = 'Settings';
+const GLOBAL_SETTINGS_KEY = "Settings";
 
 /**
  * sessionStorage key for the file settings object
  */
-const FILE_SETTINGS_KEY = 'World_Settings';
+const FILE_SETTINGS_KEY = "World_Settings";
 
 export interface GameboardTheme {
   background: string;
@@ -29,7 +29,7 @@ export interface GameboardTheme {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class SettingsService implements OnInit {
   settings: Settings;
@@ -47,8 +47,8 @@ export class SettingsService implements OnInit {
     this.saveSettings();
 
     this.window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', () => this.triggerCanvasThemeChange());
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => this.triggerCanvasThemeChange());
   }
 
   ngOnInit(): void {
@@ -92,11 +92,11 @@ export class SettingsService implements OnInit {
    */
   repairInvalidSettings() {
     if (
-      !Object.values(THEMES || 'auto').includes(
+      !Object.values(THEMES || "auto").includes(
         this.settings.globalSettings.theme
       )
     ) {
-      this.settings.globalSettings.theme = 'auto';
+      this.settings.globalSettings.theme = "auto";
     }
 
     if (!LANGUAGE_CODES[this.settings.globalSettings.language]) {
@@ -154,18 +154,18 @@ export class SettingsService implements OnInit {
    * applies the theme defined in settings.globalSettings.theme to the UI
    */
   private applyTheme() {
-    if (this.settings.globalSettings.theme != 'auto') {
+    if (this.settings.globalSettings.theme != "auto") {
       this.document.documentElement.setAttribute(
-        'light-theme',
+        "light-theme",
         this.settings.globalSettings.theme
       );
       this.document.documentElement.setAttribute(
-        'dark-theme',
+        "dark-theme",
         this.settings.globalSettings.theme
       );
     } else {
-      this.document.documentElement.setAttribute('light-theme', 'Light');
-      this.document.documentElement.setAttribute('dark-theme', 'Dark');
+      this.document.documentElement.setAttribute("light-theme", "Light");
+      this.document.documentElement.setAttribute("dark-theme", "Dark");
     }
     this.triggerCanvasThemeChange();
   }
@@ -175,9 +175,9 @@ export class SettingsService implements OnInit {
    */
   private applyTouchUI() {
     if (this.settings.globalSettings.touchUIActive) {
-      this.document.documentElement.setAttribute('touch-ui', 'true');
+      this.document.documentElement.setAttribute("touch-ui", "true");
     } else {
-      this.document.documentElement.setAttribute('touch-ui', 'false');
+      this.document.documentElement.setAttribute("touch-ui", "false");
     }
   }
 
@@ -200,12 +200,12 @@ export class SettingsService implements OnInit {
 
     this.gameboardTheme = {
       colors: {
-        [COLORS.RED]: style.getPropertyValue('--gb-red'),
-        [COLORS.GREEN]: style.getPropertyValue('--gb-green'),
-        [COLORS.BLUE]: style.getPropertyValue('--gb-blue'),
-        [COLORS.YELLOW]: style.getPropertyValue('--gb-yellow'),
+        [COLORS.RED]: style.getPropertyValue("--gb-red"),
+        [COLORS.GREEN]: style.getPropertyValue("--gb-green"),
+        [COLORS.BLUE]: style.getPropertyValue("--gb-blue"),
+        [COLORS.YELLOW]: style.getPropertyValue("--gb-yellow"),
       },
-      background: style.getPropertyValue('--theme-main-bg-color'),
+      background: style.getPropertyValue("--theme-main-bg-color"),
     };
 
     this.onThemeChange.next(this.gameboardTheme);
@@ -223,13 +223,13 @@ export class SettingsService implements OnInit {
 
     // start theme transition
     document.body.style.setProperty(
-      '--theme-transition-time',
-      transitionTime.toString() + 's'
+      "--theme-transition-time",
+      transitionTime.toString() + "s"
     );
 
     // end theme transition
     setTimeout(() => {
-      document.body.style.removeProperty('--theme-transition-time');
+      document.body.style.removeProperty("--theme-transition-time");
     }, transitionTime * 1000);
   }
 
@@ -269,7 +269,7 @@ export class SettingsService implements OnInit {
    * @param touchUIActive whether or not the touch UI should be active
    */
   changeUISettings(
-    theme: THEMES | 'auto',
+    theme: THEMES | "auto",
     language: LANGUAGES,
     touchUIActive: boolean,
     newFlags: boolean

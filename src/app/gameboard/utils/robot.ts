@@ -1,7 +1,7 @@
-import { Group, Vector3 } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { CARDINALS, Coordinates3 } from './coordinates';
-import { World } from './world';
+import { Group, Vector3 } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { CARDINALS, Coordinates3 } from "./coordinates";
+import { World } from "./world";
 
 export class Robot {
   robot: Group = new Group();
@@ -20,7 +20,7 @@ export class Robot {
     const scale = 20;
 
     loader.load(
-      'assets/models/companion-bot.gltf',
+      "assets/models/companion-bot.gltf",
       (gltf) => {
         this.robot.add(gltf.scene);
         this.robot.scale.set(scale, scale, scale);

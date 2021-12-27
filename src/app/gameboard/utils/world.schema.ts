@@ -1,7 +1,7 @@
-import { Schema } from 'jsonschema';
-import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
-import { Coordinates2, Coordinates3 } from './coordinates';
-import { COLORS } from './gameboard.controller';
+import { Schema } from "jsonschema";
+import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
+import { Coordinates2, Coordinates3 } from "./coordinates";
+import { COLORS } from "./gameboard.controller";
 
 export interface WorldObjectData {
   color: COLORS;
@@ -33,114 +33,114 @@ export interface WorldFile {
 }
 
 export const WorldSchema: Schema = {
-  $id: 'https://robotcoral.de/world',
-  title: 'World',
-  description: 'A robot coral world',
-  type: 'object',
+  $id: "https://robotcoral.de/world",
+  title: "World",
+  description: "A robot coral world",
+  type: "object",
   properties: {
-    version: { type: 'number' },
+    version: { type: "number" },
     coral_version: {
-      type: 'string',
+      type: "string",
     },
     world_data: {
-      type: 'object',
+      type: "object",
       properties: {
         name: {
-          description: 'Name of the world',
-          type: 'string',
+          description: "Name of the world",
+          type: "string",
         },
         author: {
-          description: 'Name of the author',
-          type: 'string',
+          description: "Name of the author",
+          type: "string",
         },
         description: {
-          type: 'string',
+          type: "string",
         },
         dimensions: {
-          type: 'object',
-          description: 'Size of the world',
+          type: "object",
+          description: "Size of the world",
           properties: {
             x: {
-              type: 'integer',
+              type: "integer",
               exclusiveMinimum: 0,
             },
             y: {
-              type: 'integer',
+              type: "integer",
               exclusiveMinimum: 0,
             },
             z: {
-              type: 'integer',
+              type: "integer",
               minimum: 0,
             },
           },
-          required: ['x', 'y', 'z'],
+          required: ["x", "y", "z"],
         },
         starting_position: {
-          type: 'object',
-          description: 'Robot starting positon',
+          type: "object",
+          description: "Robot starting positon",
           properties: {
             x: {
-              type: 'integer',
+              type: "integer",
               minimum: 0,
             },
             y: {
-              type: 'integer',
+              type: "integer",
               minimum: 0,
             },
             z: {
-              type: 'integer',
+              type: "integer",
               minimum: 0,
             },
           },
-          required: ['x', 'y', 'z'],
+          required: ["x", "y", "z"],
         },
         starting_rotation: {
-          type: 'integer',
+          type: "integer",
           minimum: 0,
           maximum: 3,
         },
         objects: {
-          description: 'Objects in the world',
-          type: 'array',
+          description: "Objects in the world",
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
               position: {
-                type: 'object',
+                type: "object",
                 properties: {
                   x: {
-                    type: 'integer',
+                    type: "integer",
                     minimum: 0,
                   },
                   y: {
-                    type: 'integer',
+                    type: "integer",
                     minimum: 0,
                   },
                   z: {
-                    type: 'integer',
+                    type: "integer",
                     minimum: 0,
                   },
                 },
-                required: ['x', 'y'],
+                required: ["x", "y"],
               },
               type: {
-                type: 'string',
+                type: "string",
               },
               data: {
-                type: 'object',
+                type: "object",
                 properties: {
                   color: {
-                    type: 'string',
+                    type: "string",
                   },
                 },
               },
             },
           },
-          required: ['type', 'position'],
+          required: ["type", "position"],
         },
       },
-      required: ['dimensions'],
+      required: ["dimensions"],
     },
   },
-  required: ['version', 'world_data'],
+  required: ["version", "world_data"],
 };

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { openSearchPanel } from '@codemirror/search';
-import { redo, undo } from '../editor/util/codemirror.setup';
-import { EditorViewComponent } from '../editor/view/editor-view.component';
-import { SettingsService } from './settings.service';
-import { UtilService } from './util.service';
+import { Injectable } from "@angular/core";
+import { openSearchPanel } from "@codemirror/search";
+import { redo, undo } from "../editor/util/codemirror.setup";
+import { EditorViewComponent } from "../editor/view/editor-view.component";
+import { SettingsService } from "./settings.service";
+import { UtilService } from "./util.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class EditorController {
   private editor: EditorViewComponent;
@@ -40,15 +40,15 @@ export class EditorController {
   }
 
   cut() {
-    this.clipboardEvent('cut');
+    this.clipboardEvent("cut");
   }
 
   copy() {
-    this.clipboardEvent('copy');
+    this.clipboardEvent("copy");
   }
 
   paste() {
-    this.clipboardEvent('paste');
+    this.clipboardEvent("paste");
   }
 
   openSearchPanel() {
@@ -58,9 +58,9 @@ export class EditorController {
   export() {
     const code = this.editor.view.state.doc.toString();
     this.utilService.dyanmicDownloadByHtmlTag({
-      title: 'code.txt',
+      title: "code.txt",
       content: code,
-      fileType: 'text/plain',
+      fileType: "text/plain",
     });
     this.unsavedChanges = false;
   }
@@ -69,7 +69,7 @@ export class EditorController {
     const callback = async (event: Event) => {
       const file: File = (event.target as HTMLInputElement).files[0];
       try {
-        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
+        if (!file) throw new Error("ERRORS.FILE_UPLOAD_FAILED");
 
         const text = await file.text();
 
@@ -78,10 +78,10 @@ export class EditorController {
         this.utilService.translateError(error);
       }
     };
-    this.utilService.upload('.txt', callback);
+    this.utilService.upload(".txt", callback);
   }
 
-  setState(text = '') {
+  setState(text = "") {
     const callback = () => {
       const transaction = this.editor.view.state.update({
         changes: {

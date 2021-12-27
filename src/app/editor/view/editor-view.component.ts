@@ -3,32 +3,32 @@ import {
   ElementRef,
   ViewChild,
   ViewEncapsulation,
-} from '@angular/core';
-import { indentUnit } from '@codemirror/language';
-import { Compartment, StateEffect } from '@codemirror/state';
-import { EditorController } from 'src/app/common/editor.controller';
-import { KarolInterpreter } from 'src/app/common/karol.interpreter';
-import { GlobalSettings, LANGUAGES } from 'src/app/common/settings.schema';
-import { SettingsService } from 'src/app/common/settings.service';
-import { codemirrorGermanPhrases } from 'src/assets/i18n/codemirror.german';
-import { environment } from 'src/environments/environment';
-import { customSetup, EditorState, EditorView } from '../util/codemirror.setup';
+} from "@angular/core";
+import { indentUnit } from "@codemirror/language";
+import { Compartment, StateEffect } from "@codemirror/state";
+import { EditorController } from "src/app/common/editor.controller";
+import { KarolInterpreter } from "src/app/common/karol.interpreter";
+import { GlobalSettings, LANGUAGES } from "src/app/common/settings.schema";
+import { SettingsService } from "src/app/common/settings.service";
+import { codemirrorGermanPhrases } from "src/assets/i18n/codemirror.german";
+import { environment } from "src/environments/environment";
+import { customSetup, EditorState, EditorView } from "../util/codemirror.setup";
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 @Component({
-  selector: 'app-editor-view',
-  templateUrl: './editor-view.component.html',
-  styleUrls: ['../editor.component.scss'],
+  selector: "app-editor-view",
+  templateUrl: "./editor-view.component.html",
+  styleUrls: ["../editor.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorViewComponent {
   compartment = new Compartment();
-  sourceCode = '';
+  sourceCode = "";
   config: EditorStateConfig;
   view: EditorView;
 
-  @ViewChild('codemirrorhost') codemirrorhost: ElementRef = null;
+  @ViewChild("codemirrorhost") codemirrorhost: ElementRef = null;
 
   constructor(
     private controller: EditorController,
@@ -51,7 +51,7 @@ export class EditorViewComponent {
         )
       ),
       // Indent with Tab
-      indentUnit.of('	'),
+      indentUnit.of("	"),
       EditorView.updateListener.of((update) => {
         if (!update.changes.empty) this.controller.unsavedChanges = true;
       }),
@@ -81,11 +81,11 @@ export class EditorViewComponent {
 
   private addUnloadHandler() {
     window.addEventListener(
-      'beforeunload',
+      "beforeunload",
       (event) => {
         if (!this.controller.unsavedChanges) return undefined;
         event.preventDefault();
-        event.returnValue = ''; // needed for Microsoft Edge compability
+        event.returnValue = ""; // needed for Microsoft Edge compability
       },
       { capture: true }
     );

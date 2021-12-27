@@ -1,16 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import {
   TranslateFakeLoader,
   TranslateLoader,
   TranslateModule,
-} from '@ngx-translate/core';
-import { EditorController } from '../common/editor.controller';
-import { UtilService } from '../common/util.service';
-import { GameboardController } from '../gameboard/utils';
-import { TitlebarComponent } from './titlebar.component';
-import { KarolInterpreter } from '../common/karol.interpreter';
+} from "@ngx-translate/core";
+import { EditorController } from "../common/editor.controller";
+import { UtilService } from "../common/util.service";
+import { GameboardController } from "../gameboard/utils";
+import { TitlebarComponent } from "./titlebar.component";
+import { KarolInterpreter } from "../common/karol.interpreter";
 
-describe('TitlebarComponent', () => {
+describe("TitlebarComponent", () => {
   let component: TitlebarComponent;
   let fixture: ComponentFixture<TitlebarComponent>;
 
@@ -56,7 +56,7 @@ describe('TitlebarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

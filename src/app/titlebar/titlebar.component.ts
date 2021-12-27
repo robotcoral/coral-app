@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { EditorController } from '../common/editor.controller';
-import { KarolInterpreter } from '../common/karol.interpreter';
-import { UtilService } from '../common/util.service';
-import { GameboardController } from '../gameboard/utils';
+import { Component } from "@angular/core";
+import { EditorController } from "../common/editor.controller";
+import { KarolInterpreter } from "../common/karol.interpreter";
+import { UtilService } from "../common/util.service";
+import { GameboardController } from "../gameboard/utils";
 
 @Component({
-  selector: 'app-titlebar',
-  templateUrl: './titlebar.component.html',
-  styleUrls: ['./titlebar.component.scss'],
+  selector: "app-titlebar",
+  templateUrl: "./titlebar.component.html",
+  styleUrls: ["./titlebar.component.scss"],
 })
 export class TitlebarComponent {
   constructor(
@@ -56,7 +56,7 @@ export class TitlebarComponent {
       SETTINGS: () => null,
     },
     HELP: {
-      DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
+      DOCUMENTATION: () => window.open("https://docs.robotcoral.de"),
       INFO: () => {},
       IMPRESSUM: () => {},
     },

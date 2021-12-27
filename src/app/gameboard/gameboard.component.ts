@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SettingsService } from '../common/settings.service';
-import { GameboardViewComponent } from './gameboard-view/gameboard-view.component';
-import { GameboardController } from './utils';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { SettingsService } from "../common/settings.service";
+import { GameboardViewComponent } from "./gameboard-view/gameboard-view.component";
+import { GameboardController } from "./utils";
 
 @Component({
-  selector: 'app-gameboard',
-  templateUrl: './gameboard.component.html',
-  styleUrls: ['./gameboard.component.scss', '../app.component.scss'],
+  selector: "app-gameboard",
+  templateUrl: "./gameboard.component.html",
+  styleUrls: ["./gameboard.component.scss", "../app.component.scss"],
 })
 export class GameboardComponent implements OnInit {
   @ViewChild(GameboardViewComponent)

@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
-import { SettingsService } from 'src/app/common/settings.service';
-import { UtilService } from 'src/app/common/util.service';
+import { Injectable } from "@angular/core";
+import { SettingsService } from "src/app/common/settings.service";
+import { UtilService } from "src/app/common/util.service";
 import {
   AdditionalWorldData,
   CARDINALS,
   Coordinates2,
   Coordinates3,
   GameboardModel,
-} from '.';
-import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
-import { MaterialColors } from './objects';
-import { WorldFile } from './world.schema';
+} from ".";
+import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
+import { MaterialColors } from "./objects";
+import { WorldFile } from "./world.schema";
 
 export enum COLORS {
-  RED = 'rot',
-  GREEN = 'grün',
-  BLUE = 'blau',
-  YELLOW = 'gelb',
+  RED = "rot",
+  GREEN = "grün",
+  BLUE = "blau",
+  YELLOW = "gelb",
 }
 
 export interface PlaceEvent {
@@ -25,7 +25,7 @@ export interface PlaceEvent {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class GameboardController {
   private model: GameboardModel;
@@ -70,7 +70,7 @@ export class GameboardController {
 
   private placeSlab(coo: Coordinates2, color: COLORS) {
     if (this.settingService.settings.fileSettings.inventoryActive) {
-      if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
+      if (this.model.currentSlabs === 0) throw new Error("ERRORS.NO_SLABS");
       this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
     } else {
@@ -147,14 +147,14 @@ export class GameboardController {
     const callback = async (event: Event) => {
       const file: File = (event.target as HTMLInputElement).files[0];
       try {
-        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
+        if (!file) throw new Error("ERRORS.FILE_UPLOAD_FAILED");
 
         const worldFile: WorldFile = this.model.import(await file.text());
       } catch (error) {
         this.utilService.translateError(error);
       }
     };
-    this.utilService.upload('.coralworld,.json', callback);
+    this.utilService.upload(".coralworld,.json", callback);
   }
 
   getCurrentSlabs() {
