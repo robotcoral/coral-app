@@ -18,8 +18,6 @@ export class AppComponent implements AfterViewInit {
   @ViewChild("splitBorder", { static: true })
   resizerRef: ElementRef;
   resizer: HTMLElement;
-  @ViewChild("innerSplitBorder", { static: true })
-  test: ElementRef;
   leftSide: HTMLElement;
   rightSide: HTMLElement;
   x = 0;
@@ -38,15 +36,15 @@ export class AppComponent implements AfterViewInit {
     this.canvasParent = document.getElementById("canvas-parent");
     this.canvas = this.canvasParent.getElementsByTagName("canvas")[0];
 
-    this.test.nativeElement.addEventListener(
+    this.resizerRef.nativeElement.addEventListener(
       "mousedown",
       this.mouseDownHandler
     );
-    this.test.nativeElement.addEventListener(
+    this.resizerRef.nativeElement.addEventListener(
       "touchstart",
       (event: TouchEvent) => {
         event.preventDefault();
-        this.mouseDownHandler(event as unknown as MouseEvent);
+        this.mouseDownHandler(event);
       }
     );
   }

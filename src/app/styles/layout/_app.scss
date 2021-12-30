@@ -1,4 +1,5 @@
 @use "../abstracts/transitions" as transitions;
+@use "../abstracts/variables";
 
 .split-container {
   display: flex;
@@ -6,6 +7,7 @@
   flex: 1;
   width: 100%;
   min-height: 0;
+  padding: 0.5rem;
 }
 
 .split-container-left {
@@ -13,42 +15,36 @@
   width: 50%;
 }
 
-.split-border {
-  background-color: var(--theme-highlight-1);
-  cursor: ew-resize;
-  height: 100%;
-  width: 0.5rem;
-  position: relative;
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  font-size: 1.5rem;
-  box-shadow: var(--box-shadow-elevation-1);
-  z-index: 2;
-
-  color: transparent;
-  @include transitions.width-transition;
-}
-
-.split-border:hover {
-  color: var(--theme-font-color-dim);
-  width: 1rem;
-}
-
-html[touch-ui="true"] {
-  .split-border {
-    color: var(--theme-font-color-dim);
-    width: 1rem;
-  }
-}
-
 .split-container-right {
   /* Take the remaining width */
   flex: 1;
   height: 100%;
   min-width: 34rem;
+}
+
+.split-container-left,
+.split-container-right {
+  background-color: var(--theme-main-bg-color);
+  border-radius: variables.$border-radius;
+}
+
+.split-border {
+  cursor: ew-resize;
+  height: 100%;
+  width: 0.8rem;
+  position: relative;
+
+  flex: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  user-select: none;
+  font-size: 2.5rem;
+  line-height: 0.6rem;
+
+  color: var(--theme-font-color);
 }
 
 app-editor {
@@ -72,21 +68,6 @@ app-titlebar {
   z-index: 10;
   align-items: center;
   @include transitions.bg-color-transition;
-}
-
-.touch-border {
-  width: 4px;
-}
-
-.inner-border {
-  width: 10px;
-  height: 100%;
-  position: absolute;
-  z-index: 11;
-}
-
-.touch-inner-border {
-  width: 30px;
 }
 
 .file-input {

@@ -1,6 +1,6 @@
 @use "../abstracts/transitions" as transitions;
 
 body {
-  background-color: var(--theme-main-bg-color);
+  background: var(--theme-body-bg);
   @include transitions.bg-color-transition;
 }

@@ -1,5 +1,11 @@
+@use "../abstracts/variables";
+
 #canvas-parent {
   height: 100%;
+}
+
+.gameboard-view {
+  border-radius: variables.$border-radius;
 }
 
 .inset {

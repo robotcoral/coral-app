@@ -1,11 +1,9 @@
-html {
-  height: 100%;
+* {
+  box-sizing: border-box;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+html {
+  height: 100%;
 }
 
 body {

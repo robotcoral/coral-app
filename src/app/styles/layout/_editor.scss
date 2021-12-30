@@ -1,4 +1,7 @@
 @use "../abstracts/transitions" as transitions;
+@use "../abstracts/variables";
+@use "/node_modules/scss-material-shadows/src/md-material-shadows.scss" as
+  shadows;
 
 app-editor-view {
   flex: 1;
@@ -10,15 +13,16 @@ app-editor-view {
 }
 
 app-editor-controls {
-  box-shadow: -1px -2px 4px black;
   width: 100%;
   z-index: 1;
+  @include shadows.mdElevation(12);
 }
 
 .codemirrorhost {
   height: 100%;
   display: block;
   overflow: auto;
+  border-radius: variables.$border-radius variables.$border-radius 0 0;
 }
 
 .cm-editor {
@@ -26,6 +30,7 @@ app-editor-controls {
 }
 
 .cm-gutter {
+  background-color: var(--theme-highlight-1);
   @include transitions.bg-color-transition;
 }
 
@@ -40,7 +45,7 @@ app-editor-controls {
   }
 
   .cm-panel {
-    background-color: var(--theme-highlight-1);
+    background-color: var(--theme-highlight-2);
   }
 
   .cm-panel.cm-search [name="close"] {
@@ -53,11 +58,20 @@ app-editor-controls {
   .cm-cursor {
     border-left: 0.1rem solid var(--theme-font-color);
   }
+
+  .cm-selectionMatch {
+    background-color: var(--theme-highlight-4);
+
+    * {
+      color: var(--theme-font-color);
+    }
+  }
 }
 
-.ͼ2 {
+.ͼ2,
+.ͼ2.cm_focused {
   .cm-line {
-    color: var(--theme-font-color-dim);
+    color: var(--theme-font-color);
     padding-left: 1rem;
   }
 
@@ -113,6 +127,10 @@ app-editor-controls {
 
   .cm-textfield:focus-visible {
     // @include transitions.textfield-borderradius;
+  }
+
+  .cm-selectionBackground {
+    background: var(--theme-highlight-2) !important;
   }
 }
 
