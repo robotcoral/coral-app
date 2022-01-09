@@ -11,14 +11,14 @@ import { AppComponent } from "./app.component";
 import { CommonModule } from "./common/common.module";
 import { EditorModule } from "./editor/editor.module";
 import { GameboardModule } from "./gameboard/gameboard.module";
-import { TitlebarComponent } from "./titlebar/titlebar.component";
+import { TitlebarModule } from "./titlebar/titlebar.module";
 
 export function HTTPLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [AppComponent, TitlebarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -38,6 +38,7 @@ export function HTTPLoaderFactory(http: HttpClient) {
       defaultLanguage: "en",
     }),
     EditorModule,
+    TitlebarModule,
   ],
   providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent],

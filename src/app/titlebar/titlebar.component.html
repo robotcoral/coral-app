@@ -2,6 +2,8 @@
   <img src="assets/logo_monochrome_white.svg" class="app-titlebar-logo" />
 </div>
 
-<div class="app-titlebar-button-container">
-  <div></div>
-</div>
+<app-titlebar-folder
+  *ngFor="let folder of titlebar | keyvalue: originalOrder"
+  [folder]="folder"
+>
+</app-titlebar-folder>

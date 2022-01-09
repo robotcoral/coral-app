@@ -1,0 +1,13 @@
+<div class="titlebar-folder">
+  <button class="titlebar-folder-header">
+    {{ "NAVBAR." + folder.key + ".TITLE" | translate }}
+  </button>
+  <div class="titlebar-folder-list">
+    <button
+      *ngFor="let element of folder.value | keyvalue: originalOrder"
+      (click)="element.value()"
+    >
+      {{ "NAVBAR." + folder.key + "." + element.key | translate }}
+    </button>
+  </div>
+</div>
