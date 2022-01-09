@@ -68,7 +68,7 @@ export class TitlebarComponent {
     HELP: {
       DOCUMENTATION: () => window.open('https://docs.robotcoral.de'),
       INFO: () => this.utilService.openModal(InfoModal),
-      IMPRESSUM: () => this.utilService.openModal(ImpressumModal),
+      IMPRESSUM: () => window.open('https://robotcoral.de/impressum'),
       SUPPORT_US: () => window.open('https://ko-fi.com/robotcoral'),
     },
   };
