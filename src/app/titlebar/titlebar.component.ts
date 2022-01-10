@@ -22,7 +22,7 @@ export class TitlebarComponent {
       NEW: () => this.eController.setState(),
       IMPORT: () => this.eController.import(),
       EXPORT: () => this.eController.export(),
-      SETTINGS: null,
+      SETTINGS: () => null,
     },
     EDIT: {
       UNDO: () => this.eController.undo(),
@@ -30,16 +30,16 @@ export class TitlebarComponent {
       CUT: () => this.eController.cut(),
       COPY: () => this.eController.copy(),
       PASTE: () => this.eController.paste(),
-      TOGGLE_COMMENTS: null,
+      TOGGLE_COMMENTS: () => null,
     },
     EXECUTE: {
       START: () => this.interpreter.play(),
       STEP: () => this.interpreter.step(),
-      PAUSE_UNPAUSE: null,
+      PAUSE_UNPAUSE: () => null,
       STOP: () => this.interpreter.stop(),
       RAISE_SPEED: () => this.interpreter.raiseSpeed(),
       LOWER_SPEED: () => this.interpreter.lowerSpeed(),
-      RESET_WORLD: null,
+      RESET_WORLD: () => null,
     },
     EDITOR: {
       ZOOM_IN: () => this.eController.zoomIn(),
@@ -52,14 +52,14 @@ export class TitlebarComponent {
       IMPORT: () => this.gbController.importWorld(),
       EXPORT: () => this.gbController.exportWorld(),
       RESET: () => this.gbController.reset(),
-      SAVE: null,
+      SAVE: () => null,
       SETTINGS: () => null,
     },
     HELP: {
       DOCUMENTATION: () => window.open("https://docs.robotcoral.de"),
       INFO: () => window.open("https://robotcoral.de"),
       IMPRESSUM: () => window.open("https://robotcoral.de/impressum"),
-      SUPPORT_US: null,
+      SUPPORT_US: () => window.open("https://ko-fi.com/robotcoral"),
     },
   };
 
