@@ -11,6 +11,7 @@
     <button
       *ngFor="let element of folder.value | keyvalue: originalOrder"
       (click)="element.value()"
+      class="titlebar-element"
     >
       {{ "NAVBAR." + folder.key + "." + element.key | translate }}
     </button>
