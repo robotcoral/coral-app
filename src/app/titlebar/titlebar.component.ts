@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
 import { EditorController } from "../common/editor.controller";
 import { KarolInterpreter } from "../common/karol.interpreter";
 import { GameboardController } from "../gameboard/utils";
@@ -8,16 +9,21 @@ import { GameboardController } from "../gameboard/utils";
   templateUrl: "./titlebar.component.html",
 })
 export class TitlebarComponent {
+  @ViewChild("titlebar")
+  elementRef: ElementRef;
+
   originalOrder = () => 0;
   expanded = false;
+  openFolder: string;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     public gbController: GameboardController,
     private eController: EditorController,
     private interpreter: KarolInterpreter
   ) {}
 
-  titlebar: { [key: string]: { [key: string]: Function } } = {
+  titlebarEntries: { [key: string]: { [key: string]: Function } } = {
     FILE: {
       NEW: () => this.eController.setState(),
       IMPORT: () => this.eController.import(),
@@ -63,11 +69,29 @@ export class TitlebarComponent {
     },
   };
 
-  click(expand: boolean) {
-    this.expanded = expand;
+  click(open: boolean) {
+    this.expanded = open;
+    if (open) this.open();
   }
 
-  mouseleave() {
-    this.expanded = false;
+  open() {
+    const isVisible = (elem) =>
+      !!elem &&
+      !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+
+    const element = this.elementRef.nativeElement;
+
+    const outsideClickListener = (event) => {
+      if (!element.contains(event.target) && isVisible(element)) {
+        this.expanded = false;
+        removeClickListener();
+      }
+    };
+
+    const removeClickListener = () => {
+      this.document.removeEventListener("click", outsideClickListener);
+    };
+
+    this.document.addEventListener("click", outsideClickListener);
   }
 }

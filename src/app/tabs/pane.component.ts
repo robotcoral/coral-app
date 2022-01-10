@@ -2,11 +2,11 @@ import { Component, Input } from "@angular/core";
 
 @Component({
   selector: "pane",
-  template: `<div [hidden]="!active" class="pane">
+  template: `<ng-container *ngIf="active">
     <ng-content></ng-content>
-  </div>`,
+  </ng-container>`,
 })
-export class PaneComponent {
+export class PaneComponent extends Component {
   @Input() title!: string;
   @Input() active = false;
 }

@@ -1,12 +1,14 @@
 <div class="app-titlebar-logo-area">
   <img src="assets/logo_monochrome_white.svg" class="app-titlebar-logo" />
 </div>
-<div class="titlebar" (mouseleave)="mouseleave()">
+<div class="titlebar" #titlebar>
   <app-titlebar-folder
-    *ngFor="let folder of titlebar | keyvalue: originalOrder"
+    *ngFor="let folder of titlebarEntries | keyvalue: originalOrder"
     [folder]="folder"
     [expanded]="expanded"
+    [openFolder]="openFolder"
     (clicked)="click($event)"
+    (mouseEnter)="this.openFolder = $event"
   >
   </app-titlebar-folder>
 </div>

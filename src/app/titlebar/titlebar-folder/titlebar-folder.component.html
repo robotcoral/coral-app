@@ -1,11 +1,14 @@
-<div class="titlebar-folder">
+<div
+  class="titlebar-folder"
+  (mouseover)="this.mouseEnter.emit(this.folder.key)"
+>
   <button class="titlebar-folder-header" (click)="clicked.emit(true)">
     {{ "NAVBAR." + folder.key + ".TITLE" | translate }}
   </button>
   <div
+    class="titlebar-folder-list"
     [ngClass]="{
-      'titlebar-folder-list': expanded,
-      'titlebar-folder-list-hidden': !expanded
+      'titlebar-folder-open': openFolder == this.folder.key && expanded
     }"
   >
     <button
