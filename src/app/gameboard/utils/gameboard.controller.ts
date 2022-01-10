@@ -1,13 +1,9 @@
 import { Injectable } from "@angular/core";
+import { SimpleModalService } from "ngx-simple-modal";
 import { SettingsService } from "src/app/common/settings.service";
 import { UtilService } from "src/app/common/util.service";
-import {
-  AdditionalWorldData,
-  CARDINALS,
-  Coordinates2,
-  Coordinates3,
-  GameboardModel,
-} from ".";
+import { ConfirmComponent } from "src/app/modals/confirm.component";
+import { CARDINALS, Coordinates2, Coordinates3, GameboardModel } from ".";
 import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
 import { MaterialColors } from "./objects";
 import { WorldFile } from "./world.schema";
@@ -32,7 +28,8 @@ export class GameboardController {
 
   constructor(
     private utilService: UtilService,
-    public settingService: SettingsService
+    public settingService: SettingsService,
+    public modalService: SimpleModalService
   ) {
     this.model = new GameboardModel(settingService);
     this.settingService.onThemeChange.subscribe((theme) =>
@@ -123,7 +120,17 @@ export class GameboardController {
     return this.model.robot.isCardinal(cardinal);
   }
 
-  reset(force: boolean = false) {}
+  reset(force: boolean = false) {
+    if (force) return this.model.reset();
+    this.modalService
+      .addModal(ConfirmComponent, {
+        title: "MODALS.RESET_WORLD.TITLE",
+        message: "MODALS.RESET_WORLD.DESCRIPTION",
+      })
+      .subscribe((reset) => {
+        if (reset) this.model.reset();
+      });
+  }
 
   resize(coo: Coordinates3) {
     this.model.resize(coo);

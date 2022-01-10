@@ -33,6 +33,10 @@
     "OK": "Ok",
     "VERSION": "Version"
   },
+  "TABS": {
+    "EDITOR": "Editor",
+    "SETTINGS": "Einstellungen"
+  },
   "NAVBAR": {
     "EDIT": {
       "COPY": "Kopieren",
@@ -114,12 +118,6 @@
       },
       "OLDER": " älteren",
       "TITLE": "Welt importieren"
-    },
-    "IMPRESSUM": {
-      "PRIVACY_STATEMENT": {
-        "BODY": "Der Webserver loggt Zugriffe und die IP-Adressen der Zugreifer. Diese Daten sind anonym und dienen nur der Auslastungsanalyse bzw. \nzur Fehlersuche im Krisenfall.",
-        "TITLE": "Datenschutz"
-      }
     },
     "INFO": {
       "TITLE": "Info",

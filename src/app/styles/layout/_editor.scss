@@ -10,6 +10,7 @@ app-editor-view {
   min-height: 0;
   overflow: hidden;
   position: relative;
+  border-top-right-radius: variables.$border-radius;
 }
 
 app-editor-controls {
@@ -22,7 +23,6 @@ app-editor-controls {
   height: 100%;
   display: block;
   overflow: auto;
-  border-radius: variables.$border-radius variables.$border-radius 0 0;
 }
 
 .cm-editor {
