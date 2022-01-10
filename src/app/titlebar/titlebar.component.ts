@@ -10,6 +10,7 @@ import { GameboardController } from "../gameboard/utils";
 })
 export class TitlebarComponent {
   originalOrder = () => 0;
+  expanded = false;
 
   constructor(
     public gbController: GameboardController,
@@ -62,4 +63,12 @@ export class TitlebarComponent {
       SUPPORT_US: null,
     },
   };
+
+  click() {
+    this.expanded = true;
+  }
+
+  mouseleave() {
+    this.expanded = false;
+  }
 }

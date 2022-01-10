@@ -1,9 +1,12 @@
 <div class="app-titlebar-logo-area">
   <img src="assets/logo_monochrome_white.svg" class="app-titlebar-logo" />
 </div>
-
-<app-titlebar-folder
-  *ngFor="let folder of titlebar | keyvalue: originalOrder"
-  [folder]="folder"
->
-</app-titlebar-folder>
+<div class="titlebar" (mouseleave)="mouseleave()">
+  <app-titlebar-folder
+    *ngFor="let folder of titlebar | keyvalue: originalOrder"
+    [folder]="folder"
+    [expanded]="expanded"
+    (clicked)="click()"
+  >
+  </app-titlebar-folder>
+</div>

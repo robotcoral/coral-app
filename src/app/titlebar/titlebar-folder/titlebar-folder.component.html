@@ -1,8 +1,13 @@
 <div class="titlebar-folder">
-  <button class="titlebar-folder-header">
+  <button class="titlebar-folder-header" (click)="clicked.emit()">
     {{ "NAVBAR." + folder.key + ".TITLE" | translate }}
   </button>
-  <div class="titlebar-folder-list">
+  <div
+    [ngClass]="{
+      'titlebar-folder-list': expanded,
+      'titlebar-folder-list-hidden': !expanded
+    }"
+  >
     <button
       *ngFor="let element of folder.value | keyvalue: originalOrder"
       (click)="element.value()"
