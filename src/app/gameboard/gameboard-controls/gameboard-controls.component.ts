@@ -35,9 +35,9 @@ export class GameboardControlsComponent {
   }).bind(this);
 
   modes: { [key in WORLDOBJECTTYPES]: string } = {
-    SLAB: "assets/icons/ic_fluent_slab_24_regular.svg",
-    CUBE: "assets/icons/ic_fluent_cube_24_regular.svg",
-    FLAG: "assets/icons/ic_fluent_flag_24_regular.svg",
+    SLAB: "assets/icons/fluent/ic_fluent_slab_24_regular.svg",
+    CUBE: "assets/icons/fluent/ic_fluent_cube_24_regular.svg",
+    FLAG: "assets/icons/fluent/ic_fluent_flag_24_regular.svg",
   };
   mode: WORLDOBJECTTYPES = WORLDOBJECTTYPES.SLAB;
   modeExpanded = false;
