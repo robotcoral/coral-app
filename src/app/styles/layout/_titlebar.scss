@@ -18,57 +18,30 @@
   cursor: default;
 }
 
-.app-titlebar-button-container {
-  height: inherit;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  grid-template-columns: repeat(6, [col-start] auto [col-end]);
-  margin: 0 0 0 0.75rem;
-  column-gap: 0.25rem;
-}
-
-.app-titelbar-button {
-  color: var(--theme-font-color);
-  height: inherit;
-  line-height: 1rem;
-  border-color: transparent;
-  background-color: transparent;
-  padding-left: 0.66rem;
-  padding-right: 0.66rem;
-  border-radius: 0.25rem;
-  user-select: none;
-
-  @include transitions.bg-highlight-color-transition;
-  @include transitions.color-transition;
-}
-
-.dropdown {
-  height: 1.8rem;
-}
-
-.show .app-titelbar-button {
-  background-color: var(--theme-highlight-4);
-  color: var(--theme-font-color-invert);
-  box-shadow: var(--box-shadow-elevation-1);
-}
-
-.app-titelbar-button:hover,
-.dropdown-item:hover {
-  background-color: var(--theme-highlight-2);
-}
-
-.dropdown-menu {
-  background-color: var(--theme-highlight-1);
-  border: none;
-  box-shadow: var(--box-shadow-elevation-2);
-  height: auto;
-}
-
-.dropdown-item {
-  color: var(--theme-font-color);
-}
-
-.dropdown-toggle::after {
+.titlebar-folder-list-hidden {
   display: none;
+}
+
+.titlebar-folder-list {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.titlebar-folder {
+  position: relative;
+  display: inline-block;
+}
+
+.titlebar-folder:hover .titlebar-folder-header {
+  background-color: var(--theme-highlight-4);
+}
+
+.titlebar-folder:hover .titlebar-folder-list {
+  display: flex;
 }

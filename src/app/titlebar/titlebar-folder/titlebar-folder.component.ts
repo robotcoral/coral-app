@@ -8,7 +8,6 @@ type titlebarFolder = {
 @Component({
   selector: "app-titlebar-folder",
   templateUrl: "./titlebar-folder.component.html",
-  styleUrls: ["../titlebar.component.scss"],
 })
 export class TitlebarFolderComponent {
   originalOrder = () => 0;

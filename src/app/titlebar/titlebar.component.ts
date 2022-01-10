@@ -6,7 +6,6 @@ import { GameboardController } from "../gameboard/utils";
 @Component({
   selector: "app-titlebar",
   templateUrl: "./titlebar.component.html",
-  styleUrls: ["./titlebar.component.scss"],
 })
 export class TitlebarComponent {
   originalOrder = () => 0;
