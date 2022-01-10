@@ -63,8 +63,8 @@ export class TitlebarComponent {
     },
   };
 
-  click() {
-    this.expanded = true;
+  click(expand: boolean) {
+    this.expanded = expand;
   }
 
   mouseleave() {

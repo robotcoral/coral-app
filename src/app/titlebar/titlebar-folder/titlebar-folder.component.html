@@ -1,5 +1,5 @@
 <div class="titlebar-folder">
-  <button class="titlebar-folder-header" (click)="clicked.emit()">
+  <button class="titlebar-folder-header" (click)="clicked.emit(true)">
     {{ "NAVBAR." + folder.key + ".TITLE" | translate }}
   </button>
   <div
@@ -10,7 +10,7 @@
   >
     <button
       *ngFor="let element of folder.value | keyvalue: originalOrder"
-      (click)="element.value()"
+      (click)="elementClick(element.value)"
       class="titlebar-element"
     >
       {{ "NAVBAR." + folder.key + "." + element.key | translate }}

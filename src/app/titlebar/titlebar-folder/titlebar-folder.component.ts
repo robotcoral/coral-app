@@ -18,4 +18,9 @@ export class TitlebarFolderComponent {
   expanded: boolean;
   @Output()
   clicked = new EventEmitter();
+
+  elementClick(callback: Function) {
+    callback();
+    this.clicked.emit(false);
+  }
 }

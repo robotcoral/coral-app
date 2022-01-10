@@ -6,7 +6,7 @@
     *ngFor="let folder of titlebar | keyvalue: originalOrder"
     [folder]="folder"
     [expanded]="expanded"
-    (clicked)="click()"
+    (clicked)="click($event)"
   >
   </app-titlebar-folder>
 </div>
