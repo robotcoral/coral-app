@@ -2,7 +2,7 @@
 
 // Importing Bootstrap SCSS file.
 // @import "~bootstrap/scss/bootstrap";
-
+@import "node_modules/ngx-simple-modal/styles/simple-modal.scss";
 @import "abstracts/css-variables";
 @import "abstracts/transitions";
 
@@ -26,4 +26,5 @@
 @import "layout/gameboard";
 @import "layout/modal";
 @import "layout/settings";
+@import "layout/tabs";
 @import "layout/titlebar";

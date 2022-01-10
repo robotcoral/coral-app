@@ -33,6 +33,10 @@
     "WIDTH": "Width",
     "HEIGHT": "Height"
   },
+  "TABS": {
+    "EDITOR": "Editor",
+    "SETTINGS": "Settings"
+  },
   "NAVBAR": {
     "FILE": {
       "TITLE": "File",
@@ -144,12 +148,6 @@
       },
       "OLDER": "n older",
       "NEWER": " newer "
-    },
-    "IMPRESSUM": {
-      "PRIVACY_STATEMENT": {
-        "TITLE": "Privacy Statement",
-        "BODY": "The server logs IP-adresses and accesses of all users. This data is anonymous and is only used for loadanalysis and debugging purposes during outages."
-      }
     },
     "RESIZE_MODAL": {
       "TITLE": "Resize World",

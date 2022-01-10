@@ -1,0 +1,10 @@
+<div class="tabs">
+  <div class="tabs-nav">
+    <div class="tabs-nav-button" *ngFor="let tab of tabs">
+      <button (click)="selectTab(tab)" [disabled]="tab.active" class="tabs-btn">
+        {{ tab.title | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="tab-content"><ng-content></ng-content></div>
+</div>

@@ -1,0 +1,28 @@
+@use "../abstracts/variables";
+
+.tabs,
+.pane {
+  height: 100%;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.tabs-nav-button {
+  display: inline-block;
+  background-color: var(--theme-main-bg-color);
+  border-radius: variables.$border-radius variables.$border-radius 0 0;
+  margin-right: 0.15rem;
+}
+
+.tabs-btn {
+  font-size: 1rem;
+  padding: 0.25rem;
+}
