@@ -1,5 +1,7 @@
 @use "../abstracts/transitions" as transitions;
 @use "../abstracts/variables";
+
+// TODO implement custom shadow solution
 @use "/node_modules/scss-material-shadows/src/md-material-shadows.scss" as
   shadows;
 
@@ -16,6 +18,7 @@ app-editor-controls {
   width: 100%;
   z-index: 1;
   @include shadows.mdElevation(12);
+  border-radius: variables.$border-radius variables.$border-radius 0 0;
 }
 
 .codemirrorhost {
