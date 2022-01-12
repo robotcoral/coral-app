@@ -1,10 +1,15 @@
 <div class="tabs">
   <div class="tabs-nav">
-    <div class="tabs-nav-button" *ngFor="let tab of tabs">
-      <button (click)="selectTab(tab)" [disabled]="tab.active" class="tabs-btn">
-        {{ tab.title | translate }}
-      </button>
-    </div>
+    <button
+      (click)="selectTab(tab)"
+      [disabled]="tab.active"
+      class="tabs-nav-btn"
+      [ngClass]="{ 'tabs-nav-btn-active': tab.active }"
+      *ngFor="let tab of tabs"
+      [title]="tab.title | translate"
+    >
+      <svg-icon [src]="tab.icon" [svgClass]="'svg'"></svg-icon>
+    </button>
   </div>
   <div class="tab-content"><ng-content></ng-content></div>
 </div>

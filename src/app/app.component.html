@@ -2,10 +2,17 @@
 <div class="split-container">
   <div class="split-container-left">
     <tabs [name]="'left-tabs'">
-      <pane [title]="'TABS.EDITOR'">
+      <tab-pane
+        [title]="'TABS.EDITOR'"
+        [icon]="'assets/icons/fluent/ic_fluent_code_24_regular.svg'"
+      >
         <app-editor></app-editor>
-      </pane>
-      <pane [title]="'TABS.SETTINGS'"><app-settings></app-settings></pane>
+      </tab-pane>
+      <tab-pane
+        [title]="'TABS.SETTINGS'"
+        [icon]="'assets/icons/fluent/ic_fluent_settings_24_regular.svg'"
+        ><app-settings></app-settings
+      ></tab-pane>
     </tabs>
   </div>
   <div #splitBorder class="split-border">.<br />.<br />.</div>
