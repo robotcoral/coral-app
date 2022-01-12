@@ -1,25 +1,58 @@
 {
   "SETTINGS": {
-    "TITLE": "Einstellungen",
     "GENERAL": {
-      "TITLE": "Allgemeine Einstellungen",
-      "TOUCH_UI": "Touch UI",
-      "THEME": "Theme",
-      "LANGUAGE": "Sprache",
-      "SYSTEM_DEFAULT": "Systemstandard",
-      "NEW_FLAGS": "Neue Flaggen"
+      "TITLE": "Generelle Einstellungen",
+      "TOUCH_UI": {
+        "TITLE": "Touch UI",
+        "OPTIONS": {
+          "ON": "an",
+          "OFF": "aus",
+          "AUTOMATIC": "automatisch"
+        }
+      },
+      "THEME": {
+        "TITLE": "Theme",
+        "DESCRIPTION": "",
+        "OPTIONS": {
+          "LIGHT": "hell",
+          "DARK": "dunkel",
+          "AUTOMATIC": "system standard"
+        }
+      },
+      "LANGUAGE": {
+        "TITLE": "Sprache",
+        "DESCRIPTION": "",
+        "OPTIONS": {
+          "GERMAN": "deutscg",
+          "ENGLISH": "englisch",
+          "AUTOMATIC": "automatisch"
+        }
+      },
+      "LEGACY_FLAGS": {
+        "TITLE": "Alte Flaggen",
+        "DESCRIPTION": "Aktiviert die originalen Robot Karel Flaggen (Teppiche)."
+      }
     },
     "EDITOR": {
-      "TITLE": "Editor-Einstellungen",
-      "FONT_SIZE": "Schriftgröße:",
-      "TAB_WIDTH": "Tabbreite"
+      "TITLE": "Editor Einstellungen",
+      "FONT_SIZE": {
+        "TITLE": "Schriftgröße",
+        "DESCRIPTION": "Ändert die Schriftgröße in Pixeln."
+      },
+      "TAB_WIDTH": {
+        "TITLE": "Tabbreite",
+        "DESCRIPTION": "Anzahl der Lehrzeichen pro Tab."
+      }
     },
     "WORLD": {
-      "INVENTORY_ACTIVE": "Inventar aktiv:",
-      "INVENTORY_MAX_SIZE": "Inventargröße:",
-      "INVENTORY_START_SIZE": "Start Fliesen:",
-      "TITLE": "Welteinstellungen",
-      "RESET_WORLD_ON_START": "Welt beim Programmstart zurücksetzen?"
+      "TITLE": "World Settings",
+      "INVENTORY_ACTIVE": { "TITLE": "Inventory active", "DESCRIPTION": "" },
+      "INVENTORY_MAX_SIZE": { "TITLE": "Inventory size", "DESCRIPTION": "" },
+      "INVENTORY_START_SIZE": { "TITLE": "Start slabs", "DESCRIPTION": "" },
+      "RESET_WORLD_ON_START": {
+        "TITLE": "Reset world on program start?",
+        "DESCRIPTION": ""
+      }
     }
   },
   "COMMON": {
@@ -89,6 +122,26 @@
       "TITLE": "Welt"
     }
   },
+  "TOOLTIPS": {
+    "CHANGE_COLOR": "Farbe wechseln",
+    "CHANGE_PLACEMENT_MODE": "Platzierungsmodus umschalten",
+    "EXPAND_COLLAPSE_SETTINGS": "Einstellungen aus-/einklappen",
+    "EXPORT_WORLD": "Welt exportieren",
+    "IMPORT_WORLD": "Welt importieren",
+    "MOVE": "Schritt",
+    "PICK_UP": "Aufheben",
+    "PUT_DOWN": "Plazieren",
+    "RESET_CAMERA": "Kamera zurücksetzen",
+    "RESET_WORLD": "Welt zurücksetzen",
+    "RESIZE_WORLD": "Weltgröße ändern",
+    "ROTATE_CLOCKWISE": "Im Uhrzeigersinn drehen",
+    "ROTATE_COUNTERCLOCKWISE": "Gegen den Uhrzeigersinn drehen",
+    "SAVE_WORLD": "Welt-Reset-Punkt setzen",
+    "PAUSE": "Pausieren",
+    "START": "Starten",
+    "STEP": "Schritt",
+    "STOP": "Stoppen"
+  },
   "ERRORS": {
     "ALREADY_FLAG": "Hier ist schon eine Flagge",
     "BLOCK_IN_PATH": "Vor dir ist ein Block",
@@ -149,25 +202,5 @@
       "SUCCESS_BUTTON": "Verwerfen",
       "TITLE": "Ungespeicherte Änderungen"
     }
-  },
-  "TOOLTIPS": {
-    "CHANGE_COLOR": "Farbe wechseln",
-    "CHANGE_PLACEMENT_MODE": "Platzierungsmodus umschalten",
-    "EXPAND_COLLAPSE_SETTINGS": "Einstellungen aus-/einklappen",
-    "EXPORT_WORLD": "Welt exportieren",
-    "IMPORT_WORLD": "Welt importieren",
-    "MOVE": "Schritt",
-    "PICK_UP": "Aufheben",
-    "PUT_DOWN": "Plazieren",
-    "RESET_CAMERA": "Kamera zurücksetzen",
-    "RESET_WORLD": "Welt zurücksetzen",
-    "RESIZE_WORLD": "Weltgröße ändern",
-    "ROTATE_CLOCKWISE": "Im Uhrzeigersinn drehen",
-    "ROTATE_COUNTERCLOCKWISE": "Gegen den Uhrzeigersinn drehen",
-    "SAVE_WORLD": "Welt-Reset-Punkt setzen",
-    "PAUSE": "Pausieren",
-    "START": "Starten",
-    "STEP": "Schritt",
-    "STOP": "Stoppen"
   }
 }

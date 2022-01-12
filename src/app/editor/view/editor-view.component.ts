@@ -47,7 +47,7 @@ export class EditorViewComponent {
       customSetup,
       this.compartment.of(
         EditorState.tabSize.of(
-          this.settingsService.settings.globalSettings.tabWidth
+          this.settingsService.settings.globalSettings.tab_width
         )
       ),
       // Indent with Tab
@@ -94,9 +94,9 @@ export class EditorViewComponent {
   applySettings(settings: Partial<GlobalSettings>) {
     if (!this.view) return;
     const effects: StateEffect<unknown>[] = [];
-    if (settings.tabWidth) {
+    if (settings.tab_width) {
       effects.push(
-        this.compartment.reconfigure(EditorState.tabSize.of(settings.tabWidth))
+        this.compartment.reconfigure(EditorState.tabSize.of(settings.tab_width))
       );
     }
     if (settings.language) {

@@ -1,6 +1,6 @@
 @use "../theme-functions" as functions;
 
-$theme_name: "Dark";
+$theme_name: "dark";
 
 @include functions.generate_theme(
   $theme_name,
