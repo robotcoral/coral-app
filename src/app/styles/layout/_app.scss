@@ -77,8 +77,9 @@ app-settings {
   width: 100%;
   height: 100%;
   background-color: var(--theme-main-bg-color);
-  border-radius: 0 variables.$border-radius variables.$border-radius
-    variables.$border-radius;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--theme-font-color);
 }
 
 .file-input {
