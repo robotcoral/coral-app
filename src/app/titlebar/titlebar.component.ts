@@ -76,14 +76,12 @@ export class TitlebarComponent {
 
   click(open: boolean) {
     this.expanded = open;
-    if (open) this.open();
-  }
-
-  open() {
-    this.clickService
-      .addOutsideListener(this.elementRef.nativeElement)
-      .then(() => {
-        this.expanded = false;
-      });
+    if (open) {
+      this.clickService
+        .addOutsideListener(this.elementRef.nativeElement)
+        .then(() => {
+          this.expanded = false;
+        });
+    }
   }
 }
