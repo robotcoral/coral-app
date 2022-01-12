@@ -1,5 +1,6 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
+import { ClickService } from "../common/click.service";
 import { EditorController } from "../common/editor.controller";
 import { KarolInterpreter } from "../common/karol.interpreter";
 import { GameboardController } from "../gameboard/utils";
@@ -22,7 +23,8 @@ export class TitlebarComponent {
     public gbController: GameboardController,
     private eController: EditorController,
     private interpreter: KarolInterpreter,
-    private tabsService: TabsService
+    private tabsService: TabsService,
+    private clickService: ClickService
   ) {}
 
   titlebarEntries: { [key: string]: { [key: string]: Function } } = {
@@ -78,23 +80,10 @@ export class TitlebarComponent {
   }
 
   open() {
-    const isVisible = (elem) =>
-      !!elem &&
-      !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
-
-    const element = this.elementRef.nativeElement;
-
-    const outsideClickListener = (event) => {
-      if (!element.contains(event.target) && isVisible(element)) {
+    this.clickService
+      .addOutsideListener(this.elementRef.nativeElement)
+      .then(() => {
         this.expanded = false;
-        removeClickListener();
-      }
-    };
-
-    const removeClickListener = () => {
-      this.document.removeEventListener("click", outsideClickListener);
-    };
-
-    this.document.addEventListener("click", outsideClickListener);
+      });
   }
 }
