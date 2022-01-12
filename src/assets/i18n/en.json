@@ -43,7 +43,8 @@
       "NEW": "New",
       "IMPORT": "Import",
       "EXPORT": "Export",
-      "SETTINGS": "Settings"
+      "SETTINGS": "Settings",
+      "EDITOR": "Editor"
     },
     "EDIT": {
       "TITLE": "Edit",

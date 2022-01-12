@@ -3,6 +3,7 @@ import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
 import { EditorController } from "../common/editor.controller";
 import { KarolInterpreter } from "../common/karol.interpreter";
 import { GameboardController } from "../gameboard/utils";
+import { TabsService } from "../tabs/tabs.service";
 
 @Component({
   selector: "app-titlebar",
@@ -20,7 +21,8 @@ export class TitlebarComponent {
     @Inject(DOCUMENT) private document: Document,
     public gbController: GameboardController,
     private eController: EditorController,
-    private interpreter: KarolInterpreter
+    private interpreter: KarolInterpreter,
+    private tabsService: TabsService
   ) {}
 
   titlebarEntries: { [key: string]: { [key: string]: Function } } = {
@@ -28,7 +30,8 @@ export class TitlebarComponent {
       NEW: () => this.eController.setState(),
       IMPORT: () => this.eController.import(),
       EXPORT: () => this.eController.export(),
-      SETTINGS: () => null,
+      EDITOR: () => this.tabsService.setTab("TABS.EDITOR", "left-tabs"),
+      SETTINGS: () => this.tabsService.setTab("TABS.SETTINGS", "left-tabs"),
     },
     EDIT: {
       UNDO: () => this.eController.undo(),
