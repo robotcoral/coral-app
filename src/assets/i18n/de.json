@@ -70,7 +70,8 @@
       "IMPORT": "Importieren",
       "NEW": "Neu",
       "SETTINGS": "Einstellungen",
-      "TITLE": "Datei"
+      "TITLE": "Datei",
+      "EDITOR": "Editor"
     },
     "HELP": {
       "DOCUMENTATION": "Dokumentation",
