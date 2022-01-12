@@ -192,7 +192,6 @@ export class SettingsService implements OnInit {
     } else {
       realLang = this.settings.globalSettings.language;
     }
-    console.log(realLang);
     this.document.documentElement.lang = realLang;
     this.translationService.use(realLang);
     this.onEditorSettingsChange.next({
