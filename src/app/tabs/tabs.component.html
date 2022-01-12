@@ -6,8 +6,8 @@
       class="tabs-nav-btn"
       [ngClass]="{ 'tabs-nav-btn-active': tab.active }"
       *ngFor="let tab of tabs"
+      [title]="tab.title | translate"
     >
-      <!-- {{ tab.title | translate }} -->
       <svg-icon [src]="tab.icon" [svgClass]="'svg'"></svg-icon>
     </button>
   </div>
