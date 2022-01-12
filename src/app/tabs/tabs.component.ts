@@ -5,7 +5,7 @@ import {
   QueryList,
   Type,
 } from "@angular/core";
-import { PaneComponent } from "./pane.component";
+import { TabPaneComponent } from "./tab-pane.component";
 
 export type Tabs = { [key: string]: Type<Component> };
 
@@ -14,14 +14,14 @@ export type Tabs = { [key: string]: Type<Component> };
   templateUrl: "./tabs.component.html",
 })
 export class TabsComponent implements AfterContentInit {
-  @ContentChildren(PaneComponent) tabs!: QueryList<PaneComponent>;
+  @ContentChildren(TabPaneComponent) tabs!: QueryList<TabPaneComponent>;
 
   ngAfterContentInit(): void {
     let activeTab = this.tabs.find((tab) => tab.active);
     this.selectTab(activeTab || this.tabs.first);
   }
 
-  selectTab(tab: PaneComponent) {
+  selectTab(tab: TabPaneComponent) {
     this.tabs.forEach((tab) => (tab.active = false));
     tab.active = true;
   }
