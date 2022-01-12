@@ -28,6 +28,10 @@
   border-radius: 0;
 }
 
+.tabs-nav-btn-active {
+  background-color: var(--theme-highlight-1);
+}
+
 .tabs-nav-btn svg {
   padding: 0;
   margin: 0;
