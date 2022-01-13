@@ -63,7 +63,7 @@ app-editor-controls {
   }
 
   .cm-selectionMatch {
-    background-color: var(--theme-highlight-4);
+    background-color: var(--theme-highlight-color-text);
 
     * {
       color: var(--theme-font-color);
@@ -109,7 +109,7 @@ app-editor-controls {
 
   .cm-button:hover,
   .cm-button:focus {
-    background: var(--theme-highlight-4);
+    background: var(--theme-highlight-color-text);
     color: var(--theme-font-color-invert);
     box-shadow: var(--box-shadow-elevation-1);
     transform: translate(0, -0.05rem);
