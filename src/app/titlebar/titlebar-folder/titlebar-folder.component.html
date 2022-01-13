@@ -2,7 +2,13 @@
   class="titlebar-folder"
   (mouseover)="this.mouseEnter.emit(this.folder.key)"
 >
-  <button class="titlebar-folder-header" (click)="clicked.emit(true)">
+  <button
+    class="titlebar-button"
+    (click)="clicked.emit(true)"
+    [ngClass]="{
+      'titlebar-button-active': openFolder == this.folder.key && expanded
+    }"
+  >
     {{ "NAVBAR." + folder.key + ".TITLE" | translate }}
   </button>
   <div
