@@ -11,7 +11,7 @@
 }
 
 .tabs-nav {
-  padding: variables.$border-radius 0 0 0;
+  padding: variables.$border-radius * 1.5 0 0 0;
   display: grid;
   grid-auto-rows: 3.25rem;
 }
@@ -29,7 +29,22 @@
 }
 
 .tabs-nav-btn-active {
+  $line-width: 3px;
+
   background-color: var(--theme-highlight-1);
+  border-left: $line-width solid var(--theme-highlight-color-1);
+  border-right: $line-width solid transparent;
+}
+
+.tabs-nav-btn-active::before {
+  content: "";
+
+  // display: inline-block;
+  position: relative;
+  left: 0;
+  height: 100%;
+  // border-radius: variables.$border-radius-small 0 0
+  // variables.$border-radius-small;
 }
 
 .tabs-nav-btn svg {
