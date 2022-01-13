@@ -1,13 +1,19 @@
 @use "sass:math";
 @use "../abstracts/transitions" as transitions;
+@use "../abstracts/variables";
+
+app-titlebar {
+  background: var(--theme-main-bg-color);
+}
 
 .app-titlebar-logo-area {
-  flex: 0 0 3.5rem;
+  flex: none;
+  width: 3.5rem;
   height: inherit;
   text-align: center;
   border-radius: 0 math.div(5rem, 16) math.div(5rem, 16) 0;
   background-image: var(--theme-titlebar-bg-logo);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   @include transitions.bg-img-transition;
 }
 
@@ -15,40 +21,54 @@
   height: inherit;
   padding: 0.4rem;
   user-select: none;
-  cursor: default;
 }
 
-.titlebar-folder-list-hidden {
-  display: none;
-}
-
-.titlebar-folder-list {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  background-color: var(--theme-main-bg-color);
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+.titlebar {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+  height: 100%;
+  margin-left: 0.75rem;
 }
 
 .titlebar-folder {
   position: relative;
   display: inline-block;
+  height: 100%;
 }
 
-.titlebar-folder:hover .titlebar-folder-header {
+.titlebar-button {
+  font-size: 1rem;
+  border-radius: 0;
+  height: 100%;
+  padding: 0 0.5rem;
+}
+
+.titlebar-folder-list {
+  display: none;
+  grid-auto-rows: auto;
+  position: absolute;
+  background-color: var(--theme-main-bg-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+  border-radius: 0 0 variables.$border-radius variables.$border-radius;
+  width: 250px;
+  padding: variables.$border-radius 0;
+  border: 1px solid var(--theme-border-color);
+}
+
+.titlebar-button-active,
+.titlebar-button-active:hover {
   background-color: var(--theme-highlight-4);
 }
 
 .titlebar-folder-open {
-  display: flex;
-}
-
-.titlebar-folder-header,
-.titlebar-element {
-  font-size: 16px;
+  display: grid;
 }
 
 .titlebar-element {
-  padding: 0.25rem;
+  font-size: 1rem;
+  padding: 0.25rem 1rem;
+  text-align: left;
+  border-radius: 0;
 }

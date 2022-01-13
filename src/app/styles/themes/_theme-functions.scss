@@ -4,12 +4,13 @@
   $theme-font-color-invert: red,
   $theme-font-color-dim: red,
   $theme-main-bg-color: red,
+  $theme-border-color: red,
   $theme-input-box: red,
   $theme-highlight-1: red,
   $theme-highlight-2: red,
   $theme-highlight-3: red,
-  $theme-highlight-4: red,
-  $theme-highlight-5: red,
+  $theme-highlight-color-text: red,
+  $theme-highlight-color-1: red,
   $theme-titlebar-bg-logo: red,
   $theme-body-bg: red,
   $box-shadow-color: red,
@@ -24,12 +25,13 @@
       $theme-font-color-invert,
       $theme-font-color-dim,
       $theme-main-bg-color,
+      $theme-border-color,
       $theme-input-box,
       $theme-highlight-1,
       $theme-highlight-2,
       $theme-highlight-3,
-      $theme-highlight-4,
-      $theme-highlight-5,
+      $theme-highlight-color-text,
+      $theme-highlight-color-1,
       $theme-titlebar-bg-logo,
       $theme-body-bg,
       $box-shadow-color,
@@ -47,12 +49,13 @@
         $theme-font-color-invert,
         $theme-font-color-dim,
         $theme-main-bg-color,
+        $theme-border-color,
         $theme-input-box,
         $theme-highlight-1,
         $theme-highlight-2,
         $theme-highlight-3,
-        $theme-highlight-4,
-        $theme-highlight-5,
+        $theme-highlight-color-text,
+        $theme-highlight-color-1,
         $theme-titlebar-bg-logo,
         $theme-body-bg,
         $box-shadow-color,
@@ -70,12 +73,13 @@
   $theme-font-color-invert,
   $theme-font-color-dim,
   $theme-main-bg-color,
+  $theme-border-color,
   $theme-input-box,
   $theme-highlight-1,
   $theme-highlight-2,
   $theme-highlight-3,
-  $theme-highlight-4,
-  $theme-highlight-5,
+  $theme-highlight-color-text,
+  $theme-highlight-color-1,
   $theme-titlebar-bg-logo,
   $theme-body-bg,
   $box-shadow-color,
@@ -88,12 +92,13 @@
   --theme-font-color-invert: #{$theme-font-color-invert};
   --theme-font-color-dim: #{$theme-font-color-dim};
   --theme-main-bg-color: #{$theme-main-bg-color};
+  --theme-border-color: #{$theme-border-color};
   --theme-input-box: #{$theme-input-box};
   --theme-highlight-1: #{$theme-highlight-1};
   --theme-highlight-2: #{$theme-highlight-2};
   --theme-highlight-3: #{$theme-highlight-3};
-  --theme-highlight-4: #{$theme-highlight-4};
-  --theme-highlight-5: #{$theme-highlight-5};
+  --theme-highlight-4: #{$theme-highlight-color-text};
+  --theme-highlight-color-1: #{$theme-highlight-color-1};
   --theme-titlebar-bg-logo: #{$theme-titlebar-bg-logo};
   --theme-body-bg: #{$theme-body-bg};
   --box-shadow-color: #{$box-shadow-color};

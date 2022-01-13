@@ -32,7 +32,6 @@ export class TitlebarComponent {
       NEW: () => this.eController.setState(),
       IMPORT: () => this.eController.import(),
       EXPORT: () => this.eController.export(),
-      EDITOR: () => this.tabsService.setTab("TABS.EDITOR", "left-tabs"),
       SETTINGS: () => this.tabsService.setTab("TABS.SETTINGS", "left-tabs"),
     },
     EDIT: {
