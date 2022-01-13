@@ -42,7 +42,8 @@ def detect_version(argv):
 def new_version_greater(new_ver, old_ver):
     if (
         not re.match(
-            "^[0-9]+\.[0-9]+\.[0-9]+\+nightly\.[0-9]{4}-[0-9]{2}-[0-9]{2}$", old_ver
+            "^[0-9]+\.[0-9]+\.[0-9]+\+nightly\.[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            old_ver
         )
         is None
     ):
@@ -61,7 +62,8 @@ def get_new_version(new_ver, old_ver, nightly):
     if nightly is True:
         if (
             re.match(
-                "^[0-9]+\.[0-9]+\.[0-9]+\+nightly\.[0-9]{4}-[0-9]{2}-[0-9]{2}$", old_ver
+                "^[0-9]+\.[0-9]+\.[0-9]+\+nightly\.[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                old_ver
             )
             is None
         ):
@@ -134,9 +136,9 @@ def bump_environment_common_ts(version, nightly):
     with open("./src/environments/environment.common.ts", "r") as f:
         file = f.read()
 
-    begin_version_line = file.find("version: '")
-    begin_version = begin_version_line + len("version: '")
-    end_version = file.find("'", begin_version)
+    begin_version_line = file.find("version: \"")
+    begin_version = begin_version_line + len("version: \"")
+    end_version = file.find("\"", begin_version)
     env_com_version = file[begin_version:end_version]
 
     print("Old Version: " + env_com_version)
