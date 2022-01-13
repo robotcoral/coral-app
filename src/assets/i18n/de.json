@@ -3,11 +3,7 @@
     "GENERAL": {
       "TITLE": "Generelle Einstellungen",
       "TOUCH_UI": {
-        "TITLE": "Touch UI",
-        "OPTIONS": {
-          "ON": "an",
-          "OFF": "aus"
-        }
+        "TITLE": "Touch UI"
       },
       "THEME": {
         "TITLE": "Theme",

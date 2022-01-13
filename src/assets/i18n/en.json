@@ -4,11 +4,7 @@
       "TITLE": "General Settings",
       "TOUCH_UI": {
         "TITLE": "Touch UI",
-        "DESCRIPTION": "Overrides the Touch UI mode. This changes the app layout to be easier to use with touch inputs.",
-        "OPTIONS": {
-          "ON": "on",
-          "OFF": "off"
-        }
+        "DESCRIPTION": "Overrides the Touch UI mode. This changes the app layout to be easier to use with touch inputs."
       },
       "THEME": {
         "TITLE": "Theme",
