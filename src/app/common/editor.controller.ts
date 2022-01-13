@@ -26,12 +26,12 @@ export class EditorController {
   }
 
   zoomIn() {
-    const fontSize = this.settingsService.settings.globalSettings.fontSize + 2;
+    const fontSize = this.settingsService.settings.globalSettings.font_size + 2;
     this.settingsService.saveEditorSettings({ fontSize });
   }
 
   zoomOut() {
-    const fontSize = this.settingsService.settings.globalSettings.fontSize - 2;
+    const fontSize = this.settingsService.settings.globalSettings.font_size - 2;
     this.settingsService.saveEditorSettings({ fontSize });
   }
 

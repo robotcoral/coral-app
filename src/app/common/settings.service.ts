@@ -91,12 +91,8 @@ export class SettingsService implements OnInit {
    * hasn't been implemented yet, it is considered an error
    */
   repairInvalidSettings() {
-    if (
-      !Object.values(THEMES || "auto").includes(
-        this.settings.globalSettings.theme
-      )
-    ) {
-      this.settings.globalSettings.theme = "auto";
+    if (!Object.values(THEMES).includes(this.settings.globalSettings.theme)) {
+      this.settings.globalSettings.theme = THEMES.Auto;
     }
 
     if (!LANGUAGE_CODES[this.settings.globalSettings.language]) {
@@ -164,8 +160,8 @@ export class SettingsService implements OnInit {
         this.settings.globalSettings.theme
       );
     } else {
-      this.document.documentElement.setAttribute("light-theme", "Light");
-      this.document.documentElement.setAttribute("dark-theme", "Dark");
+      this.document.documentElement.setAttribute("light-theme", "light");
+      this.document.documentElement.setAttribute("dark-theme", "dark");
     }
     this.triggerCanvasThemeChange();
   }
@@ -174,7 +170,7 @@ export class SettingsService implements OnInit {
    * activates/deactivates the touchUI depending on the setting in settings.globalSettings.touchUIActive
    */
   private applyTouchUI() {
-    if (this.settings.globalSettings.touchUIActive) {
+    if (this.settings.globalSettings.touch_ui) {
       this.document.documentElement.setAttribute("touch-ui", "true");
     } else {
       this.document.documentElement.setAttribute("touch-ui", "false");
@@ -182,13 +178,23 @@ export class SettingsService implements OnInit {
   }
 
   /**
-   * apllies the language defined in settings.globalSettings.language to the UI
+   * applies the language defined in settings.globalSettings.language to the UI
    */
   private applyLanguage() {
-    this.document.documentElement.lang = this.settings.globalSettings.language;
-    this.translationService.use(this.settings.globalSettings.language);
+    let realLang: LANGUAGES;
+    if (this.settings.globalSettings.language == LANGUAGES.Auto) {
+      if (LANGUAGE_CODES[navigator.language]) {
+        realLang = LANGUAGES[LANGUAGE_CODES[navigator.language]];
+      } else {
+        realLang = LANGUAGES.English;
+      }
+    } else {
+      realLang = this.settings.globalSettings.language;
+    }
+    this.document.documentElement.lang = realLang;
+    this.translationService.use(realLang);
     this.onEditorSettingsChange.next({
-      language: this.settings.globalSettings.language,
+      language: realLang,
     });
   }
 
@@ -240,15 +246,21 @@ export class SettingsService implements OnInit {
    */
   saveEditorSettings(settings: { fontSize?: number; tabWidth?: number }) {
     if (settings.fontSize) {
-      this.settings.globalSettings.fontSize = settings.fontSize;
+      this.settings.globalSettings.font_size = settings.fontSize;
     }
     if (settings.tabWidth) {
-      this.settings.globalSettings.tabWidth = settings.tabWidth;
+      this.settings.globalSettings.tab_width = settings.tabWidth;
       this.onEditorSettingsChange.next({
-        tabWidth: settings.tabWidth,
+        tab_width: settings.tabWidth,
       });
     }
     this.saveSettings();
+  }
+
+  setSetting(key: string, value: any) {
+    this.settings.globalSettings[key] = value;
+    this.saveSettings();
+    this.applyUISettings();
   }
 
   /**
@@ -269,7 +281,7 @@ export class SettingsService implements OnInit {
    * @param touchUIActive whether or not the touch UI should be active
    */
   changeUISettings(
-    theme: THEMES | "auto",
+    theme: THEMES,
     language: LANGUAGES,
     touchUIActive: boolean,
     newFlags: boolean
@@ -283,11 +295,11 @@ export class SettingsService implements OnInit {
       this.settings.globalSettings.language = language;
       this.applyLanguage();
     }
-    if (touchUIActive != this.settings.globalSettings.touchUIActive) {
-      this.settings.globalSettings.touchUIActive = touchUIActive;
+    if (touchUIActive != this.settings.globalSettings.touch_ui) {
+      this.settings.globalSettings.touch_ui = touchUIActive;
       this.applyTouchUI();
     }
-    this.settings.globalSettings.newFlags = newFlags !== false;
+    this.settings.globalSettings.legacy_flags = newFlags !== false;
     this.saveSettings();
   }
 }
