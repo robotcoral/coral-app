@@ -6,8 +6,7 @@
         "TITLE": "Touch UI",
         "OPTIONS": {
           "ON": "an",
-          "OFF": "aus",
-          "AUTOMATIC": "automatisch"
+          "OFF": "aus"
         }
       },
       "THEME": {

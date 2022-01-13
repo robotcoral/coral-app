@@ -11,7 +11,6 @@ import {
   LANGUAGE_CODES,
   Settings,
   THEMES,
-  TOUCH_UI,
 } from "./settings.schema";
 
 /**
@@ -284,7 +283,7 @@ export class SettingsService implements OnInit {
   changeUISettings(
     theme: THEMES,
     language: LANGUAGES,
-    touchUIActive: TOUCH_UI,
+    touchUIActive: boolean,
     newFlags: boolean
   ) {
     if (theme != this.settings.globalSettings.theme) {

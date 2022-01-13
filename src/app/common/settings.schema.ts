@@ -29,12 +29,6 @@ export enum LANGUAGE_CODES {
   "auto" = "Auto",
 }
 
-export enum TOUCH_UI {
-  ON = "on",
-  OFF = "off",
-  AUTO = "auto",
-}
-
 /**
  * class which contains all settings divided in two categories:
  * persistent globalSettings and volatile fileSettings
@@ -68,7 +62,7 @@ export class GlobalSettings {
   // UI settings
   theme: THEMES;
   language: LANGUAGES;
-  touch_ui: TOUCH_UI;
+  touch_ui: boolean;
   legacy_flags: boolean | string;
   // editor settings
   font_size: number;
@@ -84,7 +78,10 @@ export class GlobalSettings {
     // UI settings
     this.theme = settings.theme || THEMES.Auto;
     this.language = settings.language || LANGUAGES.Auto;
-    this.touch_ui = settings.touch_ui || TOUCH_UI.AUTO;
+    this.touch_ui =
+      typeof settings.touch_ui === "boolean"
+        ? settings.touch_ui
+        : window.navigator.maxTouchPoints > 0;
     // editor settings
     this.font_size = settings.font_size || 16;
     this.tab_width = settings.tab_width || 4;

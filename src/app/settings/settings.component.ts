@@ -31,12 +31,7 @@ export class SettingsComponent {
         },
         {
           name: "TOUCH_UI",
-          type: InputType.select,
-          options: [
-            { title: "ON", value: "on" },
-            { title: "OFF", value: "off" },
-            { title: "AUTOMATIC", value: "auto" },
-          ],
+          type: InputType.checkbox,
         },
         { name: "LEGACY_FLAGS", type: InputType.checkbox },
       ],

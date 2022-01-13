@@ -7,8 +7,7 @@
         "DESCRIPTION": "Overrides the Touch UI mode. This changes the app layout to be easier to use with touch inputs.",
         "OPTIONS": {
           "ON": "on",
-          "OFF": "off",
-          "AUTOMATIC": "automatic"
+          "OFF": "off"
         }
       },
       "THEME": {
