@@ -1,25 +1,54 @@
 {
   "SETTINGS": {
-    "TITLE": "Settings",
     "GENERAL": {
       "TITLE": "General Settings",
-      "TOUCH_UI": "Touch UI",
-      "THEME": "Theme",
-      "LANGUAGE": "Language",
-      "SYSTEM_DEFAULT": "System default",
-      "NEW_FLAGS": "New flags"
+      "TOUCH_UI": {
+        "TITLE": "Touch UI",
+        "DESCRIPTION": "Overrides the Touch UI mode. This changes the app layout to be easier to use with touch inputs."
+      },
+      "THEME": {
+        "TITLE": "Theme",
+        "DESCRIPTION": "",
+        "OPTIONS": {
+          "LIGHT": "light",
+          "DARK": "dark",
+          "AUTOMATIC": "system default"
+        }
+      },
+      "LANGUAGE": {
+        "TITLE": "Language",
+        "DESCRIPTION": "",
+        "OPTIONS": {
+          "GERMAN": "german",
+          "ENGLISH": "english",
+          "AUTOMATIC": "automatic"
+        }
+      },
+      "LEGACY_FLAGS": {
+        "TITLE": "Legacy Flags",
+        "DESCRIPTION": "Enables the original Robot Karel flags (carpets)."
+      }
     },
     "EDITOR": {
       "TITLE": "Editor Settings",
-      "FONT_SIZE": "Fontsize:",
-      "TAB_WIDTH": "Tabwidth"
+      "FONT_SIZE": {
+        "TITLE": "Font Size",
+        "DESCRIPTION": "Controls the font size in pixels."
+      },
+      "TAB_WIDTH": {
+        "TITLE": "Tab Width",
+        "DESCRIPTION": "Number of spaces it should use per tab."
+      }
     },
     "WORLD": {
       "TITLE": "World Settings",
-      "INVENTORY_ACTIVE": "Inventory active:",
-      "INVENTORY_MAX_SIZE": "Inventory size:",
-      "INVENTORY_START_SIZE": "Start slabs:",
-      "RESET_WORLD_ON_START": "Reset world on program start?"
+      "INVENTORY_ACTIVE": { "TITLE": "Inventory active", "DESCRIPTION": "" },
+      "INVENTORY_MAX_SIZE": { "TITLE": "Inventory size", "DESCRIPTION": "" },
+      "INVENTORY_START_SIZE": { "TITLE": "Start slabs", "DESCRIPTION": "" },
+      "RESET_WORLD_ON_START": {
+        "TITLE": "Reset world on program start?",
+        "DESCRIPTION": ""
+      }
     }
   },
   "COMMON": {

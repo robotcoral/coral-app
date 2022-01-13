@@ -4,9 +4,11 @@ import { Schema } from "jsonschema";
  * all available UI themes
  */
 export enum THEMES {
-  Light = "Light",
-  Dark = "Dark",
-  Midnight = "Midnight",
+  Light = "light",
+  Dark = "dark",
+  Midnight = "midnight",
+  Nord = "nord",
+  Auto = "auto",
 }
 
 /**
@@ -15,6 +17,7 @@ export enum THEMES {
 export enum LANGUAGES {
   English = "en",
   German = "de",
+  Auto = "auto",
 }
 
 /**
@@ -23,6 +26,7 @@ export enum LANGUAGES {
 export enum LANGUAGE_CODES {
   "en" = "English",
   "de" = "German",
+  "auto" = "Auto",
 }
 
 /**
@@ -56,13 +60,13 @@ export class Settings {
  */
 export class GlobalSettings {
   // UI settings
-  theme: THEMES | "auto";
+  theme: THEMES;
   language: LANGUAGES;
-  touchUIActive: boolean;
-  newFlags: boolean;
+  touch_ui: boolean;
+  legacy_flags: boolean | string;
   // editor settings
-  fontSize: number;
-  tabWidth: number;
+  font_size: number;
+  tab_width: number;
   // execution settings
   executionSpeed: number;
 
@@ -72,18 +76,18 @@ export class GlobalSettings {
    */
   constructor(settings: Partial<GlobalSettings>) {
     // UI settings
-    this.theme = settings.theme || "auto";
-    this.language = settings.language || undefined;
-    this.touchUIActive =
-      typeof settings.touchUIActive === "boolean"
-        ? settings.touchUIActive
+    this.theme = settings.theme || THEMES.Auto;
+    this.language = settings.language || LANGUAGES.Auto;
+    this.touch_ui =
+      typeof settings.touch_ui === "boolean"
+        ? settings.touch_ui
         : window.navigator.maxTouchPoints > 0;
     // editor settings
-    this.fontSize = settings.fontSize || 16;
-    this.tabWidth = settings.tabWidth || 4;
+    this.font_size = settings.font_size || 16;
+    this.tab_width = settings.tab_width || 4;
     // execution settings
     this.executionSpeed = settings.executionSpeed || 3;
-    this.newFlags = settings.newFlags !== false;
+    this.legacy_flags = settings.legacy_flags;
   }
 }
 
@@ -160,22 +164,3 @@ export const GlobalSettingsSchema: Schema = {
     },
   },
 };
-
-/* do not delete: schema for sessionStorage;
-currently not needed.
-If we decide, that session settings should survive reloading the window,
-this code will be needed. It is also a good reference for the FileSettings class
-sessionStorage:
-    inventoryActive: {
-      type: 'boolean',
-    },
-    maxSlabs: {
-      type: 'number',
-    },
-    startSlabs: {
-      type: 'number',
-    },
-        resetOnStart: {
-      type: 'boolean',
-    },
-*/
