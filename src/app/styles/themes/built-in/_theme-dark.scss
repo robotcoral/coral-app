@@ -1,0 +1,25 @@
+@use "../theme-functions" as functions;
+
+$theme_name: "dark";
+
+@include functions.generate_theme(
+  $theme_name,
+  $theme-font-color: hsl(0, 0%, 93%),
+  $theme-font-color-invert: hsl(0, 0%, 95%),
+  $theme-font-color-dim: hsla(0, 0%, 85%),
+  $theme-main-bg-color: hsl(0, 0%, 10%),
+  $theme-border-color: hsl(0, 0%, 25%),
+  $theme-input-box: hsl(0, 0%, 25%),
+  $theme-highlight-1: hsl(0, 0%, 15%),
+  $theme-highlight-2: hsl(0, 0%, 25%),
+  $theme-highlight-3: hsl(0, 0%, 35%),
+  $theme-highlight-color-text: hsl(29, 100%, 29%),
+  $theme-highlight-color-1: hsl(304, 100%, 32%),
+  $theme-titlebar-bg-logo:
+    linear-gradient(to top right, hsl(304, 100%, 27%), hsl(0, 87%, 64%)),
+  $theme-body-bg: radial-gradient(ellipse at bottom, #00010a, #000331 80%),
+  $gb-red: #990f02,
+  $gb-green: #028a0f,
+  $gb-blue: #2832c2,
+  $gb-yellow: #ffd300
+);

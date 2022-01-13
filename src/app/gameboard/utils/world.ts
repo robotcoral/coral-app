@@ -1,10 +1,10 @@
-import { Group, Vector3 } from 'three';
-import { Coordinates2, Coordinates3 } from './coordinates';
-import { COLORS } from './gameboard.controller';
-import { Grid } from './grid';
-import { Block, Flag, MaterialColors, ObjectFactory, Slab } from './objects';
-import { WorldImport } from './world.import.export';
-import { WorldData } from './world.schema';
+import { Group, Vector3 } from "three";
+import { Coordinates2, Coordinates3 } from "./coordinates";
+import { COLORS } from "./gameboard.controller";
+import { Grid } from "./grid";
+import { Block, Flag, MaterialColors, ObjectFactory, Slab } from "./objects";
+import { WorldImport } from "./world.import.export";
+import { WorldData } from "./world.schema";
 
 export interface WorldOptions {
   dimensions?: Coordinates3;
@@ -87,9 +87,9 @@ export class World extends Group {
   }
 
   placeSlab(coo: Coordinates2, color = COLORS.RED) {
-    if (this.outOfBounds(coo)) throw new Error('ERRORS.SLAB_OUTSIDE_WORLD');
-    if (this.isBlock(coo)) throw new Error('ERRORS.BLOCK_IN_WAY');
-    if (this.isFullStack(coo)) throw new Error('ERRORS.MAX_HEIGHT');
+    if (this.outOfBounds(coo)) throw new Error("ERRORS.SLAB_OUTSIDE_WORLD");
+    if (this.isBlock(coo)) throw new Error("ERRORS.BLOCK_IN_WAY");
+    if (this.isFullStack(coo)) throw new Error("ERRORS.MAX_HEIGHT");
 
     if (!this.objects[coo.x][coo.y]) this.objects[coo.x][coo.y] = [];
     const height = (this.objects[coo.x][coo.y] as Slab[]).push(
@@ -117,10 +117,10 @@ export class World extends Group {
   }
 
   placeBlock(coo: Coordinates2) {
-    if (this.outOfBounds(coo)) throw new Error('ERRORS.BLOCK_OUTSIDE_WORLD');
-    if (this.isBlock(coo)) throw new Error('ERRORS.BLOCK_IN_WAY');
+    if (this.outOfBounds(coo)) throw new Error("ERRORS.BLOCK_OUTSIDE_WORLD");
+    if (this.isBlock(coo)) throw new Error("ERRORS.BLOCK_IN_WAY");
     if (this.isStackMinHeight(coo, 1))
-      throw new Error('ERRORS.CANT_PLACE_BLOCK_HERE');
+      throw new Error("ERRORS.CANT_PLACE_BLOCK_HERE");
 
     this.objects[coo.x][coo.y] = this.factory.block();
 
@@ -132,7 +132,7 @@ export class World extends Group {
 
   placeFlag(coo: Coordinates2, color = COLORS.RED) {
     if (this.flags[coo.x][coo.y] != undefined)
-      throw new Error('ERRORS.ALREADY_FLAG');
+      throw new Error("ERRORS.ALREADY_FLAG");
     this.flags[coo.x][coo.y] = this.factory.flag(color);
     this.flags[coo.x][coo.y].position
       .add(this.offsetVector)
@@ -146,24 +146,24 @@ export class World extends Group {
   }
 
   pickUpSlab(coo: Coordinates2) {
-    if (this.isBlock(coo)) throw new Error('ERRORS.CANT_PICK_UP');
+    if (this.isBlock(coo)) throw new Error("ERRORS.CANT_PICK_UP");
     if (this.outOfBounds(coo) || !this.isStackMinHeight(coo, 1))
-      throw new Error('ERRORS.NOTHING_TO_PICK_UP');
+      throw new Error("ERRORS.NOTHING_TO_PICK_UP");
     this.meshGroup.remove((this.objects[coo.x][coo.y] as Slab[]).pop());
     if (this.isFlag(coo)) this.lowerFlag(coo);
   }
 
   pickUpBlock(coo: Coordinates2) {
-    if (this.isStackMinHeight(coo, 1)) throw new Error('ERRORS.CANT_PICK_UP');
+    if (this.isStackMinHeight(coo, 1)) throw new Error("ERRORS.CANT_PICK_UP");
     if (this.outOfBounds(coo) || !this.isBlock(coo))
-      throw new Error('ERRORS.NOTHING_TO_PICK_UP');
+      throw new Error("ERRORS.NOTHING_TO_PICK_UP");
     this.meshGroup.remove(this.objects[coo.x][coo.y] as Block);
     this.objects[coo.x][coo.y] = undefined;
   }
 
   pickUpFlag(coo: Coordinates2) {
     if (this.flags[coo.x][coo.y] == undefined)
-      throw new Error('ERRORS.NOTHING_TO_PICK_UP');
+      throw new Error("ERRORS.NOTHING_TO_PICK_UP");
     this.meshGroup.remove(this.flags[coo.x][coo.y]);
     this.flags[coo.x][coo.y] = undefined;
   }
@@ -218,9 +218,9 @@ export class World extends Group {
   }
 
   collision(coo: Coordinates3) {
-    if (this.outOfBounds(coo)) throw new Error('ERRORS.WALL_IN_WAY');
-    if (this.isBlock(coo)) throw new Error('ERRORS.BLOCK_IN_PATH');
-    if (!this.isStackMaxHeight(coo, coo.z + 1)) throw new Error('ERRORS.JUMP');
+    if (this.outOfBounds(coo)) throw new Error("ERRORS.WALL_IN_WAY");
+    if (this.isBlock(coo)) throw new Error("ERRORS.BLOCK_IN_PATH");
+    if (!this.isStackMaxHeight(coo, coo.z + 1)) throw new Error("ERRORS.JUMP");
   }
 
   getWorldSize(): Coordinates3 {

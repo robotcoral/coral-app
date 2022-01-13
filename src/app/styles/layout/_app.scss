@@ -1,0 +1,86 @@
+@use "../abstracts/transitions" as transitions;
+@use "../abstracts/variables";
+
+.split-container {
+  display: flex;
+  /* Misc */
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  padding: variables.$main-padding;
+}
+
+.split-container-left {
+  /* Initially, the left takes 1/2 width */
+  width: 50%;
+  background: var(--theme-main-bg-color);
+  border-radius: variables.$border-radius;
+}
+
+.split-container-right {
+  /* Take the remaining width */
+  flex: 1;
+  height: 100%;
+  min-width: 34rem;
+  background: var(--theme-main-bg-color);
+  border-radius: variables.$border-radius;
+}
+
+.split-border {
+  cursor: ew-resize;
+  height: 100%;
+  width: 0.8rem;
+  position: relative;
+
+  flex: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  user-select: none;
+  font-size: 2.5rem;
+  line-height: 0.6rem;
+
+  color: var(--theme-font-color);
+}
+
+app-editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: variables.$border-radius;
+}
+
+app-gameboard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--theme-main-bg-color);
+  border-radius: variables.$border-radius;
+}
+
+app-titlebar {
+  display: flex;
+  height: 2rem;
+  background-color: var(--theme-highlight-1);
+  box-shadow: var(--box-shadow-elevation-1);
+  position: relative;
+  z-index: 10;
+  align-items: center;
+  @include transitions.bg-color-transition;
+}
+
+app-settings {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--theme-font-color);
+  padding: 0.5rem 2rem 2rem 1rem;
+}
+
+.file-input {
+  display: none;
+}

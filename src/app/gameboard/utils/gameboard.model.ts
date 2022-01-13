@@ -1,4 +1,4 @@
-import { SettingsService } from 'src/app/common/settings.service';
+import { SettingsService } from "src/app/common/settings.service";
 import {
   AdditionalWorldData,
   Coordinates3,
@@ -6,8 +6,8 @@ import {
   World,
   WorldExport,
   WorldImport,
-} from '.';
-import { WorldData } from './world.schema';
+} from ".";
+import { WorldData } from "./world.schema";
 
 export class GameboardModel {
   world: World;

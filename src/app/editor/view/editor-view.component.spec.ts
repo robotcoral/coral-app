@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EditorController } from 'src/app/common/editor.controller';
-import { KarolInterpreter } from 'src/app/common/karol.interpreter';
-import { SettingsService } from 'src/app/common/settings.service';
-import { EditorViewComponent } from './editor-view.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { EditorController } from "src/app/common/editor.controller";
+import { KarolInterpreter } from "src/app/common/karol.interpreter";
+import { SettingsService } from "src/app/common/settings.service";
+import { EditorViewComponent } from "./editor-view.component";
 
-describe('EditorViewComponent', () => {
+describe("EditorViewComponent", () => {
   let component: EditorViewComponent;
   let fixture: ComponentFixture<EditorViewComponent>;
 
@@ -38,7 +38,7 @@ describe('EditorViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

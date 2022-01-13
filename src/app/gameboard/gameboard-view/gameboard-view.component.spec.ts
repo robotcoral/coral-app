@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SettingsService } from 'src/app/common/settings.service';
-import { GameboardController } from '../utils';
-import { GameboardViewComponent } from './gameboard-view.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { SettingsService } from "src/app/common/settings.service";
+import { GameboardController } from "../utils";
+import { GameboardViewComponent } from "./gameboard-view.component";
 
-describe('GameboardViewComponent', () => {
+describe("GameboardViewComponent", () => {
   let component: GameboardViewComponent;
   let fixture: ComponentFixture<GameboardViewComponent>;
 
@@ -47,7 +47,7 @@ describe('GameboardViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

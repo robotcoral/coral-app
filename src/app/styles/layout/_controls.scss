@@ -1,0 +1,21 @@
+.separator {
+  background-color: var(--theme-highlight-2);
+  width: 2px;
+  height: 2.5rem;
+  margin: 0.5rem;
+  border-radius: 2px;
+}
+
+.controls {
+  flex: 1;
+  display: flex;
+}
+
+.left-controls {
+  justify-content: flex-end;
+}
+
+.control-panel {
+  display: flex;
+  justify-content: center;
+}

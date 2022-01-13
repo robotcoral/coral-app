@@ -1,0 +1,28 @@
+<div
+  class="titlebar-folder"
+  (mouseover)="this.mouseEnter.emit(this.folder.key)"
+>
+  <button
+    class="titlebar-button"
+    (click)="clicked.emit(true)"
+    [ngClass]="{
+      'titlebar-button-active': openFolder == this.folder.key && expanded
+    }"
+  >
+    {{ "NAVBAR." + folder.key + ".TITLE" | translate }}
+  </button>
+  <div
+    class="titlebar-folder-list"
+    [ngClass]="{
+      'titlebar-folder-open': openFolder == this.folder.key && expanded
+    }"
+  >
+    <button
+      *ngFor="let element of folder.value | keyvalue: originalOrder"
+      (click)="elementClick(element.value)"
+      class="titlebar-element"
+    >
+      {{ "NAVBAR." + folder.key + "." + element.key | translate }}
+    </button>
+  </div>
+</div>

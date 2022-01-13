@@ -1,9 +1,9 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { validate } from 'jsonschema';
-import { Subject } from 'rxjs';
-import { COLORS, MaterialColors } from '../gameboard/utils';
+import { DOCUMENT } from "@angular/common";
+import { Inject, Injectable, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { validate } from "jsonschema";
+import { Subject } from "rxjs";
+import { COLORS, MaterialColors } from "../gameboard/utils";
 import {
   GlobalSettings,
   GlobalSettingsSchema,
@@ -11,17 +11,17 @@ import {
   LANGUAGE_CODES,
   Settings,
   THEMES,
-} from './settings.schema';
+} from "./settings.schema";
 
 /**
  * localStorage key for the global settings object
  */
-const GLOBAL_SETTINGS_KEY = 'Settings';
+const GLOBAL_SETTINGS_KEY = "Settings";
 
 /**
  * sessionStorage key for the file settings object
  */
-const FILE_SETTINGS_KEY = 'World_Settings';
+const FILE_SETTINGS_KEY = "World_Settings";
 
 export interface GameboardTheme {
   background: string;
@@ -29,7 +29,7 @@ export interface GameboardTheme {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class SettingsService implements OnInit {
   settings: Settings;
@@ -47,8 +47,8 @@ export class SettingsService implements OnInit {
     this.saveSettings();
 
     this.window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', () => this.triggerCanvasThemeChange());
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => this.triggerCanvasThemeChange());
   }
 
   ngOnInit(): void {
@@ -91,12 +91,8 @@ export class SettingsService implements OnInit {
    * hasn't been implemented yet, it is considered an error
    */
   repairInvalidSettings() {
-    if (
-      !Object.values(THEMES || 'auto').includes(
-        this.settings.globalSettings.theme
-      )
-    ) {
-      this.settings.globalSettings.theme = 'auto';
+    if (!Object.values(THEMES).includes(this.settings.globalSettings.theme)) {
+      this.settings.globalSettings.theme = THEMES.Auto;
     }
 
     if (!LANGUAGE_CODES[this.settings.globalSettings.language]) {
@@ -154,18 +150,18 @@ export class SettingsService implements OnInit {
    * applies the theme defined in settings.globalSettings.theme to the UI
    */
   private applyTheme() {
-    if (this.settings.globalSettings.theme != 'auto') {
+    if (this.settings.globalSettings.theme != "auto") {
       this.document.documentElement.setAttribute(
-        'light-color-scheme',
+        "light-theme",
         this.settings.globalSettings.theme
       );
       this.document.documentElement.setAttribute(
-        'dark-color-scheme',
+        "dark-theme",
         this.settings.globalSettings.theme
       );
     } else {
-      this.document.documentElement.setAttribute('light-color-scheme', 'light');
-      this.document.documentElement.setAttribute('dark-color-scheme', 'dark');
+      this.document.documentElement.setAttribute("light-theme", "light");
+      this.document.documentElement.setAttribute("dark-theme", "dark");
     }
     this.triggerCanvasThemeChange();
   }
@@ -174,21 +170,31 @@ export class SettingsService implements OnInit {
    * activates/deactivates the touchUI depending on the setting in settings.globalSettings.touchUIActive
    */
   private applyTouchUI() {
-    if (this.settings.globalSettings.touchUIActive) {
-      this.document.documentElement.setAttribute('touch-ui', 'true');
+    if (this.settings.globalSettings.touch_ui) {
+      this.document.documentElement.setAttribute("touch-ui", "true");
     } else {
-      this.document.documentElement.setAttribute('touch-ui', 'false');
+      this.document.documentElement.setAttribute("touch-ui", "false");
     }
   }
 
   /**
-   * apllies the language defined in settings.globalSettings.language to the UI
+   * applies the language defined in settings.globalSettings.language to the UI
    */
   private applyLanguage() {
-    this.document.documentElement.lang = this.settings.globalSettings.language;
-    this.translationService.use(this.settings.globalSettings.language);
+    let realLang: LANGUAGES;
+    if (this.settings.globalSettings.language == LANGUAGES.Auto) {
+      if (LANGUAGE_CODES[navigator.language]) {
+        realLang = LANGUAGES[LANGUAGE_CODES[navigator.language]];
+      } else {
+        realLang = LANGUAGES.English;
+      }
+    } else {
+      realLang = this.settings.globalSettings.language;
+    }
+    this.document.documentElement.lang = realLang;
+    this.translationService.use(realLang);
     this.onEditorSettingsChange.next({
-      language: this.settings.globalSettings.language,
+      language: realLang,
     });
   }
 
@@ -200,12 +206,12 @@ export class SettingsService implements OnInit {
 
     this.gameboardTheme = {
       colors: {
-        [COLORS.RED]: style.getPropertyValue('--gb-red'),
-        [COLORS.GREEN]: style.getPropertyValue('--gb-green'),
-        [COLORS.BLUE]: style.getPropertyValue('--gb-blue'),
-        [COLORS.YELLOW]: style.getPropertyValue('--gb-yellow'),
+        [COLORS.RED]: style.getPropertyValue("--gb-red"),
+        [COLORS.GREEN]: style.getPropertyValue("--gb-green"),
+        [COLORS.BLUE]: style.getPropertyValue("--gb-blue"),
+        [COLORS.YELLOW]: style.getPropertyValue("--gb-yellow"),
       },
-      background: style.getPropertyValue('--theme-main-bg-color'),
+      background: style.getPropertyValue("--theme-main-bg-color"),
     };
 
     this.onThemeChange.next(this.gameboardTheme);
@@ -223,13 +229,13 @@ export class SettingsService implements OnInit {
 
     // start theme transition
     document.body.style.setProperty(
-      '--theme-transition-time',
-      transitionTime.toString() + 's'
+      "--theme-transition-time",
+      transitionTime.toString() + "s"
     );
 
     // end theme transition
     setTimeout(() => {
-      document.body.style.removeProperty('--theme-transition-time');
+      document.body.style.removeProperty("--theme-transition-time");
     }, transitionTime * 1000);
   }
 
@@ -240,15 +246,21 @@ export class SettingsService implements OnInit {
    */
   saveEditorSettings(settings: { fontSize?: number; tabWidth?: number }) {
     if (settings.fontSize) {
-      this.settings.globalSettings.fontSize = settings.fontSize;
+      this.settings.globalSettings.font_size = settings.fontSize;
     }
     if (settings.tabWidth) {
-      this.settings.globalSettings.tabWidth = settings.tabWidth;
+      this.settings.globalSettings.tab_width = settings.tabWidth;
       this.onEditorSettingsChange.next({
-        tabWidth: settings.tabWidth,
+        tab_width: settings.tabWidth,
       });
     }
     this.saveSettings();
+  }
+
+  setSetting(key: string, value: any) {
+    this.settings.globalSettings[key] = value;
+    this.saveSettings();
+    this.applyUISettings();
   }
 
   /**
@@ -269,7 +281,7 @@ export class SettingsService implements OnInit {
    * @param touchUIActive whether or not the touch UI should be active
    */
   changeUISettings(
-    theme: THEMES | 'auto',
+    theme: THEMES,
     language: LANGUAGES,
     touchUIActive: boolean,
     newFlags: boolean
@@ -283,11 +295,11 @@ export class SettingsService implements OnInit {
       this.settings.globalSettings.language = language;
       this.applyLanguage();
     }
-    if (touchUIActive != this.settings.globalSettings.touchUIActive) {
-      this.settings.globalSettings.touchUIActive = touchUIActive;
+    if (touchUIActive != this.settings.globalSettings.touch_ui) {
+      this.settings.globalSettings.touch_ui = touchUIActive;
       this.applyTouchUI();
     }
-    this.settings.globalSettings.newFlags = newFlags !== false;
+    this.settings.globalSettings.legacy_flags = newFlags !== false;
     this.saveSettings();
   }
 }

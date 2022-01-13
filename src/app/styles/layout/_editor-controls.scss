@@ -1,0 +1,24 @@
+@use "sass:math";
+
+.status-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.status-running {
+  path {
+    fill: lime !important;
+  }
+}
+
+.status-paused {
+  path {
+    fill: yellow !important;
+  }
+}
+
+.status-stopped {
+  path {
+    fill: red !important;
+  }
+}

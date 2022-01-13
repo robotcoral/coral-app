@@ -1,12 +1,12 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from "@angular/common";
 import {
   AfterViewInit,
   Component,
   ElementRef,
   Inject,
   ViewChild,
-} from '@angular/core';
-import { SettingsService } from 'src/app/common/settings.service';
+} from "@angular/core";
+import { SettingsService } from "src/app/common/settings.service";
 import {
   AmbientLight,
   AxesHelper,
@@ -14,20 +14,20 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
-} from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GameboardController } from '../utils';
+} from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { GameboardController } from "../utils";
 
 @Component({
-  selector: 'app-gameboard-view',
-  templateUrl: './gameboard-view.component.html',
-  styleUrls: ['./gameboard-view.component.scss'],
+  selector: "app-gameboard-view",
+  templateUrl: "./gameboard-view.component.html",
+  styleUrls: ["./gameboard-view.component.scss"],
 })
 export class GameboardViewComponent implements AfterViewInit {
-  @ViewChild('gameboard')
+  @ViewChild("gameboard")
   gameboardRef: ElementRef;
   gameboard: HTMLDivElement;
-  @ViewChild('inset')
+  @ViewChild("inset")
   insetRef: ElementRef;
   inset: HTMLDivElement;
   canvas: HTMLElement;
@@ -56,7 +56,7 @@ export class GameboardViewComponent implements AfterViewInit {
 
     this.init();
     this.setupAxesHelper();
-    this.canvas = this.gameboard.getElementsByTagName('canvas')[0];
+    this.canvas = this.gameboard.getElementsByTagName("canvas")[0];
     this.render();
 
     this.settingsService.onThemeChange.subscribe((theme) =>

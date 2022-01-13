@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import {
   TranslateFakeLoader,
   TranslateLoader,
   TranslateModule,
-} from '@ngx-translate/core';
-import { SettingsService } from '../common/settings.service';
-import { GameboardComponent } from './gameboard.component';
-import { GameboardController } from './utils';
+} from "@ngx-translate/core";
+import { SettingsService } from "../common/settings.service";
+import { GameboardComponent } from "./gameboard.component";
+import { GameboardController } from "./utils";
 
-describe('GameboardComponent', () => {
+describe("GameboardComponent", () => {
   let component: GameboardComponent;
   let fixture: ComponentFixture<GameboardComponent>;
 
@@ -45,7 +45,7 @@ describe('GameboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

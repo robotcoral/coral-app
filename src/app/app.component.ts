@@ -4,22 +4,20 @@ import {
   ElementRef,
   HostListener,
   ViewChild,
-} from '@angular/core';
-import { GameboardComponent } from './gameboard/gameboard.component';
+} from "@angular/core";
+import { GameboardComponent } from "./gameboard/gameboard.component";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild(GameboardComponent)
   gameboardView: GameboardComponent;
-  @ViewChild('splitBorder', { static: true })
+  @ViewChild("splitBorder", { static: true })
   resizerRef: ElementRef;
   resizer: HTMLElement;
-  @ViewChild('innerSplitBorder', { static: true })
-  test: ElementRef;
   leftSide: HTMLElement;
   rightSide: HTMLElement;
   x = 0;
@@ -35,18 +33,18 @@ export class AppComponent implements AfterViewInit {
     this.leftSide = this.resizer.previousElementSibling as HTMLElement;
     this.rightSide = this.resizer.nextElementSibling as HTMLElement;
 
-    this.canvasParent = document.getElementById('canvas-parent');
-    this.canvas = this.canvasParent.getElementsByTagName('canvas')[0];
+    this.canvasParent = document.getElementById("canvas-parent");
+    this.canvas = this.canvasParent.getElementsByTagName("canvas")[0];
 
-    this.test.nativeElement.addEventListener(
-      'mousedown',
+    this.resizerRef.nativeElement.addEventListener(
+      "mousedown",
       this.mouseDownHandler
     );
-    this.test.nativeElement.addEventListener(
-      'touchstart',
+    this.resizerRef.nativeElement.addEventListener(
+      "touchstart",
       (event: TouchEvent) => {
         event.preventDefault();
-        this.mouseDownHandler(event as unknown as MouseEvent);
+        this.mouseDownHandler(event);
       }
     );
   }
@@ -62,10 +60,10 @@ export class AppComponent implements AfterViewInit {
     this.leftWidth = this.leftSide.getBoundingClientRect().width;
 
     // Attach the listeners to `document`
-    document.addEventListener('mousemove', this.mouseMoveHandler);
-    document.addEventListener('touchmove', this.mouseMoveHandler);
-    document.addEventListener('mouseup', this.mouseUpHandler);
-    document.addEventListener('touchend', this.mouseUpHandler);
+    document.addEventListener("mousemove", this.mouseMoveHandler);
+    document.addEventListener("touchmove", this.mouseMoveHandler);
+    document.addEventListener("mouseup", this.mouseUpHandler);
+    document.addEventListener("touchend", this.mouseUpHandler);
   };
 
   mouseMoveHandler = (event: TouchEvent | MouseEvent) => {
@@ -80,36 +78,36 @@ export class AppComponent implements AfterViewInit {
       this.resizer.parentElement.getBoundingClientRect().width;
     this.leftSide.style.width = `${newLeftWidth}%`;
 
-    this.resizer.style.cursor = 'col-resize';
-    document.body.style.cursor = 'col-resize';
+    this.resizer.style.cursor = "col-resize";
+    document.body.style.cursor = "col-resize";
 
-    this.leftSide.style.userSelect = 'none';
-    this.leftSide.style.pointerEvents = 'none';
+    this.leftSide.style.userSelect = "none";
+    this.leftSide.style.pointerEvents = "none";
 
-    this.rightSide.style.userSelect = 'none';
-    this.rightSide.style.pointerEvents = 'none';
+    this.rightSide.style.userSelect = "none";
+    this.rightSide.style.pointerEvents = "none";
 
     this.onWindowResize();
   };
 
   mouseUpHandler = () => {
-    this.resizer.style.removeProperty('cursor');
-    document.body.style.removeProperty('cursor');
+    this.resizer.style.removeProperty("cursor");
+    document.body.style.removeProperty("cursor");
 
-    this.leftSide.style.removeProperty('user-select');
-    this.leftSide.style.removeProperty('pointer-events');
+    this.leftSide.style.removeProperty("user-select");
+    this.leftSide.style.removeProperty("pointer-events");
 
-    this.rightSide.style.removeProperty('user-select');
-    this.rightSide.style.removeProperty('pointer-events');
+    this.rightSide.style.removeProperty("user-select");
+    this.rightSide.style.removeProperty("pointer-events");
 
     // Remove the handlers of `mousemove` and `mouseup`
-    document.removeEventListener('mousemove', this.mouseMoveHandler);
-    document.removeEventListener('touchmove', this.mouseMoveHandler);
-    document.removeEventListener('mouseup', this.mouseUpHandler);
-    document.removeEventListener('touchend', this.mouseUpHandler);
+    document.removeEventListener("mousemove", this.mouseMoveHandler);
+    document.removeEventListener("touchmove", this.mouseMoveHandler);
+    document.removeEventListener("mouseup", this.mouseUpHandler);
+    document.removeEventListener("touchend", this.mouseUpHandler);
   };
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onWindowResize = () => {
     this.canvas.height = this.canvasParent.clientHeight;
     this.canvas.width = this.canvasParent.clientWidth;

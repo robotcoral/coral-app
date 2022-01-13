@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
-import { KarolInterpreter } from 'src/app/common/karol.interpreter';
+import { Component } from "@angular/core";
+import { KarolInterpreter } from "src/app/common/karol.interpreter";
 
 enum PROGRAM_STATES {
-  RUNNING = 'status-running',
-  PAUSED = 'status-paused',
-  STOPPED = 'status-stopped',
+  RUNNING = "status-running",
+  PAUSED = "status-paused",
+  STOPPED = "status-stopped",
 }
 
 @Component({
-  selector: 'app-editor-controls',
-  templateUrl: './editor-controls.component.html',
-  styleUrls: ['./editor-controls.component.scss', '../../app.component.scss'],
+  selector: "app-editor-controls",
+  templateUrl: "./editor-controls.component.html",
+  styleUrls: ["./editor-controls.component.scss", "../../app.component.scss"],
 })
 export class EditorControlsComponent {
   running: boolean = false;
-  status: string = 'svg';
+  status: string = "svg";
 
   constructor(public interpreter: KarolInterpreter) {
     this.interpreter.running.subscribe((running) => {
@@ -31,6 +31,6 @@ export class EditorControlsComponent {
       ? PROGRAM_STATES.PAUSED
       : PROGRAM_STATES.STOPPED;
 
-    this.status = state + ' svg';
+    this.status = state + " svg";
   }
 }

@@ -1,0 +1,5 @@
+@use "../theme-functions" as functions;
+
+$theme_name: "Nord";
+
+@include functions.generate_theme($theme-name);

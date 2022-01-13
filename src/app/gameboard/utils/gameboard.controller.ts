@@ -1,23 +1,18 @@
-import { Injectable } from '@angular/core';
-import { ExportModal, ImportModal, WarningModal } from 'src/app/common/modals';
-import { SettingsService } from 'src/app/common/settings.service';
-import { UtilService } from 'src/app/common/util.service';
-import {
-  AdditionalWorldData,
-  CARDINALS,
-  Coordinates2,
-  Coordinates3,
-  GameboardModel,
-} from '.';
-import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
-import { MaterialColors } from './objects';
-import { WorldFile } from './world.schema';
+import { Injectable } from "@angular/core";
+import { SimpleModalService } from "ngx-simple-modal";
+import { SettingsService } from "src/app/common/settings.service";
+import { UtilService } from "src/app/common/util.service";
+import { ConfirmComponent } from "src/app/modals/confirm.component";
+import { CARDINALS, Coordinates2, Coordinates3, GameboardModel } from ".";
+import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
+import { MaterialColors } from "./objects";
+import { WorldFile } from "./world.schema";
 
 export enum COLORS {
-  RED = 'rot',
-  GREEN = 'grün',
-  BLUE = 'blau',
-  YELLOW = 'gelb',
+  RED = "rot",
+  GREEN = "grün",
+  BLUE = "blau",
+  YELLOW = "gelb",
 }
 
 export interface PlaceEvent {
@@ -26,14 +21,15 @@ export interface PlaceEvent {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class GameboardController {
   private model: GameboardModel;
 
   constructor(
     private utilService: UtilService,
-    public settingService: SettingsService
+    public settingService: SettingsService,
+    public modalService: SimpleModalService
   ) {
     this.model = new GameboardModel(settingService);
     this.settingService.onThemeChange.subscribe((theme) =>
@@ -71,7 +67,7 @@ export class GameboardController {
 
   private placeSlab(coo: Coordinates2, color: COLORS) {
     if (this.settingService.settings.fileSettings.inventoryActive) {
-      if (this.model.currentSlabs === 0) throw new Error('ERRORS.NO_SLABS');
+      if (this.model.currentSlabs === 0) throw new Error("ERRORS.NO_SLABS");
       this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
     } else {
@@ -126,17 +122,14 @@ export class GameboardController {
 
   reset(force: boolean = false) {
     if (force) return this.model.reset();
-    const modalRef = this.utilService.openModal(WarningModal);
-    (modalRef.componentInstance as WarningModal).init({
-      title: 'MODALS.RESET_WORLD.TITLE',
-      description: 'MODALS.RESET_WORLD.DESCRIPTION',
-      successButton: 'MODALS.RESET_WORLD.SUCCESS_BUTTON',
-    });
-    modalRef.result
-      .then(() => {
-        this.model.reset();
+    this.modalService
+      .addModal(ConfirmComponent, {
+        title: "MODALS.RESET_WORLD.TITLE",
+        message: "MODALS.RESET_WORLD.DESCRIPTION",
       })
-      .catch(null);
+      .subscribe((reset) => {
+        if (reset) this.model.reset();
+      });
   }
 
   resize(coo: Coordinates3) {
@@ -155,56 +148,20 @@ export class GameboardController {
     return this.model.robot;
   }
 
-  exportWorld() {
-    this.utilService
-      .openModal(ExportModal)
-      .result.then((data: AdditionalWorldData) => {
-        const worldFile = this.model.export(data);
-        const text = JSON.stringify(worldFile, null, 2);
-        this.utilService.dyanmicDownloadByHtmlTag({
-          title: 'world.coralworld',
-          content: text,
-          fileType: 'text/json',
-        });
-      })
-      .catch(null);
-  }
+  exportWorld() {}
 
   importWorld() {
     const callback = async (event: Event) => {
       const file: File = (event.target as HTMLInputElement).files[0];
       try {
-        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
+        if (!file) throw new Error("ERRORS.FILE_UPLOAD_FAILED");
 
         const worldFile: WorldFile = this.model.import(await file.text());
-        const modalRef = this.utilService.openModal(ImportModal);
-        modalRef.componentInstance.init(worldFile);
-        modalRef.result
-          .then(() => {
-            this.model.world.defaultWorld = worldFile.world_data;
-            this.model.reset();
-          })
-          .catch(null);
       } catch (error) {
         this.utilService.translateError(error);
       }
     };
-    this.utilService.upload('.coralworld,.json', callback);
-  }
-
-  saveWorld() {
-    const modalRef = this.utilService.openModal(WarningModal);
-    (modalRef.componentInstance as WarningModal).init({
-      title: 'MODALS.SAVE_WORLD.TITLE',
-      description: 'MODALS.SAVE_WORLD.DESCRIPTION',
-      successButton: 'MODALS.SAVE_WORLD.SUCCESS_BUTTON',
-    });
-    modalRef.result
-      .then(() => {
-        const worldFile = this.model.export({});
-        this.model.save(worldFile.world_data);
-      })
-      .catch(null);
+    this.utilService.upload(".coralworld,.json", callback);
   }
 
   getCurrentSlabs() {

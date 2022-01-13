@@ -1,0 +1,42 @@
+@use "sass:math";
+
+.wrapper {
+  min-width: 4rem;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column-reverse;
+  border-radius: 6px;
+  margin: 0.25rem;
+}
+
+.openMenu {
+  position: absolute;
+  background-color: var(--theme-main-bg-color);
+}
+
+.openColorMenu {
+  @extend .openMenu;
+  margin-top: -10.25rem;
+}
+
+.openModeMenu {
+  @extend .openMenu;
+  margin-top: -6.75rem;
+}
+
+.menu button {
+  margin: 0.25rem;
+}
+
+.colorbtn {
+  border-radius: 2rem;
+}
+
+.settingsbtn {
+  margin-right: 0.75rem;
+}
+
+.settings-panel {
+}

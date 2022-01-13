@@ -1,0 +1,34 @@
+<h2>{{ settingPrefix + "TITLE" | translate }}</h2>
+
+<div
+  [ngClass]="{ 'setting-checkbox-wrapper': setting.type == 'checkbox' }"
+  *ngIf="setting.type !== 'select'; else elseBlock"
+>
+  <p>{{ settingPrefix + "DESCRIPTION" | translate }}</p>
+  <svg-icon
+    *ngIf="setting.type == 'checkbox'"
+    [src]="
+      value
+        ? 'assets/icons/fluent/ic_fluent_checkbox_checked_24_regular.svg'
+        : 'assets/icons/fluent/ic_fluent_checkbox_unchecked_24_regular.svg'
+    "
+    [svgClass]="'svg'"
+    (click)="checkBoxChange()"
+    tabindex="0"
+  ></svg-icon>
+  <input
+    [hidden]="setting.type == 'checkbox'"
+    [type]="setting.type"
+    [(ngModel)]="value"
+    [checked]="settingsService.settings.globalSettings[title]"
+    (change)="change()"
+  />
+</div>
+
+<ng-template #elseBlock>
+  <select [(ngModel)]="value" (change)="change()">
+    <option *ngFor="let option of setting.options" [value]="option.value">
+      {{ settingPrefix + "OPTIONS." + option.title | translate }}
+    </option>
+  </select>
+</ng-template>

@@ -1,5 +1,5 @@
-import { validate } from 'jsonschema';
-import { commonEnvironment } from 'src/environments/environment.common';
+import { validate } from "jsonschema";
+import { commonEnvironment } from "src/environments/environment.common";
 import {
   Block,
   Robot,
@@ -8,10 +8,10 @@ import {
   WorldData,
   WorldFile,
   WorldSchema,
-} from '.';
-import { WORLDOBJECTTYPES } from '../gameboard-controls/gameboard-controls.component';
-import { Coordinates2, Coordinates3 } from './coordinates';
-import { AdditionalWorldData, WorldObject } from './world.schema';
+} from ".";
+import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
+import { Coordinates2, Coordinates3 } from "./coordinates";
+import { AdditionalWorldData, WorldObject } from "./world.schema";
 
 export class WorldExport {
   static export(world: World, robot: Robot, data: AdditionalWorldData) {
@@ -95,9 +95,9 @@ export class WorldImport {
     const errors = validate(world, WorldSchema).errors;
     if (errors.length == 0) return;
 
-    console.error('Encountered errors while parsing world:\n' + errors);
+    console.error("Encountered errors while parsing world:\n" + errors);
     throw new Error(
-      'Could not read world file.\nCheck console for additional details'
+      "Could not read world file.\nCheck console for additional details"
     );
   }
 
@@ -113,12 +113,12 @@ export class WorldImport {
     if (world.objects[startingPosition.x][startingPosition.y] === undefined)
       return;
     if (world.objects[startingPosition.x][startingPosition.y] instanceof Block)
-      throw new Error('Robot starting position is blocked by a block');
+      throw new Error("Robot starting position is blocked by a block");
     if (
       (world.objects[startingPosition.x][startingPosition.y] as Slab[])
         .length != startingPosition.z
     )
-      throw new Error('Robot is stuck in slab or flying');
+      throw new Error("Robot is stuck in slab or flying");
   }
 
   private static validateOutOfBounds(
@@ -128,7 +128,7 @@ export class WorldImport {
     return (
       coo.x >= worldSize.x ||
       coo.y >= worldSize.y ||
-      ('z' in coo && coo.z >= worldSize.z)
+      ("z" in coo && coo.z >= worldSize.z)
     );
   }
 }

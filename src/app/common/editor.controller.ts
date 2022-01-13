@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { openSearchPanel } from '@codemirror/search';
-import { redo, undo } from '../editor/util/codemirror.setup';
-import { EditorViewComponent } from '../editor/view/editor-view.component';
-import { WarningModal } from './modals';
-import { SettingsService } from './settings.service';
-import { UtilService } from './util.service';
+import { Injectable } from "@angular/core";
+import { openSearchPanel } from "@codemirror/search";
+import { redo, undo } from "../editor/util/codemirror.setup";
+import { EditorViewComponent } from "../editor/view/editor-view.component";
+import { SettingsService } from "./settings.service";
+import { UtilService } from "./util.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class EditorController {
   private editor: EditorViewComponent;
@@ -27,12 +26,12 @@ export class EditorController {
   }
 
   zoomIn() {
-    const fontSize = this.settingsService.settings.globalSettings.fontSize + 2;
+    const fontSize = this.settingsService.settings.globalSettings.font_size + 2;
     this.settingsService.saveEditorSettings({ fontSize });
   }
 
   zoomOut() {
-    const fontSize = this.settingsService.settings.globalSettings.fontSize - 2;
+    const fontSize = this.settingsService.settings.globalSettings.font_size - 2;
     this.settingsService.saveEditorSettings({ fontSize });
   }
 
@@ -41,15 +40,15 @@ export class EditorController {
   }
 
   cut() {
-    this.clipboardEvent('cut');
+    this.clipboardEvent("cut");
   }
 
   copy() {
-    this.clipboardEvent('copy');
+    this.clipboardEvent("copy");
   }
 
   paste() {
-    this.clipboardEvent('paste');
+    this.clipboardEvent("paste");
   }
 
   openSearchPanel() {
@@ -59,9 +58,9 @@ export class EditorController {
   export() {
     const code = this.editor.view.state.doc.toString();
     this.utilService.dyanmicDownloadByHtmlTag({
-      title: 'code.txt',
+      title: "code.txt",
       content: code,
-      fileType: 'text/plain',
+      fileType: "text/plain",
     });
     this.unsavedChanges = false;
   }
@@ -70,7 +69,7 @@ export class EditorController {
     const callback = async (event: Event) => {
       const file: File = (event.target as HTMLInputElement).files[0];
       try {
-        if (!file) throw new Error('ERRORS.FILE_UPLOAD_FAILED');
+        if (!file) throw new Error("ERRORS.FILE_UPLOAD_FAILED");
 
         const text = await file.text();
 
@@ -79,10 +78,10 @@ export class EditorController {
         this.utilService.translateError(error);
       }
     };
-    this.utilService.upload('.txt', callback);
+    this.utilService.upload(".txt", callback);
   }
 
-  setState(text = '') {
+  setState(text = "") {
     const callback = () => {
       const transaction = this.editor.view.state.update({
         changes: {
@@ -99,15 +98,6 @@ export class EditorController {
     };
 
     if (!this.unsavedChanges) return callback();
-
-    const modalRef = this.utilService.openModal(WarningModal);
-    (modalRef.componentInstance as WarningModal).init({
-      title: 'MODALS.UNSAVED_CHANGES.TITLE',
-      description: 'MODALS.UNSAVED_CHANGES.DESCRIPTION',
-      successButton: 'MODALS.UNSAVED_CHANGES.SUCCESS_BUTTON',
-    });
-
-    modalRef.result.then(() => callback()).catch(() => {});
   }
 
   private clipboardEvent(event: string) {

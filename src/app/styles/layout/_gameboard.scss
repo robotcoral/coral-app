@@ -1,0 +1,41 @@
+@use "../abstracts/variables";
+
+app-gameboard-view {
+  flex: 1;
+  width: 100%;
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+app-gameboard-controls {
+  width: 100%;
+  z-index: 1;
+}
+
+.camera-button-wrapper {
+  position: absolute;
+  right: variables.$main-padding;
+  top: calc(50% - 2rem);
+  //broken (right shadow)
+  //box-shadow: 0 0 4px grey;
+  z-index: 10;
+  border-radius: 1rem 0 0 1rem;
+  background-color: var(--theme-main-bg-color);
+  border: 2px solid var(--theme-highlight-1);
+  border-right: none;
+}
+
+.inventory-wrapper {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  border-bottom-left-radius: 1rem;
+  padding: 0.5rem;
+  align-items: center;
+  display: flex;
+  font-size: 1.5rem;
+  background-color: var(--theme-main-bg-color);
+  color: var(--theme-font-color);
+}

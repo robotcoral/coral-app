@@ -4,7 +4,7 @@ import {
   LineSegments,
   Object3D,
   Vector3,
-} from 'three';
+} from "three";
 
 export type GridOptions = {
   height: number;

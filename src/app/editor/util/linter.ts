@@ -1,6 +1,6 @@
-import { Diagnostic } from '@codemirror/lint';
-import { EditorView } from '@codemirror/view';
-import { compile } from '@robotcoral/lang-karol';
+import { Diagnostic } from "@codemirror/lint";
+import { EditorView } from "@codemirror/view";
+import { compile } from "@robotcoral/lang-karol";
 
 export function lintKarol(view: EditorView): Diagnostic[] {
   try {
@@ -11,7 +11,7 @@ export function lintKarol(view: EditorView): Diagnostic[] {
       {
         from: err.pos.from,
         to: err.pos.to,
-        severity: 'error',
+        severity: "error",
         message: err.msg,
       },
     ];

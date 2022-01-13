@@ -1,0 +1,8 @@
+<h1 (click)="onClick()" [ngClass]="{ 'setting-selected': active }" #title>
+  {{ group.title + ".TITLE" | translate }}
+</h1>
+<setting
+  *ngFor="let setting of group.settings"
+  [setting]="setting"
+  [groupTitle]="group.title"
+></setting>

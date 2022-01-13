@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import * as karol from '@robotcoral/lang-karol';
-import { Subject } from 'rxjs';
-import { EditorViewComponent } from '../editor/view/editor-view.component';
-import { WORLDOBJECTTYPES } from '../gameboard/gameboard-controls/gameboard-controls.component';
-import { CARDINALS, COLORS, GameboardController } from '../gameboard/utils';
-import { Identifiers } from './identifiers';
-import { SettingsService } from './settings.service';
+import { Injectable } from "@angular/core";
+import * as karol from "@robotcoral/lang-karol";
+import { Subject } from "rxjs";
+import { EditorViewComponent } from "../editor/view/editor-view.component";
+import { WORLDOBJECTTYPES } from "../gameboard/gameboard-controls/gameboard-controls.component";
+import { CARDINALS, COLORS, GameboardController } from "../gameboard/utils";
+import { Identifiers } from "./identifiers";
+import { SettingsService } from "./settings.service";
 
 type KarolMethods = {
   [key in Identifiers]: (param?: string) => void | boolean;
@@ -235,7 +235,7 @@ export class KarolInterpreter {
   private sound() {
     if (!this.audio) {
       this.audio = new Audio();
-      this.audio.src = 'assets/audio/wilhelm.mp3';
+      this.audio.src = "assets/audio/wilhelm.mp3";
       this.audio.load();
     }
     this.audio.play();

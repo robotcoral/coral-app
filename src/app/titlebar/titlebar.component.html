@@ -1,26 +1,14 @@
 <div class="app-titlebar-logo-area">
-  <input
-    type="image"
-    src="assets/logo_monochrome_white.svg"
-    class="app-titlebar-logo"
-    disabled="True"
-  />
+  <img src="assets/logo_monochrome_white.svg" class="app-titlebar-logo" />
 </div>
-
-<div class="app-titlebar-button-container">
-  <div ngbDropdown *ngFor="let item of titlebar | keyvalue: originalOrder">
-    <button class="app-titelbar-button" id="item.key" ngbDropdownToggle>
-      {{ "NAVBAR." + item.key + ".TITLE" | translate }}
-    </button>
-    <div ngbDropdownMenu [attr.aria-labelledby]="item.key">
-      <button
-        ngbDropdownItem
-        *ngFor="let subItem of item.value | keyvalue: originalOrder"
-        (click)="subItem.value()"
-        [disabled]="!subItem.value"
-      >
-        {{ "NAVBAR." + item.key + "." + subItem.key | translate }}
-      </button>
-    </div>
-  </div>
+<div class="titlebar" #titlebar>
+  <app-titlebar-folder
+    *ngFor="let folder of titlebarEntries | keyvalue: originalOrder"
+    [folder]="folder"
+    [expanded]="expanded"
+    [openFolder]="openFolder"
+    (clicked)="click($event)"
+    (mouseEnter)="this.openFolder = $event"
+  >
+  </app-titlebar-folder>
 </div>

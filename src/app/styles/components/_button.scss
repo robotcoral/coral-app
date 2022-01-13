@@ -1,0 +1,15 @@
+button {
+  border: 0px;
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--theme-font-color);
+}
+
+button:hover {
+  background-color: var(--theme-highlight-2);
+  color: var(--theme-font-color);
+}
+
+button:active {
+  background-color: var(--theme-highlight-2);
+}
