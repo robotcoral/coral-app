@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
-import { InputType } from "./setting/setting.component";
-import { SettingsGroup } from "./settings-group/settings-group.component";
+import { InputType } from "../setting/setting.component";
+import { SettingsGroup } from "../settings-group/settings-group.component";
 
 @Component({
-  selector: "app-settings",
-  templateUrl: `./settings.component.html`,
+  selector: "app-general-settings",
+  templateUrl: `./general-settings.component.html`,
 })
-export class SettingsComponent {
+export class GeneralSettingsComponent {
   settings: SettingsGroup[] = [
     {
       title: "SETTINGS.GENERAL",
@@ -44,6 +44,4 @@ export class SettingsComponent {
       ],
     },
   ];
-
-  constructor() {}
 }
