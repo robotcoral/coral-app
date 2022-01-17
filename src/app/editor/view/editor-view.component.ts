@@ -19,7 +19,6 @@ type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 @Component({
   selector: "app-editor-view",
   templateUrl: "./editor-view.component.html",
-  styleUrls: ["../editor.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorViewComponent {

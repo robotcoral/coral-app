@@ -2,7 +2,7 @@ import { DOCUMENT } from "@angular/common";
 import { Component, Inject } from "@angular/core";
 import { SettingsService } from "src/app/common/settings.service";
 import { UtilService } from "src/app/common/util.service";
-import { Coordinates3, MaterialColors } from "../utils";
+import { MaterialColors } from "../utils";
 import { COLORS, GameboardController } from "../utils/gameboard.controller";
 
 export enum WORLDOBJECTTYPES {
@@ -14,10 +14,6 @@ export enum WORLDOBJECTTYPES {
 @Component({
   selector: "app-gameboard-controls",
   templateUrl: "./gameboard-controls.component.html",
-  styleUrls: [
-    "./gameboard-controls.component.scss",
-    "../../app.component.scss",
-  ],
 })
 export class GameboardControlsComponent {
   colors: MaterialColors = {

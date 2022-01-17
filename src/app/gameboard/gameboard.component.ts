@@ -6,7 +6,6 @@ import { GameboardController } from "./utils";
 @Component({
   selector: "app-gameboard",
   templateUrl: "./gameboard.component.html",
-  styleUrls: ["./gameboard.component.scss", "../app.component.scss"],
 })
 export class GameboardComponent implements OnInit {
   @ViewChild(GameboardViewComponent)
