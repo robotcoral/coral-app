@@ -5,7 +5,13 @@ import { GeneralSettingsService } from "src/app/common/settings/general.settings
 import { WorldSettingsService } from "src/app/common/settings/world.settings";
 import { UtilService } from "src/app/common/util.service";
 import { ConfirmComponent } from "src/app/modals/confirm.component";
-import { CARDINALS, Coordinates2, Coordinates3, GameboardModel } from ".";
+import {
+  CARDINALS,
+  Coordinates2,
+  Coordinates3,
+  GameboardModel,
+  InventoryData,
+} from ".";
 import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
 import { MaterialColors } from "./objects";
 import { AdditionalWorldData, WorldFile } from "./world.schema";
@@ -159,10 +165,13 @@ export class GameboardController {
   }
 
   exportWorld() {
-    const data: AdditionalWorldData = {
+    const data: AdditionalWorldData & InventoryData = {
       name: this.worldSettingService.settings.name,
       author: this.worldSettingService.settings.author,
       description: this.worldSettingService.settings.description,
+      inventory_active: this.worldSettingService.settings.inventory_active,
+      max_slabs: this.worldSettingService.settings.max_slabs,
+      start_slabs: this.worldSettingService.settings.start_slabs,
     };
     const code = this.worldSettingService.settings.export_code
       ? this.editorController.exportToString()

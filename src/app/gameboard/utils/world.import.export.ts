@@ -2,6 +2,7 @@ import { validate } from "jsonschema";
 import { commonEnvironment } from "src/environments/environment.common";
 import {
   Block,
+  InventoryData,
   Robot,
   Slab,
   World,
@@ -17,7 +18,7 @@ export class WorldExport {
   static export(
     world: World,
     robot: Robot,
-    data: AdditionalWorldData,
+    data: AdditionalWorldData & InventoryData,
     code: string
   ) {
     const worldData: WorldData = {
