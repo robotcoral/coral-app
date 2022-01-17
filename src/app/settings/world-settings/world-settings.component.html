@@ -1,1 +1,8 @@
-<settings-group *ngFor="let group of settings" [group]="group"></settings-group>
+<settings-group
+  *ngFor="let group of settings"
+  [group]="group"
+  [settingsKey]="settingsKey"
+></settings-group>
+<button (click)="apply()">{{ "COMMON.APPLY" | translate }}</button>
+<button (click)="import()">{{ "NAVBAR.WORLD.IMPORT" | translate }}</button>
+<button (click)="export()">{{ "NAVBAR.WORLD.EXPORT" | translate }}</button>

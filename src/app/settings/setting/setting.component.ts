@@ -7,9 +7,12 @@ import {
   OnInit,
 } from "@angular/core";
 import { ClickService } from "src/app/common/click.service";
-import { SettingsService } from "src/app/common/settings.service";
+import { GeneralSettingsService } from "src/app/common/settings/general.settings.service";
+import { SettingsKeys } from "src/app/common/settings/settings.schema";
+import { WorldSettingsService } from "src/app/common/settings/world.settings";
 
 export enum InputType {
+  // Default HTML
   button = "button",
   checkbox = "checkbox",
   color = "color",
@@ -32,7 +35,9 @@ export enum InputType {
   time = "time",
   url = "url",
   week = "week",
+  // Custom
   select = "select",
+  textarea = "textarea",
 }
 
 type Option = { title: string; value: string; default?: boolean };
@@ -53,6 +58,8 @@ export class SettingComponent implements OnInit {
   setting: Setting;
   @Input()
   groupTitle: string;
+  @Input()
+  settingsKey: SettingsKeys;
   @HostBinding("class") classList: string;
   @HostBinding("title") title = "";
   @HostListener("click") onClick() {
@@ -64,26 +71,41 @@ export class SettingComponent implements OnInit {
       });
   }
 
-  value: string | boolean;
+  settingsService: GeneralSettingsService | WorldSettingsService;
+
+  value: string | boolean | number;
 
   constructor(
     private elementRef: ElementRef,
     private clickService: ClickService,
-    public settingsService: SettingsService
+    private generalSettingsService: GeneralSettingsService,
+    private worldSettingsService: WorldSettingsService
   ) {}
 
   ngOnInit(): void {
+    this.settingsService =
+      this.settingsKey === SettingsKeys.generalSettings
+        ? this.generalSettingsService
+        : this.worldSettingsService;
     this.title = this.setting.name.toLowerCase();
-    this.value = this.settingsService.settings.globalSettings[this.title];
+    this.loadValue();
+    //@ts-ignore
+    this.settingsService.onSettingsChange.subscribe(() => this.loadValue());
   }
 
   change() {
+    if (this.setting.type === InputType.number) this.value = +this.value;
+    //@ts-ignore
     this.settingsService.setSetting(this.title, this.value);
   }
 
   checkBoxChange() {
     this.value = !this.value;
     this.change();
+  }
+
+  private loadValue() {
+    this.value = this.settingsService.settings[this.title];
   }
 
   get settingPrefix() {

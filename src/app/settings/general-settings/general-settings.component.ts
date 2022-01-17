@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { SettingsKeys } from "src/app/common/settings/settings.schema";
+import { AppSettingsComponents } from "../app-settings.component";
 import { InputType } from "../setting/setting.component";
 import { SettingsGroup } from "../settings-group/settings-group.component";
 
@@ -6,7 +8,7 @@ import { SettingsGroup } from "../settings-group/settings-group.component";
   selector: "app-general-settings",
   templateUrl: `./general-settings.component.html`,
 })
-export class GeneralSettingsComponent {
+export class GeneralSettingsComponent extends AppSettingsComponents {
   settings: SettingsGroup[] = [
     {
       title: "SETTINGS.GENERAL",
@@ -44,4 +46,6 @@ export class GeneralSettingsComponent {
       ],
     },
   ];
+
+  settingsKey = SettingsKeys.generalSettings;
 }

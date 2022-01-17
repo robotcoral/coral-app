@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { SettingsService } from "src/app/common/settings.service";
+import { SettingsService } from "src/app/common/settings/settings.service";
 import { GameboardController } from "../utils";
 import { GameboardViewComponent } from "./gameboard-view.component";
 

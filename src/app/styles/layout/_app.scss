@@ -71,16 +71,6 @@ app-titlebar {
   @include transitions.bg-color-transition;
 }
 
-app-settings {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  color: var(--theme-font-color);
-  padding: 0.5rem 2rem 2rem 1rem;
-}
-
 .file-input {
   display: none;
 }

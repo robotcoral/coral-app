@@ -1,8 +1,7 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, Inject } from "@angular/core";
-import { SettingsService } from "src/app/common/settings.service";
-import { UtilService } from "src/app/common/util.service";
-import { Coordinates3, MaterialColors } from "../utils";
+import { GeneralSettingsService } from "src/app/common/settings/general.settings.service";
+import { MaterialColors } from "../utils";
 import { COLORS, GameboardController } from "../utils/gameboard.controller";
 
 export enum WORLDOBJECTTYPES {
@@ -52,8 +51,7 @@ export class GameboardControlsComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     public controller: GameboardController,
-    private utilService: UtilService,
-    private settingsService: SettingsService
+    private settingsService: GeneralSettingsService
   ) {
     this.settingsService.onThemeChange.subscribe((theme) =>
       this.onThemeChange(theme.colors)

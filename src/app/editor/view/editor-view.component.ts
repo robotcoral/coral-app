@@ -8,8 +8,12 @@ import { indentUnit } from "@codemirror/language";
 import { Compartment, StateEffect } from "@codemirror/state";
 import { EditorController } from "src/app/common/editor.controller";
 import { KarolInterpreter } from "src/app/common/karol.interpreter";
-import { GlobalSettings, LANGUAGES } from "src/app/common/settings.schema";
-import { SettingsService } from "src/app/common/settings.service";
+import { GeneralSettingsService } from "src/app/common/settings/general.settings.service";
+import {
+  GeneralSettings,
+  LANGUAGES,
+  SettingsKeys,
+} from "src/app/common/settings/settings.schema";
 import { codemirrorGermanPhrases } from "src/assets/i18n/codemirror.german";
 import { environment } from "src/environments/environment";
 import { customSetup, EditorState, EditorView } from "../util/codemirror.setup";
@@ -28,16 +32,18 @@ export class EditorViewComponent {
   config: EditorStateConfig;
   view: EditorView;
 
+  SettingsKeys = SettingsKeys;
+
   @ViewChild("codemirrorhost") codemirrorhost: ElementRef = null;
 
   constructor(
     private controller: EditorController,
     private interpreter: KarolInterpreter,
-    public settingsService: SettingsService
+    public settingsService: GeneralSettingsService
   ) {
     this.init();
     this.controller.setEditor(this);
-    this.settingsService.onEditorSettingsChange.subscribe((settings) =>
+    this.settingsService.onSettingsChange.subscribe((settings) =>
       this.applySettings(settings)
     );
   }
@@ -46,9 +52,7 @@ export class EditorViewComponent {
     const extensions = [
       customSetup,
       this.compartment.of(
-        EditorState.tabSize.of(
-          this.settingsService.settings.globalSettings.tab_width
-        )
+        EditorState.tabSize.of(this.settingsService.settings.tab_width)
       ),
       // Indent with Tab
       indentUnit.of("	"),
@@ -56,9 +60,7 @@ export class EditorViewComponent {
         if (!update.changes.empty) this.controller.unsavedChanges = true;
       }),
     ];
-    if (
-      this.settingsService.settings.globalSettings.language === LANGUAGES.German
-    ) {
+    if (this.settingsService.settings.language === LANGUAGES.German) {
       extensions.push(EditorState.phrases.of(codemirrorGermanPhrases));
     }
     this.config = {
@@ -91,7 +93,7 @@ export class EditorViewComponent {
     );
   }
 
-  applySettings(settings: Partial<GlobalSettings>) {
+  applySettings(settings: Partial<GeneralSettings>) {
     if (!this.view) return;
     const effects: StateEffect<unknown>[] = [];
     if (settings.tab_width) {

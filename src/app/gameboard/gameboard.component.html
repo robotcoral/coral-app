@@ -14,7 +14,7 @@
 </span>
 <span
   class="inventory-wrapper"
-  *ngIf="settingsService.settings.fileSettings.inventoryActive"
+  *ngIf="worldSettingsService.settings.inventory_active"
 >
   {{ controller.getCurrentSlabs() }}x
 

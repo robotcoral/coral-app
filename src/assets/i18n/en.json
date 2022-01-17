@@ -49,6 +49,32 @@
         "TITLE": "Reset world on program start?",
         "DESCRIPTION": ""
       }
+    },
+    "WORLD_INFO": {
+      "TITLE": "World Information",
+      "NAME": { "TITLE": "Worldname", "DESCRIPTION": "" },
+      "AUTHOR": { "TITLE": "Author", "DESCRIPTION": "" },
+      "DESCRIPTION": { "TITLE": "Description", "DESCRIPTION": "" },
+      "EXPORT_CODE": {
+        "TITLE": "Export Code",
+        "DESCRIPTION": "Embed the program code in the world file"
+      }
+    },
+    "WORLD_SETTINGS": {
+      "TITLE": "World Settings",
+      "WIDTH": { "TITLE": "Width", "DESCRIPTION": "" },
+      "LENGTH": { "TITLE": "Length", "DESCRIPTION": "" },
+      "HEIGHT": { "TITLE": "Height", "DESCRIPTION": "" },
+      "RESET": {
+        "TITLE": "Reset on execution",
+        "DESCRIPTION": "Reset world when running your program?"
+      }
+    },
+    "INVENTORY_SETTINGS": {
+      "TITLE": "Inventory Settings",
+      "INVENTORY_ACTIVE": { "TITLE": "Activate Inventory", "DESCRIPTION": "" },
+      "MAX_SLABS": { "TITLE": "Max. inventory size", "DESCRIPTION": "" },
+      "START_SLABS": { "TITLE": "Inventory size on start", "DESCRIPTION": "" }
     }
   },
   "COMMON": {
@@ -64,7 +90,8 @@
   },
   "TABS": {
     "EDITOR": "Editor",
-    "SETTINGS": "Settings"
+    "SETTINGS": "Settings",
+    "WORLD_SETTINGS": "World Settings"
   },
   "NAVBAR": {
     "FILE": {

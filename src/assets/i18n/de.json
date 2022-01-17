@@ -48,7 +48,8 @@
         "TITLE": "Reset world on program start?",
         "DESCRIPTION": ""
       }
-    }
+    },
+    "WORLD_INFO": {}
   },
   "COMMON": {
     "CANCEL": "Abbrechen",

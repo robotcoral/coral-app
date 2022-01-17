@@ -4,7 +4,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from "@ngx-translate/core";
-import { SettingsService } from "../common/settings.service";
+import { SettingsService } from "../common/settings/settings.service";
 import { GameboardComponent } from "./gameboard.component";
 import { GameboardController } from "./utils";
 
@@ -19,7 +19,7 @@ describe("GameboardComponent", () => {
         {
           provide: SettingsService,
           useValue: {
-            settings: { fileSettings: { inventoryActive: false } },
+            settings: { fileSettings: { inventory_active: false } },
             ngOnInit: () => {},
           },
         },

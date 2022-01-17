@@ -24,41 +24,20 @@ export enum LANGUAGES {
  * inversion of LANGUAGES
  */
 export enum LANGUAGE_CODES {
-  "en" = "English",
-  "de" = "German",
-  "auto" = "Auto",
+  en = "English",
+  de = "German",
+  auto = "Auto",
 }
 
-/**
- * class which contains all settings divided in two categories:
- * persistent globalSettings and volatile fileSettings
- */
-export class Settings {
-  globalSettings: GlobalSettings;
-  fileSettings: FileSettings;
-
-  /**
-   *
-   * @param parameterGlobalSettings object containing the persistent, global settings
-   * @param parameterFileSettings object containing the volatile settings for the current file
-   */
-  constructor(
-    parameterGlobalSettings: Partial<GlobalSettings>,
-    parameterFileSettings: Partial<FileSettings>
-  ) {
-    // fallback to default values
-    if (parameterGlobalSettings == null) parameterGlobalSettings = {};
-    if (parameterFileSettings == null) parameterFileSettings = {};
-
-    this.globalSettings = new GlobalSettings(parameterGlobalSettings);
-    this.fileSettings = new FileSettings(parameterFileSettings);
-  }
+export enum SettingsKeys {
+  generalSettings = "generalSettings",
+  worldSetting = "worldSettings",
 }
 
 /**
  * part of class Settings: contains the global settings
  */
-export class GlobalSettings {
+export class GeneralSettings {
   // UI settings
   theme: THEMES;
   language: LANGUAGES;
@@ -74,7 +53,7 @@ export class GlobalSettings {
    *
    * @param settings object containing the persistent, global settings
    */
-  constructor(settings: Partial<GlobalSettings>) {
+  constructor(settings: Partial<GeneralSettings>) {
     // UI settings
     this.theme = settings.theme || THEMES.Auto;
     this.language = settings.language || LANGUAGES.Auto;
@@ -94,29 +73,42 @@ export class GlobalSettings {
 /**
  * part of class Settings: contains the file specific settings
  */
-export class FileSettings {
-  // TODO
-  inventoryActive: boolean;
-  maxSlabs: number;
-  startSlabs: number;
-  resetOnStart: boolean;
+export class WorldSettings {
+  name: string;
+  author: string;
+  description: string;
+  exportCode: boolean;
+  inventory_active: boolean;
+  max_slabs: number;
+  start_slabs: number;
+  reset: boolean;
+  width: number;
+  length: number;
+  height: number;
 
   /**
    *
    * @param settings object containing the volatile settings for the current file
    */
-  constructor(settings: Partial<FileSettings>) {
-    this.inventoryActive = settings.inventoryActive == true || false;
-    this.maxSlabs = settings.maxSlabs || 20;
-    this.startSlabs = settings.startSlabs || 20;
-    this.resetOnStart = settings.resetOnStart || true;
+  constructor(settings: Partial<WorldSettings>) {
+    this.name = settings.name;
+    this.author = settings.author;
+    this.description = settings.description;
+    this.exportCode = settings.exportCode || false;
+    this.inventory_active = settings.inventory_active || false;
+    this.max_slabs = settings.max_slabs || 20;
+    this.start_slabs = settings.start_slabs || 20;
+    this.reset = settings.reset !== false;
+    this.width = settings.width || 10;
+    this.length = settings.length || 10;
+    this.height = settings.height || 6;
   }
 }
 
 /**
  * jsonschema for the globalSettings stored in the localStorage
  */
-export const GlobalSettingsSchema: Schema = {
+export const GeneralSettingsSchema: Schema = {
   $schema: "https://json-schema.org/draft/2020-12/schema",
   $id: "https://cdn.robotcoral.de/schemes/settings.json",
   title: "Settings",

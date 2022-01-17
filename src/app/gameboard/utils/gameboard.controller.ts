@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { SimpleModalService } from "ngx-simple-modal";
-import { SettingsService } from "src/app/common/settings.service";
+import { GeneralSettingsService } from "src/app/common/settings/general.settings.service";
+import { WorldSettingsService } from "src/app/common/settings/world.settings";
 import { UtilService } from "src/app/common/util.service";
 import { ConfirmComponent } from "src/app/modals/confirm.component";
 import { CARDINALS, Coordinates2, Coordinates3, GameboardModel } from ".";
@@ -28,13 +29,15 @@ export class GameboardController {
 
   constructor(
     private utilService: UtilService,
-    public settingService: SettingsService,
+    public generalSettingService: GeneralSettingsService,
+    public worldSettingService: WorldSettingsService,
     public modalService: SimpleModalService
   ) {
-    this.model = new GameboardModel(settingService);
-    this.settingService.onThemeChange.subscribe((theme) =>
+    this.model = new GameboardModel(worldSettingService);
+    this.generalSettingService.onThemeChange.subscribe((theme) =>
       this.setTheme(theme.colors)
     );
+    this.worldSettingService.onResize.subscribe(() => this.resize());
   }
 
   move() {
@@ -66,7 +69,7 @@ export class GameboardController {
   }
 
   private placeSlab(coo: Coordinates2, color: COLORS) {
-    if (this.settingService.settings.fileSettings.inventoryActive) {
+    if (this.worldSettingService.settings.inventory_active) {
       if (this.model.currentSlabs === 0) throw new Error("ERRORS.NO_SLABS");
       this.model.world.placeSlab(coo, color);
       this.model.currentSlabs--;
@@ -80,7 +83,7 @@ export class GameboardController {
       const coo = this.model.robot.getMoveCoordinates();
       if (mode == WORLDOBJECTTYPES.SLAB) {
         this.model.world.pickUpSlab(coo);
-        if (this.settingService.settings.fileSettings.inventoryActive)
+        if (this.worldSettingService.settings.inventory_active)
           this.model.currentSlabs++;
       } else if (mode == WORLDOBJECTTYPES.CUBE) {
         this.model.world.pickUpBlock(coo);
@@ -132,7 +135,12 @@ export class GameboardController {
       });
   }
 
-  resize(coo: Coordinates3) {
+  resize() {
+    const coo: Coordinates3 = {
+      x: this.worldSettingService.settings.length,
+      y: this.worldSettingService.settings.width,
+      z: this.worldSettingService.settings.height,
+    };
     this.model.resize(coo);
   }
 
@@ -148,7 +156,15 @@ export class GameboardController {
     return this.model.robot;
   }
 
-  exportWorld() {}
+  exportWorld() {
+    const worldFile = this.model.export();
+    const text = JSON.stringify(worldFile, null, 2);
+    this.utilService.dyanmicDownloadByHtmlTag({
+      title: "world.coralworld",
+      content: text,
+      fileType: "text/json",
+    });
+  }
 
   importWorld() {
     const callback = async (event: Event) => {
@@ -157,6 +173,9 @@ export class GameboardController {
         if (!file) throw new Error("ERRORS.FILE_UPLOAD_FAILED");
 
         const worldFile: WorldFile = this.model.import(await file.text());
+        this.model.world.defaultWorld = worldFile.world_data;
+        this.worldSettingService.loadWorld(worldFile);
+        this.model.reset();
       } catch (error) {
         this.utilService.translateError(error);
       }

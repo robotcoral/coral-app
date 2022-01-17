@@ -6,7 +6,7 @@ import {
   Inject,
   ViewChild,
 } from "@angular/core";
-import { SettingsService } from "src/app/common/settings.service";
+import { GeneralSettingsService } from "src/app/common/settings/general.settings.service";
 import {
   AmbientLight,
   AxesHelper,
@@ -46,7 +46,7 @@ export class GameboardViewComponent implements AfterViewInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private settingsService: SettingsService,
+    private settingsService: GeneralSettingsService,
     private controller: GameboardController
   ) {}
 

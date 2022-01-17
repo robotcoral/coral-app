@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { EditorController } from "src/app/common/editor.controller";
 import { KarolInterpreter } from "src/app/common/karol.interpreter";
-import { SettingsService } from "src/app/common/settings.service";
+import { SettingsService } from "src/app/common/settings/settings.service";
 import { EditorViewComponent } from "./editor-view.component";
 
 describe("EditorViewComponent", () => {

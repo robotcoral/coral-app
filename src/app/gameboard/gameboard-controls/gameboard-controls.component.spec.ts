@@ -4,7 +4,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from "@ngx-translate/core";
-import { SettingsService } from "src/app/common/settings.service";
+import { SettingsService } from "src/app/common/settings/settings.service";
 import { UtilService } from "src/app/common/util.service";
 import { GameboardController } from "../utils";
 import { GameboardControlsComponent } from "./gameboard-controls.component";

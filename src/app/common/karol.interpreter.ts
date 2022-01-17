@@ -5,7 +5,8 @@ import { EditorViewComponent } from "../editor/view/editor-view.component";
 import { WORLDOBJECTTYPES } from "../gameboard/gameboard-controls/gameboard-controls.component";
 import { CARDINALS, COLORS, GameboardController } from "../gameboard/utils";
 import { Identifiers } from "./identifiers";
-import { SettingsService } from "./settings.service";
+import { GeneralSettingsService } from "./settings/general.settings.service";
+import { WorldSettingsService } from "./settings/world.settings";
 
 type KarolMethods = {
   [key in Identifiers]: (param?: string) => void | boolean;
@@ -26,7 +27,7 @@ export class KarolInterpreter {
     }
     this.timeout = setTimeout(
       this.callback,
-      (6 - this.settings.settings.globalSettings.executionSpeed) * 100
+      (6 - this.generalSettingsService.settings.executionSpeed) * 100
     );
   };
   private audio: HTMLAudioElement;
@@ -108,7 +109,8 @@ export class KarolInterpreter {
 
   constructor(
     private controller: GameboardController,
-    private settings: SettingsService
+    private generalSettingsService: GeneralSettingsService,
+    private worldSettingsService: WorldSettingsService
   ) {}
 
   play() {
@@ -116,7 +118,7 @@ export class KarolInterpreter {
       try {
         const program = karol.compile(this.getEditorString());
         this.statements = program(this.methods);
-        if (this.settings.settings.fileSettings.resetOnStart)
+        if (this.worldSettingsService.settings.reset)
           this.controller.reset(true);
       } catch (err: any) {
         return console.error(
@@ -146,16 +148,18 @@ export class KarolInterpreter {
   }
 
   raiseSpeed() {
-    if (this.settings.settings.globalSettings.executionSpeed < 5)
-      this.settings.setSpeed(
-        this.settings.settings.globalSettings.executionSpeed + 1
+    if (this.generalSettingsService.settings.executionSpeed < 5)
+      this.generalSettingsService.setSetting(
+        "executionSpeed",
+        this.generalSettingsService.settings.executionSpeed + 1
       );
   }
 
   lowerSpeed() {
-    if (this.settings.settings.globalSettings.executionSpeed > 1)
-      this.settings.setSpeed(
-        this.settings.settings.globalSettings.executionSpeed - 1
+    if (this.generalSettingsService.settings.executionSpeed > 1)
+      this.generalSettingsService.setSetting(
+        "executionSpeed",
+        this.generalSettingsService.settings.executionSpeed - 1
       );
   }
 
@@ -208,7 +212,7 @@ export class KarolInterpreter {
   private isFull() {
     return (
       this.controller.getCurrentSlabs() ===
-      this.controller.settingService.settings.fileSettings.maxSlabs
+      this.worldSettingsService.settings.max_slabs
     );
   }
 
@@ -224,7 +228,7 @@ export class KarolInterpreter {
   private execute(callback: () => void | boolean = this.callback) {
     this.timeout = setTimeout(
       callback,
-      (6 - this.settings.settings.globalSettings.executionSpeed) * 100
+      (6 - this.generalSettingsService.settings.executionSpeed) * 100
     );
   }
 

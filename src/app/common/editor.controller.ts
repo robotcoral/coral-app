@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { openSearchPanel } from "@codemirror/search";
 import { redo, undo } from "../editor/util/codemirror.setup";
 import { EditorViewComponent } from "../editor/view/editor-view.component";
-import { SettingsService } from "./settings.service";
+import { GeneralSettingsService } from "./settings/general.settings.service";
 import { UtilService } from "./util.service";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class EditorController {
 
   constructor(
     private utilService: UtilService,
-    private settingsService: SettingsService
+    private settingsService: GeneralSettingsService
   ) {}
 
   undo() {
@@ -26,17 +26,17 @@ export class EditorController {
   }
 
   zoomIn() {
-    const fontSize = this.settingsService.settings.globalSettings.font_size + 2;
-    this.settingsService.saveEditorSettings({ fontSize });
+    const fontSize = this.settingsService.settings.font_size + 2;
+    this.settingsService.setSetting("font_size", fontSize);
   }
 
   zoomOut() {
-    const fontSize = this.settingsService.settings.globalSettings.font_size - 2;
-    this.settingsService.saveEditorSettings({ fontSize });
+    const fontSize = this.settingsService.settings.font_size - 2;
+    this.settingsService.setSetting("font_size", fontSize);
   }
 
   resetFontSize() {
-    this.settingsService.saveEditorSettings({ fontSize: 16 });
+    this.settingsService.setSetting("font_size", 16);
   }
 
   cut() {
