@@ -3,6 +3,13 @@
   [group]="group"
   [settingsKey]="settingsKey"
 ></settings-group>
-<button (click)="apply()">{{ "COMMON.APPLY" | translate }}</button>
-<button (click)="import()">{{ "NAVBAR.WORLD.IMPORT" | translate }}</button>
-<button (click)="export()">{{ "NAVBAR.WORLD.EXPORT" | translate }}</button>
+<div class="world-setting-button-container">
+  <button (click)="import()">
+    <h3>{{ "NAVBAR.WORLD.IMPORT" | translate }}</h3>
+  </button>
+  <button (click)="export()">
+    <h3>{{ "NAVBAR.WORLD.EXPORT" | translate }}</h3></button
+  ><button (click)="apply()">
+    <h3>{{ "COMMON.APPLY" | translate }}</h3>
+  </button>
+</div>

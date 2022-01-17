@@ -69,3 +69,16 @@ setting:hover:not(.setting-selected) {
 .setting-textarea {
   resize: vertical;
 }
+
+.world-setting-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  button {
+    margin-top: 1rem;
+    h3 {
+      margin: 1rem;
+    }
+  }
+}
