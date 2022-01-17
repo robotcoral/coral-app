@@ -10,7 +10,6 @@ enum PROGRAM_STATES {
 @Component({
   selector: "app-editor-controls",
   templateUrl: "./editor-controls.component.html",
-  styleUrls: ["./editor-controls.component.scss", "../../app.component.scss"],
 })
 export class EditorControlsComponent {
   running: boolean = false;
