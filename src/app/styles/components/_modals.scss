@@ -1,0 +1,15 @@
+.modal-content {
+  background-color: var(--theme-main-bg-color);
+  color: var(--theme-font-color);
+  box-shadow: 0px 2px 6px hsla(0, 0%, 0%, 0.35);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--theme-highlight-2);
+}
+
+.modal-footer button {
+  font-size: large;
+  padding: 0.5rem;
+}
