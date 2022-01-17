@@ -221,7 +221,6 @@ export class KarolInterpreter {
   }
 
   private hasSlabs(param: string) {
-    const amount = Number.parseInt(param) || 1;
     return this.controller.getCurrentSlabs() > 1;
   }
 
