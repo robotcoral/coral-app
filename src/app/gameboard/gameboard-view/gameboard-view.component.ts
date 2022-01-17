@@ -21,7 +21,6 @@ import { GameboardController } from "../utils";
 @Component({
   selector: "app-gameboard-view",
   templateUrl: "./gameboard-view.component.html",
-  styleUrls: ["./gameboard-view.component.scss"],
 })
 export class GameboardViewComponent implements AfterViewInit {
   @ViewChild("gameboard")
