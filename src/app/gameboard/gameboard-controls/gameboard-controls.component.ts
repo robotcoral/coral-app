@@ -13,10 +13,6 @@ export enum WORLDOBJECTTYPES {
 @Component({
   selector: "app-gameboard-controls",
   templateUrl: "./gameboard-controls.component.html",
-  styleUrls: [
-    "./gameboard-controls.component.scss",
-    "../../app.component.scss",
-  ],
 })
 export class GameboardControlsComponent {
   colors: MaterialColors = {
