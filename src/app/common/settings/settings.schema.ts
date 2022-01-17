@@ -77,7 +77,7 @@ export class WorldSettings {
   name: string;
   author: string;
   description: string;
-  exportCode: boolean;
+  export_code: boolean;
   inventory_active: boolean;
   max_slabs: number;
   start_slabs: number;
@@ -94,7 +94,7 @@ export class WorldSettings {
     this.name = settings.name;
     this.author = settings.author;
     this.description = settings.description;
-    this.exportCode = settings.exportCode || false;
+    this.export_code = settings.export_code || false;
     this.inventory_active = settings.inventory_active || false;
     this.max_slabs = settings.max_slabs || 20;
     this.start_slabs = settings.start_slabs || 20;

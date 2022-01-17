@@ -14,7 +14,12 @@ import { Coordinates2, Coordinates3 } from "./coordinates";
 import { AdditionalWorldData, WorldObject } from "./world.schema";
 
 export class WorldExport {
-  static export(world: World, robot: Robot, data: AdditionalWorldData) {
+  static export(
+    world: World,
+    robot: Robot,
+    data: AdditionalWorldData,
+    code: string
+  ) {
     const worldData: WorldData = {
       dimensions: world.getWorldSize(),
       starting_position: robot.getCurrentCoordinates(),
@@ -59,6 +64,7 @@ export class WorldExport {
       coral_version: commonEnvironment.version,
       world_data: worldData,
     };
+    if (code) worldFile.code = code;
     return worldFile;
   }
 }

@@ -55,11 +55,14 @@ export class EditorController {
     openSearchPanel(this.editor.view);
   }
 
+  exportToString() {
+    return this.editor.view.state.doc.toString();
+  }
+
   export() {
-    const code = this.editor.view.state.doc.toString();
     this.utilService.dyanmicDownloadByHtmlTag({
       title: "code.txt",
-      content: code,
+      content: this.exportToString(),
       fileType: "text/plain",
     });
     this.unsavedChanges = false;

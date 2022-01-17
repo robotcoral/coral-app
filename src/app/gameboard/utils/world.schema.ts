@@ -36,6 +36,7 @@ export interface WorldFile {
   version: number;
   coral_version?: string;
   world_data: WorldData;
+  code?: string;
 }
 
 export const WorldSchema: Schema = {

@@ -32,13 +32,8 @@ export class GameboardModel {
     this.currentSlabs = this.settingsService.settings.start_slabs;
   }
 
-  export() {
-    const data: AdditionalWorldData = {
-      name: this.settingsService.settings.name,
-      author: this.settingsService.settings.author,
-      description: this.settingsService.settings.description,
-    };
-    return WorldExport.export(this.world, this.robot, data);
+  export(data: AdditionalWorldData, code: string) {
+    return WorldExport.export(this.world, this.robot, data, code);
   }
 
   import(world: string) {

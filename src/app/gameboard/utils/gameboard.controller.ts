@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { SimpleModalService } from "ngx-simple-modal";
+import { EditorController } from "src/app/common/editor.controller";
 import { GeneralSettingsService } from "src/app/common/settings/general.settings.service";
 import { WorldSettingsService } from "src/app/common/settings/world.settings";
 import { UtilService } from "src/app/common/util.service";
@@ -7,7 +8,7 @@ import { ConfirmComponent } from "src/app/modals/confirm.component";
 import { CARDINALS, Coordinates2, Coordinates3, GameboardModel } from ".";
 import { WORLDOBJECTTYPES } from "../gameboard-controls/gameboard-controls.component";
 import { MaterialColors } from "./objects";
-import { WorldFile } from "./world.schema";
+import { AdditionalWorldData, WorldFile } from "./world.schema";
 
 export enum COLORS {
   RED = "rot",
@@ -31,7 +32,8 @@ export class GameboardController {
     private utilService: UtilService,
     public generalSettingService: GeneralSettingsService,
     public worldSettingService: WorldSettingsService,
-    public modalService: SimpleModalService
+    public modalService: SimpleModalService,
+    private editorController: EditorController
   ) {
     this.model = new GameboardModel(worldSettingService);
     this.generalSettingService.onThemeChange.subscribe((theme) =>
@@ -157,7 +159,16 @@ export class GameboardController {
   }
 
   exportWorld() {
-    const worldFile = this.model.export();
+    const data: AdditionalWorldData = {
+      name: this.worldSettingService.settings.name,
+      author: this.worldSettingService.settings.author,
+      description: this.worldSettingService.settings.description,
+    };
+    const code = this.worldSettingService.settings.export_code
+      ? this.editorController.exportToString()
+      : null;
+
+    const worldFile = this.model.export(data, code);
     const text = JSON.stringify(worldFile, null, 2);
     this.utilService.dyanmicDownloadByHtmlTag({
       title: "world.coralworld",
