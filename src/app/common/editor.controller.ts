@@ -68,15 +68,17 @@ export class EditorController {
     this.unsavedChanges = false;
   }
 
+  loadString(text: string) {
+    this.setState(text);
+  }
+
   import() {
     const callback = async (event: Event) => {
       const file: File = (event.target as HTMLInputElement).files[0];
       try {
         if (!file) throw new Error("ERRORS.FILE_UPLOAD_FAILED");
 
-        const text = await file.text();
-
-        this.setState(text);
+        this.loadString(await file.text());
       } catch (error) {
         this.utilService.translateError(error);
       }

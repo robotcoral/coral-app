@@ -196,6 +196,10 @@ export class GameboardController {
         this.model.world.defaultWorld = worldFile.world_data;
         this.worldSettingService.loadWorld(worldFile);
         this.model.reset();
+
+        if (worldFile.code) {
+          this.editorController.loadString(worldFile.code);
+        }
       } catch (error) {
         this.utilService.translateError(error);
       }
