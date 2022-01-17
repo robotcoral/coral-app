@@ -40,16 +40,6 @@
         "DESCRIPTION": "Number of spaces it should use per tab."
       }
     },
-    "WORLD": {
-      "TITLE": "World Settings",
-      "INVENTORY_ACTIVE": { "TITLE": "Inventory active", "DESCRIPTION": "" },
-      "INVENTORY_MAX_SIZE": { "TITLE": "Inventory size", "DESCRIPTION": "" },
-      "INVENTORY_START_SIZE": { "TITLE": "Start slabs", "DESCRIPTION": "" },
-      "RESET_WORLD_ON_START": {
-        "TITLE": "Reset world on program start?",
-        "DESCRIPTION": ""
-      }
-    },
     "WORLD_INFO": {
       "TITLE": "World Information",
       "NAME": { "TITLE": "Worldname", "DESCRIPTION": "" },
@@ -78,15 +68,15 @@
     }
   },
   "COMMON": {
-    "CANCEL": "Cancel",
     "APPLY": "Apply",
+    "CANCEL": "Cancel",
     "CLOSE": "Close",
+    "HEIGHT": "Height",
+    "LENGTH": "Length",
+    "LOAD": "Load",
     "OK": "Ok",
     "VERSION": "Version",
-    "LOAD": "Load",
-    "LENGTH": "Length",
-    "WIDTH": "Width",
-    "HEIGHT": "Height"
+    "WIDTH": "Width"
   },
   "TABS": {
     "EDITOR": "Editor",

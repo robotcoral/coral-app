@@ -3,7 +3,8 @@
     "GENERAL": {
       "TITLE": "Generelle Einstellungen",
       "TOUCH_UI": {
-        "TITLE": "Touch UI"
+        "TITLE": "Touch UI",
+        "DESCRIPTION": "Überschreibt den Touch UI modus, welcher die Bedienung mit Toucheingabe vereinfacht."
       },
       "THEME": {
         "TITLE": "Theme",
@@ -18,7 +19,7 @@
         "TITLE": "Sprache",
         "DESCRIPTION": "",
         "OPTIONS": {
-          "GERMAN": "deutscg",
+          "GERMAN": "deutsch",
           "ENGLISH": "englisch",
           "AUTOMATIC": "automatisch"
         }
@@ -39,83 +40,99 @@
         "DESCRIPTION": "Anzahl der Lehrzeichen pro Tab."
       }
     },
-    "WORLD": {
-      "TITLE": "World Settings",
-      "INVENTORY_ACTIVE": { "TITLE": "Inventory active", "DESCRIPTION": "" },
-      "INVENTORY_MAX_SIZE": { "TITLE": "Inventory size", "DESCRIPTION": "" },
-      "INVENTORY_START_SIZE": { "TITLE": "Start slabs", "DESCRIPTION": "" },
-      "RESET_WORLD_ON_START": {
-        "TITLE": "Reset world on program start?",
+    "WORLD_INFO": {
+      "TITLE": "Welt Informationen",
+      "NAME": { "TITLE": "Weltname", "DESCRIPTION": "" },
+      "AUTHOR": { "TITLE": "Author", "DESCRIPTION": "" },
+      "DESCRIPTION": { "TITLE": "Beschreibung", "DESCRIPTION": "" },
+      "EXPORT_CODE": {
+        "TITLE": "Code exportieren",
+        "DESCRIPTION": "Exportiert den Programmcode zusammen mit der Weltdatei"
+      }
+    },
+    "WORLD_SETTINGS": {
+      "TITLE": "World Einstellungen",
+      "WIDTH": { "TITLE": "Breite", "DESCRIPTION": "" },
+      "LENGTH": { "TITLE": "Länge", "DESCRIPTION": "" },
+      "HEIGHT": { "TITLE": "Höhe", "DESCRIPTION": "" },
+      "RESET": {
+        "TITLE": "Welt beim Programmstart zurücksetzen?",
         "DESCRIPTION": ""
       }
     },
-    "WORLD_INFO": {}
+    "INVENTORY_SETTINGS": {
+      "TITLE": "Inventar Einstellungen",
+      "INVENTORY_ACTIVE": { "TITLE": "Inventar aktiv", "DESCRIPTION": "" },
+      "MAX_SLABS": { "TITLE": "Inventargröße", "DESCRIPTION": "" },
+      "START_SLABS": { "TITLE": "Startanzahl", "DESCRIPTION": "" }
+    }
   },
   "COMMON": {
-    "CANCEL": "Abbrechen",
     "APPLY": "Speichern",
+    "CANCEL": "Abbrechen",
     "CLOSE": "Schließen",
     "HEIGHT": "Höhe",
     "LENGTH": "Länge",
     "LOAD": "Laden",
-    "WIDTH": "Breite",
     "OK": "Ok",
-    "VERSION": "Version"
+    "VERSION": "Version",
+    "WIDTH": "Breite"
   },
   "TABS": {
     "EDITOR": "Editor",
-    "SETTINGS": "Einstellungen"
+    "SETTINGS": "Einstellungen",
+    "WORLD_SETTINGS": "Welt Einstellungen"
   },
   "NAVBAR": {
+    "FILE": {
+      "TITLE": "Datei",
+      "NEW": "Neu",
+      "IMPORT": "Importieren",
+      "EXPORT": "Export",
+      "SETTINGS": "Einstellungen",
+      "EDITOR": "Editor"
+    },
     "EDIT": {
-      "COPY": "Kopieren",
-      "CUT": "Ausschneiden",
-      "PASTE": "Einfügen",
-      "REDO": "Wiederherstellen",
       "TITLE": "Bearbeiten",
-      "TOGGLE_COMMENTS": "Kommentare umschalten",
-      "UNDO": "Rückgängig"
+      "UNDO": "Rückgängig",
+      "REDO": "Wiederherstellen",
+      "CUT": "Ausschneiden",
+      "COPY": "Kopieren",
+      "PASTE": "Einfügen",
+      "TOGGLE_COMMENTS": "Kommentare umschalten"
+    },
+    "EXECUTE": {
+      "TITLE": "Ausführen",
+      "START": "Start",
+      "STEP": "Schritt",
+      "PAUSE_UNPAUSE": "Pausieren/Fortsetzen",
+      "STOP": "Stopp",
+      "RAISE_SPEED": "Geschwindigkeit erhöhen",
+      "LOWER_SPEED": "Niedrigere Geschwindigkeit",
+      "RESET_WORLD": "Welt beim Start zurücksetzen"
     },
     "EDITOR": {
-      "RESET": "Schriftgröße zurücksetzen",
-      "SETTINGS": "Editor-Einstellungen",
       "TITLE": "Editor",
       "ZOOM_IN": "Hineinzoomen",
       "ZOOM_OUT": "Rauszoomen",
+      "RESET": "Schriftgröße zurücksetzen",
+      "SETTINGS": "Editor-Einstellungen",
       "SEARCH_AND_REPLACE": "Suchen und Ersetzen"
     },
-    "EXECUTE": {
-      "LOWER_SPEED": "Niedrigere Geschwindigkeit",
-      "PAUSE_UNPAUSE": "Pausieren/Fortsetzen",
-      "RAISE_SPEED": "Geschwindigkeit erhöhen",
-      "RESET_WORLD": "Welt beim Start zurücksetzen",
-      "START": "Start",
-      "STEP": "Schritt",
-      "STOP": "Stopp",
-      "TITLE": "Ausführen"
-    },
-    "FILE": {
-      "EXPORT": "Export",
-      "IMPORT": "Importieren",
-      "NEW": "Neu",
-      "SETTINGS": "Einstellungen",
-      "TITLE": "Datei",
-      "EDITOR": "Editor"
-    },
-    "HELP": {
-      "DOCUMENTATION": "Dokumentation",
-      "IMPRESSUM": "Impressum",
-      "INFO": "Info",
-      "TITLE": "Hilfe",
-      "SUPPORT_US": "Unterstütze uns"
-    },
     "WORLD": {
-      "EXPORT": "Welt exportieren",
+      "TITLE": "Welt",
       "IMPORT": "Welt importieren",
+      "EXPORT": "Welt exportieren",
       "RESET": "Welt zurücksetzen",
       "SAVE": "Welt-Reset-Punkt setzen",
-      "SETTINGS": "Welteinstellungen",
-      "TITLE": "Welt"
+      "SETTINGS": "Welteinstellungen"
+    },
+    "HELP": {
+      "TITLE": "Hilfe",
+      "DOCUMENTATION": "Dokumentation",
+      "INFO": "Info",
+      "IMPRESSUM": "Impressum",
+      "SUPPORT_US": "Unterstütze uns"
     }
   },
   "TOOLTIPS": {
