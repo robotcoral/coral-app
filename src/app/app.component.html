@@ -5,12 +5,14 @@
       <tab-pane
         [title]="'TABS.EDITOR'"
         [icon]="'assets/icons/fluent/ic_fluent_code_24_regular.svg'"
+        [closable]="false"
       >
         <app-editor></app-editor>
       </tab-pane>
       <tab-pane
         [title]="'TABS.SETTINGS'"
         [icon]="'assets/icons/fluent/ic_fluent_settings_24_regular.svg'"
+        [closable]="true"
         ><app-settings></app-settings
       ></tab-pane>
     </tabs>

@@ -43,3 +43,11 @@
   width: 24px;
   object-fit: none;
 }
+
+.tab-pane-header {
+  background: var(--theme-highlight-1);
+}
+
+.tab-pane-header h2 {
+  margin: 0;
+}

@@ -9,18 +9,18 @@
         "TITLE": "Theme",
         "DESCRIPTION": "",
         "OPTIONS": {
-          "LIGHT": "hell",
-          "DARK": "dunkel",
-          "AUTOMATIC": "system standard"
+          "LIGHT": "Hell",
+          "DARK": "Dunkel",
+          "AUTOMATIC": "Systemstandard"
         }
       },
       "LANGUAGE": {
         "TITLE": "Sprache",
         "DESCRIPTION": "",
         "OPTIONS": {
-          "GERMAN": "deutscg",
-          "ENGLISH": "englisch",
-          "AUTOMATIC": "automatisch"
+          "GERMAN": "Deutsch",
+          "ENGLISH": "Englisch",
+          "AUTOMATIC": "Automatisch"
         }
       },
       "LEGACY_FLAGS": {

@@ -1,0 +1,13 @@
+<ng-container *ngIf="active" class="tab-pane">
+  <div class="tab-pane-header">
+    <h2>Test</h2>
+    <button
+      class="tab-pane-close-btn"
+      *ngIf="closable"
+      [title]="'COMMON.CLOSE' | translate"
+    >
+      ×
+    </button>
+  </div>
+  <ng-content></ng-content
+></ng-container>
