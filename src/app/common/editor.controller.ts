@@ -69,6 +69,7 @@ export class EditorController {
   }
 
   loadString(text: string) {
+    console.log(text);
     this.setState(text);
   }
 
@@ -83,7 +84,7 @@ export class EditorController {
         this.utilService.translateError(error);
       }
     };
-    this.utilService.upload(".txt", callback);
+    this.utilService.upload(callback);
   }
 
   setState(text = "") {

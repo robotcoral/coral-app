@@ -198,13 +198,20 @@ export class GameboardController {
         this.model.reset();
 
         if (worldFile.code) {
-          this.editorController.loadString(worldFile.code);
+          this.modalService
+            .addModal(ConfirmComponent, {
+              title: "MODALS.IMPORT_CODE.TITLE",
+              message: "MODALS.IMPORT_CODE.DESCRIPTION",
+            })
+            .subscribe((load) => {
+              if (load) this.editorController.loadString(worldFile.code);
+            });
         }
       } catch (error) {
         this.utilService.translateError(error);
       }
     };
-    this.utilService.upload(".coralworld,.json", callback);
+    this.utilService.upload(callback);
   }
 
   getCurrentSlabs() {

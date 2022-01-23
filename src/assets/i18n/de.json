@@ -214,6 +214,10 @@
       "DESCRIPTION": "Du hast ungespeicherte Änderungen. Bist du dir sicher, dass du sie verwerfen willst?",
       "SUCCESS_BUTTON": "Verwerfen",
       "TITLE": "Ungespeicherte Änderungen"
+    },
+    "IMPORT_CODE": {
+      "TITLE": "Code Importieren",
+      "DESCRIPTION": "Diese Weltdatei enthält Coral-Code. Willst du den Code laden und deine Änderungen verwerfen?"
     }
   }
 }

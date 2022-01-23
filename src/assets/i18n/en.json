@@ -214,6 +214,10 @@
       "TITLE": "Unsaved Changes",
       "DESCRIPTION": "You have unsaved changes. Do you want to discard them?",
       "SUCCESS_BUTTON": "Discard"
+    },
+    "IMPORT_CODE": {
+      "TITLE": "Import Code",
+      "DESCRIPTION": "This world file contains Coral-Code. Do you want to want to load this code and override your changes?"
     }
   }
 }
