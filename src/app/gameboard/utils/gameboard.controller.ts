@@ -204,7 +204,7 @@ export class GameboardController {
               message: "MODALS.IMPORT_CODE.DESCRIPTION",
             })
             .subscribe((load) => {
-              if (load) this.editorController.loadString(worldFile.code);
+              if (load) this.editorController.setState(worldFile.code);
             });
         }
       } catch (error) {

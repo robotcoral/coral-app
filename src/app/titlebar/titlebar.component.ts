@@ -29,7 +29,7 @@ export class TitlebarComponent {
 
   titlebarEntries: { [key: string]: { [key: string]: Function } } = {
     FILE: {
-      NEW: () => this.eController.setState(),
+      NEW: () => this.eController.resetEditor(),
       IMPORT: () => this.eController.import(),
       EXPORT: () => this.eController.export(),
       SETTINGS: () => this.tabsService.setTab("TABS.SETTINGS", "left-tabs"),
