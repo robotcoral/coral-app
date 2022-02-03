@@ -27,7 +27,7 @@
     "@angular/forms": "^13.2.0",
     "@angular/localize": "^13.2.0",
     "@angular/platform-browser": "^13.2.0",
-    "@angular/platform-browser-dynamic": "^13.2.0",
+    "@angular/platform-browser-dynamic": "^13.2.1",
     "@angular/router": "^13.2.0",
     "@codemirror/autocomplete": "^0.19.12",
     "@codemirror/closebrackets": "^0.19.0",
