@@ -39,7 +39,7 @@
     "@codemirror/history": "^0.19.2",
     "@codemirror/language": "^0.19.7",
     "@codemirror/lint": "^0.19.3",
-    "@codemirror/matchbrackets": "^0.19.3",
+    "@codemirror/matchbrackets": "^0.19.4",
     "@codemirror/search": "^0.19.6",
     "@codemirror/state": "^0.19.6",
     "@codemirror/text": "^0.19.6",
