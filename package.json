@@ -65,7 +65,7 @@
     "@types/node": "^17.0.17",
     "@types/three": "^0.137.0",
     "jasmine-core": "^4.0.0",
-    "karma": "^6.3.13",
+    "karma": "^6.3.15",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.2.0",
     "karma-jasmine": "^4.0.0",
