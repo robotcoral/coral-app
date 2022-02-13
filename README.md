@@ -29,3 +29,5 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Contributing
 
 If you want to help develop the Robot Coral Site please contact our team and read the [Contributing Guidelines](https://github.com/robotcoral/coral-app/blob/main/CONTRIBUTING.md).
+
+![Alt](https://repobeats.axiom.co/api/embed/1630e53a80f84a8f0ebec30516ee9f57dce8e1b6.svg "Repobeats analytics image")
