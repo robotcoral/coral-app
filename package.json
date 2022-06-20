@@ -43,7 +43,7 @@
     "@codemirror/search": "^0.19.6",
     "@codemirror/state": "^0.19.8",
     "@codemirror/text": "^0.19.6",
-    "@codemirror/view": "^0.19.42",
+    "@codemirror/view": "^6.0.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@robotcoral/lang-karol": "^0.3.0",
