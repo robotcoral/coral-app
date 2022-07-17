@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { ClickService } from "src/app/common/click.service";
+import { SettingsKeys } from "src/app/common/settings/settings.schema";
 import { Setting } from "../setting/setting.component";
 
 export type SettingsGroup = {
@@ -14,6 +15,8 @@ export type SettingsGroup = {
 export class SettingsGroupComponent {
   @Input()
   group: SettingsGroup;
+  @Input()
+  settingsKey: SettingsKeys;
   @ViewChild("title")
   elementRef: ElementRef;
 

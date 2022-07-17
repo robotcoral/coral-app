@@ -2,6 +2,7 @@ import { validate } from "jsonschema";
 import { commonEnvironment } from "src/environments/environment.common";
 import {
   Block,
+  InventoryData,
   Robot,
   Slab,
   World,
@@ -14,7 +15,12 @@ import { Coordinates2, Coordinates3 } from "./coordinates";
 import { AdditionalWorldData, WorldObject } from "./world.schema";
 
 export class WorldExport {
-  static export(world: World, robot: Robot, data: AdditionalWorldData) {
+  static export(
+    world: World,
+    robot: Robot,
+    data: AdditionalWorldData & InventoryData,
+    code: string
+  ) {
     const worldData: WorldData = {
       dimensions: world.getWorldSize(),
       starting_position: robot.getCurrentCoordinates(),
@@ -59,6 +65,7 @@ export class WorldExport {
       coral_version: commonEnvironment.version,
       world_data: worldData,
     };
+    if (code) worldFile.code = code;
     return worldFile;
   }
 }

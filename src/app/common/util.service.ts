@@ -33,7 +33,7 @@ export class UtilService {
     this.downloadElement.click();
   }
 
-  upload(fileTypes: string, callback: Function) {
+  upload(callback: Function, fileTypes: string = ".coralworld,.json") {
     if (!this.uploadElement)
       this.uploadElement = this.document.getElementById(
         "fileUpload"

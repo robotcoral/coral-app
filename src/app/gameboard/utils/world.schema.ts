@@ -19,7 +19,13 @@ export interface AdditionalWorldData {
   description?: string;
 }
 
-export interface WorldData extends AdditionalWorldData {
+export interface InventoryData {
+  inventory_active?: boolean;
+  max_slabs?: number;
+  start_slabs?: number;
+}
+
+export interface WorldData extends AdditionalWorldData, InventoryData {
   dimensions: Coordinates3;
   starting_position?: Coordinates3;
   starting_rotation?: number;
@@ -30,6 +36,7 @@ export interface WorldFile {
   version: number;
   coral_version?: string;
   world_data: WorldData;
+  code?: string;
 }
 
 export const WorldSchema: Schema = {
@@ -55,6 +62,15 @@ export const WorldSchema: Schema = {
         },
         description: {
           type: "string",
+        },
+        inventory_active: {
+          type: "boolean",
+        },
+        start_slabs: {
+          type: "number",
+        },
+        max_slabs: {
+          type: "number",
         },
         dimensions: {
           type: "object",

@@ -40,31 +40,48 @@
         "DESCRIPTION": "Number of spaces it should use per tab."
       }
     },
-    "WORLD": {
-      "TITLE": "World Settings",
-      "INVENTORY_ACTIVE": { "TITLE": "Inventory active", "DESCRIPTION": "" },
-      "INVENTORY_MAX_SIZE": { "TITLE": "Inventory size", "DESCRIPTION": "" },
-      "INVENTORY_START_SIZE": { "TITLE": "Start slabs", "DESCRIPTION": "" },
-      "RESET_WORLD_ON_START": {
-        "TITLE": "Reset world on program start?",
-        "DESCRIPTION": ""
+    "WORLD_INFO": {
+      "TITLE": "World Information",
+      "NAME": { "TITLE": "Worldname", "DESCRIPTION": "" },
+      "AUTHOR": { "TITLE": "Author", "DESCRIPTION": "" },
+      "DESCRIPTION": { "TITLE": "Description", "DESCRIPTION": "" },
+      "EXPORT_CODE": {
+        "TITLE": "Export Code",
+        "DESCRIPTION": "Embed the program code in the world file"
       }
+    },
+    "WORLD_SETTINGS": {
+      "TITLE": "World Settings",
+      "WIDTH": { "TITLE": "Width", "DESCRIPTION": "" },
+      "LENGTH": { "TITLE": "Length", "DESCRIPTION": "" },
+      "HEIGHT": { "TITLE": "Height", "DESCRIPTION": "" },
+      "RESET": {
+        "TITLE": "Reset on execution",
+        "DESCRIPTION": "Reset world when running your program?"
+      }
+    },
+    "INVENTORY_SETTINGS": {
+      "TITLE": "Inventory Settings",
+      "INVENTORY_ACTIVE": { "TITLE": "Activate Inventory", "DESCRIPTION": "" },
+      "MAX_SLABS": { "TITLE": "Max. inventory size", "DESCRIPTION": "" },
+      "START_SLABS": { "TITLE": "Inventory size on start", "DESCRIPTION": "" }
     }
   },
   "COMMON": {
-    "CANCEL": "Cancel",
     "APPLY": "Apply",
+    "CANCEL": "Cancel",
     "CLOSE": "Close",
+    "HEIGHT": "Height",
+    "LENGTH": "Length",
+    "LOAD": "Load",
     "OK": "Ok",
     "VERSION": "Version",
-    "LOAD": "Load",
-    "LENGTH": "Length",
-    "WIDTH": "Width",
-    "HEIGHT": "Height"
+    "WIDTH": "Width"
   },
   "TABS": {
     "EDITOR": "Editor",
-    "SETTINGS": "Settings"
+    "SETTINGS": "Settings",
+    "WORLD_SETTINGS": "World Settings"
   },
   "NAVBAR": {
     "FILE": {
@@ -197,6 +214,10 @@
       "TITLE": "Unsaved Changes",
       "DESCRIPTION": "You have unsaved changes. Do you want to discard them?",
       "SUCCESS_BUTTON": "Discard"
+    },
+    "IMPORT_CODE": {
+      "TITLE": "Import Code",
+      "DESCRIPTION": "This world file contains Coral-Code. Do you want to want to load this code and override your changes?"
     }
   }
 }

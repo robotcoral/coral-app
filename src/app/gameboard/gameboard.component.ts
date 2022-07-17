@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { SettingsService } from "../common/settings.service";
+import { GeneralSettingsService } from "../common/settings/general.settings.service";
+import { SettingsKeys } from "../common/settings/settings.schema";
+import { WorldSettingsService } from "../common/settings/world.settings";
 import { GameboardViewComponent } from "./gameboard-view/gameboard-view.component";
 import { GameboardController } from "./utils";
 
@@ -11,13 +13,16 @@ export class GameboardComponent implements OnInit {
   @ViewChild(GameboardViewComponent)
   gameboardView: GameboardViewComponent;
 
+  SettingsKeys = SettingsKeys;
+
   constructor(
-    public settingsService: SettingsService,
+    private generalSettingsService: GeneralSettingsService,
+    public worldSettingsService: WorldSettingsService,
     public controller: GameboardController
   ) {}
 
   ngOnInit(): void {
-    this.settingsService.ngOnInit();
+    this.generalSettingsService.ngOnInit();
   }
 
   onResize() {

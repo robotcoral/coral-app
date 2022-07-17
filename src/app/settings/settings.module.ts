@@ -3,12 +3,20 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { AngularSvgIconModule } from "angular-svg-icon";
+import { AppSettingsComponents } from "./app-settings.component";
+import { GeneralSettingsComponent } from "./general-settings/general-settings.component";
 import { SettingComponent } from "./setting/setting.component";
 import { SettingsGroupComponent } from "./settings-group/settings-group.component";
-import { SettingsComponent } from "./settings.component";
+import { WorldSettingsComponent } from "./world-settings/world-settings.component";
 
 @NgModule({
-  declarations: [SettingsComponent, SettingsGroupComponent, SettingComponent],
+  declarations: [
+    AppSettingsComponents,
+    GeneralSettingsComponent,
+    WorldSettingsComponent,
+    SettingsGroupComponent,
+    SettingComponent,
+  ],
   imports: [
     CommonModule,
     TranslateModule.forChild(),
@@ -16,6 +24,6 @@ import { SettingsComponent } from "./settings.component";
     ReactiveFormsModule,
     AngularSvgIconModule,
   ],
-  exports: [SettingsComponent],
+  exports: [GeneralSettingsComponent, WorldSettingsComponent],
 })
 export class SettingsModule {}
