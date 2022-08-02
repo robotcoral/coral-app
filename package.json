@@ -30,7 +30,7 @@
     "@angular/platform-browser-dynamic": "^13.2.2",
     "@angular/router": "^13.2.2",
     "@codemirror/autocomplete": "^0.19.12",
-    "@codemirror/closebrackets": "^0.19.0",
+    "@codemirror/closebrackets": "^0.19.2",
     "@codemirror/commands": "^0.19.8",
     "@codemirror/comment": "^0.19.0",
     "@codemirror/fold": "^0.19.3",
@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.1.4",
-    "@angular/cli": "^13.2.3",
+    "@angular/cli": "^14.1.0",
     "@angular/compiler-cli": "^13.2.1",
     "@types/jasmine": "^3.10.3",
     "@types/node": "^17.0.25",
