@@ -49,7 +49,7 @@
     "@robotcoral/lang-karol": "^0.3.0",
     "angular-svg-icon": "^13.0.0",
     "bootstrap": "^5.1.3",
-    "jsonschema": "^1.4.0",
+    "jsonschema": "^1.4.1",
     "ngx-simple-modal": "^1.4.17",
     "ngx-toastr": "^14.2.1",
     "rxjs": "^7.5.4",
