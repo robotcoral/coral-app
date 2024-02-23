@@ -111,7 +111,7 @@ jobs:
             ${{ env.RELEASE_FILENAME }}
 
       - name: Trigger version bump in documentation
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           repository: robotcoral/coral-docs
           token: ${{ secrets.CI_PERSONAL_TOKEN }}
